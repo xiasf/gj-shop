@@ -3,7 +3,7 @@
 require_once('constant.php');
 
 return array(
-    'URL_MODEL'             =>  3,
+    'URL_MODEL'             =>  2,
 
     /* 加载公共函数 */
     'LOAD_EXT_FILE' =>'common',
