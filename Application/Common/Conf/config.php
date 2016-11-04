@@ -3,6 +3,8 @@
 require_once('constant.php');
 
 return array(
+    'URL_MODEL'             =>  3,
+
     /* 加载公共函数 */
     'LOAD_EXT_FILE' =>'common',
     'AUTH_CODE' => "TPSHOP", //安装完毕之后不要改变，否则所有密码都会出错
