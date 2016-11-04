@@ -28,9 +28,9 @@ if(file_exists("./Install/") && !file_exists("./Install/install.lock")){
 	header('Location:Install/index.php');
 	exit(); 
 }
-error_reporting(E_ALL ^ E_NOTICE);//显示除去 E_NOTICE 之外的所有错误信息
+// error_reporting(E_ALL ^ E_NOTICE);//显示除去 E_NOTICE 之外的所有错误信息
 // 开启调试模式 建议开发阶段开启 部署阶段注释或者设为false
-define('APP_DEBUG',false);
+define('APP_DEBUG',true);
 // 定义应用目录
 define('APP_PATH','./Application/');
 //  定义插件目录
