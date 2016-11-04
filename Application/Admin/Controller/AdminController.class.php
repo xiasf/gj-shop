@@ -121,7 +121,6 @@ class AdminController extends BaseController {
                 exit(json_encode(array('status'=>0,'msg'=>'请填写账号密码')));
             }
         }
-        print_r(C('TMPL_PARSE_STRING'));exit;
         $this->display();
     }
     
