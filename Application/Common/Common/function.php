@@ -536,6 +536,31 @@ function getSubstr($string, $start, $length) {
 }
 
 
+// 感觉这种判断要准确一些
+function isMobile() {
+    if (empty($_SERVER['HTTP_USER_AGENT']) ) {
+        return false;
+    } elseif (stripos($_SERVER['HTTP_USER_AGENT'], 'Mobile') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'Wechat') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'Android') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'Silk/') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'Kindle') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'BlackBerry') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'Opera Mini') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'Opera Mobi') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'Macintosh') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'iPhone') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'iPad') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'Adr') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'MeeGo') !== false
+        || stripos($_SERVER['HTTP_USER_AGENT'], 'PlayBook') !== false) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 /**
  * 判断当前访问的用户是  PC端  还是 手机端  返回true 为手机端  false 为PC 端
  * @return boolean
@@ -545,7 +570,7 @@ function getSubstr($string, $start, $length) {
 　　*
 　　* @return bool
 　　*/
-function isMobile()
+function isMobile_()
 {
         // 如果有HTTP_X_WAP_PROFILE则一定是移动设备
     if (isset ($_SERVER['HTTP_X_WAP_PROFILE']))
