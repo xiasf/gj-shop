@@ -321,7 +321,7 @@ function delFile($dir,$file_type='') {
 		$files = scandir($dir);
 		//打开目录 //列出目录中的所有文件并去掉 . 和 ..
 		foreach($files as $filename){
-			if($filename!='.' && $filename!='..'){
+			if($filename!='.' && $filename!='..' && $filename!='.gitignore'){
 				if(!is_dir($dir.'/'.$filename)){
 					if(empty($file_type)){
 						unlink($dir.'/'.$filename);
