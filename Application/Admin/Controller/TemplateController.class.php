@@ -24,6 +24,9 @@ class TemplateController extends BaseController {
      */
     public function templateList(){     
          $t = I('t','pc'); // pc or  mobile        
+        // if ($t = I('t/s','pc') && ($t != 'pc')) {
+        //     $t = 'mobile';
+        // }
          $m = ($t == 'pc') ? 'Home' : 'Mobile';
          $arr = scandir("./Template/$t/");
          foreach($arr as $key => $val)
