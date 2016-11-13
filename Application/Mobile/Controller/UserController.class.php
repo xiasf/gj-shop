@@ -826,10 +826,14 @@ class UserController extends MobileBaseController
     //发送验证码
     public function send_validate_code()
     {
-        $type = I('type');
-        $send = I('send');
-        $logic = new UsersLogic();
-        $logic->send_validate_code($send, $type);
+        $type           = I('type');
+        $send           = I('send');
+        $logic          = new UsersLogic();
+        $data['status'] = $logic->send_validate_code($send, $type);
+        if (!$data['status'])
+            $this->error($data['msg']);
+        else
+            $this->success($data['msg']);
     }
 
     public function check_validate_code()
