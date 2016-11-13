@@ -23,7 +23,7 @@
                        <p>{$val['remark']}</p>
                        <p>                                
                            <if condition="$default_theme == $k">
-                               <a href="{:U('Admin/Template/changeTemplate',array('key'=>$k,'t'=>$t))}" class="btn btn-success" role="button">启用</a> 
+                               <a href="{:U('Admin/Template/changeTemplate',array('key'=>$k,'t'=>$t))}" class="btn btn-success" role="button">已启用</a> 
                            <else /> 
                            <a href="{:U('Admin/Template/changeTemplate',array('key'=>$k,'t'=>$t))}" class="btn btn-default" role="button">启用</a> 
                            </if>                                
