@@ -830,7 +830,7 @@ class UserController extends MobileBaseController
         $send           = I('send');
         $logic          = new UsersLogic();
         $data['status'] = $logic->send_validate_code($send, $type);
-        if (!$data['status'])
+        if ($data['status'] < 0)
             $this->error($data['msg']);
         else
             $this->success($data['msg']);
@@ -885,7 +885,7 @@ class UserController extends MobileBaseController
     {
         $id = I('get.id', 0);
         $data = confirm_order($id, $this->user_id);
-        if (!$data['status'])
+        if ($data['status'] < 0)
             $this->error($data['msg']);
         else
             $this->success($data['msg']);

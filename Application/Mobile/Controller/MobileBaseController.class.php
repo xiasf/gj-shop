@@ -20,6 +20,7 @@ class MobileBaseController extends Controller {
     public $weixin_config;
     public $cateTrre = array();
 
+
     /*
      * 初始化操作
      */

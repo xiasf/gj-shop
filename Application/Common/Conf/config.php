@@ -16,6 +16,7 @@ return array(
      * RBAC认证配置信息
      */
 
+
     'SESSION_AUTO_START'        => true,
     'USER_AUTH_ON'              => true,
     'USER_AUTH_TYPE'            => 1,         // 默认认证类型 1 登录认证 2 实时认证

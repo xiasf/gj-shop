@@ -1,4 +1,5 @@
 <?php
+
 /* 数据库配置 */
 return array(
     'DB_TYPE' => 'mysql', //数据库类型
