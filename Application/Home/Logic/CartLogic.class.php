@@ -21,7 +21,8 @@ use Think\Model\RelationModel;
  * Class CatsLogic
  * @package Home\Logic
  */
-class CartLogic extends RelationModel {
+class CartLogic extends RelationModel
+{
 
     /**
      * 加入购物车方法
@@ -30,7 +31,8 @@ class CartLogic extends RelationModel {
      * @param type $goods_spec  选择规格
      * @param type $user_id 用户id
      */
-    public function addCart($goods_id, $goods_num, $goods_spec, $session_id, $user_id = 0) {
+    public function addCart($goods_id, $goods_num, $goods_spec, $session_id, $user_id = 0)
+    {
 
         $goods              = M('Goods')->where("goods_id = $goods_id")->find(); // 找出这个商品
         $specGoodsPriceList = M('SpecGoodsPrice')->where("goods_id = $goods_id")->getField("key,key_name,price,store_count,sku"); // 获取商品对应的规格价钱 库存 条码
@@ -163,21 +165,23 @@ class CartLogic extends RelationModel {
      * @param type $user   用户
      * @param type $session_id  session_id
      * @param type $selected  是否被用户勾选中的 0 为全部 1为选中  一般没有查询不选中的商品情况
+     * @param type $selected  是否只计算被用户勾选中的 0 为全部计算 1为只计算用户选中的
      * $mode 0  返回数组形式  1 直接返回result
      */
-    public function cartList($user = array(), $session_id = '', $selected = 0, $mode = 0) {
+    public function cartList($user = array(), $session_id = '', $selected = 0, $mode = 0)
+    {
 
-        $where = " 1 = 1 ";
+        // $where = " 1 = 1 ";
         //if($selected != NULL)
         //    $where = " selected = $selected "; // 购物车选中状态
 
-        if ($user[user_id]) // 如果用户已经登录则按照用户id查询
+        if ($user['user_id']) // 如果用户已经登录则按照用户id查询
         {
-            $where .= " and user_id = $user[user_id] ";
+            $where = "user_id = $user[user_id] ";
             // 给用户计算会员价 登录前后不一样
         } else {
-            $where .= " and session_id = '$session_id'";
-            $user[user_id] = 0;
+            $where = "session_id = '$session_id'";
+            // $user['user_id'] = 0;
         }
 
         $cartList = M('Cart')->where($where)->select(); // 获取购物车商品
@@ -185,20 +189,22 @@ class CartLogic extends RelationModel {
 
         foreach ($cartList as $k => $val) {
             $cartList[$k]['goods_fee']   = $val['goods_num'] * $val['member_goods_price'];
-            $cartList[$k]['store_count'] = getGoodNum($val['goods_id'], $val['spec_key']); // 最多可购买的库存数量
+            $cartList[$k]['store_count'] = getGoodNum($val['goods_id'], $val['spec_key']); // 最多可购买的库存数量（不能大于库存）
             $anum += $val['goods_num'];
 
-            // 如果要求只计算购物车选中商品的价格 和数量  并且  当前商品没选择 则跳过
+            // 如果要求只计算购物车选中商品的价格和数量，并且当前商品没选择则跳过（跳过计算总价格和总优惠价格）
             if ($selected == 1 && $val['selected'] == 0) {
                 continue;
             }
 
-            $cut_fee += $val['goods_num'] * $val['market_price'] - $val['goods_num'] * $val['member_goods_price'];
-            $total_price += $val['goods_num'] * $val['member_goods_price'];
+            $cut_fee += ($val['goods_num'] * $val['market_price']) - $cartList[$k]['goods_fee'];
+            $total_price += $cartList[$k]['goods_fee'];
         }
 
         $total_price = array('total_fee' => $total_price, 'cut_fee' => $cut_fee, 'num' => $anum); // 总计
+        // 将总数量放入cookie，就是客户端的购物车数量（此数量为：购物车选中商品总数量，而单品数量）
         setcookie('cn', $anum, null, '/');
+
         if ($mode == 1) {
             return array('cartList' => $cartList, 'total_price' => $total_price);
         }
@@ -214,7 +220,8 @@ class CartLogic extends RelationModel {
  * @param type $district  区
  * @return int
  */
-    public function cart_freight2($shipping_code, $province, $city, $district, $weight) {
+    public function cart_freight2($shipping_code, $province, $city, $district, $weight)
+    {
 
         if ($weight == 0) {
             return 0;
@@ -269,7 +276,8 @@ class CartLogic extends RelationModel {
      * @param type $coupon_id 优惠券id
      * $mode 0  返回数组形式  1 直接返回result
      */
-    public function getCouponMoney($user_id, $coupon_id, $mode) {
+    public function getCouponMoney($user_id, $coupon_id, $mode)
+    {
         $couponlist = M('CouponList')->where("uid = $user_id and id = $coupon_id")->find(); // 获取用户的优惠券
         if (empty($couponlist)) {
             if ($mode == 1) {
@@ -295,7 +303,8 @@ class CartLogic extends RelationModel {
      * @param type $order_momey Description 订单金额
      * return -1 优惠券不存在 -2 优惠券已过期 -3 订单金额没达到使用券条件
      */
-    public function getCouponMoneyByCode($couponCode, $order_momey) {
+    public function getCouponMoneyByCode($couponCode, $order_momey)
+    {
         $couponlist = M('CouponList')->where("code = '$couponCode'")->find(); // 获取用户的优惠券
         if (empty($couponlist)) {
             return array('status' => -9, 'msg' => '优惠券码不存在', 'result' => '');
@@ -327,7 +336,8 @@ class CartLogic extends RelationModel {
      * @param type $car_price 各种价格
      * @return type $order_id 返回新增的订单id
      */
-    public function addOrder($user_id, $address_id, $shipping_code, $invoice_title, $coupon_id = 0, $car_price) {
+    public function addOrder($user_id, $address_id, $shipping_code, $invoice_title, $coupon_id = 0, $car_price)
+    {
 
         // 仿制灌水 1天只能下 50 单  // select * from `tp_order` where user_id = 1  and order_sn like '20151217%'
         $order_count = M('Order')->where("user_id= $user_id and order_sn like '" . date('Ymd') . "%'")->count(); // 查找购物车商品总数量
@@ -459,7 +469,8 @@ class CartLogic extends RelationModel {
      * @param type $user_id
      * $mode 0  返回数组形式  1 直接返回result
      */
-    public function cart_count($user_id, $mode = 0) {
+    public function cart_count($user_id, $mode = 0)
+    {
         $count = M('Cart')->where("user_id = $user_id and selected = 1")->count();
         if ($mode == 1) {
             return $count;
@@ -474,7 +485,8 @@ class CartLogic extends RelationModel {
      * @param type $attr_id
      * $mode 0  返回数组形式  1 直接返回result
      */
-    public function get_group_buy_price($goods_id, $mode = 0) {
+    public function get_group_buy_price($goods_id, $mode = 0)
+    {
         $group_buy = M('GroupBuy')->where("goods_id = $goods_id and " . time() . " >= start_time and " . time() . " <= end_time ")->find(); // 找出这个商品
         if (empty($group_buy)) {
             return 0;
@@ -492,7 +504,8 @@ class CartLogic extends RelationModel {
      * @param type $session_id
      * @param type $user_id
      */
-    public function login_cart_handle($session_id, $user_id) {
+    public function login_cart_handle($session_id, $user_id)
+    {
         if (empty($session_id) || empty($user_id)) {
             return false;
         }
