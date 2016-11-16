@@ -42,15 +42,7 @@ class CartController extends MobileBaseController
         }
     }
 
-    /*
-     * 购物车页面
-     */
-    public function cart()
-    {
-        $this->display('cart');
-    }
-
-    /**
+        /**
      * 将商品加入购物车
      */
     public function addCart()
@@ -107,6 +99,14 @@ class CartController extends MobileBaseController
 
         $result = $this->cartLogic->cartList($this->user, $unique_id, 0);
         exit(json_encode($result));
+    }
+
+    /*
+     * 购物车页面
+     */
+    public function cart()
+    {
+        $this->display('cart');
     }
 
     /**
@@ -266,49 +266,50 @@ class CartController extends MobileBaseController
      */
     public function ajaxCartList()
     {
-        $post_goods_num   = I("goods_num");     // goods_num 购物车商品数量
-        $post_cart_select = I("cart_select");   // 购物车选中状态
-
-        if ($this->user_id) {
-            $where = " user_id = " . $this->user_id; // 如果这个用户已经等了则按照用户id查询
-        } else {
-            $where = " session_id = '$this->session_id' "; // 默认按照 session_id 查询
-        }
-
-        $cartList = M('Cart')->where($where)->getField("id,goods_num,selected,prom_type,prom_id");
-
         // 修改购物车数量 和勾选状态
-        if (IS_POST && is_array($post_goods_num)) {
-            foreach ($post_goods_num as $key => $goods_num) {
-                $data = [];
+        if (IS_POST) {
+            $post_goods_num   = I("goods_num");     // goods_num 购物车商品数量
+            $post_cart_select = I("cart_select");   // 购物车选中状态
 
-                // 数量不能非法
-                $data['goods_num'] = ($goods_num < 1) ? 1 : $goods_num;
-                // 限时抢购 不能超过购买数量
-                if ($cartList[$key]['prom_type'] == 1) {
-                    $flash_sale        = M('flash_sale')->where("id = {$cartList[$key]['prom_id']}")->find();
-                    $data['goods_num'] = ($data['goods_num'] > $flash_sale['buy_limit']) ? $flash_sale['buy_limit'] : $data['goods_num'];
-                }
-
-                $data['selected'] = !empty($post_cart_select[$key]) ? 1 : 0;    // 默认为非选中状态
-
-                if ($cartList[$key]['goods_num'] == $data['goods_num']) {
-                    unset($data['goods_num']);
-                }
-
-                if ($cartList[$key]['selected'] == $data['selected']) {
-                    unset($data['selected']);
-                }
-
-                if ($data) {
-                    M('Cart')->where("id = $key")->save($data);
-                }
-
-                // if (($cartList[$key]['goods_num'] != $data['goods_num']) || ($cartList[$key]['selected'] != $data['selected'])) {
-                //     M('Cart')->where("id = $key")->save($data);
-                // }
-
+            if ($this->user_id) {
+                $where = " user_id = " . $this->user_id; // 如果这个用户已经等了则按照用户id查询
+            } else {
+                $where = " session_id = '$this->session_id' "; // 默认按照 session_id 查询
             }
+            $cartList = M('Cart')->where($where)->getField("id,goods_num,selected,prom_type,prom_id");
+
+            if (is_array($post_goods_num) && $cartList) {
+                foreach ($post_goods_num as $key => $goods_num) {
+                    $data = [];
+
+                    // 数量不能非法
+                    $data['goods_num'] = ($goods_num < 1) ? 1 : $goods_num;
+                    // 限时抢购 不能超过购买数量
+                    if ($cartList[$key]['prom_type'] == 1) {
+                        $flash_sale        = M('flash_sale')->where("id = {$cartList[$key]['prom_id']}")->find();
+                        $data['goods_num'] = ($data['goods_num'] > $flash_sale['buy_limit']) ? $flash_sale['buy_limit'] : $data['goods_num'];
+                    }
+
+                    $data['selected'] = !empty($post_cart_select[$key]) ? 1 : 0;    // 默认为非选中状态
+
+                    if ($cartList[$key]['goods_num'] == $data['goods_num']) {
+                        unset($data['goods_num']);
+                    }
+
+                    if ($cartList[$key]['selected'] == $data['selected']) {
+                        unset($data['selected']);
+                    }
+
+                    if ($data) {
+                        M('Cart')->where("id = $key")->save($data);
+                    }
+
+                    // if (($cartList[$key]['goods_num'] != $data['goods_num']) || ($cartList[$key]['selected'] != $data['selected'])) {
+                    //     M('Cart')->where("id = $key")->save($data);
+                    // }
+                }
+            }
+
             // $this->assign('select_all', $_POST['select_all']); // 全选框
         }
 

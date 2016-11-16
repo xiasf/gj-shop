@@ -177,16 +177,24 @@ class CartLogic extends RelationModel
 
         if ($user['user_id']) // 如果用户已经登录则按照用户id查询
         {
-            $where = "user_id = $user[user_id] ";
+            $where = "c.user_id = $user[user_id] ";
             // 给用户计算会员价 登录前后不一样
         } else {
-            $where = "session_id = '$session_id'";
+            $where = "c.session_id = '$session_id'";
             // $user['user_id'] = 0;
         }
 
-        $cartList = M('Cart')->where($where)->select(); // 获取购物车商品
+        // 获取购物车商品
+        $cartList = M('Cart c')
+                    ->join('INNER JOIN __GOODS__ g ON g.goods_id = c.goods_id')
+                    ->join('INNER JOIN __SELLER__ s ON s.id = g.seller_id')
+                    ->field('c.*,s.id as seller_id,s.seller_name')
+                    ->where($where)
+                    ->select();
+
         $anum     = $total_price     = $cut_fee     = 0;
 
+        // 计算购物车价格
         foreach ($cartList as $k => $val) {
             $cartList[$k]['goods_fee']   = $val['goods_num'] * $val['member_goods_price'];
             $cartList[$k]['store_count'] = getGoodNum($val['goods_id'], $val['spec_key']); // 最多可购买的库存数量（不能大于库存）
@@ -200,6 +208,24 @@ class CartLogic extends RelationModel
             $cut_fee += ($val['goods_num'] * $val['market_price']) - $cartList[$k]['goods_fee'];
             $total_price += $cartList[$k]['goods_fee'];
         }
+
+        /* 变成商店结构 */
+
+        $tem = [];
+        foreach ($cartList as $key => &$item) {
+            $seller_id = $item['seller_id'];
+            $tem[$seller_id]['seller_id'] = $seller_id;
+            $tem[$seller_id]['seller_name'] = $item['seller_name'];
+            unset($item['seller_id'], $item['seller_name']);
+            $tem[$seller_id]['item'][] = $item;
+        }
+        // 变成常规格式
+        $cartList = [];
+        array_map(function($tem) use(&$cartList) {$cartList[] = $tem;}, $tem);
+
+        // echo '<pre>';
+        // print_r($cartList);
+        // echo '</pre>';
 
         $total_price = array('total_fee' => $total_price, 'cut_fee' => $cut_fee, 'num' => $anum); // 总计
         // 将总数量放入cookie，就是客户端的购物车数量（此数量为：购物车选中商品总数量，而单品数量）
