@@ -78,6 +78,7 @@
     </div>
     </foreach>
     <script>
+    if ({$total_price.cut_fee}) {
         setTimeout(function(){
             layer.open({
                 content: '共替您省了￥{$total_price.cut_fee}元，结算享受更多优惠哦'
@@ -85,6 +86,7 @@
                 ,time: 2
             });
         }, 300);
+    }
     </script>
 
 <if condition="empty($cartList)">

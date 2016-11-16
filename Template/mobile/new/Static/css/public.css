@@ -159,7 +159,20 @@ opacity: 0; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-appearance: n
 .pagenav-wrapper .pagenav .p-gray { background-color: #fdfdfd; color: #b4b1b1 }
 .pagenav a:hover { text-decoration: none }
 .global-nav__nav-shop-cart-num{
-position: absolute; top:2px; color: #fff;text-align: center; font-weight:normal; font-size:10px;width:12px; height:12px; line-height:12px; background:#ff2233; border-radius: 50%; }
+position: absolute;
+    top: 2px;
+    left: 27px;
+    color: #fff;
+    text-align: center;
+    font-weight: normal;
+    font-size: 10px;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    background: #ff2233;
+    border-radius: 50%;
+    background: -webkit-gradient(linear,0 50%,100% 50%,from(#CA1414),to(#FF63C1));
+}
 /*没有筛选结果文字样式*/
 p.goods_title{ width:100%; font-size:14px; display:block; height:100px; line-height:100px; text-align:center; margin-top:30px; margin-bottom:30px;}
 .new_prom2{ font-size:14px; text-align:center; padding:20px 0px}

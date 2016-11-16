@@ -7,8 +7,8 @@
 
 
 .h-mid { width:70%; height:45px; float:left; text-align:center; color:#333; font-size:1.6rem; line-height:40px; position:relative;}
-.h-mid ul{ width:90%; height:45px;}
-.h-mid ul li{ width:28%; float:left; height:45px; text-align:center; }
+.h-mid ul{ /*width:90%; */height:45px;}
+.h-mid ul li{ width:33%; float:left; height:45px; text-align:center; }
 .h-mid ul li a{ display:block; width:100%; margin:auto; height:43px; font-size:14px; line-height:43px; color:#333}
 .h-mid ul li a.on { color:#dd2726; border-bottom:2px solid #dd2726 }
 .h-mid ul li img{ display:block; width:40px; height:40px; float:right; }
