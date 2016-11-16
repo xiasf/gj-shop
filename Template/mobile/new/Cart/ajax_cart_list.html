@@ -43,7 +43,7 @@
                             <div class="xm-input-number">
                                 <div class="act_wrap">
                                     <a href="javascript:;" onclick="switch_num(-1,{$item.id},{$item.store_count});" id="jiannum6" class="input-sub active"></a>
-                                    <input id="goods_num[{$item.id}]" type="text" onKeyDown='if(event.keyCode == 13) event.returnValue = false' name="goods_num[{$item.id}]"  value="{$item.goods_num}"  class="input-num"  onblur="ajax_cart_list()"/>    
+                                    <input id="goods_num[{$item.id}]" type="text" onKeyDown='if(event.keyCode == 13) event.returnValue = false' name="goods_num[{$item.id}]"  value="{$item.goods_num}"  class="input-num"  onblur="ajax_cart_list()"/>
                                     <a href="javascript:;" onclick="switch_num(1,{$item.id},{$item.store_count});"  class="input-add active"></a>
                                 </div>
                             </div>
@@ -52,7 +52,7 @@
                     <div style=" position:absolute; right:0px; top:20px; width:100px; height:98px;">
                         <div class="price">
                             <span class="mar_price">￥{$item.market_price}元</span>
-                            <br>    
+                            <br>
                             <span>￥{$item.member_goods_price}元</span>
                         </div>
                         <div class="delete">
@@ -67,8 +67,25 @@
             </div>
         </div>
         </foreach>
+        <div class="shop_total">
+            <div class="fl">
+                <span class="hot">省了￥{$seller_item.cut_fee}元</span>
+            </div>
+            <div class="fr">
+                <span class="hot"> <em>小结：</em>￥{$seller_item.total_fee}元，数量：{$seller_item.total_num}</span>
+            </div>
+        </div>
     </div>
     </foreach>
+    <script>
+        setTimeout(function(){
+            layer.open({
+                content: '共替您省了￥{$total_price.cut_fee}元，结算享受更多优惠哦'
+                ,skin: 'msg'
+                ,time: 2
+            });
+        }, 300);
+    </script>
 
 <if condition="empty($cartList)">
 <div class="screen-wrap fullscreen login">

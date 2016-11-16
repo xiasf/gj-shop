@@ -195,29 +195,61 @@ class CartLogic extends RelationModel
         $anum     = $total_price     = $cut_fee     = 0;
 
         // 计算购物车价格
-        foreach ($cartList as $k => $val) {
-            $cartList[$k]['goods_fee']   = $val['goods_num'] * $val['member_goods_price'];
-            $cartList[$k]['store_count'] = getGoodNum($val['goods_id'], $val['spec_key']); // 最多可购买的库存数量（不能大于库存）
-            $anum += $val['goods_num'];
+        foreach ($cartList as $k => &$val) {
+            $val['goods_fee']   = $val['goods_num'] * $val['member_goods_price']; // 此款价格，而非单价
+            $val['store_count'] = getGoodNum($val['goods_id'], $val['spec_key']); // 最多可购买的库存数量（不能大于库存）
+            $anum += $val['goods_num'];                                           // 商品数量（购物车选中商品总数量，而非多少款商品）
 
             // 如果要求只计算购物车选中商品的价格和数量，并且当前商品没选择则跳过（跳过计算总价格和总优惠价格）
             if ($selected == 1 && $val['selected'] == 0) {
                 continue;
             }
 
-            $cut_fee += ($val['goods_num'] * $val['market_price']) - $cartList[$k]['goods_fee'];
-            $total_price += $cartList[$k]['goods_fee'];
+            // 每款商品原价（非单价）
+            $market = $val['goods_num'] * $val['market_price'];
+
+            // 每款商品优惠（总优惠交个）
+            $val['cut_fee'] = $market - $val['goods_fee'];
+            unset($market);
+
+            // 单店选中的统计
+            $val['seller'] = [$val['goods_fee'], $val['goods_num'], $val['cut_fee']];
+
+            $cut_fee += $val['cut_fee'];
+            $total_price += $val['goods_fee'];
         }
 
         /* 变成商店结构 */
 
         $tem = [];
         foreach ($cartList as $key => &$item) {
-            $seller_id = $item['seller_id'];
-            $tem[$seller_id]['seller_id'] = $seller_id;
+            $seller_id                      = $item['seller_id'];
+            $tem[$seller_id]['seller_id']   = $seller_id;
             $tem[$seller_id]['seller_name'] = $item['seller_name'];
-            unset($item['seller_id'], $item['seller_name']);
+
+            // 计算出单个店铺的统计信息
+            empty($tem[$seller_id]['total_fee']) && $tem[$seller_id]['total_fee'] = 0;
+            empty($tem[$seller_id]['total_num']) && $tem[$seller_id]['total_num'] = 0;
+            empty($tem[$seller_id]['cut_fee']) && $tem[$seller_id]['cut_fee']     = 0;
+            if (!empty($item['seller'])) {
+                $tem[$seller_id]['total_fee'] += $item['seller'][0];
+                $tem[$seller_id]['total_num'] += $item['seller'][1];
+                $tem[$seller_id]['cut_fee']   += $item['seller'][2];
+            }
+
+            unset($item['seller_id'], $item['seller_name'], $item['seller']);
             $tem[$seller_id]['item'][] = $item;
+
+/*
+            // 计算出单个店铺的统计信息
+            $sum = [];
+            array_map(function($arr) use(&$sum) { $sum[0][] = $arr['goods_fee']; $sum[1][] = $arr['goods_num']; $sum[2][] = $arr['cut_fee'];}, $tem[$seller_id]['item']);
+            $tem[$seller_id]['total_fee'] = array_sum($sum[0]);
+            $tem[$seller_id]['total_num'] = array_sum($sum[1]);
+            $tem[$seller_id]['cut_fee']   = array_sum($sum[2]);
+            unset($sum);
+*/
+
         }
         // 变成常规格式
         $cartList = [];
@@ -226,9 +258,10 @@ class CartLogic extends RelationModel
         // echo '<pre>';
         // print_r($cartList);
         // echo '</pre>';
+        // exit;
 
         $total_price = array('total_fee' => $total_price, 'cut_fee' => $cut_fee, 'num' => $anum); // 总计
-        // 将总数量放入cookie，就是客户端的购物车数量（此数量为：购物车选中商品总数量，而单品数量）
+        // 将总数量放入cookie，就是客户端的购物车数量（此数量为：购物车选中商品总数量，而非多少款商品）
         setcookie('cn', $anum, null, '/');
 
         if ($mode == 1) {

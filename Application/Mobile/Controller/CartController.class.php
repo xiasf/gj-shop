@@ -71,7 +71,7 @@ class CartController extends MobileBaseController
 
     /*
      * 请求获取购物车列表
-     */ 
+     */
     public function cartList()
     {
         $cart_form_data = $_POST["cart_form_data"]; // goods_num 购物车商品数量
@@ -102,7 +102,7 @@ class CartController extends MobileBaseController
     }
 
     /*
-     * 购物车页面
+     * 购物车（管理）页面
      */
     public function cart()
     {
@@ -110,16 +110,20 @@ class CartController extends MobileBaseController
     }
 
     /**
-     * 购物车第二步确定页面
+     * 购物车第二步（结算）确定页面
      */
     public function cart2()
     {
-
-
         if ($this->user_id == 0) {
             $this->error('请先登陆', U('Mobile/User/login'));
         }
 
+        // 当前购物车必须有选中的商品
+        if ($this->cartLogic->cart_count($this->user_id, 1) == 0) {
+            $this->error('你的购物车没有选中商品', 'Cart/cart');
+        }
+
+        // 有自带地址收货id的情况
         $address_id = I('address_id');
         if ($address_id) {
             $address = M('user_address')->where("address_id = $address_id")->find();
@@ -127,27 +131,35 @@ class CartController extends MobileBaseController
             $address = M('user_address')->where("user_id = $this->user_id and is_default=1")->find();
         }
 
+        // 必须设置一个收货地址
         if (empty($address)) {
-            header("Location: " . U('Mobile/User/add_address', array('source' => 'cart2')));
+            $this->redirect('Mobile/User/add_address', ['source' => 'cart2']);
         } else {
             $this->assign('address', $address);
         }
 
-        if ($this->cartLogic->cart_count($this->user_id, 1) == 0) {
-            $this->error('你的购物车没有选中商品', 'Cart/cart');
-        }
+        $result       = $this->cartLogic->cartList($this->user, $this->session_id, 1, 1);       // 获取购物车商品（计算购物车）
+        $shippingList = M('Plugin')->where("`type` = 'shipping' and status = 1")->select();     // 物流公司列表
 
-        $result       = $this->cartLogic->cartList($this->user, $this->session_id, 1, 1); // 获取购物车商品
-        $shippingList = M('Plugin')->where("`type` = 'shipping' and status = 1")->select(); // 物流公司
+        // $Model      = new \Think\Model(); // 找出这个用户的优惠券 没过期的  并且 订单金额达到 condition 优惠券指定标准的
+        // $sql        = "select c1.name,c1.money,c1.condition, c2.* from __PREFIX__coupon as c1 inner join __PREFIX__coupon_list as c2  on c2.cid = c1.id and c1.type in(0,1,2,3) and order_id = 0  where c2.uid = {$this->user_id} and " . time() . " < c1.use_end_time and c1.condition <= {$result['total_price']['total_fee']}";
+        // $couponList = $Model->query($sql);
 
-        $Model      = new \Think\Model(); // 找出这个用户的优惠券 没过期的  并且 订单金额达到 condition 优惠券指定标准的
-        $sql        = "select c1.name,c1.money,c1.condition, c2.* from __PREFIX__coupon as c1 inner join __PREFIX__coupon_list as c2  on c2.cid = c1.id and c1.type in(0,1,2,3) and order_id = 0  where c2.uid = {$this->user_id} and " . time() . " < c1.use_end_time and c1.condition <= {$result['total_price']['total_fee']}";
-        $couponList = $Model->query($sql);
+        // 找出这个用户的优惠券 没过期的  并且 订单金额达到 condition 优惠券指定标准的
+        // 这个优惠券是网站优惠券，而非店铺优惠券
+        $couponList = M('coupon as c1')
+                        ->join('INNER JOIN __COUPON_LIST__ as c2 on c2.cid = c1.id')
+                        ->field('c1.name,c1.money,c1.condition,c2.*')
+                        ->where(['c1.type' => ['in', '0,1,2,3']])
+                        ->where(['c2.uid' => $this->user_id, 'order_id' => 0])
+                        ->where(['c1.use_end_time' => ['gt', NOW_TIME]])
+                        ->where(['c1.condition' => ['elt', $result['total_price']['total_fee']]])
+                        ->select();
 
-        $this->assign('couponList', $couponList); // 优惠券列表
-        $this->assign('shippingList', $shippingList); // 物流公司
-        $this->assign('cartList', $result['cartList']); // 购物车的商品
-        $this->assign('total_price', $result['total_price']); // 总计
+        $this->assign('couponList', $couponList);               // 优惠券列表
+        $this->assign('shippingList', $shippingList);           // 物流公司列表
+        $this->assign('cartList', $result['cartList']);         // 购物车的商品
+        $this->assign('total_price', $result['total_price']);   // 总计
         $this->display();
     }
 
@@ -160,30 +172,25 @@ class CartController extends MobileBaseController
         if ($this->user_id == 0) {
             exit(json_encode(array('status' => -100, 'msg' => "登录超时请重新登录!", 'result' => null)));
         }
-        // 返回结果状态
 
-        $address_id       = I("address_id"); //  收货地址id
-        $shipping_code    = I("shipping_code"); //  物流编号
-        $invoice_title    = I('invoice_title'); // 发票
-        $couponTypeSelect = I("couponTypeSelect"); //  优惠券类型  1 下拉框选择优惠券 2 输入框输入优惠券代码
-        $coupon_id        = I("coupon_id"); //  优惠券id
-        $couponCode       = I("couponCode"); //  优惠券代码
-        $pay_points       = I("pay_points", 0); //  使用积分
-        $user_money       = I("user_money", 0); //  使用余额
-        $user_money       = $user_money ? $user_money : 0;
+        $address_id       = I("address_id");            // 收货地址id
+        $shipping_code    = I("shipping_code");         // 物流编号
+        $invoice_title    = I('invoice_title');         // 发票
+        $couponTypeSelect = I("couponTypeSelect");      // 优惠券类型  1 下拉框选择优惠券 2 输入框输入优惠券代码
+        $coupon_id        = I("coupon_id");             // 优惠券id
+        $couponCode       = I("couponCode");            // 优惠券代码
+        $pay_points       = I("pay_points/d", 0);         // 使用积分
+        $user_money       = I("user_money/d", 0);         // 使用余额
 
         if ($this->cartLogic->cart_count($this->user_id, 1) == 0) {
             exit(json_encode(array('status' => -2, 'msg' => '你的购物车没有选中商品', 'result' => null)));
         }
-        // 返回结果状态
         if (!$address_id) {
             exit(json_encode(array('status' => -3, 'msg' => '请先填写收货人信息', 'result' => null)));
         }
-        // 返回结果状态
         if (!$shipping_code) {
             exit(json_encode(array('status' => -4, 'msg' => '请选择物流信息', 'result' => null)));
         }
-        // 返回结果状态
 
         $address     = M('UserAddress')->where("address_id = $address_id")->find();
         $order_goods = M('cart')->where("user_id = {$this->user_id} and selected = 1")->select();

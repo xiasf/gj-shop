@@ -28,10 +28,19 @@ input[type="hidden" i], input[type="image" i], input[type="file" i] {
 
  }
 
+ /* 购物车店铺小计 */
+.shop_total {
+  height: 30px;
+    line-height: 30px;
+    padding: 0 10px;
+    color: #5A5A5A;
+}
+
+
 .eclipse { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .fl { float: left; }
 .right_arrow { height: 100%; background: url(../images/flow/shop_arrow.png) no-repeat center; background-size: 6px 14px; width: 50px; display: block;}
-.right_arrow_flow{ height: 16px; background: url(../images/flow/shop_arrow.png) no-repeat center; background-size: 6px 14px; width: 20px;float:right;}
+.right_arrow_flow{ height: 25px; background: url(../images/flow/shop_arrow.png) no-repeat center; background-size: 6px 14px; width: 20px;float:right;}
 .checkout_other2 .right_arrow_flow{ height: 22px; background: url(../images/flow/shop_arrow2.png) no-repeat center; background-size: 12px 6px; width: 20px; display: block;float:right;}
 .right_arrow_flow2{  height: 22px; background: url(../images/flow/shop_arrow2.png) no-repeat center; background-size: 12px 6px; width: 20px; display: block;float:right; }
 .shop_title div { line-height: 55px; }
@@ -250,7 +259,7 @@ em.qxz { font-size: 14px; color: #999; margin-left: 10px; }
 .order-buy .order-info .order-list-info .list-price-nums { margin: 12px 0 0 8px; width: 108px; position: absolute; top: 0; right: 0; text-align: right; line-height: 16px }
 .order-buy .order-info .order-list-info .list-price-nums .price { color: #f23015; }
 .order-buy .order-info .order-list-info .list-price-nums p { font-size: 14px }
-.order-buy .order-info .order-list-info .list-price-nums .nums { font-weight: 700 }
+.order-buy .order-info .order-list-info .list-price-nums .nums { font-weight: 700;    padding-top: 10px; }
 .order-buy .order-info .order-list-info .list-cont .goods-title { font-size: 14px; overflow: hidden; -webkit-line-clamp: 2; -webkit-box-orient: vertical; display: -webkit-box; line-height: 16px; font-weight:normal;}
 .order-buy .order-info .order-list-info .list-cont .goods-title img { width: 18px }
 .order-buy .order-info .order-list-info .list-cont .godds-specification { margin-top: 8px; font-size: 14px; color: #999 }
@@ -325,7 +334,7 @@ em.qxz { font-size: 14px; color: #999; margin-left: 10px; }
 .h_title1 dd { width: 75%; float: left; overflow: hidden; font-size: 14px; color: #666; line-height: 150%; }
 .btn_orange { display: block; width: 96%; margin-left: 2%; margin-right: 2%; height: 40px; margin: auto; background: #FF2233; font-size: 16px; line-height: 40px; color: #FFF; text-align: center; border-radius: 5px; border: 0px; margin-top: 10px; margin-bottom: 10px; font-family: 微软雅黑 }
 .activity { padding: 10px 10px 10px 10px; font-size: 14px; }
-.order_total_li { border: 0; text-align: right; color: #999; padding-bottom: 20px; font-size: 14px; line-height:22px; }
+.order_total_li { border: 0; text-align: right; color: #999; padding-bottom: 12px; font-size: 14px; line-height:22px; }
 .order_total_ul { line-height: 18px; padding-top: 10px; padding-bottom: 10px; }
 .txt1 { border: 1px solid #DFDFDF; height: 18px; line-height: 18px; padding-top: 7px; padding-bottom: 7px; width: 195px; padding-left: 5px; -webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; border-radius: 0; -webkit-rtl-ordering: logical; -webkit-user-select: text; cursor: auto; background-color: white; }
 .txt2 { border: 1px solid #DFDFDF; height: 18px; line-height: 18px; padding-top: 5px; padding-bottom: 6px; width: 195px; padding-left: 5px; -webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; border-radius: 0; -webkit-rtl-ordering: logical; -webkit-user-select: text; cursor: auto; background-color: white; }

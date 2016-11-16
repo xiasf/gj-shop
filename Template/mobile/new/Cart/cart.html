@@ -15,9 +15,16 @@
     <script src="__PUBLIC__/js/global.js"></script>
     <script src="__PUBLIC__/js/mobile_common.js"></script>
     <script src="__STATIC__/js/common.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
 </head>
 <body style="background: rgb(235, 236, 237);position:relative;">
-
+    <script>
+        // 显示加载层
+        var load = layer.open({
+            type: 2,
+            shadeClose: false,
+        });
+    </script>
     <div class="tab_nav">
         <div class="header">
             <div class="h-left">
@@ -50,15 +57,24 @@
 
         // ajax 提交购物车
         var before_request = 1; // 上一次请求是否已经有返回来, 有才可以进行下一次请求
+
         function ajax_cart_list(){
             if(before_request == 0) // 上一次请求没回来 不进行下一次请求
                 return false;
+
+            // 显示加载层
+            var load = layer.open({
+                type: 2,
+                shadeClose: false,
+            });
+
             before_request = 0;
             $.ajax({
                 type : "POST",
                 url:"{:U('Mobile/Cart/ajaxCartList')}",//+tab,
                 data : $('#cart_form').serialize(),// 你的formid
                 success: function(data){
+                    layer.close(load);  // 加载完成
                     $("#cart_form").html('');
                     $("#cart_form").append(data);
                     before_request = 1;
