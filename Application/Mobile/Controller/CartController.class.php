@@ -71,7 +71,7 @@ class CartController extends MobileBaseController
 
     /*
      * 请求获取购物车列表
-     */
+     */ 
     public function cartList()
     {
         $cart_form_data = $_POST["cart_form_data"]; // goods_num 购物车商品数量
@@ -114,6 +114,7 @@ class CartController extends MobileBaseController
      */
     public function cart2()
     {
+
 
         if ($this->user_id == 0) {
             $this->error('请先登陆', U('Mobile/User/login'));
