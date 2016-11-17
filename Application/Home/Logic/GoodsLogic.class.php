@@ -21,7 +21,8 @@ use Think\Model\RelationModel;
  * Class CatsLogic
  * @package Home\Logic
  */
-class GoodsLogic extends RelationModel {
+class GoodsLogic extends RelationModel
+{
 
     /**
      * @param $goods_id_arr
@@ -31,7 +32,8 @@ class GoodsLogic extends RelationModel {
      * @return array|mixed 这里状态一般都为1 result 不是返回数据 就是空
      * 获取 商品列表页帅选品牌
      */
-    public function get_filter_brand($goods_id_arr, $filter_param, $action, $mode = 0) {
+    public function get_filter_brand($goods_id_arr, $filter_param, $action, $mode = 0)
+    {
         if (!empty($filter_param['brand_id'])) {
             return array();
         }
@@ -60,7 +62,8 @@ class GoodsLogic extends RelationModel {
      * @return array 这里状态一般都为1 result 不是返回数据 就是空
      * 获取 商品列表页帅选规格
      */
-    public function get_filter_spec($goods_id_arr, $filter_param, $action, $mode = 0) {
+    public function get_filter_spec($goods_id_arr, $filter_param, $action, $mode = 0)
+    {
         $goods_id_str = implode(',', $goods_id_arr);
         $goods_id_str = $goods_id_str ? $goods_id_str : '0';
         $spec_key     = M('spec_goods_price')->query("select group_concat(`key` separator  '_') as `key` from __PREFIX__spec_goods_price where goods_id in($goods_id_str)"); //where("goods_id in($goods_id_str)")->select();
@@ -114,7 +117,8 @@ class GoodsLogic extends RelationModel {
      * @return array
      * 获取商品列表页帅选属性
      */
-    public function get_filter_attr($goods_id_arr = array(), $filter_param, $action, $mode = 0) {
+    public function get_filter_attr($goods_id_arr = array(), $filter_param, $action, $mode = 0)
+    {
         $goods_id_str = implode(',', $goods_id_arr);
         $goods_id_str = $goods_id_str ? $goods_id_str : '0';
         $goods_attr   = M('goods_attr')->where("goods_id in($goods_id_str) and attr_value != ''")->select();
@@ -181,7 +185,8 @@ class GoodsLogic extends RelationModel {
      * @param $mode 0  返回数组形式  1 直接返回result
      * @return array
      */
-    public function get_spec_item_goods_id($spec_item_id, $mode = 0) {
+    public function get_spec_item_goods_id($spec_item_id, $mode = 0)
+    {
         /** 最后组装的 sql语句
          * select * from (
          * select a.*,concat('_',`key`,'_') as key2 from `tp_spec_goods_price` as a
@@ -226,7 +231,8 @@ class GoodsLogic extends RelationModel {
      * 根据提交过了的商品属性 找出对应的商品id
      * $mode 0  返回数组形式  1 直接返回result
      */
-    public function get_attr_goods_id($attr_id, $mode = 0) {
+    public function get_attr_goods_id($attr_id, $mode = 0)
+    {
         // select * from `tp_goods_attr` where attr_id = 185 and (attr_value in('白色','黑色'))
         $Model = new \Think\Model();
         foreach ($attr_id as $key => $val) {
@@ -250,7 +256,8 @@ class GoodsLogic extends RelationModel {
      * 获取某个商品的评论统计
      * 全部评论数  好评数 中评数  差评数
      */
-    public function commentStatistics($goods_id) {
+    public function commentStatistics($goods_id)
+    {
         $c1 = M('Comment')->where("is_show = 1 and  goods_id = $goods_id and parent_id = 0 and  ceil((deliver_rank + goods_rank + service_rank) / 3) in(4,5)")->count(); // 好评
         $c2 = M('Comment')->where("is_show = 1 and  goods_id = $goods_id and parent_id = 0 and  ceil((deliver_rank + goods_rank + service_rank) / 3) in(3)")->count(); // 中评
         $c3 = M('Comment')->where("is_show = 1 and  goods_id = $goods_id and parent_id = 0 and  ceil((deliver_rank + goods_rank + service_rank) / 3) in(1,2)")->count(); // 差评
@@ -270,7 +277,8 @@ class GoodsLogic extends RelationModel {
      * @param type $goods_id 商品id
      * @return type
      */
-    public function collect_goods($user_id, $goods_id) {
+    public function collect_goods($user_id, $goods_id)
+    {
         if (!is_numeric($user_id) || $user_id <= 0) {
             return array('status' => -1, 'msg' => '必须登录后才能收藏', 'result' => array());
         }
@@ -289,7 +297,8 @@ class GoodsLogic extends RelationModel {
     /**
      * 获取商品规格
      */
-    public function get_spec($goods_id) {
+    public function get_spec($goods_id)
+    {
         //商品规格 价钱 库存表 找出 所有 规格项id
         $keys        = M('SpecGoodsPrice')->where("goods_id = $goods_id")->getField("GROUP_CONCAT(`key` SEPARATOR '_') ");
         $filter_spec = array();
@@ -312,7 +321,8 @@ class GoodsLogic extends RelationModel {
     /**
      * 获取相关分类
      */
-    public function get_siblings_cate($cat_id) {
+    public function get_siblings_cate($cat_id)
+    {
         if (empty($cat_id)) {
             return array();
         }
@@ -325,7 +335,8 @@ class GoodsLogic extends RelationModel {
     /**
      * 看了又看
      */
-    public function get_look_see($goods) {
+    public function get_look_see($goods)
+    {
         return M('goods')->where("goods_id !=" . $goods['goods_id'] . " and cat_id!=" . $goods['cat_id'] . " and is_on_sale = 1")->limit(12)->select();
     }
 
@@ -337,7 +348,8 @@ class GoodsLogic extends RelationModel {
      * @param int $c 分几段 默认分5 段
      * @return array
      */
-    function get_filter_price($goods_id_arr, $filter_param, $action, $c = 5) {
+    public function get_filter_price($goods_id_arr, $filter_param, $action, $c = 5)
+    {
 
         if (!empty($filter_param['price'])) {
             return array();
@@ -384,7 +396,8 @@ class GoodsLogic extends RelationModel {
     /**
      * 帅选条件菜单
      */
-    function get_filter_menu($filter_param, $action) {
+    public function get_filter_menu($filter_param, $action)
+    {
         $menu_list = array();
         // 品牌
         if (!empty($filter_param['brand_id'])) {
@@ -459,7 +472,8 @@ class GoodsLogic extends RelationModel {
      * 如果当前是 3级 找2 级 和 一级
      * @param  $goodsCate
      */
-    function get_goods_cate(&$goodsCate) {
+    public function get_goods_cate(&$goodsCate)
+    {
         if (empty($goodsCate)) {
             return array();
         }
@@ -489,7 +503,8 @@ class GoodsLogic extends RelationModel {
      * @param  $price 帅选价格
      * @return array|mixed
      */
-    function getGoodsIdByBrandPrice($brand_id, $price) {
+    public function getGoodsIdByBrandPrice($brand_id, $price)
+    {
         if (empty($brand_id) && empty($price)) {
             return array();
         }
@@ -514,7 +529,8 @@ class GoodsLogic extends RelationModel {
      * 根据规格 查找 商品id
      * @param $spec 规格
      */
-    function getGoodsIdBySpec($spec) {
+    public function getGoodsIdBySpec($spec)
+    {
         if (empty($spec)) {
             return array();
         }
@@ -546,7 +562,8 @@ class GoodsLogic extends RelationModel {
      * 59_直板_翻盖
      * 80_BT4.0_BT4.1
      */
-    function getGoodsIdByAttr($attr) {
+    public function getGoodsIdByAttr($attr)
+    {
         if (empty($attr)) {
             return array();
         }
@@ -576,7 +593,8 @@ class GoodsLogic extends RelationModel {
      * 获取地址
      * @return array
      */
-    function getRegionList() {
+    public function getRegionList()
+    {
         $parent_region = M('region')->field('id,name')->where(array('level' => 1))->select();
         $ip_location   = array();
         $city_location = array();
@@ -597,7 +615,8 @@ class GoodsLogic extends RelationModel {
      * @param $cid
      * @return array
      */
-    function getParentRegionList($cid) {
+    public function getParentRegionList($cid)
+    {
         //$pids = '';
         $pids      = array();
         $parent_id = M('region')->where(array('id' => $cid))->getField('parent_id');
@@ -620,7 +639,8 @@ class GoodsLogic extends RelationModel {
      * @param $region_id
      * @return array
      */
-    function getGoodsDispatching($goods_id, $region_id) {
+    public function getGoodsDispatching($goods_id, $region_id)
+    {
         $return_data = array('status' => 1, 'msg' => '');
         $goods       = M('goods')->where(array('goods_id' => $goods_id))->find();
         //检查商品是否包邮
@@ -644,21 +664,29 @@ class GoodsLogic extends RelationModel {
         }
         //查找地区$region_id的所有父类，与地区地址表进行匹配
         $goods_shipping_area_id_array = explode(',', $goods['shipping_area_ids']);
+
+        // 根据要配送的地区ID，查找所有满足的地区
         $parent_region_id             = $this->getParentRegionList($region_id);
         array_push($parent_region_id, (string) $region_id); //把region_id和它全部父级存起来
+
+        // 得到相关的物流配置ID（物流区域列表）
         $find_shipping_area_id  = M('area_region')->where(array('region_id' => array('in', $parent_region_id)))->group('shipping_area_id')->getField('shipping_area_id', true);
         $shipping_area_id_array = array();
+        // 如果商品指定了物流，则需要匹配指定了的
         foreach ($find_shipping_area_id as $key => $val) {
             if (in_array($find_shipping_area_id[$key], $goods_shipping_area_id_array)) {
                 array_push($shipping_area_id_array, $find_shipping_area_id[$key]);
             }
         }
+
         //没有匹配到，就使用商品配置的物流id去物流地址表去查找
         if (count($shipping_area_id_array) == 0) {
+            // 根据商品配置的物流查找物流
             $goods_shipping = M('shipping_area')->where(array('shipping_area_id' => array('in', $goods_shipping_area_id_array), 'is_default' => 1))->select();
             //查询到就返回物流信息和运费，没有返回无货
             if (!empty($goods_shipping)) {
                 foreach ($goods_shipping as $k => $v) {
+                    // 默认以全国的规则来计算
                     $goods_shipping[$k]['freight']       = $cart_logic->cart_freight2($goods_shipping[$k]['shipping_code'], 0, 0, 0, $goods['weight']);
                     $goods_shipping[$k]['shipping_name'] = M('plugin')->where(array('type' => 'shipping', 'code' => $goods_shipping[$k]['shipping_code']))->getField('name');
                 }

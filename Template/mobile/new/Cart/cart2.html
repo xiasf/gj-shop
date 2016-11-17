@@ -89,11 +89,19 @@
                                                         </li>
                                                     </if>
                                                 </foreach>
+                                                <div class="shop_total">
+            <div class="fl">
+                <span class="hot">省了￥{$seller_item.cut_fee}元</span>
+            </div>
+            <div class="fr">
+                <span class="hot"> <em>小结：</em>￥{$seller_item.total_fee}元，数量：{$seller_item.total_num}</span>
+            </div>
+        </div>
+                                                <!-- 这个相当于店铺的优惠券
                                                 <li class="flow_youhui_no">
                                                     <div class="checkout_other">
                                                         <div class="jmbag" href="javascript:void(0);" onClick="showCheckoutOther(this);">
                                                             <span class="right_arrow_flow"></span>
-                                                            <!-- 使用优惠券 -->
                                                             店铺优惠
                                                         </div>
                                                         <table class="subbox_other sub_bonus" width="100%">
@@ -122,39 +130,10 @@
                                                         </table>
                                                     </div>
                                                 </li>
+                                                -->
                                             </ul>
                                         </div>
                                     </section>
-                                </section>
-
-                                <section class="order-info">
-                                    <div class="order-list">
-                                        <div class="content ptop0">
-                                            <div class="panel panel-default info-box">
-                                                <div class="panel-body" id="pay_div"  >
-                                                    <div class="title" id="zhifutitle" style="border-bottom:1px solid #eeeeee;">
-                                                        <span class="i-icon-arrow-down i-icon-arrow-up" id="zhifuip"></span>
-                                                        <span class="text">配送方式</span>
-                                                        <em class="qxz" id="emzhifu">请选择配送方式</em>
-                                                    </div>
-                                                    <ul class="nav nav-list-sidenav" id="zhifu68" style="display:block; border-bottom:none;">
-                                                        <foreach name="shippingList" item="v"  key="k">
-                                                            <li class="clearfix" name="payment_name">
-                                                                <label>
-                                                                    <input type="radio" id="{$v.code}" name="shipping_code" id="{$v.code}" value="{$v.code}"  <if condition="$k eq 0">checked="checked"</if>
-                                                                    onclick="ajax_order_price()" class="c_checkbox_t"/>
-                                                                    <div class="fl shipping_title">
-                                                                        {$v.name}
-                                                                        <em>({$v.desc})</em>
-                                                                    </div>
-                                                                </label>
-                                                            </li>
-                                                        </foreach>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </section>
 
                                 <section class="order-info">
@@ -177,13 +156,13 @@
                                                                         <tr>
                                                                             <td align=right style="vertical-align:top" width="84">发票抬头：</td>
                                                                             <td colspan="2">
-                                                                                <input class="txt1" style='vertical-align:middle' type="text" name="invoice_title" placeholder="XXX单位 或 XX个人" />
+                                                                                <input class="txt1" style='vertical-align:middle' type="text" name="invoice_title[{$seller_item.seller_id}]" placeholder="XXX单位 或 XX个人" />
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td align=right style="vertical-align:top" width="84">订单备注：</td>
                                                                             <td colspan="2">
-                                                                                <input class="txt1" style='vertical-align:middle' type="text" name="invoice_title" placeholder="订单备注……" />
+                                                                                <input class="txt1" style='vertical-align:middle' type="text" name="note[{$seller_item.seller_id}]" placeholder="订单备注……" />
                                                                             </td>
                                                                         </tr>
                                                                     </table>
@@ -203,6 +182,36 @@
                                     <div class="order-list">
                                         <div class="content ptop0">
                                             <div class="panel panel-default info-box">
+                                                <div class="panel-body" id="pay_div"  >
+                                                    <div class="title" id="zhifutitle" style="border-bottom:1px solid #eeeeee;">
+                                                        <span class="i-icon-arrow-down i-icon-arrow-up" id="zhifuip"></span>
+                                                        <span class="text">配送方式</span>
+                                                        <em class="qxz" id="emzhifu">请选择配送方式</em>
+                                                    </div>
+                                                    <ul class="nav nav-list-sidenav" id="zhifu68" style="display:block; border-bottom:none;">
+                                                        <foreach name="shippingList" item="v"  key="k">
+                                                            <li class="clearfix" name="payment_name">
+                                                                <label>
+                                                                    <input type="radio" id="{$v.code}" name="shipping_code" id="{$v.code}" value="{$v.code}" <if condition="$k eq 0">checked="checked"</if>
+                                                                    onclick="ajax_order_price()" class="c_checkbox_t"/>
+                                                                    <div class="fl shipping_title">
+                                                                        {$v.name}
+                                                                        <em>({$v.desc})</em>
+                                                                    </div>
+                                                                </label>
+                                                            </li>
+                                                        </foreach>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section class="order-info">
+                                    <div class="order-list">
+                                        <div class="content ptop0">
+                                            <div class="panel panel-default info-box">
                                                 <ul class="order-list-info ct-list">
                                                     <li class="flow_youhui_no">
                                                         如果是会员，可以享受<span class="price">会员折扣价</span>
@@ -217,7 +226,7 @@
                                                             <table class="subbox_other sub_bonus" width="100%">
                                                                 <tr>
                                                                     <td  colspan="2">
-                                                                        <input type="radio" class="radio vam ma-ri-10" name="couponTypeSelect" checked value="1"  onClick="ajax_order_price();" />
+                                                                        <!-- <input type="radio" class="radio vam ma-ri-10" name="couponTypeSelect" checked value="1"  onClick="ajax_order_price();" /> -->
                                                                         <select id="coupon_id" name="coupon_id" class="vam ou-no" onChange="ajax_order_price();">
                                                                             <option value="0">选择优惠券</option>
                                                                             <foreach name="couponList" item="v"  key="k">
@@ -227,8 +236,8 @@
                                                                     </td>
                                                                     <td>
                                                                         &nbsp;或 &nbsp;
-                                                                        <input type="radio" class="radio vam ma-ri-10" name="couponTypeSelect"  value="2"  onClick="ajax_order_price();javascript:document.getElementById('Bonus_span_0').style.display='block';" />
-                                                                        <a href="javascript:void(0);"  class="a_other1_h" id="Bonus_a_0">直接输入优惠券号</a>
+                                                                        <!-- <input type="radio" class="radio vam ma-ri-10" name="couponTypeSelect"  value="2"  onClick="ajax_order_price();" /> -->
+                                                                        <a href="javascript:void(document.getElementById('Bonus_span_0').style.display='block');"  class="a_other1_h" id="Bonus_a_0">直接输入优惠券号</a>
                                                                     </td>
                                                                     <td>
                                                                         <label id="Bonus_span_0" style="display:none;">
@@ -329,7 +338,6 @@
         </form>
     </div>
 <section class="f_mask" style="display: none;"></section>
-<include file="Public/footer"/>
 <script type="text/javascript">
     setTimeout(function(){
         layer.open({
@@ -346,7 +354,6 @@
     // 获取订单价格
     function ajax_order_price()
     {
-
         // 显示加载层
         var load = layer.open({
             type: 2,
@@ -389,11 +396,10 @@
         ajax_return_status = 0;
         $.ajax({
             type : "POST",
-            url:"{:U('Mobile/Cart/cart3')}",//+tab,
-            data : $('#cart2_form').serialize()+"&act=submit_order",// 你的formid
+            url:"{:U('Mobile/Cart/cart3/act/submit_order/t')}" + Math.random(),
+            data : $('#cart2_form').serialize(),// 你的formid
             dataType: "json",
             success: function(data){
-
                 if(data.status != '1')
                 {
                     layer.open({
@@ -408,12 +414,12 @@
                     return false;
                 }
                 // console.log(data);
-                $("#postFee").text(data.result.postFee); // 物流费
-                $("#couponFee").text(data.result.couponFee);// 优惠券
-                $("#balance").text(data.result.balance);// 余额
-                $("#pointsFee").text(data.result.pointsFee);// 积分支付
-                $("#payables").text(data.result.payables);// 应付
-                $("#order_prom_amount").text(data.result.order_prom_amount);// 订单 优惠活动
+                $("#postFee").text(data.result.postFee);                        // 物流费
+                $("#couponFee").text(data.result.couponFee);                    // 优惠券
+                $("#balance").text(data.result.balance);                        // 余额
+                $("#pointsFee").text(data.result.pointsFee);                    // 积分支付
+                $("#payables").text(data.result.payables);                      // 应付
+                $("#order_prom_amount").text(data.result.order_prom_amount);    // 订单 优惠活动
                 alert('订单提交成功，跳转支付页面!');
                 location.href = "/index.php?m=Mobile&c=Cart&a=cart4&order_id="+data.result;
             }

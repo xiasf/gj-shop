@@ -36,6 +36,12 @@ input[type="hidden" i], input[type="image" i], input[type="file" i] {
     color: #5A5A5A;
 }
 
+.shop_total .fr .hot {
+    color: #BF1414;
+    font-weight: 600;
+    font-family: 微软雅黑;
+}
+
 
 .eclipse { display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
 .fl { float: left; }

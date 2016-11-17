@@ -330,12 +330,13 @@ class CartLogic extends RelationModel
     }
 
     /**
+     * 这个方法有问题，没有再次检测使用条件，需要被重写
      * 获取用户可以使用的优惠券
      * @param type $user_id  用户id
      * @param type $coupon_id 优惠券id
      * $mode 0  返回数组形式  1 直接返回result
      */
-    public function getCouponMoney($user_id, $coupon_id, $mode)
+    public function getCouponMoney_($user_id, $coupon_id, $mode)
     {
         $couponlist = M('CouponList')->where("uid = $user_id and id = $coupon_id")->find(); // 获取用户的优惠券
         if (empty($couponlist)) {
@@ -347,12 +348,56 @@ class CartLogic extends RelationModel
         }
 
         $coupon          = M('Coupon')->where("id = {$couponlist['cid']}")->find(); // 获取 优惠券类型表
-        $coupon['money'] = $coupon['money'] ? $coupon['money'] : 0;
+        $coupon['money'] = $coupon['money'] ? : 0;
 
         if ($mode == 1) {
             return $coupon['money'];
         }
 
+        return array('status' => 1, 'msg' => '', 'result' => $coupon['money']);
+    }
+
+    /**
+     * 获取用户可以使用的优惠券
+     * @param type $user_id  用户id
+     * @param type $coupon_id 优惠券id
+     * $mode 0  返回数组形式  1 直接返回result
+     */
+    public function getCouponMoney($user_id, $coupon_id, $mode = 0)
+    {
+        $couponlist = M('CouponList')->where("uid = $user_id and id = $coupon_id")->find(); // 获取用户的优惠券
+        if (empty($couponlist)) {
+            if ($mode == 1) {
+                return 0;
+            }
+            return array('status' => -9, 'msg' => '优惠券码不存在', 'result' => '');
+        }
+
+        $coupon = M('Coupon')->where("id = {$couponlist['cid']}")->find(); // 获取优惠券类型表
+        if (time() > $coupon['use_end_time']) {
+            if ($mode == 1) {
+                return 0;
+            }
+            return array('status' => -10, 'msg' => '优惠券已经过期', 'result' => '');
+        }
+
+        if ($order_momey < $coupon['condition']) {
+            if ($mode == 1) {
+                return 0;
+            }
+            return array('status' => -11, 'msg' => '金额没达到优惠券使用条件', 'result' => '');
+        }
+
+        if ($couponlist['order_id'] > 0) {
+            if ($mode == 1) {
+                return 0;
+            }
+            return array('status' => -12, 'msg' => '优惠券已被使用', 'result' => '');
+        }
+
+        if ($mode == 1) {
+            return $coupon['money'];
+        }
         return array('status' => 1, 'msg' => '', 'result' => $coupon['money']);
     }
 
@@ -397,44 +442,49 @@ class CartLogic extends RelationModel
      */
     public function addOrder($user_id, $address_id, $shipping_code, $invoice_title, $coupon_id = 0, $car_price)
     {
-
         // 仿制灌水 1天只能下 50 单  // select * from `tp_order` where user_id = 1  and order_sn like '20151217%'
-        $order_count = M('Order')->where("user_id= $user_id and order_sn like '" . date('Ymd') . "%'")->count(); // 查找购物车商品总数量
+        $order_count = M('Order')->where("user_id= $user_id and order_sn like '" . date('Ymd') . "%'")->count(); // 用户当天订单数
         if ($order_count >= 50) {
             return array('status' => -9, 'msg' => '一天只能下50个订单', 'result' => '');
         }
 
-        // 0插入订单 order
         $address  = M('UserAddress')->where("address_id = $address_id")->find();
         $shipping = M('Plugin')->where("code = '$shipping_code'")->find();
+
         $data     = array(
-            'order_sn'          => date('YmdHis') . rand(1000, 9999), // 订单编号
-            'user_id'           => $user_id, // 用户id
-            'consignee'         => $address['consignee'], // 收货人
-            'province'          => $address['province'], //'省份id',
-            'city'              => $address['city'], //'城市id',
-            'district'          => $address['district'], //'县',
-            'twon'              => $address['twon'], // '街道',
-            'address'           => $address['address'], //'详细地址',
-            'mobile'            => $address['mobile'], //'手机',
-            'zipcode'           => $address['zipcode'], //'邮编',
-            'email'             => $address['email'], //'邮箱',
-            'shipping_code'     => $shipping_code, //'物流编号',
-            'shipping_name'     => $shipping['name'], //'物流名称',
-            'invoice_title'     => $invoice_title, //'发票抬头',
-            'goods_price'       => $car_price['goodsFee'], //'商品价格',
-            'shipping_price'    => $car_price['postFee'], //'物流价格',
-            'user_money'        => $car_price['balance'], //'使用余额',
-            'coupon_price'      => $car_price['couponFee'], //'使用优惠券',
-            'integral'          => ($car_price['pointsFee'] * tpCache('shopping.point_rate')), //'使用积分',
-            'integral_money'    => $car_price['pointsFee'], //'使用积分抵多少钱',
-            'total_amount'      => ($car_price['goodsFee'] + $car_price['postFee']), // 订单总额
-            'order_amount'      => $car_price['payables'], //'应付款金额',
-            'add_time'          => time(), // 下单时间
-            'order_prom_id'     => $car_price['order_prom_id'], //'订单优惠活动id',
-            'order_prom_amount' => $car_price['order_prom_amount'], //'订单优惠活动优惠了多少钱',
+            'order_sn'          => date('YmdHis') . rand(1000, 9999),   // 订单编号（加了唯一索引，如果很小的几率引起了重复，那么插入语句会出错）
+            'user_id'           => $user_id,                            // 用户id
+
+            'consignee'         => $address['consignee'],               // 收货人
+            'province'          => $address['province'],                //'省份id',
+            'city'              => $address['city'],                    //'城市id',
+            'district'          => $address['district'],                //'县',
+            'twon'              => $address['twon'],                    // '街道',
+            'address'           => $address['address'],                 //'详细地址',
+            'mobile'            => $address['mobile'],                  //'手机',
+            'zipcode'           => $address['zipcode'],                 //'邮编',
+            'email'             => $address['email'],                   //'邮箱',
+
+            'shipping_code'     => $shipping_code,                      //'物流编号',
+            'shipping_name'     => $shipping['name'],                   //'物流名称',
+
+            'invoice_title'     => $invoice_title,                      //'发票抬头',
+            'note'              => $note,                               //'备注',
+
+            'goods_price'       => $car_price['goodsFee'],              //'商品价格',
+            'shipping_price'    => $car_price['postFee'],               //'物流价格',
+            'user_money'        => $car_price['balance'],               //'使用余额',
+            'coupon_price'      => $car_price['couponFee'],             //'使用优惠券',
+            'integral'          => ($car_price['pointsFee'] * tpCache('shopping.point_rate')),  //'使用积分',
+            'integral_money'    => $car_price['pointsFee'],                                     //'使用积分抵多少钱',
+            'total_amount'      => ($car_price['goodsFee'] + $car_price['postFee']),            // 订单总额
+            'order_amount'      => $car_price['payables'],              //'应付款金额',
+            'add_time'          => time(),                              // 下单时间
+            'order_prom_id'     => $car_price['order_prom_id'],         //'订单优惠活动id',
+            'order_prom_amount' => $car_price['order_prom_amount'],     //'订单优惠活动优惠了多少钱',
         );
 
+        // step:0 插入一条订单
         $order_id = M("Order")->data($data)->add();
         if (!$order_id) {
             return array('status' => -8, 'msg' => '添加订单失败', 'result' => null);
@@ -445,28 +495,29 @@ class CartLogic extends RelationModel
 
         $order = M('Order')->where("order_id = $order_id")->find();
 
-        // 1插入order_goods 表
+        // step:1 插入order_goods 表
         $cartList = M('Cart')->where("user_id = $user_id and selected = 1")->select();
         foreach ($cartList as $key => $val) {
             $goods                       = M('goods')->where("goods_id = {$val['goods_id']} ")->find();
-            $data2['order_id']           = $order_id; // 订单id
-            $data2['goods_id']           = $val['goods_id']; // 商品id
-            $data2['goods_name']         = $val['goods_name']; // 商品名称
-            $data2['goods_sn']           = $val['goods_sn']; // 商品货号
-            $data2['goods_num']          = $val['goods_num']; // 购买数量
-            $data2['market_price']       = $val['market_price']; // 市场价
-            $data2['goods_price']        = $val['goods_price']; // 商品价
-            $data2['spec_key']           = $val['spec_key']; // 商品规格
-            $data2['spec_key_name']      = $val['spec_key_name']; // 商品规格名称
-            $data2['sku']                = $val['sku']; // 商品sku
-            $data2['member_goods_price'] = $val['member_goods_price']; // 会员折扣价
-            $data2['cost_price']         = $goods['cost_price']; // 成本价
-            $data2['give_integral']      = $goods['give_integral']; // 购买商品赠送积分
-            $data2['prom_type']          = $val['prom_type']; // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠
-            $data2['prom_id']            = $val['prom_id']; // 活动id
+            $data2['order_id']           = $order_id;                   // 订单id
+            $data2['goods_id']           = $val['goods_id'];            // 商品id
+            $data2['goods_name']         = $val['goods_name'];          // 商品名称
+            $data2['goods_sn']           = $val['goods_sn'];            // 商品货号
+            $data2['goods_num']          = $val['goods_num'];           // 购买数量
+            $data2['market_price']       = $val['market_price'];        // 市场价
+            $data2['goods_price']        = $val['goods_price'];         // 商品价
+            $data2['spec_key']           = $val['spec_key'];            // 商品规格
+            $data2['spec_key_name']      = $val['spec_key_name'];       // 商品规格名称
+            $data2['sku']                = $val['sku'];                 // 商品sku
+            $data2['member_goods_price'] = $val['member_goods_price'];  // 会员折扣价
+            $data2['cost_price']         = $goods['cost_price'];        // 成本价
+            $data2['give_integral']      = $goods['give_integral'];     // 购买商品赠送积分
+            $data2['prom_type']          = $val['prom_type'];           // 0 普通订单,1 限时抢购, 2 团购 , 3 促销优惠
+            $data2['prom_id']            = $val['prom_id'];             // 活动id
             $order_goods_id              = M("OrderGoods")->data($data2)->add();
             // 扣除商品库存  扣除库存移到 付完款后扣除
-            //M('Goods')->where("goods_id = ".$val['goods_id'])->setDec('store_count',$val['goods_num']); // 商品减少库存
+            // 付款减库存，但是这样有一个问题，可能会出现一个人拍下有库存，但是付款时商品没有库存了，显然这种模式导致出现超卖的可能性会更大
+            // M('Goods')->where("goods_id = ".$val['goods_id'])->setDec('store_count',$val['goods_num']); // 商品减少库存
         }
 
         // 如果应付金额为0  可能是余额支付 + 积分 + 优惠券 这里订单支付状态直接变成已支付
@@ -474,52 +525,60 @@ class CartLogic extends RelationModel
             update_pay_status($order['order_sn'], 1);
         }
 
-        // 2修改优惠券状态
+        // step:2 修改优惠券状态
         if ($coupon_id > 0) {
             $data3['uid']      = $user_id;
-            $data3['order_id'] = $order_id;
+            $data3['order_id'] = $order_id;     // 有订单ID代表已经使用，并且也表明了使用的订单，这种设计的好处是没用传统的status字段，一举两得
             $data3['use_time'] = time();
             M('CouponList')->where("id = $coupon_id")->save($data3);
             $cid = M('CouponList')->where("id = $coupon_id")->getField('cid');
             M('Coupon')->where("id = $cid")->setInc('use_num'); // 优惠券的使用数量加一
         }
-        // 3 扣除积分 扣除余额
+
+        // 没有用到事物和行锁，没有考虑并发
+
+        // step:3 扣除积分和余额
+        // 扣除积分
         if ($car_price['pointsFee'] > 0) {
             M('Users')->where("user_id = $user_id")->setDec('pay_points', ($car_price['pointsFee'] * tpCache('shopping.point_rate')));
         }
-        // 消费积分
+        // 扣除余额
         if ($car_price['balance'] > 0) {
             M('Users')->where("user_id = $user_id")->setDec('user_money', $car_price['balance']);
         }
-        // 抵扣余额
-        // 4 删除已提交订单商品
+
+        // step:4 清除已提交购物车商品
         M('Cart')->where("user_id = $user_id and selected = 1")->delete();
 
-        // 5 记录log 日志
-        $data4['user_id']     = $user_id;
-        $data4['user_money']  = -$car_price['balance'];
-        $data4['pay_points']  = -($car_price['pointsFee'] * tpCache('shopping.point_rate'));
-        $data4['change_time'] = time();
-        $data4['desc']        = '下单消费';
-        $data4['order_sn']    = $order['order_sn'];
-        $data4['order_id']    = $order_id;
+        // step:5 记录账户log 日志
         // 如果使用了积分或者余额才记录
-        ($data4['user_money'] || $data4['pay_points']) && M("AccountLog")->add($data4);
+        if ($data4['user_money'] || $data4['pay_points']) {
+            $data4['user_id']     = $user_id;
+            $data4['user_money']  = -$car_price['balance'];
+            $data4['pay_points']  = -($car_price['pointsFee'] * tpCache('shopping.point_rate'));
+            $data4['change_time'] = time();
+            $data4['desc']        = '下单消费';
+            $data4['order_sn']    = $order['order_sn'];
+            $data4['order_id']    = $order_id;
+            M("AccountLog")->add($data4);
+        }
 
-        //分销开关全局
+        // 分销开关全局
         $distribut_switch = tpCache('distribut.switch');
         if ($distribut_switch == 1 && file_exists(APP_PATH . 'Common/Logic/DistributLogic.class.php')) {
             $distributLogic = new \Common\Logic\DistributLogic();
             $distributLogic->rebate_log($order); // 生成分成记录
         }
+
         // 如果有微信公众号 则推送一条消息到微信
         $user = M('users')->where("user_id = $user_id")->find();
         if ($user['oauth'] == 'weixin') {
             $wx_user    = M('wx_user')->find();
             $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
-            $wx_content = "你刚刚下了一笔订单:{$order['order_sn']} 尽快支付,过期失效!";
+            $wx_content = "你刚刚下了一笔订单:{$order['order_sn']} 尽快支付，过期失效!";
             $jssdk->push_msg($user['openid'], $wx_content);
         }
+
         return array('status' => 1, 'msg' => '提交订单成功', 'result' => $order_id); // 返回新增的订单id
     }
 

@@ -1040,13 +1040,14 @@ function get_order_promotion($order_amount)
 {
     $parse_type = array('0' => '满额打折', '1' => '满额优惠金额', '2' => '满额送倍数积分', '3' => '满额送优惠券', '4' => '满额免运费');
     $now        = time();
+    // 每个订单只能参加一场额度满足中的门槛最高的一场活动，换句话说也就是尽可能的参加优惠力度最大的那场活动
     $prom       = M('prom_order')->where("type<2 and end_time>$now and start_time<$now and money<=$order_amount")->order('money desc')->find();
     $res        = array('order_amount' => $order_amount, 'order_prom_id' => 0, 'order_prom_amount' => 0);
     if ($prom) {
         if ($prom['type'] == 0) {
             $res['order_amount']      = round($order_amount * $prom['expression'] / 100, 2); //满额打折
-            $res['order_prom_amount'] = $order_amount - $res['order_amount'];
-            $res['order_prom_id']     = $prom['id'];
+            $res['order_prom_amount'] = $order_amount - $res['order_amount'];       // 活动优惠了多少钱
+            $res['order_prom_id']     = $prom['id'];                                // 活动ID
         } elseif ($prom['type'] == 1) {
             $res['order_amount']      = $order_amount - $prom['expression']; //满额优惠金额
             $res['order_prom_amount'] = $prom['expression'];
@@ -1073,7 +1074,7 @@ function get_order_promotion($order_amount)
 function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipping_price = 0, $province = 0, $city = 0, $district = 0, $pay_points = 0, $user_money = 0, $coupon_id = 0, $couponCode = '')
 {
     $cartLogic = new \Home\Logic\CartLogic();
-    $user      = M('users')->where("user_id = $user_id")->find(); // 找出这个用户
+    $user      = M('users')->where("user_id = $user_id")->find(); // 用户信息
 
     if (empty($order_goods)) {
         return array('status' => -9, 'msg' => '商品列表不能为空', 'result' => '');
@@ -1090,26 +1091,26 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         }
         //如果商品不是包邮的
         if ($goods_arr[$val['goods_id']]['is_free_shipping'] == 0) {
+            // 计算所有商品的总重量
             $goods_weight += $goods_arr[$val['goods_id']]['weight'] * $val['goods_num'];
         }
         //累积商品重量 每种商品的重量 * 数量
 
-        $order_goods[$key]['goods_fee']   = $val['goods_num'] * $val['member_goods_price']; // 小计
+        $order_goods[$key]['goods_fee']   = $val['goods_num'] * $val['member_goods_price']; // 小计（某款商品共计价钱）
         $order_goods[$key]['store_count'] = getGoodNum($val['goods_id'], $val['spec_key']); // 最多可购买的库存数量
+        // 只考虑有没有库存，而没有考虑库存够不够，也就是允许超卖
         if ($order_goods[$key]['store_count'] <= 0) {
             return array('status' => -10, 'msg' => $order_goods[$key]['goods_name'] . "库存不足,请重新下单", 'result' => '');
         }
 
         $goods_price += $order_goods[$key]['goods_fee']; // 商品总价
-        $cut_fee += $val['goods_num'] * $val['market_price'] - $val['goods_num'] * $val['member_goods_price']; // 共节约
+        $cut_fee += ($val['goods_num'] * $val['market_price']) - ($val['goods_num'] * $val['member_goods_price']); // 共节约（比市场价便宜多少，而不是最终优惠，甚至算不上优惠）
         $anum += $val['goods_num']; // 购买数量
     }
 
     // 优惠券处理操作
     $coupon_price = 0;
-    if ($coupon_id && $user_id) {
-        $coupon_price = $cartLogic->getCouponMoney($user_id, $coupon_id, 1); // 下拉框方式选择优惠券
-    }
+    // 如果是号码优惠券，则优先使用号码优惠券
     if ($couponCode && $user_id) {
         $coupon_result = $cartLogic->getCouponMoneyByCode($couponCode, $goods_price); // 根据 优惠券 号码获取的优惠券
         if ($coupon_result['status'] < 0) {
@@ -1117,6 +1118,15 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         }
         $coupon_price = $coupon_result['result'];
     }
+    elseif ($coupon_id && $user_id) {
+        // 得到优惠券面额
+        $coupon_price = $cartLogic->getCouponMoney($user_id, $coupon_id); // 下拉框方式选择优惠券
+        if ($coupon_result['status'] < 0) {
+            return $coupon_result;
+        }
+        $coupon_price = $coupon_result['result'];
+    }
+
     // 处理物流
     if ($shipping_price == 0) {
         $shipping_price = $cartLogic->cart_freight2($shipping_code, $province, $city, $district, $goods_weight);
@@ -1127,16 +1137,21 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
     }
 
     if ($pay_points && ($pay_points > $user['pay_points'])) {
-        return array('status' => -5, 'msg' => "你的账户可用积分为:" . $user['pay_points'], 'result' => '');
+        return array('status' => -5, 'msg' => "积分不足，你的账户可用积分为:" . $user['pay_points'], 'result' => '');
     }
     if ($user_money && ($user_money > $user['user_money'])) {
-        return array('status' => -6, 'msg' => "你的账户可用余额为:" . $user['user_money'], 'result' => '');
+        return array('status' => -6, 'msg' => "余额不足，你的账户可用余额为:" . $user['user_money'], 'result' => '');
     }
 
     $order_amount = $goods_price + $shipping_price - $coupon_price; // 应付金额 = 商品价格 + 物流费 - 优惠券
 
+    if ($order_amount <= 0) $order_amount = 0;  // 优惠券优惠有可能很大
+
+    // 积分与钱的换算
     $pay_points   = ($pay_points / tpCache('shopping.point_rate')); // 积分支付 100 积分等于 1块钱
+    // 不用担心多扣除了积分了
     $pay_points   = ($pay_points > $order_amount) ? $order_amount : $pay_points; // 假设应付 1块钱 而用户输入了 200 积分 2块钱, 那么就让 $pay_points = 1块钱 等同于强制让用户输入1块钱
+
     $order_amount = $order_amount - $pay_points; //  积分抵消应付金额
 
     $user_money   = ($user_money > $order_amount) ? $order_amount : $user_money; // 余额支付原理等同于积分
