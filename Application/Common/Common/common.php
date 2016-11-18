@@ -1040,6 +1040,7 @@ function get_order_promotion($order_amount)
 {
     $parse_type = array('0' => '满额打折', '1' => '满额优惠金额', '2' => '满额送倍数积分', '3' => '满额送优惠券', '4' => '满额免运费');
     $now        = time();
+    // 注意：这个是单个订单满额多少，而非某次支付满多少，再重复一遍，是单个订单金额满额多少
     // 每个订单只能参加一场额度满足中的门槛最高的一场活动，换句话说也就是尽可能的参加优惠力度最大的那场活动
     $prom       = M('prom_order')->where("type<2 and end_time>$now and start_time<$now and money<=$order_amount")->order('money desc')->find();
     $res        = array('order_amount' => $order_amount, 'order_prom_id' => 0, 'order_prom_amount' => 0);
@@ -1071,7 +1072,7 @@ function get_order_promotion($order_amount)
  * @param type $coupon_id  优惠券
  * @param type $couponCode  优惠码
  */
-function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipping_price = 0, $province = 0, $city = 0, $district = 0, $pay_points = 0, $user_money = 0, $coupon_id = 0, $couponCode = '')
+function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipping_price = 0, $province = 0, $city = 0, $district = 0, $pay_points = 0, $user_money = 0, $coupon_id = 0, $couponCode = '', $proportion = 1)
 {
     $cartLogic = new \Home\Logic\CartLogic();
     $user      = M('users')->where("user_id = $user_id")->find(); // 用户信息
@@ -1108,7 +1109,8 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         $anum += $val['goods_num']; // 购买数量
     }
 
-    // 优惠券处理操作
+
+    // 优惠券处理操作（这个应该是购物券，真正的全场，而不是按单个订单计算是否满额的，也不是在这里算的，这里应该算店铺优惠券）
     $coupon_price = 0;
     // 如果是号码优惠券，则优先使用号码优惠券
     if ($couponCode && $user_id) {
@@ -1127,10 +1129,19 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         $coupon_price = $coupon_result['result'];
     }
 
+    // 如果优惠券面额带小数位，这样取两位小数会导致少算，换句话说也就是说优惠券实际试用发生了掉价了，比如0.338的价值变成0.33
+    // 如果出现掉价的情况，就表示用户“损失”了
+    // 实际上只要我们金融系统只是用两位小数，当产生超过两位小数时，后面的小数位都不要了，直接不要，而不是满五进一，如果进一，就造成多给用户钱了，哪怕是多给0.001元，这在整个系统中的损失也是巨大的，所以当出现两位以上的小数时，只能直接省去后面的小数位，哪怕是0.239也要省去0.009，这个损失只能让用户承担。
+    // $coupon_price = substr(($coupon_price * $proportion), 0, 4);
+    // 这个应该是购物券，真正的全场，而不是按单个订单的
+    // 这个先停用 2016-11-18 06:39:36
+    $coupon_price = 0;
+
     // 处理物流
     if ($shipping_price == 0) {
         $shipping_price = $cartLogic->cart_freight2($shipping_code, $province, $city, $district, $goods_weight);
         $freight_free   = tpCache('shopping.freight_free'); // 全场满多少免运费
+        // 单个订单满额多少，而不是一次真正的全场
         if ($freight_free > 0 && $goods_price >= $freight_free) {
             $shipping_price = 0;
         }

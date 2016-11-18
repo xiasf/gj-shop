@@ -179,19 +179,17 @@ class CartController extends MobileBaseController
         if ($this->user_id == 0) {
             exit(json_encode(array('status' => -100, 'msg' => "登录超时请重新登录!", 'result' => null)));
         }
-
         // echo '<pre>';
         // print_r(I('post.'));
         // echo '</pre>';
         // exit;
-
         $address_id       = I("address_id/d");              // 收货地址id
-        $shipping_code    = I("shipping_code");             // 物流编号
-        $invoice_title    = I('invoice_title');             // 发票抬头
-        $invoice_title    = I('note');                      // 订单备注
-        // $couponTypeSelect = I("couponTypeSelect/d");        // 优惠券类型  1 下拉框选择优惠券 2 输入框输入优惠券代码
+        $shipping_code    = I("shipping_code/a");           // 物流编号
+        $invoice_title    = I('invoice_title/a');           // 发票抬头
+        $note             = I('note/a');                    // 订单备注
+        // $couponTypeSelect = I("couponTypeSelect/d");     // 优惠券类型  1 下拉框选择优惠券 2 输入框输入优惠券代码
         $coupon_id        = I("coupon_id/d");               // 优惠券id
-        $couponCode       = I("couponCode");                // 优惠券代码
+        $couponCode       = I("couponCode/s");              // 优惠券代码
         $pay_points       = I("pay_points/d", 0);           // 使用积分
         $user_money       = I("user_money/d", 0);           // 使用余额
 
@@ -201,8 +199,13 @@ class CartController extends MobileBaseController
         if (!$address_id || (!$address = M('UserAddress')->where(['address_id' => $address_id])->find())) {
             exit(json_encode(array('status' => -3, 'msg' => '请先填写收货人信息', 'result' => null)));
         }
-        if (!$shipping_code || !M('Plugin')->where("code = '$shipping_code'")->find()) {
+        if (!$shipping_code || !is_array($shipping_code)) {
             exit(json_encode(array('status' => -4, 'msg' => '请选择物流信息', 'result' => null)));
+        }
+        foreach ($shipping_code as $key => $value) {
+            if (!M('Plugin')->where(['type' => 'shipping', 'code' => $value, 'status' => 1])->find()) {
+                exit(json_encode(array('status' => -4, 'msg' => '物流非法', 'result' => null)));
+            }
         }
 
         // 计算价格和优惠信息时还是采用的是单店版的
@@ -210,83 +213,81 @@ class CartController extends MobileBaseController
         // 不过优惠券抵扣，积分抵扣，余额抵扣需要处理一下，需要均匀到每个订单（先计算出每个订单的价格，按订单间相互的比例均匀）
         // 比例保留两位小数 substr('0.86999', 0, 4) ，如果是积分则直接舍去全部小数 floor（向下取整）（这种方式是安全的，但是有个弊端，就是可能造成不能全部都用出去）
         // 换一种方案，尽最大可能全部用出去，而不考虑比例
-
         /*
             这个需要处理一下
 
             'couponFee'         => $result['result']['coupon_price'],           // 实际用了 优惠券
             'balance'           => $result['result']['user_money'],             // 实际用了 使用用户余额
             'pointsFee'         => $result['result']['integral_money'],         // 实际用了 积分支付
-
         */
 
-
-
         // 计算购物车
-        $result = $this->cartLogic->cartList($this->user, $this->session_id, 1, 1);
+        $car = $this->cartLogic->cartList($this->user, $this->session_id, 1, 1);
 
-        foreach ($result['cartList'] as &$shop) {
-            // 计算出每个店铺占总体的比例
-            $shop['proportion'] = substr(($shop['total_fee'] / $result['total_price']['total_fee']), 0, 4);
+        foreach ($car['cartList'] as &$shop) {
+            // 计算出每个店铺占总体的比例（这样取两位小数会导致少算，不过并不会有问题，只是有可能[产生两位以上小数时]让用户少抵扣钱了，并不会让用户有任何损失）
+            $shop['proportion'] = substr(($shop['total_fee'] / $car['total_price']['total_fee']), 0, 4);
         }
 
-        echo '<pre>';
-        print_r($result);
-        echo '</pre>';
-        exit;
+        // echo '<pre>';
+        // print_r($car);
+        // echo '</pre>';
+        // exit;
 
-        // 当前购物车中选中的商品
-        // $order_goods = M('cart')->where("user_id = {$this->user_id} and selected = 1")->select();
-        // 
-        
-        foreach ($result['cartList'] as $shop) {
-
+        foreach ($car['cartList'] as $shop) {
+            $seller_id          = $shop['seller_id'];
             // 计算价格
-            $result      = calculate_price(
-                                        $this->user_id,
-                                        $shop['item'],
-                                        $shipping_code,
-                                        0,
-                                        $address['province'],
-                                        $address['city'],
-                                        $address['district'],
-                                        $pay_points,
-                                        $user_money,
-                                        $coupon_id,
-                                        $couponCode,
-                                        $shop['proportion'], // 传入比例用于计算
-                                    );
+            $result = calculate_price(
+                            $this->user_id,
+                            $shop['item'],
+                            $shipping_code[$seller_id],
+                            0,
+                            $address['province'],
+                            $address['city'],
+                            $address['district'],
+                            $pay_points,
+                            $user_money,
+                            $coupon_id,
+                            $couponCode,
+                            $shop['proportion'] // 传入比例用于计算
+                        );
+
+            // 尽最大可能全部用出去，而不考虑比例（可能会出现后面的订单没有使用到抵扣）
+            $pay_points_ = $result['result']['integral_money'] * tpCache('shopping.point_rate');  // 这次使用积分
+            $pay_points -= $pay_points_;
+
+            $user_money -= $result['result']['user_money'];
 
             // 计算出错
             if ($result['status'] < 0) {
                 exit(json_encode($result));
             }
 
+            // 这个不受多订单，比例影响，因为这个就是单个订单的活动
+            $order_prom                            = get_order_promotion($result['result']['order_amount']);
+            $result['result']['order_amount']      = $order_prom['order_amount'];
+            $result['result']['order_prom_id']     = $order_prom['order_prom_id'];
+            $result['result']['order_prom_amount'] = $order_prom['order_prom_amount'];
 
+            $car_price[] = array(
+                'seller_id'         => $seller_id,
+                'seller_name'       => $shop['seller_name'],
+                'item'              => $shop['item'],
+
+                'postFee'           => $result['result']['shipping_price'],         // 物流费 （一个店一个订单，每个订单都单独收物流费哦）
+                'couponFee'         => $result['result']['coupon_price'],           // 优惠券 （实际上是网站发的购物券）
+                'balance'           => $result['result']['user_money'],             // 使用用户余额
+                'pointsFee'         => $result['result']['integral_money'],         // 积分支付
+                'payables'          => $result['result']['order_amount'],           // 应付金额
+                'goodsFee'          => $result['result']['goods_price'],            // 商品价格
+                'order_prom_id'     => $result['result']['order_prom_id'],          // 订单优惠活动id
+                'order_prom_amount' => $result['result']['order_prom_amount'],      // 订单优惠活动优惠了多少钱
+            );
         }
 
-        // 订单满额优惠活动
-        $order_prom                            = get_order_promotion($result['result']['order_amount']);
-        $result['result']['order_amount']      = $order_prom['order_amount'];
-        $result['result']['order_prom_id']     = $order_prom['order_prom_id'];
-        $result['result']['order_prom_amount'] = $order_prom['order_prom_amount'];
-
-        $car_price = array(
-            'postFee'           => $result['result']['shipping_price'],         // 物流费
-            'couponFee'         => $result['result']['coupon_price'],           // 优惠券
-            'balance'           => $result['result']['user_money'],             // 使用用户余额
-            'pointsFee'         => $result['result']['integral_money'],         // 积分支付
-            'payables'          => $result['result']['order_amount'],           // 应付金额
-            'goodsFee'          => $result['result']['goods_price'],            // 商品价格
-            'order_prom_id'     => $result['result']['order_prom_id'],          // 订单优惠活动id
-            'order_prom_amount' => $result['result']['order_prom_amount'],      // 订单优惠活动优惠了多少钱
-        );
-
-        // 都没有考虑为每个商品计算商品活动的优惠
-        // 也没有考虑每个店铺各自的优惠情况
-
         // 提交订单
-        if (I('act') == 'submit_order') {
+        if ('submit_order' == I('request.act')) {
+
             // 当使用优惠券代码时需要查出优惠券ID
             // 这个优惠券其实是平台发的，应该叫购物券，比如天猫购物券，优惠券是商家发的
             if (empty($coupon_id) && !empty($couponCode)) {
@@ -294,12 +295,27 @@ class CartController extends MobileBaseController
             }
 
             // 生成订单
-            $result = $this->cartLogic->addOrder($this->user_id, $address_id, $shipping_code, $invoice_title, $coupon_id, $car_price); // 添加订单
+            $result = $this->cartLogic->addOrder($this->user_id, $address_id, $shipping_code, $invoice_title, $note, $coupon_id, $car_price); // 添加订单
             exit(json_encode($result));
         }
 
+
+        foreach ($car_price as $key => $value) {
+            $result['postFee']           += $value['postFee'];                  // 全部订单 物流费
+            $result['couponFee']         += $value['couponFee'];                // 全部订单 优惠券 抵扣
+            $result['balance']           += $value['balance'];                  // 共 使用用户余额
+            $result['pointsFee']         += $value['pointsFee'];                // 积分支付（全部订单 共）
+            $result['payables']          += $value['payables'];                 // 全部订单 应付金额
+            $result['goodsFee']          += $value['goodsFee'];                 // 全部订单 商品价格
+            $result['order_prom_id']     += $value['order_prom_id'];            // 全部 订单优惠活动id
+            $result['order_prom_amount'] += $value['order_prom_amount'];        // 全部 订单优惠活动优惠了多少钱
+        }
+
+        // 都没有考虑为每个商品计算商品活动的优惠
+        // 也没有考虑每个店铺各自的优惠情况
+
         // 返回计算结果
-        $return_arr = array('status' => 1, 'msg' => '计算成功', 'result' => $car_price); // 返回结果状态
+        $return_arr = array('status' => 1, 'msg' => '计算成功', 'result' => $result); // 返回结果状态
         exit(json_encode($return_arr));
     }
 
@@ -310,12 +326,17 @@ class CartController extends MobileBaseController
     public function cart4()
     {
 
-        $order_id = I('order_id');
-        $order    = M('Order')->where("order_id = $order_id")->find();
-        // 如果已经支付过的订单直接到订单详情页面. 不再进入支付页面
+        $order_id = I('order_id/s');
+
+        // 如果有多个订单，则到待支付订单列表去
+        if (false !== stripos($order_id, ',')) {
+            $this->redirect('Mobile/User/add_address', ['source' => 'cart2']);
+        }
+
+        $order    = M('Order')->where(['order_id' => $order_id])->find();
+        // 如果已经支付过的订单直接到订单详情页面
         if ($order['pay_status'] == 1) {
-            $order_detail_url = U("Mobile/User/order_detail", array('id' => $order_id));
-            header("Location: $order_detail_url");
+            $this->redirect("Mobile/User/order_detail", ['id' => $order_id]);
         }
 
         $paymentList = M('Plugin')->where("`type`='payment' and status = 1 and  scene in(0,1)")->select();

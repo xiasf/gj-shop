@@ -90,13 +90,13 @@
                                                     </if>
                                                 </foreach>
                                                 <div class="shop_total">
-            <div class="fl">
-                <span class="hot">省了￥{$seller_item.cut_fee}元</span>
-            </div>
-            <div class="fr">
-                <span class="hot"> <em>小结：</em>￥{$seller_item.total_fee}元，数量：{$seller_item.total_num}</span>
-            </div>
-        </div>
+                                                    <div class="fl">
+                                                        <span class="hot">省了￥{$seller_item.cut_fee}元</span>
+                                                    </div>
+                                                    <div class="fr">
+                                                        <span class="hot"> <em>小结：</em>￥{$seller_item.total_fee}元，数量：{$seller_item.total_num}</span>
+                                                    </div>
+                                                </div>
                                                 <!-- 这个相当于店铺的优惠券
                                                 <li class="flow_youhui_no">
                                                     <div class="checkout_other">
@@ -176,8 +176,8 @@
                                         </div>
                                     </div>
                                 </section>
-                                </foreach>
 
+                                <!-- 一个店一个订单，每个订单都单独收物流费哦 -->
                                 <section class="order-info">
                                     <div class="order-list">
                                         <div class="content ptop0">
@@ -192,7 +192,7 @@
                                                         <foreach name="shippingList" item="v"  key="k">
                                                             <li class="clearfix" name="payment_name">
                                                                 <label>
-                                                                    <input type="radio" id="{$v.code}" name="shipping_code" id="{$v.code}" value="{$v.code}" <if condition="$k eq 0">checked="checked"</if>
+                                                                    <input type="radio" id="{$v.code}" name="shipping_code[{$seller_item.seller_id}]" id="{$v.code}" value="{$v.code}" <if condition="$k eq 0">checked="checked"</if>
                                                                     onclick="ajax_order_price()" class="c_checkbox_t"/>
                                                                     <div class="fl shipping_title">
                                                                         {$v.name}
@@ -208,6 +208,8 @@
                                     </div>
                                 </section>
 
+                                </foreach>
+
                                 <section class="order-info">
                                     <div class="order-list">
                                         <div class="content ptop0">
@@ -221,7 +223,7 @@
                                                             <div class="jmbag" href="javascript:void(0);" onClick="showCheckoutOther(this);">
                                                                 <span class="right_arrow_flow"></span>
                                                                 使用优惠券
-                                                                <!-- 相当于天猫购物券 -->
+                                                                <!-- 相当于天猫购物券（基于全场[也就是每笔付款]而不是单个订单，再没处理好与店铺优惠券关系之前后台暂时停用） -->
                                                             </div>
                                                             <table class="subbox_other sub_bonus" width="100%">
                                                                 <tr>
@@ -339,13 +341,13 @@
     </div>
 <section class="f_mask" style="display: none;"></section>
 <script type="text/javascript">
-    setTimeout(function(){
-        layer.open({
-            content: '共替您省了￥{$total_price.cut_fee}元，结算享受更多优惠哦'
-            ,skin: 'msg'
-            ,time: 2
-        });
-    }, 300);
+    // setTimeout(function(){
+    //     layer.open({
+    //         content: '共替您省了￥{$total_price.cut_fee}元，结算享受更多优惠哦'
+    //         ,skin: 'msg'
+    //         ,time: 2
+    //     });
+    // }, 300);
 
     $(document).ready(function(){
         ajax_order_price(); // 计算订单价钱
@@ -396,7 +398,7 @@
         ajax_return_status = 0;
         $.ajax({
             type : "POST",
-            url:"{:U('Mobile/Cart/cart3/act/submit_order/t')}" + Math.random(),
+            url:"{:U('Mobile/Cart/cart3/act/submit_order/t/')}" + Math.random(),
             data : $('#cart2_form').serialize(),// 你的formid
             dataType: "json",
             success: function(data){
