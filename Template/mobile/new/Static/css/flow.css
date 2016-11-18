@@ -308,7 +308,7 @@ em.qxz { font-size: 14px; color: #999; margin-left: 10px; }
 .order-buy .order-info { background: #fff; margin-top: 12px; padding: 0 12px;}
 .order-buy .order-info .seller-name { font-size: 14px; padding: 16px 0; border-bottom: 1px solid #eee }
 .order-buy .order-info .order-list-info li { position: relative }
-.order-buy .order-info .order-list-info .list-info { display: -webkit-box; padding: 12px 0; padding-right: 70px; border-bottom: 1px solid #eee }
+.order-buy .order-info .order-list-info .list-info { display: -webkit-box; padding: 74px 0; padding-right: 70px; border-bottom: 1px solid #eee }
 .order-buy .order-info .order-list-info .list-info .list-cont { -webkit-box-flex: 1 }
 .order-buy .order-info .order-list-info .list-info .package{  color:#999; height:30px; line-height:30px;}
 .order-buy .order-info .order-list-info .list-info .list-img { display: inline-block; width: 60px; margin-right: 8px; text-align: center }
