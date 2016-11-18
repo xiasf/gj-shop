@@ -37,9 +37,11 @@
                         <div class="name">
                             <span>{$item.goods_name}</span>
                         </div>
+                        <if condition="!empty($item['spec_key_name'])">
                         <div class="attr">
                             <span>{$item.spec_key_name}</span>
                         </div>
+                        </if>
                         <div class="num">
                             <div class="xm-input-number">
                                 <div class="act_wrap">
