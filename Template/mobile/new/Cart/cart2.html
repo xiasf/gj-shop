@@ -44,13 +44,15 @@
                                 <a href="{:U('User/address_list',array('source'=>
                                     'cart2'))}">
                                     <section class="address">
+                                        <i class="icon iconfont icon-31dingwei"></i>
                                         <div class="address-info" >
-                                            收货人:
-                                            <p class="address-name">{$address.consignee}</p>
-                                            <p class="address-phone">{$address.mobile}</p>
+                                            收货人：
+                                            <p class="address-name">{$address.consignee}&nbsp;{$address.mobile}</p>
+                                            <!-- <p class="address-phone">{$address.mobile}</p> -->
                                         </div>
                                         <div class="address-details">收货地址：{$address.address}</div>
                                         <input type="hidden" value="{$address.address_id}" name="address_id" />
+                                        <i class="icon iconfont icon-qiehuanqiyou"></i>
                                     </section>
                                 </a>
                                 <foreach name="cartList" item="seller_item" key="k">
@@ -97,6 +99,7 @@
                                                     <div class="fr">
                                                         <span class="hot"> <em>小结：</em>￥{$seller_item.total_fee}元，数量：{$seller_item.total_num}</span>
                                                     </div>
+                                                    <div class="clear"></div>
                                                 </div>
                                                 <!-- 这个相当于店铺的优惠券
                                                 <li class="flow_youhui_no">

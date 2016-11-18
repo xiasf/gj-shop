@@ -2,7 +2,7 @@
   .page-shopping .bottom-panel{display: flex;}
   .page-shopping .bottom-panel .info{margin-top: 4px;width: 50%;}
   .page-shopping .bottom-panel .right{margin-top: 10px;}
-  .page-shopping .item-list .attr span{overflow: hidden;display: -webkit-box; font-weight: normal; white-space: nowrap;}
+  /*.page-shopping .item-list .attr span{overflow: hidden;display: -webkit-box; font-weight: normal; white-space: nowrap;}*/
 </style>
 
     <foreach name="cartList" item="seller_item" key="k" >
@@ -58,9 +58,9 @@
                     </div>
                     <div style=" position:absolute; right:0px; top:20px; width:100px; height:98px;">
                         <div class="price">
-                            <span class="mar_price">￥{$item.market_price}元</span>
-                            <br>
                             <span>￥{$item.member_goods_price}元</span>
+                            <br>
+                            <span class="mar_price">￥{$item.market_price}元</span>
                         </div>
                         <div class="delete">
                             <a href="javascript:void(0);" onclick="del_cart_goods({$item.id})">
@@ -68,7 +68,7 @@
                             </a>
                         </div>
                     </div>
-                    <div style="height:0px; line-height:0px; clear:both;"></div>
+                    <div class="clear"></div>
                 </div>
                 <div class="append"></div>
             </div>
@@ -81,6 +81,7 @@
             <div class="fr">
                 <span class="hot"> <em>小结：</em>￥{$seller_item.total_fee}元，数量：{$seller_item.total_num}</span>
             </div>
+            <div class="clear"></div>
         </div>
     </div>
     </foreach>

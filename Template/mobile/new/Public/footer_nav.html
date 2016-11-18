@@ -48,10 +48,12 @@ $(document).ready(function(){
 			url:"/index.php?m=Home&c=Cart&a=header_cart_list",//+tab,
 			success: function(data){
 				cart_cn = getCookie('cn');
+				if (cart_cn > 99) {cart_cn = '...';}
 				$('#cart_quantity').html(cart_cn);
 			}
-		});	
+		});
 	  }
+	  if (cart_cn > 99) {cart_cn = '...';}
 	  $('#cart_quantity').html(cart_cn);
 });
 </script>
