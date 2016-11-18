@@ -188,7 +188,7 @@ class CartLogic extends RelationModel
         $cartList = M('Cart c')
                     ->join('INNER JOIN __GOODS__ g ON g.goods_id = c.goods_id')
                     ->join('INNER JOIN __SELLER__ s ON s.id = g.seller_id')
-                    ->field('c.*,s.id as seller_id,s.seller_name')
+                    ->field('c.*,s.id as seller_id,s.seller_name,g.exchange')
                     ->where($where)
                     ->select();
 

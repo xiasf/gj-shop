@@ -190,6 +190,7 @@ class CartController extends MobileBaseController
         // $couponTypeSelect = I("couponTypeSelect/d");     // 优惠券类型  1 下拉框选择优惠券 2 输入框输入优惠券代码
         $coupon_id        = I("coupon_id/d");               // 优惠券id
         $couponCode       = I("couponCode/s");              // 优惠券代码
+        $exchange         = I("exchange/d", 0);             // 使用兑币
         $pay_points       = I("pay_points/d", 0);           // 使用积分
         $user_money       = I("user_money/d", 0);           // 使用余额
 

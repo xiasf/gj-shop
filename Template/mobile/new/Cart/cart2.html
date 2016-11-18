@@ -87,6 +87,12 @@
                                                                 <div class="list-cont">
                                                                     <h5 class="goods-title">{$item.goods_name}</h5>
                                                                     <p class="godds-specification">{$item.spec_key_name}</p>
+                                                                    <if condition="!empty($item['exchange'])">
+                                                                    <div class="exchange">
+                                                                        <i class="icon iconfont icon-zuanshi"></i>
+                                                                        <span>可抵兑币:{$item.exchange}</span>
+                                                                    </div>
+                                                                    </if>
                                                                 </div>
                                                             </div>
                                                         </li>
@@ -222,7 +228,7 @@
                                                     <li class="flow_youhui_no">
                                                         如果是会员，可以享受<span class="price">会员折扣价</span>
                                                     </li>
-                                                    <li class="flow_youhui_no">
+                                                    <li class="flow_youhui_no hide">
                                                         <div class="checkout_other">
                                                             <div class="jmbag" href="javascript:void(0);" onClick="showCheckoutOther(this);">
                                                                 <span class="right_arrow_flow"></span>
@@ -254,6 +260,14 @@
                                                                 </tr>
                                                             </table>
                                                         </div>
+                                                    </li>
+                                                    <li class="flow_youhui_no">
+                                                        <label id="Bonus_span_0">
+                                                            使用兑币：
+                                                            <input id="exchange" name="exchange" onchange="ajax_order_price();" type="text" placeholder="输入兑币" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" class="txt1" style="width:100px;"/>
+                                                            <input name="validate_bonus" type="button" value="使用" onClick="ajax_order_price();" class="BonusButton" />
+                                                            您的可用兑币 <em>121</em>
+                                                        </label>
                                                     </li>
                                                     <li class="flow_youhui_no">
                                                         <label id="Bonus_span_0">
@@ -298,9 +312,14 @@
                                                                 <em class="price" id="postFee">-</em>
                                                                 元
                                                                 <br/>
-                                                                <span class="total-text">使用优惠券：</span>
+                                                                <div class="hide"><span class="total-text">使用优惠券：</span>
                                                                 -&nbsp;¥&nbsp;
                                                                 <em class="price" id="couponFee">0</em>
+                                                                元
+                                                                <br/></div>
+                                                                <span class="total-text">使用兑币：</span>
+                                                                -&nbsp;¥&nbsp;
+                                                                <em class="price" id="pointsFee">0</em>
                                                                 元
                                                                 <br/>
                                                                 <span class="total-text">使用积分：</span>

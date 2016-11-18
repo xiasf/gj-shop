@@ -51,10 +51,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="d">
+                        <if condition="!empty($item['exchange'])">
+                        <div class="exchange">
                             <i class="icon iconfont icon-zuanshi"></i>
-                            <span>可抵兑币:32</span>
+                            <span>可抵兑币:{$item.exchange}</span>
                         </div>
+                        </if>
                     </div>
                     <div style=" position:absolute; right:0px; top:20px; width:100px; height:98px;">
                         <div class="price">

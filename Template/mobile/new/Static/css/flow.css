@@ -102,7 +102,7 @@ input[type="hidden" i], input[type="image" i], input[type="file" i] {
 .page-shopping .item-list .num { padding: .5em 0 }
 .page-shopping .item-list .num span { font-size: 1.4em; color: #999; vertical-align: middle }
 
-.page-shopping .item-list .d {    float: left;
+.exchange {    float: left;
     margin-top: 12px;
     margin-bottom: 6px;
     background: -webkit-gradient(linear,0 50%,100% 50%,from(#2D3FE9),to(#E24BF4));
@@ -112,14 +112,14 @@ input[type="hidden" i], input[type="image" i], input[type="file" i] {
     font-size: 1.2rem;
     position: relative;
     -webkit-box-shadow: 0 1px 2px 1px #808080;}
-.page-shopping .item-list .d i {    color: #FFFFFF;
+.exchange i {    color: #FFFFFF;
     font-size: 2.8rem;
     /* display: none; */
     position: absolute;
     top: -8px;
     left: -2px;
     text-shadow: 0px 0px 8px #1F0DA7;}
-.page-shopping .item-list .d span {margin-left: 21px;}
+.exchange span {margin-left: 21px;}
 
 .page-shopping .item-list .tip { line-height: 2.2em }
 .page-shopping .item-list .tip span { font-size: 1.2em; color: #999 }
