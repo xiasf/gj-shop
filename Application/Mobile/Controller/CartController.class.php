@@ -45,7 +45,7 @@ class CartController extends MobileBaseController
         }
     }
 
-        /**
+    /**
      * 将商品加入购物车
      */
     public function addCart()

@@ -562,7 +562,7 @@ class CartLogic extends RelationModel
 
             // step:4 记录账户log 日志
             // 如果使用了积分或者余额才记录
-            if ($data4['user_money'] || $data4['pay_points']) {
+            if ($car_price_item['balance'] || $car_price_item['pointsFee']) {
                 $data4['user_id']     = $user_id;
                 $data4['user_money']  = -$car_price_item['balance'];
                 $data4['pay_points']  = -($car_price_item['pointsFee'] * tpCache('shopping.point_rate'));
@@ -594,6 +594,9 @@ class CartLogic extends RelationModel
 
         // step:5 清除已提交购物车商品
         M('Cart')->where("user_id = $user_id and selected = 1")->delete();
+
+        // 设置购物车数量
+        setcookie('cn', cart_goods_num($user_id), null, '/');
 
         return array('status' => 1, 'msg' => '提交订单成功', 'result' => implode(',', $order_ids)); // 返回新增的订单id（多个就是ID列表了）
     }
