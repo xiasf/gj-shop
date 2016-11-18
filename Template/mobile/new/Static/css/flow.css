@@ -64,13 +64,24 @@ input[type="hidden" i], input[type="image" i], input[type="file" i] {
 .page-shopping .activity .item:first-child { border-top: 0 none }
 .page-shopping .activity .item .ico { display: inline-block; padding: 0 .58333em; background-color: #a9d06b; -webkit-border-radius: .25em; -moz-border-radius: .25em; -ms-border-radius: .25em; -o-border-radius: .25em; border-radius: .25em; margin-right: .58333em; font-size: 1em; line-height: 1.4em; color: #fff }
 .page-shopping .item-list .item { border-bottom: 1px solid #eeeeee; background: #FFF; }
-.page-shopping .item-list .inner { position: relative; padding: 20px 10px 5px 130px }
+.page-shopping .item-list .inner { position: relative; padding: 20px 10px 5px 117px }
 /*全选checked标签*/
-.check-wrapper { height: 20px; width: 20px; top: 50px; left: 10px; display: block; position: absolute; }
+.check-wrapper { height: 20px;
+    width: 20px;
+    top: 50px;
+    left: 10px;
+    display: block;
+    position: absolute; }
 .check-wrapper .cart-checkbox { width: 30px; height: 30px; }
 .cart-checkbox.checked { background-position: -29px 0; }
 .cart-checkbox { display: block; width: 25px; height: 25px; margin: 0 auto; background: url(../images/flow/shop-cart.png) no-repeat 0 0; background-size: 60px 120px; }
-.page-shopping .item-list .pic { position: absolute; width: 68px; height: 68px; border: #e0e0e0 1px solid; padding: 2px; left: 45px; top: 24px; }
+.page-shopping .item-list .pic {     position: absolute;
+    width: 68px;
+    height: 68px;
+    border: #e0e0e0 1px solid;
+    padding: 2px;
+    left: 36px;
+    top: 24px; }
 .page-shopping .item-list .pic img { width: 100% }
 .page-shopping .item-list .name { padding-right: 10px; line-height: 25px; }
 .page-shopping .item-list .name span { vertical-align: middle;
@@ -92,8 +103,8 @@ input[type="hidden" i], input[type="image" i], input[type="file" i] {
 .page-shopping .item-list .num span { font-size: 1.4em; color: #999; vertical-align: middle }
 
 .page-shopping .item-list .d {float: left;
-    margin-left: 22px;
-        margin-top: 3px;
+    margin-left: 14px;
+    margin-top: 3px;
     background: -webkit-gradient(linear,0 50%,100% 50%,from(#2D3FE9),to(#E24BF4));
     padding: 0 11px 0 4px;
     border-radius: 4px 68px 4px 71px;
