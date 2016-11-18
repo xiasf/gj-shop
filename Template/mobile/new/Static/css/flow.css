@@ -87,7 +87,7 @@ input[type="hidden" i], input[type="image" i], input[type="file" i] {
 .page-shopping .item-list .name span { vertical-align: middle;
     font-size: 14px;
     overflow: hidden;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     display: -webkit-box;
     font-weight: normal;
