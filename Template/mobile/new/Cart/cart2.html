@@ -243,7 +243,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <label id="Bonus_span_0" style="display:none;">
-                                                                            <input name="couponCode" id="bonus_sn_0" type="text"   value="" placeholder="输入优惠券"  class="txt1" style="width:100px;"/>
+                                                                            <input name="couponCode" id="bonus_sn_0" type="text" onchange="ajax_order_price();" value="" placeholder="输入优惠券"  class="txt1" style="width:100px;"/>
                                                                             <input name="validate_bonus" type="button" value="使用" onClick="ajax_order_price();" class="BonusButton" />
                                                                         </label>
                                                                     </td>
@@ -254,7 +254,7 @@
                                                     <li class="flow_youhui_no">
                                                         <label id="Bonus_span_0">
                                                             使用余额：
-                                                            <input id="user_money" name="user_money"  type="text"   placeholder="输入余额" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" class="txt1" style="width:100px;"/>
+                                                            <input id="user_money" name="user_money" onchange="ajax_order_price();" type="text" placeholder="输入余额" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" class="txt1" style="width:100px;"/>
                                                             <input name="validate_bonus" type="button" value="使用" onClick="ajax_order_price();" class="BonusButton" />
                                                             您的可用余额 <em>{$user['user_money']}</em>
                                                         </label>
@@ -262,7 +262,7 @@
                                                     <li class="flow_youhui_no">
                                                         <label id="Bonus_span_0">
                                                             使用积分：
-                                                            <input id="pay_points" name="pay_points" type="text"   placeholder="输入积分"  onpaste="this.value=this.value.replace(/[^\d]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" class="txt1" style="width:100px;"/>
+                                                            <input id="pay_points" name="pay_points" onchange="ajax_order_price();" type="text" placeholder="输入积分"  onpaste="this.value=this.value.replace(/[^\d]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" class="txt1" style="width:100px;"/>
                                                             <input name="validate_bonus" type="button" value="使用" onClick="ajax_order_price();" class="BonusButton" />
                                                             您的可用积分 <em>{$user['pay_points']}</em>
                                                         </label>
