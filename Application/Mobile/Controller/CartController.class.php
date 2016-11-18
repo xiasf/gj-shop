@@ -246,6 +246,7 @@ class CartController extends MobileBaseController
                             $address['province'],
                             $address['city'],
                             $address['district'],
+                            $exchange,
                             $pay_points,
                             $user_money,
                             $coupon_id,
@@ -258,6 +259,9 @@ class CartController extends MobileBaseController
             $pay_points -= $pay_points_;
 
             $user_money -= $result['result']['user_money'];
+
+            $exchange_ = $result['result']['exchange'] * tpCache('shopping.exchange_rate');  // 使用兑币
+            $exchange -= $exchange_;
 
             // 计算出错
             if ($result['status'] < 0) {
@@ -278,6 +282,7 @@ class CartController extends MobileBaseController
                 'postFee'           => $result['result']['shipping_price'],         // 物流费 （一个店一个订单，每个订单都单独收物流费哦）
                 'couponFee'         => $result['result']['coupon_price'],           // 优惠券 （实际上是网站发的购物券）
                 'balance'           => $result['result']['user_money'],             // 使用用户余额
+                'exchange'          => $result['result']['exchange'],               // 兑币支付
                 'pointsFee'         => $result['result']['integral_money'],         // 积分支付
                 'payables'          => $result['result']['order_amount'],           // 应付金额
                 'goodsFee'          => $result['result']['goods_price'],            // 商品价格
@@ -305,6 +310,7 @@ class CartController extends MobileBaseController
             $result['postFee']           += $value['postFee'];                  // 全部订单 物流费
             $result['couponFee']         += $value['couponFee'];                // 全部订单 优惠券 抵扣
             $result['balance']           += $value['balance'];                  // 共 使用用户余额
+            $result['exchange']          += $value['exchange'];                 // 兑币支付（全部订单 共）
             $result['pointsFee']         += $value['pointsFee'];                // 积分支付（全部订单 共）
             $result['payables']          += $value['payables'];                 // 全部订单 应付金额
             $result['goodsFee']          += $value['goodsFee'];                 // 全部订单 商品价格

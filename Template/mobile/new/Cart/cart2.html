@@ -266,7 +266,7 @@
                                                             使用兑币：
                                                             <input id="exchange" name="exchange" onchange="ajax_order_price();" type="text" placeholder="输入兑币" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" class="txt1" style="width:100px;"/>
                                                             <input name="validate_bonus" type="button" value="使用" onClick="ajax_order_price();" class="BonusButton" />
-                                                            您的可用兑币 <em>121</em>
+                                                            您的可用兑币 <em>{$user['exchange']}</em>
                                                         </label>
                                                     </li>
                                                     <li class="flow_youhui_no">

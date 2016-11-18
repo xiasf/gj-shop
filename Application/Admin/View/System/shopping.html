@@ -34,6 +34,14 @@
                                     </td>
                                 </tr>    
                                 <tr>
+                                    <td>兑币换算比例：</td>
+                                    <td >                               
+                                        <input type="radio" class="" name="exchange_rate" value="1"  <if condition="$config[exchange_rate] eq 1"> checked </if> >1元 = 1兑币  &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" class="" name="exchange_rate" value="10" <if condition="$config[exchange_rate] eq 10"> checked </if> >1元 = 10兑币  &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <input type="radio" class="" name="exchange_rate" value="100"<if condition="$config[exchange_rate] eq 100"> checked </if> >1元 = 100兑币
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>积分换算比例：</td>
                                     <td >                         		
                                         <input type="radio" class="" name="point_rate" value="1"  <if condition="$config[point_rate] eq 1"> checked </if> >1元 = 1积分  &nbsp;&nbsp;&nbsp;&nbsp;

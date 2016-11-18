@@ -103,7 +103,7 @@ input[type="hidden" i], input[type="image" i], input[type="file" i] {
 .page-shopping .item-list .num span { font-size: 1.4em; color: #999; vertical-align: middle }
 
 .exchange {    float: left;
-    margin-top: 12px;
+    margin-top: 15px;
     margin-bottom: 6px;
     background: -webkit-gradient(linear,0 50%,100% 50%,from(#2D3FE9),to(#E24BF4));
     padding: 0 11px 0 4px;

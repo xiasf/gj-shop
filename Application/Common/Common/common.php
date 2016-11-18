@@ -869,7 +869,6 @@ function update_pay_status($order_sn, $pay_status = 1)
         }
 
     }
-
 }
 
 /**
@@ -971,7 +970,7 @@ function get_goods_promotion($goods_id, $user_id = 0)
     $prom['is_end']    = 0;
 
     if ($goods['prom_type'] == 1) {
-//抢购
+    //抢购
         $prominfo = M('flash_sale')->where($where)->find();
         if (!empty($prominfo)) {
             if ($prominfo['goods_num'] == $prominfo['buy_num']) {
@@ -993,7 +992,7 @@ function get_goods_promotion($goods_id, $user_id = 0)
     }
 
     if ($goods['prom_type'] == 2) {
-//团购
+    //团购
         $prominfo = M('group_buy')->where($where)->find();
         if (!empty($prominfo)) {
             if ($prominfo['goods_num'] == $prominfo['buy_num']) {
@@ -1004,7 +1003,7 @@ function get_goods_promotion($goods_id, $user_id = 0)
         }
     }
     if ($goods['prom_type'] == 3) {
-//优惠促销
+    //优惠促销
         $parse_type = array('0' => '直接打折', '1' => '减价优惠', '2' => '固定金额出售', '3' => '买就赠优惠券', '4' => '买M件送N件');
         $prominfo   = M('prom_goods')->where($where)->find();
         if (!empty($prominfo)) {
@@ -1072,7 +1071,7 @@ function get_order_promotion($order_amount)
  * @param type $coupon_id  优惠券
  * @param type $couponCode  优惠码
  */
-function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipping_price = 0, $province = 0, $city = 0, $district = 0, $pay_points = 0, $user_money = 0, $coupon_id = 0, $couponCode = '', $proportion = 1)
+function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipping_price = 0, $province = 0, $city = 0, $district = 0, $exchange = 0, $pay_points = 0, $user_money = 0, $coupon_id = 0, $couponCode = '', $proportion = 1)
 {
     $cartLogic = new \Home\Logic\CartLogic();
     $user      = M('users')->where("user_id = $user_id")->find(); // 用户信息
@@ -1081,10 +1080,40 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         return array('status' => -9, 'msg' => '商品列表不能为空', 'result' => '');
     }
 
+    if ($exchange && ($exchange > $user['exchange'])) {
+        return array('status' => -5, 'msg' => "兑币不足，你的账户可用兑币为:" . $user['exchange'], 'result' => '');
+    }
+    if ($pay_points && ($pay_points > $user['pay_points'])) {
+        return array('status' => -5, 'msg' => "积分不足，你的账户可用积分为:" . $user['pay_points'], 'result' => '');
+    }
+    if ($user_money && ($user_money > $user['user_money'])) {
+        return array('status' => -6, 'msg' => "余额不足，你的账户可用余额为:" . $user['user_money'], 'result' => '');
+    }
+
     $goods_id_arr = get_arr_column($order_goods, 'goods_id');
-    $goods_arr    = M('goods')->where("goods_id in(" . implode(',', $goods_id_arr) . ")")->getField('goods_id,weight,market_price,is_free_shipping'); // 商品id 和重量对应的键值对
+    $goods_arr    = M('goods')->where("goods_id in(" . implode(',', $goods_id_arr) . ")")->getField('goods_id,exchange,weight,market_price,is_free_shipping'); // 商品id 和重量对应的键值对
+
+    $pay_exchange = 0;  // 初始化这个订单需要用抵扣的兑币
 
     foreach ($order_goods as $key => $val) {
+
+        /* 兑币和积分一样是对每个订单使用的，但是不同的是受商品的限制 */
+
+        // 当前商品最高允许使用的兑币
+        $on_exchange = $goods_arr[$val['goods_id']]['exchange'];
+
+        if ($exchange && $on_exchange) {
+            // 本次能使用的兑币 大于或等于 商品允许使用的最高兑币
+            if ($exchange >= $on_exchange) {
+                // 对此商品使用的兑币数
+                $on_pay_exchange = $on_exchange;
+                $exchange = $exchange - $on_pay_exchange;
+            } else {
+                $on_pay_exchange = $on_exchange - $exchange;
+            }
+            $pay_exchange += $on_pay_exchange;
+        }
+
         // 如果传递过来的商品列表没有定义会员价
         if (!array_key_exists('member_goods_price', $val)) {
             $user['discount']                        = $user['discount'] ? $user['discount'] : 1; // 会员折扣 不能为 0
@@ -1147,28 +1176,45 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         }
     }
 
-    if ($pay_points && ($pay_points > $user['pay_points'])) {
-        return array('status' => -5, 'msg' => "积分不足，你的账户可用积分为:" . $user['pay_points'], 'result' => '');
-    }
-    if ($user_money && ($user_money > $user['user_money'])) {
-        return array('status' => -6, 'msg' => "余额不足，你的账户可用余额为:" . $user['user_money'], 'result' => '');
-    }
-
-    $order_amount = $goods_price + $shipping_price - $coupon_price; // 应付金额 = 商品价格 + 物流费 - 优惠券
-
-    if ($order_amount <= 0) $order_amount = 0;  // 优惠券优惠有可能很大
-
-    // 积分与钱的换算
-    $pay_points   = ($pay_points / tpCache('shopping.point_rate')); // 积分支付 100 积分等于 1块钱
-    // 不用担心多扣除了积分了
-    $pay_points   = ($pay_points > $order_amount) ? $order_amount : $pay_points; // 假设应付 1块钱 而用户输入了 200 积分 2块钱, 那么就让 $pay_points = 1块钱 等同于强制让用户输入1块钱
-
-    $order_amount = $order_amount - $pay_points; //  积分抵消应付金额
-
-    $user_money   = ($user_money > $order_amount) ? $order_amount : $user_money; // 余额支付原理等同于积分
-    $order_amount = $order_amount - $user_money; //  余额支付抵应付金额
-
     $total_amount = $goods_price + $shipping_price;
+
+    // 如果没有金额就没必要浪费一张优惠券了
+    if ($total_amount > 0) {
+        $order_amount = $total_amount - $coupon_price; // 应付金额 = 商品价格 + 物流费 - 优惠券
+        if ($order_amount <= 0) $order_amount = 0;  // 优惠券优惠有可能很大
+    } else {
+        $coupon_price = 0;
+    }
+
+    // 这个流程必须控制，不然会出现多扣用户钱的BUG
+
+    if ($order_amount > 0) {
+        $pay_exchange   = ($pay_exchange / tpCache('shopping.exchange_rate')); // 兑币支付 100 兑币等于 1块钱
+        $pay_exchange   = ($pay_exchange > $order_amount) ? $order_amount : $pay_exchange;
+        $order_amount   = $order_amount - $pay_exchange; // 兑币抵消应付金额
+    } else {
+        $pay_exchange = 0;
+    }
+
+    if ($order_amount > 0) {
+        // 积分与钱的换算
+        $pay_points   = ($pay_points / tpCache('shopping.point_rate')); // 积分支付 100 积分等于 1块钱
+        // 不用担心多扣除了积分了
+        $pay_points   = ($pay_points > $order_amount) ? $order_amount : $pay_points; // 假设应付 1块钱 而用户输入了 200 积分 2块钱, 那么就让 $pay_points = 1块钱 等同于强制让用户输入1块钱
+        $order_amount = $order_amount - $pay_points; //  积分抵消应付金额
+    } else {
+        $pay_points = 0;
+    }
+
+    if ($order_amount > 0) {
+        $user_money   = ($user_money > $order_amount) ? $order_amount : $user_money; // 余额支付原理等同于积分
+        $order_amount = $order_amount - $user_money; //  余额支付抵应付金额
+    } else {
+        $user_money = 0;
+    }
+
+    if ($order_amount <= 0) $order_amount = 0;
+
     //订单总价  应付金额  物流费  商品总价 节约金额 共多少件商品 积分  余额  优惠券
     $result = array(
         'total_amount'   => $total_amount,      // 商品总价
@@ -1177,6 +1223,7 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         'goods_price'    => $goods_price,       // 商品总价
         'cut_fee'        => $cut_fee,           // 共节约多少钱
         'anum'           => $anum,              // 商品总共数量
+        'exchange'       => $exchange,          // 兑币抵消金额
         'integral_money' => $pay_points,        // 积分抵消金额
         'user_money'     => $user_money,        // 使用余额
         'coupon_price'   => $coupon_price,      // 优惠券抵消金额

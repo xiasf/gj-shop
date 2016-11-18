@@ -240,7 +240,7 @@ class CartLogic extends RelationModel
             unset($item['seller_id'], $item['seller_name'], $item['seller']);
             $tem[$seller_id]['item'][] = $item;
 
-/*
+            /*
             // 计算出单个店铺的统计信息
             $sum = [];
             array_map(function($arr) use(&$sum) { $sum[0][] = $arr['goods_fee']; $sum[1][] = $arr['goods_num']; $sum[2][] = $arr['cut_fee'];}, $tem[$seller_id]['item']);
@@ -248,7 +248,7 @@ class CartLogic extends RelationModel
             $tem[$seller_id]['total_num'] = array_sum($sum[1]);
             $tem[$seller_id]['cut_fee']   = array_sum($sum[2]);
             unset($sum);
-*/
+            */
 
         }
         // 变成常规格式
@@ -271,14 +271,14 @@ class CartLogic extends RelationModel
         return array('status' => 1, 'msg' => '', 'result' => array('cartList' => $cartList, 'total_price' => $total_price));
     }
 
-/**
- * 计算商品的的运费
- * @param type $shipping_code 物流 编号
- * @param type $province  省份
- * @param type $city     市
- * @param type $district  区
- * @return int
- */
+    /**
+     * 计算商品的的运费
+     * @param type $shipping_code 物流 编号
+     * @param type $province  省份
+     * @param type $city     市
+     * @param type $district  区
+     * @return int
+     */
     public function cart_freight2($shipping_code, $province, $city, $district, $weight)
     {
 
@@ -550,7 +550,11 @@ class CartLogic extends RelationModel
 
             // 没有用到事物和行锁，没有考虑并发
 
-            // step:3 扣除积分和余额
+            // step:3 扣除兑币、积分、余额
+            // 扣除兑币
+            if ($car_price_item['pointsFee'] > 0) {
+                M('Users')->where("user_id = $user_id")->setDec('exchange', ($car_price_item['exchange'] * tpCache('shopping.exchange_rate')));
+            }
             // 扣除积分
             if ($car_price_item['pointsFee'] > 0) {
                 M('Users')->where("user_id = $user_id")->setDec('pay_points', ($car_price_item['pointsFee'] * tpCache('shopping.point_rate')));
@@ -561,11 +565,12 @@ class CartLogic extends RelationModel
             }
 
             // step:4 记录账户log 日志
-            // 如果使用了积分或者余额才记录
-            if ($car_price_item['balance'] || $car_price_item['pointsFee']) {
+            // 如果使用了兑币/积分/余额才记录日志
+            if ($car_price_item['balance'] || $car_price_item['pointsFee'] || $car_price_item['exchange']) {
                 $data4['user_id']     = $user_id;
                 $data4['user_money']  = -$car_price_item['balance'];
                 $data4['pay_points']  = -($car_price_item['pointsFee'] * tpCache('shopping.point_rate'));
+                $data4['exchange']    = -($car_price_item['exchange'] * tpCache('shopping.exchange_rate'));
                 $data4['change_time'] = time();
                 $data4['desc']        = '下单消费';
                 $data4['order_sn']    = $order['order_sn'];
