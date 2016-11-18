@@ -481,6 +481,7 @@ class CartLogic extends RelationModel
                 'shipping_price'    => $car_price_item['postFee'],               // '物流价格',
                 'user_money'        => $car_price_item['balance'],               // '使用余额',
                 'coupon_price'      => $car_price_item['couponFee'],             // '使用优惠券',
+                'exchange'          => ($car_price_item['exchange'] * tpCache('shopping.exchange_rate')),  //'使用兑币',
                 'integral'          => ($car_price_item['pointsFee'] * tpCache('shopping.point_rate')),  //'使用积分',
                 'integral_money'    => $car_price_item['pointsFee'],                                     //'使用积分抵多少钱',
                 'total_amount'      => ($car_price_item['goodsFee'] + $car_price_item['postFee']),            // 订单总额
