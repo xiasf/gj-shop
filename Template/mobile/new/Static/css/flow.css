@@ -78,8 +78,8 @@ input[type="hidden" i], input[type="image" i], input[type="file" i] {
 .page-shopping .item-list .pic {     position: absolute;
     width: 68px;
     height: 68px;
-    border: #e0e0e0 1px solid;
-    padding: 2px;
+    /*border: #e0e0e0 1px solid;*/
+    /*padding: 2px;*/
     left: 36px;
     top: 24px; }
 .page-shopping .item-list .pic img { width: 100% }
@@ -102,9 +102,9 @@ input[type="hidden" i], input[type="image" i], input[type="file" i] {
 .page-shopping .item-list .num { padding: 0 0 .5em }
 .page-shopping .item-list .num span { font-size: 1.4em; color: #999; vertical-align: middle }
 
-.page-shopping .item-list .d {float: left;
-    margin-left: 14px;
-    margin-top: 3px;
+.page-shopping .item-list .d {    float: left;
+    margin-top: 12px;
+    margin-bottom: 6px;
     background: -webkit-gradient(linear,0 50%,100% 50%,from(#2D3FE9),to(#E24BF4));
     padding: 0 11px 0 4px;
     border-radius: 4px 68px 4px 71px;
