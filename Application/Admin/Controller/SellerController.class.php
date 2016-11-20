@@ -30,6 +30,7 @@ class SellerController extends BaseController
         $this->display();
     }
 
+
     public function addEditSeller()
     {
         $model = M('seller');
