@@ -337,7 +337,7 @@ class CartController extends MobileBaseController
 
         // 如果有多个订单，则到待支付订单列表去
         if (false !== stripos($order_id, ',')) {
-            $this->redirect('Mobile/User/add_address', ['source' => 'cart2']);
+            $this->redirect('Mobile/User/order_list', ['type' => 'WAITPAY']);
         }
 
         $order    = M('Order')->where(['order_id' => $order_id])->find();

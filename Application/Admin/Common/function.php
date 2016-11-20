@@ -151,6 +151,9 @@ function getAllMenu() {
             array('name' => '汇款记录', 'act' => 'remittance', 'control' => 'User'),
             //array('name'=>'会员整合','act'=>'integrate','control'=>'User'),
         )),
+        'seller'     => array('name' => '店铺管理', 'icon' => 'fa-book', 'sub_menu' => array(
+            array('name' => '店铺列表', 'act' => 'sellerList', 'control' => 'Seller'),
+        )),
         'goods'     => array('name' => '商品管理', 'icon' => 'fa-book', 'sub_menu' => array(
             array('name' => '商品分类', 'act' => 'categoryList', 'control' => 'Goods'),
             array('name' => '商品列表', 'act' => 'goodsList', 'control' => 'Goods'),

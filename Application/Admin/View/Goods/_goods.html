@@ -243,6 +243,19 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>店铺:</td>
+                                    <td>
+                                        <select name="seller_id" id="seller_id" class="form-control" style="width:250px;">
+                                            <option value="0">网站自营</option>
+                                            <foreach name="seller" item="v" key="k" >
+                                                <option value="{$v['id']}"  <if condition="$v['id'] eq $goodsInfo['seller_id'] ">selected="selected"</if>>
+                                                {$v['seller_name']}
+                                                </option>
+                                            </foreach>
+                                        </select>
+                                    </td>
+                                </tr>
+<!--                                 <tr>
                                     <td>供应商:</td>
                                     <td>
                                         <select name="suppliers_id" id="suppliers_id" class="form-control" style="width:250px;">
@@ -254,7 +267,7 @@
                                             </foreach>
                                         </select>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td>本店售价:</td>
                                     <td>
@@ -325,12 +338,20 @@
                                     </td>
                                 </tr>
                                 <tr>
+                                    <td>可抵兑币:</td>
+                                    <td>
+                                        <input type="text" class="form-control" style="width:150px;" value="{$goodsInfo.exchange}" name="exchange" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" />
+                                        <span id="err_give_integral" style="color:#F00; display:none;"></span>
+                                        最多可用多少兑币抵扣                                                 
+                                    </td>
+                                </tr> 
+                                <tr>
                                     <td>赠送积分:</td>
                                     <td>
                                         <input type="text" class="form-control" style="width:150px;" value="{$goodsInfo.give_integral}" name="give_integral" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" />
-                                        <span id="err_give_integral" style="color:#F00; display:none;"></span>					                                        
+                                        <span id="err_give_integral" style="color:#F00; display:none;"></span>
                                     </td>
-                                </tr>
+                                </tr> 
                                 <tr>
                                     <td>兑换积分:</td>
                                     <td>

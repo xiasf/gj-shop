@@ -48,6 +48,7 @@
             <a href="{:U('User/points',array('type'=>'all'))}" <if condition="$type eq 'all'">class="active"</if> data-list="1">全部</a>
             <a href="{:U('User/points',array('type'=>'recharge'))}" <if condition="$type eq 'recharge'">class="active"</if>  data-list="2">充值记录</a>
             <a href="{:U('User/points',array('type'=>'points'))}" <if condition="$type eq 'points'">class="active"</if>  data-list="3">积分</a>
+            <a href="{:U('User/points',array('type'=>'exchange'))}" <if condition="$type eq 'exchange'">class="active"</if>  data-list="4">兑币</a>
         </div>
         <!-- 积分导航 E -->
         <!-- 列表展示 S  在li上存在2种情况样式(隐藏显示请使用.hide_it样式)

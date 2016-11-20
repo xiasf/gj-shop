@@ -284,14 +284,16 @@ class GoodsController extends BaseController
         $cat_list                = M('goods_category')->where("parent_id = 0")->select(); // 已经改成联动菜单
         $brandList               = $GoodsLogic->getSortBrands();
         $goodsType               = M("GoodsType")->select();
-        $suppliersList           = M("suppliers")->select();
+        // $suppliersList           = M("suppliers")->select();
+        $seller           = M("seller")->select();
         $plugin_shipping         = M('plugin')->where(array('type' => array('eq', 'shipping')))->select(); //插件物流
         $shipping_area           = D('shipping_area')->getShippingArea(); //配送区域
         $goods_shipping_area_ids = explode(',', $goodsInfo['shipping_area_ids']);
         $this->assign('goods_shipping_area_ids', $goods_shipping_area_ids);
         $this->assign('shipping_area', $shipping_area);
         $this->assign('plugin_shipping', $plugin_shipping);
-        $this->assign('suppliersList', $suppliersList);
+        // $this->assign('suppliersList', $suppliersList);
+        $this->assign('seller', $seller);
         $this->assign('level_cat', $level_cat);
         $this->assign('level_cat2', $level_cat2);
         $this->assign('cat_list', $cat_list);
