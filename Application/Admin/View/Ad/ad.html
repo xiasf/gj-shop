@@ -15,40 +15,40 @@
                 <div class="panel-heading">
                     <h3 class="panel-title"><i class="fa fa-list"></i> 添加广告</h3>
                 </div>
-                <div class="panel-body ">   
+                <div class="panel-body ">
                     <!--表单数据-->
-                    <form method="post" id="handleposition" action="{:U('Admin/Ad/adHandle')}">                    
+                    <form method="post" id="handleposition" action="{:U('Admin/Ad/adHandle')}">
                         <!--通用信息-->
-                    <div class="tab-content col-md-10">                 	  
-                        <div class="tab-pane active" id="tab_tongyong">                           
+                    <div class="tab-content col-md-10">
+                        <div class="tab-pane active" id="tab_tongyong">
                             <table class="table table-bordered">
                                 <tbody>
                                 <tr>
                                     <td class="col-sm-2">广告名称：</td>
                                     <td class="col-sm-8">
                                         <input type="text" class="form-control" name="ad_name" value="{$info.ad_name|default="自定义广告名称"}" >
-                                        <span id="err_attr_name" style="color:#F00; display:none;"></span>                                        
+                                        <span id="err_attr_name" style="color:#F00; display:none;"></span>
                                     </td>
-                                </tr>           
+                                </tr>
                                 <tr>
                                     <td>广告类型：</td>
                                     <td>
                                         <select name="media_type" class="input-sm">
-                                             <option value="0">图片</option>                                             
+                                             <option value="0">图片</option>
                                              <option value="1">flash</option>
-                                        </select>                                
+                                        </select>
                                     </td>
-                                </tr>  
+                                </tr>
                                 <tr>
                                     <td>广告位置：</td>
                                     <td>
                                         <select name="pid" class="input-sm">
                                             <volist name="position" id="item">
                                                    <option value="{$item.position_id}" <if condition="$info[pid] eq $item[position_id]">selected</if>>{$item.position_name}</option>
-                                           </volist>                  
-                                        </select>      
+                                           </volist>
+                                        </select>
                                     </td>
-                                </tr>  
+                                </tr>
                                 <tr>
                                     <td>开始日期：</td>
                                     <td>
@@ -66,7 +66,7 @@
                                         </div>
                                         </fieldset>
                                     </td>
-                                </tr>  
+                                </tr>
                                 <tr>
                                     <td>结束时间：</td>
                                     <td>
@@ -90,7 +90,7 @@
                                     <td>
                                         <input type="text" class="form-control" name="ad_link" value="{$info.ad_link}" >
                                     </td>
-                                </tr> 
+                                </tr>
                                 <tr>
                                     <td>广告图片：</td>
                                     <td>
@@ -104,25 +104,25 @@
                                 </tr>
                                 <tr>
                                 	<td>背景颜色：</td>
-                                	<td> <input class="form-control" name="bgcolor" type="color" value="{$info.bgcolor}" style="width:200px;"/> </td>                              	
+                                	<td> <input class="form-control" name="bgcolor" type="color" value="{$info.bgcolor}" style="width:200px;"/> </td>
                                 </tr>
                                 <tr>
                                     <td>默认排序：</td>
                                     <td>
                                         <input type="text" class="input-sm" name="orderby" value="{$info.orderby}"  placeholder="50">
                                     </td>
-                                </tr>                                
-                                </tbody> 
+                                </tr>
+                                </tbody>
                                 <tfoot>
                                 	<tr>
                                 	<td><input type="hidden" name="act" value="{$act}">
                                         <input type="hidden" name="ad_id" value="{$info.ad_id}">
                                 	</td>
                                 	<td class="text-right"><input class="btn btn-primary" type="button" onclick="adsubmit()" value="保存"></td></tr>
-                                </tfoot>                               
+                                </tfoot>
                             </table>
-                        </div>                           
-                    </div>              
+                        </div>
+                    </div>
 			    	</form><!--表单数据-->
                 </div>
             </div>
@@ -154,7 +154,7 @@ $(document).ready(function() {
             firstDay : 1
         }
 	});
-	
+
 	$('#end_time').daterangepicker({
 		format:"YYYY-MM-DD",
 		singleDatePicker: true,

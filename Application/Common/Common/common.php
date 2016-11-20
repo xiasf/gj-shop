@@ -1265,3 +1265,21 @@ function get_goods_category_tree()
     }
     return $result;
 }
+
+
+function get_seller_type($type)
+{
+    $arr = ['商城', '异业联盟'];
+    if (!isset($arr[$type]))
+        $type = 0;
+    return $arr[$type];
+}
+
+
+function get_seller_category($category)
+{
+    $arr = ['餐饮', 'KTV', '酒店'];
+    if (!isset($arr[$category]))
+        $category = 0;
+    return $arr[$category];
+}

@@ -39,6 +39,13 @@ return array(
         ),
     ),
 
+    'admin/exchange'    => array(
+        'name'   => '兑币管理',
+        'action' => array(
+            'index' => '兑币列表',
+        ),
+    ),
+
     'admin/goods'     => array(
         'name'   => '商品管理',
         'action' => array(

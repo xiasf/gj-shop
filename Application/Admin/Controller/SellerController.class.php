@@ -30,72 +30,91 @@ class SellerController extends BaseController
         $this->display();
     }
 
+    /**
+     *  店铺列表
+     */
+    public function ajaxSellerList()
+    {
+        $where = ' 1 = 1 '; // 搜索条件
+        // (I('is_on_sale') !== '') && $where = "$where and is_on_sale = " . I('is_on_sale');
+        // $cat_id                            = I('cat_id');
+        // 关键词搜索
+        $key_word = I('key_word') ? trim(I('key_word')) : '';
+        if ($key_word) {
+            $where = "$where and (seller_name like '%$key_word%')";
+        }
+
+        $model = M('seller');
+        $count = $model->where($where)->count();
+        $Page  = new AjaxPage($count, 10);
+        /**  搜索条件下 分页赋值
+        foreach($condition as $key=>$val) {
+        $Page->parameter[$key]   =   urlencode($val);
+        }
+         */
+        $show      = $Page->show();
+        $order_str = "`{$_POST['orderby1']}` {$_POST['orderby2']}";
+        $goodsList = $model->where($where)->order($order_str)->limit($Page->firstRow . ',' . $Page->listRows)->select();
+
+        $this->assign('goodsList', $goodsList);
+        $this->assign('page', $show); // 赋值分页输出
+        $this->display();
+    }
 
     public function addEditSeller()
     {
-        $model = M('seller');
-        $type  = $_POST['goods_id'] > 0 ? 2 : 1; // 标识自动验证时的 场景 1 表示插入 2 表示更新
-        //ajax提交验证
-        if (($_GET['is_ajax'] == 1) && IS_POST) {
+        $seller = M('seller');
+        $type   = $_POST['id'] > 0 ? 2 : 1; // 标识自动验证时的 场景 1 表示插入 2 表示更新
+
+        // ajax提交验证
+        if (IS_POST) {
             C('TOKEN_ON', false);
-            if (!$Goods->create(null, $type)) // 根据表单提交的POST数据创建数据对象
+            if (!$seller->create(null, $type)) // 根据表单提交的POST数据创建数据对象
             {
                 //  编辑
-                $error      = $Goods->getError();
+                $error      = $seller->getError();
                 $error_msg  = array_values($error);
                 $return_arr = array(
                     'status' => -1,
                     'msg'    => $error_msg[0],
                     'data'   => $error,
                 );
-                $this->ajaxReturn(json_encode($return_arr));
+                $this->error($error_msg);
             } else {
                 //  form表单提交
                 // C('TOKEN_ON',true);
-                $Goods->on_time = time(); // 上架时间
-                //$Goods->cat_id = $_POST['cat_id_1'];
-                $_POST['cat_id_2'] && ($Goods->cat_id = $_POST['cat_id_2']);
-                $_POST['cat_id_3'] && ($Goods->cat_id = $_POST['cat_id_3']);
 
-                $_POST['extend_cat_id_2'] && ($Goods->extend_cat_id = $_POST['extend_cat_id_2']);
-                $_POST['extend_cat_id_3'] && ($Goods->extend_cat_id = $_POST['extend_cat_id_3']);
-                $Goods->shipping_area_ids = implode(',', $_POST['shipping_area_ids']);
-                $Goods->shipping_area_ids = $Goods->shipping_area_ids ? $Goods->shipping_area_ids : '';
-
-                if ($type == 2) {
-                    $goods_id = $_POST['goods_id'];
-                    $Goods->save(); // 写入数据到数据库
-                    // 修改商品后购物车的商品价格也修改一下
-                    M('cart')->where("goods_id = $goods_id and spec_key = ''")->save(array(
-                        'market_price'       => $_POST['market_price'], //市场价
-                        'goods_price'        => $_POST['shop_price'], // 本店价
-                        'member_goods_price' => $_POST['shop_price'], // 会员折扣价
-                    ));
-                    $Goods->afterSave($goods_id);
-                } else {
-                    $goods_id = $insert_id = $Goods->add(); // 写入数据到数据库
-                    $Goods->afterSave($goods_id);
+                if ($seller->passward) {
+                    $seller->passward = md5($seller->passward);
                 }
 
-                $GoodsLogic->saveGoodsAttr($goods_id, $_POST['goods_type']); // 处理商品 属性
+                if ($type == 2) {
+                    $seller->reg_time = time();
+                    $seller->save(); // 写入数据到数据库
+                } else {
+                    $id = $insert_id = $seller->add(); // 写入数据到数据库
+                }
 
                 $return_arr = array(
                     'status' => 1,
                     'msg'    => '操作成功',
-                    'data'   => array('url' => U('Admin/Goods/goodsList')),
+                    'data'   => array('url' => U('Admin/Seller/sellerList')),
                 );
-                $this->ajaxReturn(json_encode($return_arr));
+                $this->success($return_arr['msg'], $return_arr['data']['url']);
+                exit;
             }
         }
 
+        $sellerInfo = M('seller')->where('id=' . I('GET.id/d', 0))->find();
 
-        $where      = '1 = 1';
-        $count      = $model->where($where)->count();
-        $Page       = new AjaxPage($count, 30);
-        $show       = $Page->show();
-        $sellerList = $model->where($where)->order('id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        $province = M('region')->where(array('parent_id'=>0))->select();
+        $city =  M('region')->where(array('parent_id'=>$sellerInfo['province']))->select();
+        $area =  M('region')->where(array('parent_id'=>$sellerInfo['city']))->select();
+        $this->assign('province',$province);
+        $this->assign('city',$city);
+        $this->assign('area',$area);
 
-        $this->assign('sellerList', $sellerList);
+        $this->assign('info', $sellerInfo);
         $this->display();
     }
 

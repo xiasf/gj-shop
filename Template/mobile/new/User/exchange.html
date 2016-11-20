@@ -1,0 +1,69 @@
+<include file="Public/header"/>
+<body>
+<header>
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+            <div class="h-mid">兑币卡充值</div>
+            <div class="h-right">
+                <aside class="top_bar">
+                    <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a
+                            href="javascript:;"></a></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</header>
+<include file="Public/menu"/>
+    <div style="padding: 10px;
+    margin: 10px 0;
+    background-color: #FFF0C5;
+    border: 1px #FFDEAC solid;
+    font-size: 1.5rem;">
+        兑币在下单时可直接抵扣金额，1兑币={:1/tpCache('shopping.exchange_rate')}元
+        <br />
+        我当前兑币：{$user.exchange}个
+    </div>
+<div id="tbh5v0">
+    <div class="Personal">
+        <div id="tbh5v0">
+            <div class="innercontent1">
+                <form method="post" action="" id="edit_profile" onSubmit="return checkinfo()">
+                    <div class="name"><span>卡号</span>
+                        <input type="text" name="code" id="code" value="" placeholder="卡号"
+                               class="c-f-text">
+                    </div>
+
+                    <div class="name">
+                        <label for="email_ep"> <span>卡密</span>
+                            <input name="password" value="" id="password" placeholder="卡密" type="text"/>
+                        </label>
+                    </div>
+                    <div class="field submit-btn">
+                        <input type="submit" value="提交" class="btn_big1"/>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script language="javascript">
+
+    function checkinfo() {
+        if ($('#code').val() == '') {
+            alert('请填写卡号');
+            return false;
+        }
+
+        if ($('#password').val() == '') {
+            alert('请填写卡密');
+            return false;
+        }
+
+        return true;
+    }
+</script>
+</body>
+</html>

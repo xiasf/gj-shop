@@ -151,6 +151,9 @@ function getAllMenu() {
             array('name' => '汇款记录', 'act' => 'remittance', 'control' => 'User'),
             //array('name'=>'会员整合','act'=>'integrate','control'=>'User'),
         )),
+        'exchange'     => array('name' => '兑币管理', 'icon' => 'fa-book', 'sub_menu' => array(
+            array('name' => '兑币列表', 'act' => 'index', 'control' => 'Exchange'),
+        )),
         'seller'     => array('name' => '店铺管理', 'icon' => 'fa-book', 'sub_menu' => array(
             array('name' => '店铺列表', 'act' => 'sellerList', 'control' => 'Seller'),
         )),
@@ -202,15 +205,15 @@ function getAllMenu() {
             array('name' => 'PC端模板', 'act' => 'templateList?t=pc', 'control' => 'Template'),
             array('name' => '手机端模板', 'act' => 'templateList?t=mobile', 'control' => 'Template'),
         )),
-/*
-'distribut' => array('name' => '分销管理', 'icon'=>'fa-cubes', 'sub_menu' => array(
-array('name' => '分销商品列表', 'act'=>'goods_list', 'control'=>'Distribut'),
-array('name' => '分销商列表', 'act'=>'distributor_list', 'control'=>'Distribut'),
-array('name' => '分销关系', 'act'=>'tree', 'control'=>'Distribut'),
-array('name' => '分销设置', 'act'=>'set', 'control'=>'Distribut'),
-array('name' => '分成日志', 'act'=>'rebate_log', 'control'=>'Distribut'),
-)),
- */
+        /*
+        'distribut' => array('name' => '分销管理', 'icon'=>'fa-cubes', 'sub_menu' => array(
+        array('name' => '分销商品列表', 'act'=>'goods_list', 'control'=>'Distribut'),
+        array('name' => '分销商列表', 'act'=>'distributor_list', 'control'=>'Distribut'),
+        array('name' => '分销关系', 'act'=>'tree', 'control'=>'Distribut'),
+        array('name' => '分销设置', 'act'=>'set', 'control'=>'Distribut'),
+        array('name' => '分成日志', 'act'=>'rebate_log', 'control'=>'Distribut'),
+        )),
+         */
         'tools'     => array('name' => '插件工具', 'icon' => 'fa-plug', 'sub_menu' => array(
             array('name' => '插件列表', 'act' => 'index', 'control' => 'Plugin'),
             array('name' => '数据备份', 'act' => 'index', 'control' => 'Tools'),

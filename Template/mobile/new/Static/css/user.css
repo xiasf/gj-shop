@@ -16,7 +16,7 @@
 .uer_topnav ul li span{ display:block; width:100%; height:20px; font-size:16px; line-height:20px; color:#666}
 .bain{ border-right:1px solid #eeeeee;}
 .Wallet{ width:100%; background:#FFF; overflow:hidden; border-bottom:1px solid #dddcdc; margin-top:10px; position:relative}
-.Wallet a{ margin-left:10px;height:45px; display:block; width:100%; overflow:hidden; padding-bottom:1px}
+.Wallet a{ /*margin-left:10px;height:45px; display:block;*/ width:100%; overflow:hidden; padding-bottom:1px}
 .Wallet a dl{width:100%; margin-left:35px; overflow:hidden;}
 .Wallet a dl dt{float:left; font-size:16px; line-height:45px; color:#666;}
 .Wallet a dl dd{float:right;background: url(../images/arrow_right.png) no-repeat right center;color:#aaaaaa; background-size: auto 12px; margin-right:60px; padding-right:20px}
@@ -70,7 +70,7 @@
 .Icon10{background-position:0px 3px}
 .Icon11{background-position:0px -336px}
 .Wallet ul{ width:95%;height:40px; margin:auto; padding-top:10px; border-bottom:1px solid #eeeeee; padding-bottom:5px;}
-.Wallet ul li{ float:left; width:33.33%; text-align:center}
+.Wallet ul li{ float:left; width:25%; text-align:center}
 .Wallet ul li.sell_cost{width:50%}
 .j_million{ background-image:url(../images/w1_03.png); background-repeat:no-repeat;    background-position: 0px 3px;}
 .million_num{background-color: black;padding: 6px 4px;color: white;border-radius: 6px;}
@@ -541,7 +541,7 @@ text-align:center;display:block;border-left:1px solid #f22e00;height:28px;
 line-height:28px;color:#f22e00;-webkit-transition:.18s;-o-transition:.18s;transition:.18s}
 .il_nav>a:first-child{border-left:none}
 .il_nav .active{color:#fff;background:#f22e00}
-.il_list>li{line-height:24px;display:flex;height:54px;margin-left:8px;padding-right:4px;
+.il_list>li{line-height:24px;display:flex;/*height:54px;*/margin-left:8px;padding-right:4px;padding: 8px 0;
 border-bottom:1px solid #c7c7cc;-webkit-box-align:center;-webkit-align-items:center;-moz-box-align:center;
 -ms-flex-align:center;align-items:center}
 .il_list>li .td_l{color:#3c3c3c;-webkit-box-flex:1;-webkit-flex:1;-moz-box-flex:1;-ms-flex:1;flex:1}

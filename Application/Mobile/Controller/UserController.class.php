@@ -509,6 +509,66 @@ class UserController extends MobileBaseController
         $this->display();
     }
 
+
+    /**
+     * 兑币充值
+     * @return [type] [description]
+     */
+    public function exchange()
+    {
+        if (IS_POST) {
+
+            $userLogic = new UsersLogic();
+            $code = I('post.code/s');
+            $password = I('post.password/s');
+
+            $e = M('exchange');
+            $el = M('exchange_list');
+
+            $el_info = $el->where(['uid' => 0, 'code' => $code])->find();
+
+            // if ($exchange && ($exchange['password'] == md5($password))) {
+            if ($el_info && ($el_info['password'] == $password)) {
+
+                $e_info = $e->where(['id' => $el_info['eid']])->find();
+
+                if (!$e_info) {
+                    $this->error("充值卡不存在");
+                }
+
+                $data['exchange'] = $this->user['exchange'] + $e_info['money'];
+
+                if (!$a = $userLogic->update_info($this->user_id, $data)) {
+                    $this->error("充值失败");
+                } else {
+
+                    $el->where('id = ' . $el_info['id'])->save(['uid' => $this->user_id, 'use_time' => time()]);
+                    $a = $e->where('id = ' . $e_info['id'])->setInc('use_num');
+
+                    $data4['user_id']     = $this->user_id;
+                    $data4['user_money']  = 0;
+                    $data4['pay_points']  = 0;
+                    $data4['exchange']    = +$e_info['money'];
+                    $data4['change_time'] = time();
+                    $data4['desc']        = '充值卡充值';
+                    // $data4['order_sn']    = $order['order_sn'];
+                    // $data4['order_id']    = $order_id;
+                    M("AccountLog")->add($data4);
+
+                    $this->success("充值成功", U('User/index'));
+                    exit;
+                }
+
+            } else {
+                $this->error("请确认卡号和卡密正确");
+            }
+
+        } else {
+            $this->display();
+        }
+    }
+
+
     /*
      * 个人信息
      */
