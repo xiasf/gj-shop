@@ -481,10 +481,11 @@ class CartLogic extends RelationModel
                 'shipping_price'    => $car_price_item['postFee'],               // '物流价格',
                 'user_money'        => $car_price_item['balance'],               // '使用余额',
                 'coupon_price'      => $car_price_item['couponFee'],             // '使用优惠券',
-                'exchange'          => ($car_price_item['exchange'] * tpCache('shopping.exchange_rate')),  //'使用兑币',
-                'integral'          => ($car_price_item['pointsFee'] * tpCache('shopping.point_rate')),  //'使用积分',
-                'integral_money'    => $car_price_item['pointsFee'],                                     //'使用积分抵多少钱',
-                'total_amount'      => ($car_price_item['goodsFee'] + $car_price_item['postFee']),            // 订单总额
+                'exchange'          => ($car_price_item['exchange'] * tpCache('shopping.exchange_rate')),       // 使用积分
+                'exchange_money'    => $car_price_item['exchange'],                                             // 使用积分抵多少钱
+                'integral'          => ($car_price_item['pointsFee'] * tpCache('shopping.point_rate')),         // 使用积分
+                'integral_money'    => $car_price_item['pointsFee'],                                            // 使用积分抵多少钱
+                'total_amount'      => ($car_price_item['goodsFee'] + $car_price_item['postFee']),              // 订单总额
                 'order_amount'      => $car_price_item['payables'],              // '应付款金额',
                 'add_time'          => time(),                                  // 下单时间
                 'order_prom_id'     => $car_price_item['order_prom_id'],         // '订单优惠活动id',

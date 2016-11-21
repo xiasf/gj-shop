@@ -69,7 +69,7 @@ class SellerController extends BaseController
         // ajax提交验证
         if (IS_POST) {
             C('TOKEN_ON', false);
-            if (!$seller->create(null, $type)) // 根据表单提交的POST数据创建数据对象
+            if (!$data = $seller->create(null, $type)) // 根据表单提交的POST数据创建数据对象
             {
                 //  编辑
                 $error      = $seller->getError();
@@ -86,6 +86,14 @@ class SellerController extends BaseController
 
                 if ($seller->passward) {
                     $seller->passward = md5($seller->passward);
+                }
+
+                if ($data['discount'] > 100 || $data['discount'] < 0) {
+                    $this->error('折扣填写错误');
+                }
+
+                if ($data['exchange'] > 100 || $data['exchange'] < 0) {
+                    $this->error('兑币抵扣填写错误');
                 }
 
                 if ($type == 2) {

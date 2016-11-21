@@ -3,6 +3,12 @@
 <script src="__PUBLIC__/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
 <script src="__PUBLIC__/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
 
+<style>
+    .union {
+        display: none;
+    }
+</style>
+
 <div class="wrapper">
     <include file="Public/breadcrumb"/>
     <section class="content ">
@@ -37,7 +43,20 @@
                                                 <span id="err_attr_name" style="color:#F00; display:none;"></span>
                                             </td>
                                         </tr>
-
+                                        <tr>
+                                            <td class="col-sm-2">联系人：</td>
+                                            <td class="col-sm-8">
+                                                <input type="text" class="form-control" name="contact_name" value="{$info.contact_name}" >
+                                                <span id="err_attr_name" style="color:#F00; display:none;"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-2">经营范围：</td>
+                                            <td class="col-sm-8">
+                                                <input type="text" class="form-control" name="business_scope" value="{$info.business_scope}" >
+                                                <span id="err_attr_name" style="color:#F00; display:none;"></span>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td class="col-sm-2">邮箱：</td>
                                             <td class="col-sm-8">
@@ -62,30 +81,82 @@
                                         <tr>
                                             <td>店铺类型：</td>
                                             <td>
-                                                <select name="type" class="input-sm">
+                                                <select name="type" class="input-sm" onchange="type_change(this)">
                                                     <option value="0" <if condition="$info[type] eq 0">selected</if>
                                                     >商城
-                                                </option>
-                                                <option value="1" <if condition="$info[type] eq 1">selected</if>
-                                                >异业联盟
+                                                    </option>
+                                                    <option value="1" <if condition="$info[type] eq 1">selected</if>
+                                                    >异业联盟
+                                                    </option>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+                                <tr class="union">
+                                    <td class="col-sm-2">折扣：</td>
+                                    <td class="col-sm-8">
+                                        <input type="text" class="form-control" name="discount" value="{$info.discount}" placeholder="百分比，填写1~100，90表示九折，0和100表示不打折">
+                                        <span id="err_attr_name" style="color:#F00; display:none;"></span>
+                                    </td>
+                                </tr>
+
+                                <tr class="union">
+                                    <td>店铺分类：</td>
+                                    <td>
+                                        <select name="category" class="input-sm">
+                                            <option value="0" <if condition="$info[category] eq 0">selected</if>
+                                            >美食
+                                            </option>
+                                            <option value="1" <if condition="$info[category] eq 1">selected</if>
+                                            >KTV
+                                            </option>
+                                            <option value="2" <if condition="$info[category] eq 2">selected</if>
+                                            >电影
+                                            </option>
+                                            <option value="3" <if condition="$info[category] eq 3">selected</if>
+                                            >酒店
+                                            </option>
+                                            <option value="4" <if condition="$info[category] eq 4">selected</if>
+                                            >生活服务
+                                            </option>
+                                            <option value="5" <if condition="$info[category] eq 5">selected</if>
+                                            >休闲娱乐
+                                            </option>
+                                            <option value="6" <if condition="$info[category] eq 6">selected</if>
+                                            >足疗按摩
+                                            </option>
+                                            <option value="7" <if condition="$info[category] eq 7">selected</if>
+                                            >更多
                                             </option>
                                         </select>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>店铺类别：</td>
-                                    <td>
-                                        <select name="category" class="input-sm">
-                                            <option value="0" <if condition="$info[category] eq 0">selected</if>
-                                            >餐饮
-                                        </option>
-                                        <option value="1" <if condition="$info[category] eq 1">selected</if>
-                                        >KTV
-                                    </option>
-                                </select>
-                                只有异业联盟的才有此类型
-                            </td>
-                        </tr>
+
+                                <tr class="union">
+                                    <td class="col-sm-2">可抵兑币：</td>
+                                    <td class="col-sm-3">
+                                        <input type="text" class="form-control" name="exchange" value="{$info.exchange}" placeholder="百分比，填写1~100">
+                                        <span id="err_attr_name" style="color:#F00; display:none;"></span>
+                                    </td>
+                                </tr>
+
+                                <tr class="union">
+                                    <td class="col-sm-2">经度：</td>
+                                    <td class="col-sm-3">
+                                        <input type="text" class="form-control" name="longitude" value="{$info.longitude}">
+                                        <span id="err_attr_name" style="color:#F00; display:none;"></span>
+                                    </td>
+                                </tr>
+
+                                <tr class="union">
+                                    <td class="col-sm-2">纬度：</td>
+                                    <td class="col-sm-3">
+                                        <input type="text" class="form-control" name="latitude" value="{$info.latitude}">
+                                        <span id="err_attr_name" style="color:#F00; display:none;"></span>
+                                    </td>
+                                </tr>
+
+
                         <tr>
                             <td>所在地址：</td>
                             <td colspan="2">
@@ -162,10 +233,22 @@ function adsubmit(){
 
 $(document).ready(function() {
 
-
+    if ($('select[name=type]').val() == 1) {
+        $('.union').show();
+    } else {
+        $('.union').hide();
+    }
 
 
 });
+
+function type_change(e) {
+    if ($(e).val() == 1) {
+        $('.union').show();
+    } else {
+        $('.union').hide();
+    }
+}
 
 </script>
 </body>
