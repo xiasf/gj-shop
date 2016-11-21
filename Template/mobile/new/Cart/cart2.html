@@ -264,7 +264,7 @@
                                                     <li class="flow_youhui_no">
                                                         <label id="Bonus_span_0">
                                                             使用兑币：
-                                                            <input id="exchange" name="exchange" onchange="ajax_order_price();" type="text" placeholder="输入兑币" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" class="txt1" style="width:100px;"/>
+                                                            <input id="exchange_val" name="exchange" onchange="ajax_order_price();" type="text" placeholder="输入兑币" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" class="txt1" style="width:100px;"/>
                                                             <input name="validate_bonus" type="button" value="使用" onClick="ajax_order_price();" class="BonusButton" />
                                                             您的可用兑币 <em>{$user['exchange']}</em>
                                                         </label>
@@ -319,7 +319,7 @@
                                                                 <br/></div>
                                                                 <span class="total-text">使用兑币：</span>
                                                                 -&nbsp;¥&nbsp;
-                                                                <em class="price" id="pointsFee">0</em>
+                                                                <em class="price" id="exchange">0</em>
                                                                 元
                                                                 <br/>
                                                                 <span class="total-text">使用积分：</span>
@@ -406,9 +406,14 @@
                 $("#postFee").text(data.result.postFee);                        // 物流费
                 $("#couponFee").text(data.result.couponFee);                    // 优惠券
                 $("#balance").text(data.result.balance);                        // 余额
+                $("#exchange").text(data.result.exchange);                      // 兑币支付
                 $("#pointsFee").text(data.result.pointsFee);                    // 积分支付
                 $("#payables").text(data.result.payables);                      // 应付
                 $("#order_prom_amount").text(data.result.order_prom_amount);    // 订单 优惠活动
+
+                $('#exchange_val').val(data.result.exchange);
+                $('#user_money').val(data.result.balance);
+                $('#pay_points').val(data.result.pointsFee);
             }
         });
     }
@@ -442,9 +447,15 @@
                 $("#postFee").text(data.result.postFee);                        // 物流费
                 $("#couponFee").text(data.result.couponFee);                    // 优惠券
                 $("#balance").text(data.result.balance);                        // 余额
+                $("#exchange").text(data.result.exchange);                      // 兑币支付
                 $("#pointsFee").text(data.result.pointsFee);                    // 积分支付
                 $("#payables").text(data.result.payables);                      // 应付
                 $("#order_prom_amount").text(data.result.order_prom_amount);    // 订单 优惠活动
+
+                $('#exchange_val').val(data.result.exchange);
+                $('#user_money').val(data.result.balance);
+                $('#pay_points').val(data.result.pointsFee);
+
                 alert('订单提交成功，跳转支付页面!');
                 location.href = "/index.php?m=Mobile&c=Cart&a=cart4&order_id="+data.result;
             }

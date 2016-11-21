@@ -305,7 +305,7 @@ class CartController extends MobileBaseController
             exit(json_encode($result));
         }
 
-
+        $result = [];
         foreach ($car_price as $key => $value) {
             $result['postFee']           += $value['postFee'];                  // 全部订单 物流费
             $result['couponFee']         += $value['couponFee'];                // 全部订单 优惠券 抵扣

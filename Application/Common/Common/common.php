@@ -1223,7 +1223,7 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         'goods_price'    => $goods_price,       // 商品总价
         'cut_fee'        => $cut_fee,           // 共节约多少钱
         'anum'           => $anum,              // 商品总共数量
-        'exchange'       => $exchange,          // 兑币抵消金额
+        'exchange'       => $pay_exchange,      // 兑币抵消金额
         'integral_money' => $pay_points,        // 积分抵消金额
         'user_money'     => $user_money,        // 使用余额
         'coupon_price'   => $coupon_price,      // 优惠券抵消金额
