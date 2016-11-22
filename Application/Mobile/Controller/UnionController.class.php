@@ -104,7 +104,7 @@ class UnionController extends MobileBaseController
         $discount = I("discount/d", 0);
         $exchange_ = I("exchange_/d", 0);
 
-        $order_amount_ = I("order_amount/d", 0);
+        $order_amount_ = I("order_amount/f", 0);
 
         $info = M('seller')->where(['type' => 1, 'id' => $shop_id])->find();
 
@@ -141,9 +141,15 @@ class UnionController extends MobileBaseController
         // 商家可以限制最多使用
         if ($info['exchange'] != 0 && $info['exchange'] != 100) {
             $exchange_amount_max = $total_amount * ($info['exchange'] / 100);
+            // 本次最多使用兑币数
+            $exchange_max = $exchange_amount_max / tpCache('shopping.exchange_rate');
         } else {
             $exchange_amount_max = 0;// 不限制
+            $exchange_max = $total_amount / tpCache('shopping.exchange_rate');
         }
+
+        $exchange_max = (int) $exchange_max;
+
         if ($exchange) {
             $pay_exchange = $exchange / tpCache('shopping.exchange_rate');
             if ($exchange_amount_max) {
@@ -174,7 +180,7 @@ class UnionController extends MobileBaseController
 
             // 应付变了（这是个好提示，不提示给用户会造成，到时候真正支付钱和用户提交时在页面看到的不一样，不过一般商品的价格不会变得这么快吧，也没有人一个页面开很久吧，所以遇到这种情况应该比较少（我就遇到过天猫下单时的这个提示），还有要考虑的一个问题就是，当某些抢购页面时，价格有变化快，相比于价格用户更在乎能不能抢到了，如果这是给用户来个提示，要他再刷新一次，那真是悲催了，所以这种情况需要慎重考虑权衡一下）
             // 只能在提交订单时哦
-            if ($info['order_amount'] != $order_amount_) {
+            if ($order_amount != $order_amount_) {
                 exit(json_encode(array('status' => -1, 'msg' => '价格发生改变，请刷新页面哦', 'result' => null)));
             }
 
@@ -205,6 +211,7 @@ class UnionController extends MobileBaseController
         $result['exchange']      = $pay_exchange_num; // 兑币支付
         $result['order_amount']  = $order_amount; // 应付金额
         $result['total_amount_'] = $total_amount_; // 优惠了多少钱
+        $result['exchange_max'] = $exchange_max; // 本次最多能使用的兑币数量
 
         // 都没有考虑为每个商品计算商品活动的优惠
         // 也没有考虑每个店铺各自的优惠情况

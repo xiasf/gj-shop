@@ -20,7 +20,7 @@
     <script src="__PUBLIC__/js/mobile_common.js"></script>
     <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
     <style>
-        .sum {
+        .small {
             font-size: 1.2rem;
             padding-left: 11px;
             color: #929292;
@@ -83,11 +83,11 @@
             </li>
             <li>
                 <strong>折扣：</strong>
-                {$info['discount'] / 10}折<span class="sum">消费金额的{$info['discount']}%</span>
+                {$info['discount'] / 10}折<span class="small">消费金额的{$info['discount']}%</span>
             </li>
             <li>
                 <strong>兑币抵扣：</strong>
-                {$info['exchange']}%<span class="sum">最高抵扣消费金额的{$info['exchange']}%（注：享受折扣后的折上折）</span>
+                {$info['exchange']}%<span class="small">最高抵扣消费金额的{$info['exchange']}%（注：享受折扣后的折上折）</span>
             </li>
         </ul>
     </div>
@@ -174,13 +174,19 @@
                                 <input id="exchange_val" name="exchange" onchange="ajax_order_price();" type="text" value="{$user.exchange}" >
                             </label>
                         </li>
+                        <li>
+                            <label>我的兑币{$user.exchange}个</label>
+                        </li>
+                        <li>
+                            <label id="exchange_info"></label>
+                        </li>
                         <li></li>
                     </ul>
                 </section>
             </form>
 
             <div class="f">
-                <button onClick="submit_order();" id ="pay_button">还需支付88元</button>
+                <button onClick="submit_order();" id ="pay_button">请先输入金额</button>
             </div>
         </div>
     </div>
@@ -233,6 +239,8 @@
                     $("#pay_button").text('还需支付' + data.result.order_amount + '元');
                     $("#order_amount").val(data.result.order_amount);
 
+                    $("#exchange_info").text('本次最多能使用兑币' + data.result.exchange_max + '个');
+
                     $("#total_amount_").val('-' + data.result.total_amount_);
 
                     $('#exchange_val').val(data.result.exchange);
@@ -255,7 +263,7 @@
                 return false;
             }
 
-            $("#pay_button").text('计算中……');
+            $("#pay_button").text('提交中……');
 
             // 显示加载层
             var load = layer.open({
@@ -291,12 +299,6 @@
 
                         return false;
                     }
-                    $("#pay_button").text('还需支付' + data.result.order_amount + '元');
-                    $("#order_amount").val(data.result.order_amount);
-
-                    $("#total_amount_").val('-' + data.result.total_amount_);
-
-                    $('#exchange_val').val(data.result.exchange);
 
                     alert('订单提交成功，跳转支付页面!');
                     location.href = "/index.php?m=Mobile&c=Cart&a=cart4&order_id="+data.result;
@@ -314,7 +316,7 @@
                 // ,className:'x'
                 ,content: content ? content : content_
                 ,anim: 'up'
-                ,style: 'position:fixed; bottom:0; left:0; width: 100%; height: 300px; border:none;'
+                ,style: 'position:fixed; bottom:0; left:0; width: 100%; height: 320px; border:none;'
                 ,success : function() {
                     // 没有图层销毁前的的事件，这样每次输入都会被重置的
                     content_ = $('#zf-main').prop("outerHTML");
