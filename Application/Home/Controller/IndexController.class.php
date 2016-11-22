@@ -51,7 +51,7 @@ class IndexController extends BaseController {
                        
         // 如果是手机跳转到 手机模块
         if(true == isMobile()){
-            header("Location: ".U('Mobile/Index/index'));
+            header("Location: ".U('Mobile/Union/index'));
         }
         
         $hot_goods = $hot_cate = $cateList = array();

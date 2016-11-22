@@ -140,7 +140,7 @@ function getAllMenu() {
         'access'    => array('name' => '权限管理', 'icon' => 'fa-gears', 'sub_menu' => array(
             array('name' => '管理员列表', 'act' => 'index', 'control' => 'Admin'),
             array('name' => '角色管理', 'act' => 'role', 'control' => 'Admin'),
-            array('name' => '供应商管理', 'act' => 'supplier', 'control' => 'Admin'),
+            // array('name' => '供应商管理', 'act' => 'supplier', 'control' => 'Admin'),
             array('name' => '管理员日志', 'act' => 'log', 'control' => 'Admin'),
         )),
         'member'    => array('name' => '会员管理', 'icon' => 'fa-user', 'sub_menu' => array(
@@ -201,10 +201,10 @@ function getAllMenu() {
             array('name' => '组合回复', 'act' => 'nes', 'control' => 'Wechat'),
             array('name' => '消息推送', 'act' => 'news', 'control' => 'Wechat'),
         )),
-        'theme'     => array('name' => '模板管理', 'icon' => 'fa-adjust', 'sub_menu' => array(
-            array('name' => 'PC端模板', 'act' => 'templateList?t=pc', 'control' => 'Template'),
-            array('name' => '手机端模板', 'act' => 'templateList?t=mobile', 'control' => 'Template'),
-        )),
+        // 'theme'     => array('name' => '模板管理', 'icon' => 'fa-adjust', 'sub_menu' => array(
+        //     array('name' => 'PC端模板', 'act' => 'templateList?t=pc', 'control' => 'Template'),
+        //     array('name' => '手机端模板', 'act' => 'templateList?t=mobile', 'control' => 'Template'),
+        // )),
         /*
         'distribut' => array('name' => '分销管理', 'icon'=>'fa-cubes', 'sub_menu' => array(
         array('name' => '分销商品列表', 'act'=>'goods_list', 'control'=>'Distribut'),
@@ -227,10 +227,10 @@ function getAllMenu() {
             array('name' => '会员统计', 'act' => 'user', 'control' => 'Report'),
             array('name' => '财务统计', 'act' => 'finance', 'control' => 'Report'),
         )),
-        'pickup'    => array('name' => '自提点管理', 'icon' => 'fa-anchor', 'sub_menu' => array(
-            array('name' => '自提点列表', 'act' => 'index', 'control' => 'Pickup'),
-            array('name' => '添加自提点', 'act' => 'add', 'control' => 'Pickup'),
-        )),
+        // 'pickup'    => array('name' => '自提点管理', 'icon' => 'fa-anchor', 'sub_menu' => array(
+        //     array('name' => '自提点列表', 'act' => 'index', 'control' => 'Pickup'),
+        //     array('name' => '添加自提点', 'act' => 'add', 'control' => 'Pickup'),
+        // )),
     );
 }
 
