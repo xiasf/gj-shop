@@ -87,7 +87,7 @@
             </li>
             <li>
                 <strong>兑币抵扣：</strong>
-                {$info['exchange']}%<span class="sum">最高抵扣消费金额的{$info['exchange']}%</span>
+                {$info['exchange']}%<span class="sum">最高抵扣消费金额的{$info['exchange']}%（注：享受折扣后的折上折）</span>
             </li>
         </ul>
     </div>
@@ -95,13 +95,237 @@
     <div style="height: 56px;"></div>
 
     <div class="f">
-        <a href="{:U('zf', ['id' => $info['id']])}">优惠支付</a>
+        <!-- <a href="{:U('zf', ['id' => $info['id']])}">优惠支付</a> -->
+        <a href="javascript:zf();">优惠支付</a>
     </div>
 
+
+    <style>
+        #zf-main {
+            text-align: center;
+        }
+        .title h1 {
+            font-size: 1.8rem;
+            border-bottom: 1px #A0A0A0 solid;
+            line-height: 40px;
+            height: 40px;
+        }
+        .zf-info {
+            margin-top: 10px;
+        }
+    
+        .zf-info li {
+            margin: 10px 0;
+        }
+
+        .zf-info label {
+            font-size: 1.5rem;
+            height: 30px;
+            line-height: 35px;
+            font-family: '微软雅黑';
+        }
+
+        .zf-info input {
+            border: 1px #D6D6D6 solid;
+            padding: 2px;
+            border-width: 0 0 1px 0;
+        }
+        #pay_button {
+            padding: 11px;
+            font-size: 1.6rem;
+            color: #fff;
+            background-color: #00FF1F;
+            border: 0;
+            font-family: '微软雅黑';
+            display: block;
+            width: 100%;
+        }
+        #total_amount_ {
+            color: red;
+        }
+    </style>
+    <div id="zf-main-wrap" class="hide">
+        <div id="zf-main">
+            <div class="title">
+                <h1>{$info.seller_name}({$info['discount'] / 10}折)</h1>
+            </div>
+            <form name="cart2_form" id="cart2_form" method="post">
+                <input type="hidden" value="{$info.id}" name="shop_id" />
+                <input type="hidden" value="{$info.discount}" name="discount" />
+                <input type="hidden" value="{$info.exchange}" name="exchange_" />
+                <input type="hidden" value="{$info.order_amount}" id="order_amount" name="order_amount" />
+                <section class="zf-info">
+                    <ul class="zf-list-info ct-list">
+                        <li>
+                            <label>
+                                支付金额：
+                                <input name="total_amount" onchange="ajax_order_price();" type="text" placeholder="请输入消费金额" >
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                优惠金额：
+                                <input id="total_amount_" disabled="true" type="text" placeholder="根据消费自动计算优惠" >
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                使用兑币：
+                                <input id="exchange_val" name="exchange" onchange="ajax_order_price();" type="text" value="{$user.exchange}" >
+                            </label>
+                        </li>
+                        <li></li>
+                    </ul>
+                </section>
+            </form>
+
+            <div class="f">
+                <button onClick="submit_order();" id ="pay_button">还需支付88元</button>
+            </div>
+        </div>
+    </div>
     <script>
-    $(function(){
-    });
-</script>
+        // 获取订单价格
+        function ajax_order_price()
+        {
+
+            if (!$('[name=total_amount]').val()) {
+                layer.open({
+                    content: '请输入消费金额'
+                    ,skin: 'msg'
+                    ,time: 2
+                });
+                return false;
+            }
+
+            $("#pay_button").text('计算中……');
+
+            // 显示加载层
+            var load = layer.open({
+                type: 2,
+                shadeClose: false,
+            });
+
+            $.ajax({
+                type : "POST",
+                url:'/Mobile/Union/cp_order/act/order_price/t/' + Math.random(),
+                data : $('#cart2_form').serialize(),
+                dataType: "json",
+                success: function(data){
+                    layer.close(load);  // 加载完成
+                    if(data.status != 1) {
+                        layer.open({
+                            content: data.msg
+                            ,btn: '我知道了'
+                            ,yes: function(index){
+                                layer.close(index);
+                                // 页面信息过时/发生变动了需要重新刷新页面哦
+                                if(data.status == -1)
+                                    window.location.reload();
+                            }
+                        });
+                        // 登录超时
+                        if(data.status == -100)
+                            window.location.href ="{:U('Mobile/User/login')}";
+
+                        return false;
+                    }
+                    $("#pay_button").text('还需支付' + data.result.order_amount + '元');
+                    $("#order_amount").val(data.result.order_amount);
+
+                    $("#total_amount_").val('-' + data.result.total_amount_);
+
+                    $('#exchange_val').val(data.result.exchange);
+                }
+            });
+        }
+
+
+        // 提交订单
+        ajax_return_status = 1; // 标识ajax 请求是否已经回来 可以进行下一次请求
+        function submit_order()
+        {
+
+            if (!$('[name=total_amount]').val()) {
+                layer.open({
+                    content: '请输入消费金额'
+                    ,skin: 'msg'
+                    ,time: 2
+                });
+                return false;
+            }
+
+            $("#pay_button").text('计算中……');
+
+            // 显示加载层
+            var load = layer.open({
+                type: 2,
+                shadeClose: false,
+            });
+
+            if(ajax_return_status == 0) return false;
+            ajax_return_status = 0;
+            $.ajax({
+                type : "POST",
+                url:"{:U('Mobile/Union/cp_order/act/submit_order/t/')}" + Math.random(),
+                data : $('#cart2_form').serialize(),// 你的formid
+                dataType: "json",
+                success: function(data){
+                    layer.close(load);  // 加载完成
+                    if(data.status != '1')
+                    {
+                        layer.open({
+                            content: data.msg
+                            ,btn: '我知道了'
+                            ,yes: function(index){
+                                layer.close(index);
+                                // 页面信息过时/发生变动了需要重新刷新页面哦
+                                if(data.status == -1)
+                                    window.location.reload();
+                            }
+                        });
+
+                        // 登录超时
+                        if(data.status == -100) location.href ="{:U('Mobile/User/login')}";
+                        ajax_return_status = 1; // 上一次ajax 已经返回, 可以进行下一次 ajax请求
+
+                        return false;
+                    }
+                    $("#pay_button").text('还需支付' + data.result.order_amount + '元');
+                    $("#order_amount").val(data.result.order_amount);
+
+                    $("#total_amount_").val('-' + data.result.total_amount_);
+
+                    $('#exchange_val').val(data.result.exchange);
+
+                    alert('订单提交成功，跳转支付页面!');
+                    location.href = "/index.php?m=Mobile&c=Cart&a=cart4&order_id="+data.result;
+                }
+            });
+        }
+    </script>
+
+    <script>
+        var content_ = '';
+        function zf() {
+            var content = $('#zf-main-wrap').html();
+            layer.open({
+                type: 1
+                // ,className:'x'
+                ,content: content ? content : content_
+                ,anim: 'up'
+                ,style: 'position:fixed; bottom:0; left:0; width: 100%; height: 300px; border:none;'
+                ,success : function() {
+                    // 没有图层销毁前的的事件，这样每次输入都会被重置的
+                    content_ = $('#zf-main').prop("outerHTML");
+                }
+            });
+            $('#zf-main-wrap').remove();
+        }
+
+        $(function(){
+        });
+    </script>
 
 </body>
 </html>

@@ -114,12 +114,12 @@ class UnionController extends MobileBaseController
 
         // 折扣变了
         if ($info['discount'] != $discount) {
-            exit(json_encode(array('status' => -1, 'msg' => '折扣信息改变，请重新刷新页面', 'result' => null)));
+            exit(json_encode(array('status' => -1, 'msg' => '商家折扣信息改变，请重新刷新页面', 'result' => null)));
         }
 
         // 折扣变了
         if ($info['exchange'] != $exchange_) {
-            exit(json_encode(array('status' => -1, 'msg' => '兑币优惠信息改变，请重新刷新页面', 'result' => null)));
+            exit(json_encode(array('status' => -1, 'msg' => '商家兑币优惠信息改变，请重新刷新页面', 'result' => null)));
         }
 
         if ($total_amount <= 0) {
@@ -167,16 +167,16 @@ class UnionController extends MobileBaseController
         }
 
 
-        // 应付变了（这是个好提示，不提示给用户会造成，到时候真正支付钱和用户提交时在页面看到的不一样，不过一般商品的价格不会变得这么快吧，也没有人一个页面开很久吧，所以遇到这种情况应该比较少（我就遇到过天猫下单时的这个提示），还有要考虑的一个问题就是，当某些抢购页面时，价格有变化快，相比于价格用户更在乎能不能抢到了，如果这是给用户来个提示，要他再刷新一次，那真是悲催了，所以这种情况需要慎重考虑权衡一下）
-        if ($info['order_amount'] != $order_amount_) {
-            exit(json_encode(array('status' => -1, 'msg' => '价格发生改变，请刷新页面哦', 'result' => null)));
-        }
-
-
         $order_amount = $total_amount - $pay_exchange;
 
         // 提交订单
         if ('submit_order' == I('request.act')) {
+
+            // 应付变了（这是个好提示，不提示给用户会造成，到时候真正支付钱和用户提交时在页面看到的不一样，不过一般商品的价格不会变得这么快吧，也没有人一个页面开很久吧，所以遇到这种情况应该比较少（我就遇到过天猫下单时的这个提示），还有要考虑的一个问题就是，当某些抢购页面时，价格有变化快，相比于价格用户更在乎能不能抢到了，如果这是给用户来个提示，要他再刷新一次，那真是悲催了，所以这种情况需要慎重考虑权衡一下）
+            // 只能在提交订单时哦
+            if ($info['order_amount'] != $order_amount_) {
+                exit(json_encode(array('status' => -1, 'msg' => '价格发生改变，请刷新页面哦', 'result' => null)));
+            }
 
             $data = [
                 'seller_id'       => $info['id'],

@@ -20,7 +20,7 @@
     <script src="__PUBLIC__/js/mobile_common.js"></script>
     <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
     <style>
-        #main {
+        #zf-main {
             padding: 10px;
             text-align: center;
             width: 300px;
@@ -51,11 +51,14 @@
             border: 0;
             font-family: '微软雅黑';
         }
+        #total_amount_ {
+            color: red;
+        }
     </style>
 </head>
 <body>
 
-    <div id="main">
+    <div id="zf-main">
         <div class="title">
             <h1>{$info.seller_name}({$info['discount'] / 10}折)</h1>
         </div>
@@ -75,7 +78,7 @@
                     <li>
                         <label>
                             优惠金额：
-                            <input id="total_amount_" disabled="true" type="text" placeholder="请输入消费金额" >
+                            <input id="total_amount_" disabled="true" type="text" placeholder="根据消费自动计算优惠" >
                         </label>
                     </li>
                     <li>
@@ -95,104 +98,120 @@
     </div>
 
     <script>
+        // 获取订单价格
+        function ajax_order_price()
+        {
 
-    // 获取订单价格
-    function ajax_order_price()
-    {
+            if (!$('[name=total_amount]').val()) {
+                layer.open({
+                    content: '请输入消费金额'
+                    ,skin: 'msg'
+                    ,time: 2
+                });
+                return false;
+            }
 
-        if (!$('[name=total_amount]').val()) {
-            layer.open({
-                content: '请输入消费金额'
-                ,skin: 'msg'
-                ,time: 2
+            // 显示加载层
+            var load = layer.open({
+                type: 2,
+                shadeClose: false,
             });
-            return false;
+
+            $.ajax({
+                type : "POST",
+                url:'/Mobile/Union/cp_order/act/order_price/t/' + Math.random(),
+                data : $('#cart2_form').serialize(),
+                dataType: "json",
+                success: function(data){
+                    layer.close(load);  // 加载完成
+                    if(data.status != 1) {
+                        layer.open({
+                            content: data.msg
+                            ,btn: '我知道了'
+                            ,yes: function(index){
+                                layer.close(index);
+                                // 页面信息过时/发生变动了需要重新刷新页面哦
+                                if(data.status == -1)
+                                    window.location.reload();
+                            }
+                        });
+                        // 登录超时
+                        if(data.status == -100)
+                            window.location.href ="{:U('Mobile/User/login')}";
+
+                        return false;
+                    }
+                    $("#pay_button").text('还需支付' + data.result.order_amount + '元');
+                    $("#order_amount").val(data.result.order_amount);
+
+                    $("#total_amount_").val('-' + data.result.total_amount_);
+
+                    $('#exchange_val').val(data.result.exchange);
+                }
+            });
         }
 
-        // 显示加载层
-        var load = layer.open({
-            type: 2,
-            shadeClose: false,
-        });
 
-        $.ajax({
-            type : "POST",
-            url:'/Mobile/Union/cp_order/act/order_price/t/' + Math.random(),
-            data : $('#cart2_form').serialize(),
-            dataType: "json",
-            success: function(data){
-                layer.close(load);  // 加载完成
-                if(data.status != 1) {
-                    layer.open({
-                        content: data.msg
-                        ,btn: '我知道了'
-                    });
-                    // 登录超时
-                    if(data.status == -100)
-                        window.location.href ="{:U('Mobile/User/login')}";
-                    // 页面信息过时/发生变动了需要重新刷新页面哦
-                    if(data.status == -1)
-                        window.location;
-                    return false;
-                }
-                $("#pay_button").text('还需支付' + data.result.order_amount + '元');
-                $("#order_amount").text(data.result.order_amount);
+        // 提交订单
+        ajax_return_status = 1; // 标识ajax 请求是否已经回来 可以进行下一次请求
+        function submit_order()
+        {
 
-                $("#total_amount_").text(data.result.total_amount_);
-
-                $('#exchange_val').val(data.result.exchange);
+            if (!$('[name=total_amount]').val()) {
+                layer.open({
+                    content: '请输入消费金额'
+                    ,skin: 'msg'
+                    ,time: 2
+                });
+                return false;
             }
-        });
-    }
 
-
-    // 提交订单
-    ajax_return_status = 1; // 标识ajax 请求是否已经回来 可以进行下一次请求
-    function submit_order()
-    {
-
-        if (!$('[name=total_amount]').val()) {
-            layer.open({
-                content: '请输入消费金额'
-                ,skin: 'msg'
-                ,time: 2
+            // 显示加载层
+            var load = layer.open({
+                type: 2,
+                shadeClose: false,
             });
-            return false;
-        }
 
-        if(ajax_return_status == 0) return false;
-        ajax_return_status = 0;
-        $.ajax({
-            type : "POST",
-            url:"{:U('Mobile/Union/cp_order/act/submit_order/t/')}" + Math.random(),
-            data : $('#cart2_form').serialize(),// 你的formid
-            dataType: "json",
-            success: function(data){
-                if(data.status != '1')
-                {
-                    layer.open({
-                        content: data.msg
-                        ,btn: '我知道了'
-                    });
+            if(ajax_return_status == 0) return false;
+            ajax_return_status = 0;
+            $.ajax({
+                type : "POST",
+                url:"{:U('Mobile/Union/cp_order/act/submit_order/t/')}" + Math.random(),
+                data : $('#cart2_form').serialize(),// 你的formid
+                dataType: "json",
+                success: function(data){
+                    layer.close(load);  // 加载完成
+                    if(data.status != '1')
+                    {
+                        layer.open({
+                            content: data.msg
+                            ,btn: '我知道了'
+                            ,yes: function(index){
+                                layer.close(index);
+                                // 页面信息过时/发生变动了需要重新刷新页面哦
+                                if(data.status == -1)
+                                    window.location.reload();
+                            }
+                        });
 
-                    // 登录超时
-                    if(data.status == -100) location.href ="{:U('Mobile/User/login')}";
-                    ajax_return_status = 1; // 上一次ajax 已经返回, 可以进行下一次 ajax请求
+                        // 登录超时
+                        if(data.status == -100) location.href ="{:U('Mobile/User/login')}";
+                        ajax_return_status = 1; // 上一次ajax 已经返回, 可以进行下一次 ajax请求
 
-                    return false;
+                        return false;
+                    }
+                    $("#pay_button").text('还需支付' + data.result.order_amount + '元');
+                    $("#order_amount").val(data.result.order_amount);
+
+                    $("#total_amount_").val('-' + data.result.total_amount_);
+
+                    $('#exchange_val').val(data.result.exchange);
+
+                    alert('订单提交成功，跳转支付页面!');
+                    location.href = "/index.php?m=Mobile&c=Cart&a=cart4&order_id="+data.result;
                 }
-                $("#pay_button").text('还需支付' + data.result.order_amount + '元');
-                $("#order_amount").text(data.result.order_amount);
-
-                $("#total_amount_").text(data.result.total_amount_);
-
-                $('#exchange_val').val(data.result.exchange);
-
-                alert('订单提交成功，跳转支付页面!');
-                location.href = "/index.php?m=Mobile&c=Cart&a=cart4&order_id="+data.result;
-            }
-        });
-    }
+            });
+        }
     </script>
     </body>
 </html>
