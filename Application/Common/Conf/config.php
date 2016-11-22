@@ -126,7 +126,7 @@ return array(
          'm.tpshop.com'   => 'Mobile/',  // 手机访问网站
     ),    
         
-    'DEFAULT_FILTER'        => 'strip_sql,htmlspecialchars',   // 系统默认的变量过滤机制
+    'DEFAULT_FILTER'        => 'htmlspecialchars',   // 系统默认的变量过滤机制
 
     /**
      * coreseek/sphinx全文检索引擎配置

@@ -72,20 +72,6 @@ class UnionController extends MobileBaseController
         $this->display('shop');
     }
 
-    public function zf()
-    {
-
-        $id = I('get.id/d');
-
-        $info = M('seller')->where(['type' => 1, 'id' => $id])->find();
-
-        if (!$info) {
-            $this->error('店铺不存在！');
-        }
-
-        $this->assign('info', $info);
-        $this->display('zf');
-    }
 
     public function cp_order()
     {
