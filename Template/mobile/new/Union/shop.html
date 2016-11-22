@@ -19,12 +19,48 @@
     <script src="__PUBLIC__/js/global.js"></script>
     <script src="__PUBLIC__/js/mobile_common.js"></script>
     <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
+    <style>
+        .sum {
+            font-size: 1.2rem;
+            padding-left: 11px;
+            color: #929292;
+        }
+        .shop_info li {
+            padding: 1px 7px;
+            font-size: 1.4rem;
+            border-bottom: 1px #E0E0E0 solid;
+        }
+        .shop_info strong {
+            font-weight: 100;
+            color: #5A5A5A;
+        }
+        .f {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        .f a {
+            display: block;
+            padding: 10px;
+            font-size: 1.5rem;
+            color: #fff;
+            background-color: #28A25E;
+            text-align: center;
+        }
+
+        #img_logo {
+            width: 100%;
+            height: 260px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 <body>
 
-    <div id="img_logo">
-
-        <img src="{$info.head_pic}" class=""></div>
+    <div id="img_logo" style="background-image: url('{$info.head_pic}');"></div>
 
     <div class="shop_info">
         <ul>
@@ -47,14 +83,16 @@
             </li>
             <li>
                 <strong>折扣：</strong>
-                {$info['discount'] / 10}折
+                {$info['discount'] / 10}折<span class="sum">消费金额的{$info['discount']}%</span>
             </li>
             <li>
                 <strong>兑币抵扣：</strong>
-                {$info['exchange']}%
+                {$info['exchange']}%<span class="sum">最高抵扣消费金额的{$info['exchange']}%</span>
             </li>
         </ul>
     </div>
+
+    <div style="height: 56px;"></div>
 
     <div class="f">
         <a href="{:U('zf', ['id' => $info['id']])}">优惠支付</a>

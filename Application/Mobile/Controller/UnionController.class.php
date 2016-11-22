@@ -104,6 +104,8 @@ class UnionController extends MobileBaseController
         $discount = I("discount/d", 0);
         $exchange_ = I("exchange_/d", 0);
 
+        $order_amount_ = I("order_amount/d", 0);
+
         $info = M('seller')->where(['type' => 1, 'id' => $shop_id])->find();
 
         if (!$info) {
@@ -156,10 +158,18 @@ class UnionController extends MobileBaseController
 
 
         // 兑币抵扣的金额怎么能出现小数，那就成BUG了，所以要直接取整，不要小数位（这对用户来说不会损失什么，相当于如果1兑币等于1元的话，那么当兑币抵扣1.1元时，会出现使用1.1个兑币的情况，所以要处理一下，以保证兑币是整数，这样会出现这样的情况，当系统计算得到兑币需要抵扣0.9元时，即使用户输入1个兑币来抵扣，那么也不会出现扣用户0.9个兑币的情况的，不会抵扣兑币，相当于强制让用户输入了0，不使用兑币）
+        // 另外产生应付不一样的原因很多，跟价格的计算方式有关，有可能应付一样，但实际上很多东西其实都改变了，所以还是要像上面一样，尽量拍短一些关键的数据是否一致
+        // 就算不提示对系统来说也没有影响，提示的原因是因为到时候用户怪罪说怎么提交时的价格，数据等和我提交前算的，看的不一样了，就这个原因而已。
         $pay_exchange_num = $pay_exchange * tpCache('shopping.exchange_rate');
         if (!is_int($pay_exchange_num)) {
             $pay_exchange_num = (int) $pay_exchange_num;
             $pay_exchange = $pay_exchange_num / tpCache('shopping.exchange_rate');
+        }
+
+
+        // 应付变了（这是个好提示，不提示给用户会造成，到时候真正支付钱和用户提交时在页面看到的不一样，不过一般商品的价格不会变得这么快吧，也没有人一个页面开很久吧，所以遇到这种情况应该比较少（我就遇到过天猫下单时的这个提示），还有要考虑的一个问题就是，当某些抢购页面时，价格有变化快，相比于价格用户更在乎能不能抢到了，如果这是给用户来个提示，要他再刷新一次，那真是悲催了，所以这种情况需要慎重考虑权衡一下）
+        if ($info['order_amount'] != $order_amount_) {
+            exit(json_encode(array('status' => -1, 'msg' => '价格发生改变，请刷新页面哦', 'result' => null)));
         }
 
 
@@ -192,7 +202,7 @@ class UnionController extends MobileBaseController
         }
 
         $result                  = [];
-        $result['exchange']      = $exchange; // 兑币支付
+        $result['exchange']      = $pay_exchange_num; // 兑币支付
         $result['order_amount']  = $order_amount; // 应付金额
         $result['total_amount_'] = $total_amount_; // 优惠了多少钱
 
