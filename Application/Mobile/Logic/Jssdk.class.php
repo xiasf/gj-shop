@@ -137,7 +137,8 @@ class Jssdk extends RelationModel
                         );
         $post_str = json_encode($post_arr,JSON_UNESCAPED_UNICODE);        
         $return = httpRequest($url,'POST',$post_str);
-        $return = json_decode($return,true);        
+        $return = json_decode($return,true);
+        return $return;        
     }
  
 }
