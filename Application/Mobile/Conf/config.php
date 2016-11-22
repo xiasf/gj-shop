@@ -1,5 +1,8 @@
 <?php
 return array(
+
+    'DEFAULT_CONTROLLER'    =>  'Union', // 默认控制器名称
+
     'LOAD_EXT_CONFIG' => 'html',	// 加载其他自定义配置文件 html.php
 	'URL_HTML_SUFFIX'   =>  'html',
 	'HTML_CACHE_ON'     =>   false, // 开启静态缓存

@@ -64,8 +64,8 @@ class ExchangeController extends BaseController
             $add['eid']  = $new_id;
             for ($i = 0; $i < $data['createnum']; $i++) {
                 do {
-                    $code        = get_rand_str(8, 0, 1); // 获取随机8位字符串
-                    $password    = get_rand_str(4, 0, 1); // 获取随机4位字符串
+                    $code        = strtolower(get_rand_str(8, 0, 1)); // 获取随机8位字符串
+                    $password    = strtolower(get_rand_str(4, 0, 1)); // 获取随机4位字符串
                     $check_exist = M('exchange_list')->where(array('code' => $code))->find();
                 } while ($check_exist);
                 $add['code']     = $code;

@@ -12,6 +12,8 @@
  */
 namespace Mobile\Controller;
 
+use Home\Logic\UsersLogic;
+
 class UnionController extends MobileBaseController
 {
 
@@ -188,6 +190,22 @@ class UnionController extends MobileBaseController
             if (!$order_id) {
                 $return_arr = array('status' => -2, 'msg' => '提交失败', 'result' => ''); // 返回结果状态
             } else {
+
+                if ($pay_exchange_num) {
+                    // 减兑币
+                    $userLogic = new UsersLogic();
+                    $data['exchange'] = $this->user['exchange'] - $pay_exchange_num;
+                    $userLogic->update_info($this->user_id, $data))
+                    // 记录日志
+                    $data4['user_id']     = $this->user_id;
+                    $data4['user_money']  = 0;
+                    $data4['pay_points']  = 0;
+                    $data4['exchange']    = -$pay_exchange_num;
+                    $data4['change_time'] = time();
+                    $data4['desc']        = '异业联盟消费兑币抵扣';
+                    M("AccountLog")->add($data4);
+                }
+
                 $return_arr = array('status' => 1, 'msg' => '提交成功', 'result' => $order_id); // 返回结果状态
             }
             exit(json_encode($return_arr));

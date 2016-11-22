@@ -466,7 +466,7 @@ class UserController extends MobileBaseController
                 // 上传文件
                 $upinfo = $upload->upload();
                 if (!$upinfo) {
-// 上传错误提示错误信息
+                // 上传错误提示错误信息
                     $this->error($upload->getError());
                 } else {
                     foreach ($upinfo as $key => $val) {
@@ -519,8 +519,8 @@ class UserController extends MobileBaseController
         if (IS_POST) {
 
             $userLogic = new UsersLogic();
-            $code = I('post.code/s');
-            $password = I('post.password/s');
+            $code = strtolower(I('post.code/s'));
+            $password = strtolower(I('post.password/s'));
 
             $e = M('exchange');
             $el = M('exchange_list');
