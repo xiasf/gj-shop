@@ -142,11 +142,8 @@ class UnionController extends MobileBaseController
         } else {
             $exchange_amount_max = 0;// 不限制
         }
-
-
         if ($exchange) {
             $pay_exchange = $exchange / tpCache('shopping.exchange_rate');
-
             if ($exchange_amount_max) {
                 $pay_exchange = ($pay_exchange > $exchange_amount_max) ? $exchange_amount_max : $pay_exchange;
             } else {
@@ -155,12 +152,18 @@ class UnionController extends MobileBaseController
         } else {
             $pay_exchange = 0;
         }
+        unset($exchange_amount_max);
 
-        // 兑币抵扣的金额怎么能出现小数，那就成BUG了，所以要直接取整，不要小数位（这对用户来说不会损失什么，相当于如果10兑币等于1元的话，那么用户使用9兑币就相当于没有使用一样，不会有效果，相当于强制让用户输入了0）
-        $pay_exchange = (int) $pay_exchange;
+
+        // 兑币抵扣的金额怎么能出现小数，那就成BUG了，所以要直接取整，不要小数位（这对用户来说不会损失什么，相当于如果1兑币等于1元的话，那么当兑币抵扣1.1元时，会出现使用1.1个兑币的情况，所以要处理一下，以保证兑币是整数，这样会出现这样的情况，当系统计算得到兑币需要抵扣0.9元时，即使用户输入1个兑币来抵扣，那么也不会出现扣用户0.9个兑币的情况的，不会抵扣兑币，相当于强制让用户输入了0，不使用兑币）
+        $pay_exchange_num = $pay_exchange * tpCache('shopping.exchange_rate');
+        if (!is_int($pay_exchange_num)) {
+            $pay_exchange_num = (int) $pay_exchange_num;
+            $pay_exchange = $pay_exchange_num / tpCache('shopping.exchange_rate');
+        }
+
 
         $order_amount = $total_amount - $pay_exchange;
-        $exchange     = $pay_exchange * tpCache('shopping.exchange_rate');
 
         // 提交订单
         if ('submit_order' == I('request.act')) {
@@ -171,7 +174,7 @@ class UnionController extends MobileBaseController
                 'order_sn'        => date('YmdHis') . rand(1000, 9999), // 订单编号（加了唯一索引，如果很小的几率引起了重复，那么插入语句会出错）
                 'user_id'         => $this->user_id, // 用户id
                 'add_time'        => time(),
-                'exchange'        => $exchange,
+                'exchange'        => $pay_exchange_num,
                 'exchange_money'  => $pay_exchange,
                 'total_amount'    => $total,
                 'discount'        => $info['discount'],
