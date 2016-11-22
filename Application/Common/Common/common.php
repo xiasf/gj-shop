@@ -1191,6 +1191,10 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
     if ($order_amount > 0) {
         $pay_exchange   = ($pay_exchange / tpCache('shopping.exchange_rate')); // 兑币支付 100 兑币等于 1块钱
         $pay_exchange   = ($pay_exchange > $order_amount) ? $order_amount : $pay_exchange;
+
+        // 兑币抵扣的金额怎么能出现小数，那就成BUG了，所以要直接取整，不要小数位（这对用户来说不会损失什么，相当于如果10兑币等于1元的话，那么用户使用9兑币就相当于没有使用一样，不会有效果，相当于强制让用户输入了0）
+        $pay_exchange = (int) $pay_exchange;
+
         $order_amount   = $order_amount - $pay_exchange; // 兑币抵消应付金额
     } else {
         $pay_exchange = 0;
@@ -1201,6 +1205,10 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         $pay_points   = ($pay_points / tpCache('shopping.point_rate')); // 积分支付 100 积分等于 1块钱
         // 不用担心多扣除了积分了
         $pay_points   = ($pay_points > $order_amount) ? $order_amount : $pay_points; // 假设应付 1块钱 而用户输入了 200 积分 2块钱, 那么就让 $pay_points = 1块钱 等同于强制让用户输入1块钱
+
+        // 积分抵扣的金额怎么能出现小数，那就成BUG了，所以要直接取整，不要小数位（这对用户来说不会损失什么，相当于如果100积分等于1元的话，那么用户使用199积分就相当于没有使用一样，不会有效果，相当于强制让用户输入了100）
+        $pay_points = (int) $pay_points;
+
         $order_amount = $order_amount - $pay_points; //  积分抵消应付金额
     } else {
         $pay_points = 0;

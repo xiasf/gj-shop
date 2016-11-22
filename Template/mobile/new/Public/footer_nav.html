@@ -3,41 +3,46 @@
 	<div class="vf_nav">
 		<ul>
 			<li>
-				<a href="{:U('Index/index')}"> 
-					<!-- <i class="vf_1"></i> -->
-					<i class="icon iconfont icon-31shouyexuanzhong"></i>
-					<span>首页</span>
-				</a>
-			</li>
-			<li>
-				<a href="tel:{$tpshop_config['shop_info_phone']}">
-					<i class="icon iconfont icon-31dingwei"></i>
-					<span>发现</span>
-				</a>
-			</li>
-			<li>
-				<a href="{:U('Goods/categoryList')}">
-					<!-- <i class="vf_3"></i> -->
-					<i class="icon iconfont icon-chuzu"></i>
-					<span>驾校</span>
-				</a>
-			</li>
-			<li>
-				<a href="{:U('Cart/cart')}"> <em class="global-nav__nav-shop-cart-num" id="cart_quantity" style="right:9px;"></em>
-					<!-- <i class="vf_4"></i> -->
-					<i class="icon iconfont icon-31gouwuche"></i>
-					<span>购物车</span>
-				</a>
-			</li>
-			<li>
-				<a href="{:U('User/index')}">
-					<!-- <i class="vf_5"></i> -->
-					<i class="icon iconfont icon-wo"></i>
-					<span>我的</span>
-				</a>
-			</li>
-		</ul>
-	</div>
+				<a href="{:U('Index/index')}">
+					<!-- <i class="vf_1"></i>
+				--> <i class="icon iconfont icon-31shouyexuanzhong"></i>
+				<span>首页</span>
+			</a>
+		</li>
+		<li>
+			<!-- <a href="tel:{$tpshop_config['shop_info_phone']}">
+			-->
+			<a href="{:U('Union/index')}">
+				<i class="icon iconfont icon-31dingwei"></i>
+				<span>发现</span>
+			</a>
+		</li>
+		<li>
+			<a href="{:U('Goods/categoryList')}">
+				<!-- <i class="vf_3"></i>
+			-->
+			<i class="icon iconfont icon-chuzu"></i>
+			<span>驾校</span>
+		</a>
+	</li>
+	<li>
+		<a href="{:U('Cart/cart')}"> <em class="global-nav__nav-shop-cart-num" id="cart_quantity" style="right:9px;"></em>
+			<!-- <i class="vf_4"></i>
+		-->
+		<i class="icon iconfont icon-31gouwuche"></i>
+		<span>购物车</span>
+	</a>
+</li>
+<li>
+	<a href="{:U('User/index')}">
+		<!-- <i class="vf_5"></i>
+	-->
+	<i class="icon iconfont icon-wo"></i>
+	<span>我的</span>
+</a>
+</li>
+</ul>
+</div>
 </div>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -59,6 +64,6 @@ $(document).ready(function(){
 </script>
 <!-- 微信浏览器 调用微信 分享js-->
 <if condition="$signPackage neq null">
-	<include file="Public/wx_share"/>
+<include file="Public/wx_share"/>
 </if>
 <!-- 微信浏览器 调用微信 分享js  end-->

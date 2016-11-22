@@ -1,0 +1,158 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="TPshop v1.1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>优惠支付</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css"/>
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/TouchSlide.1.1.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/jquery.json.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
+</head>
+<body>
+    <div>
+        <h1>{$info.seller_name}({$info['discount'] / 10}折)</h1>
+    </div>
+    <form name="cart2_form" id="cart2_form" method="post">
+    <input type="hidden" value="{$info.id}" name="shop_id" />
+    <input type="hidden" value="{$info.discount}" name="discount" />
+    <input type="hidden" value="{$info.exchange}" name="exchange_" />
+    <section class="zf-info">
+        <ul class="zf-list-info ct-list">
+            <li class="flow_youhui_no">
+                <label id="Bonus_span_0">
+                    支付金额：
+                    <input name="total_amount" onchange="ajax_order_price();" type="text" placeholder="请输入消费金额" >
+                </label>
+            </li>
+            <li class="flow_youhui_no">
+                优惠金额：<strong id="total_amount_"></strong>
+            </li>
+            <li class="flow_youhui_no">
+                <label id="Bonus_span_0">
+                    使用兑币：
+                    <input id="exchange_val" name="exchange" onchange="ajax_order_price();" type="text" value="{$user.exchange}" >
+                </label>
+            </li>
+            <li></li>
+        </ul>
+    </section>
+    </form>
+
+    <div class="f">
+        <button onClick="submit_order();" id ="pay_button">还需支付88元</button>
+    </div>
+
+
+    <script>
+
+    // 获取订单价格
+    function ajax_order_price()
+    {
+
+        if (!$('[name=total_amount]').val()) {
+            layer.open({
+                content: '请输入消费金额'
+                ,skin: 'msg'
+                ,time: 2
+            });
+            return false;
+        }
+
+        // 显示加载层
+        var load = layer.open({
+            type: 2,
+            shadeClose: false,
+        });
+
+        $.ajax({
+            type : "POST",
+            url:'/Mobile/Union/cp_order/act/order_price/t/' + Math.random(),
+            data : $('#cart2_form').serialize(),
+            dataType: "json",
+            success: function(data){
+                layer.close(load);  // 加载完成
+                if(data.status != 1) {
+                    layer.open({
+                        content: data.msg
+                        ,btn: '我知道了'
+                    });
+                    // 登录超时
+                    if(data.status == -100)
+                        window.location.href ="{:U('Mobile/User/login')}";
+                    // 登录超时
+                    if(data.status == -1)
+                        window.location;
+                    return false;
+                }
+                $("#pay_button").text('还需支付' + data.result.order_amount + '元');
+
+                $("#total_amount_").text(data.result.total_amount_);
+
+                $('#exchange_val').val(data.result.exchange);
+            }
+        });
+    }
+
+
+    // 提交订单
+    ajax_return_status = 1; // 标识ajax 请求是否已经回来 可以进行下一次请求
+    function submit_order()
+    {
+
+        if (!$('[name=total_amount]').val()) {
+            layer.open({
+                content: '请输入消费金额'
+                ,skin: 'msg'
+                ,time: 2
+            });
+            return false;
+        }
+
+        if(ajax_return_status == 0) return false;
+        ajax_return_status = 0;
+        $.ajax({
+            type : "POST",
+            url:"{:U('Mobile/Union/cp_order/act/submit_order/t/')}" + Math.random(),
+            data : $('#cart2_form').serialize(),// 你的formid
+            dataType: "json",
+            success: function(data){
+                if(data.status != '1')
+                {
+                    layer.open({
+                        content: data.msg
+                        ,btn: '我知道了'
+                    });
+
+                    // 登录超时
+                    if(data.status == -100) location.href ="{:U('Mobile/User/login')}";
+                    ajax_return_status = 1; // 上一次ajax 已经返回, 可以进行下一次 ajax请求
+
+                    return false;
+                }
+                // console.log(data);
+                $("#exchange").text(data.result.exchange);
+                $("#order_amount").text(data.result.order_amount);
+                $("#total_amount_").text(data.result.total_amount_);
+
+                $('#exchange_val').val(data.result.exchange);
+
+                alert('订单提交成功，跳转支付页面!');
+                location.href = "/index.php?m=Mobile&c=Cart&a=cart4&order_id="+data.result;
+            }
+        });
+    }
+    </script>
+    </body>
+</html>

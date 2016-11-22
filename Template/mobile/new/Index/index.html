@@ -137,46 +137,46 @@
 </ul>
 </div>
 <script>
-/*
-var Tday = new Array();
-var daysms = 24 * 60 * 60 * 1000
-var hoursms = 60 * 60 * 1000
-var Secondms = 60 * 1000
-var microsecond = 1000
-var DifferHour = -1
-var DifferMinute = -1
-var DifferSecond = -1
-function clock(key)
-{
-   var time = new Date()
-   var hour = time.getHours()
-   var minute = time.getMinutes()
-   var second = time.getSeconds()
-   var timevalue = ""+((hour > 12) ? hour-12:hour)
-   timevalue +=((minute < 10) ? ":0":":")+minute
-   timevalue +=((second < 10) ? ":0":":")+second
-   timevalue +=((hour >12 ) ? " PM":" AM")
-   var convertHour = DifferHour
-   var convertMinute = DifferMinute
-   var convertSecond = DifferSecond
-   var Diffms = Tday[key].getTime() - time.getTime()
-   DifferHour = Math.floor(Diffms / daysms)
-   Diffms -= DifferHour * daysms
-   DifferMinute = Math.floor(Diffms / hoursms)
-   Diffms -= DifferMinute * hoursms
-   DifferSecond = Math.floor(Diffms / Secondms)
-   Diffms -= DifferSecond * Secondms
-   var dSecs = Math.floor(Diffms / microsecond)
+    /*
+    var Tday = new Array();
+    var daysms = 24 * 60 * 60 * 1000
+    var hoursms = 60 * 60 * 1000
+    var Secondms = 60 * 1000
+    var microsecond = 1000
+    var DifferHour = -1
+    var DifferMinute = -1
+    var DifferSecond = -1
+    function clock(key)
+    {
+       var time = new Date()
+       var hour = time.getHours()
+       var minute = time.getMinutes()
+       var second = time.getSeconds()
+       var timevalue = ""+((hour > 12) ? hour-12:hour)
+       timevalue +=((minute < 10) ? ":0":":")+minute
+       timevalue +=((second < 10) ? ":0":":")+second
+       timevalue +=((hour >12 ) ? " PM":" AM")
+       var convertHour = DifferHour
+       var convertMinute = DifferMinute
+       var convertSecond = DifferSecond
+       var Diffms = Tday[key].getTime() - time.getTime()
+       DifferHour = Math.floor(Diffms / daysms)
+       Diffms -= DifferHour * daysms
+       DifferMinute = Math.floor(Diffms / hoursms)
+       Diffms -= DifferMinute * hoursms
+       DifferSecond = Math.floor(Diffms / Secondms)
+       Diffms -= DifferSecond * Secondms
+       var dSecs = Math.floor(Diffms / microsecond)
 
-   if(convertHour != DifferHour) a=DifferHour+":";
-   if(convertMinute != DifferMinute) b=DifferMinute+":";
-   if(convertSecond != DifferSecond) c=DifferSecond+"分"
-     d=dSecs
-     if (DifferHour>0) {a=a}
-     else {a=''}
-   document.getElementById("jstimerBox"+key).innerHTML = a + b + c ; //显示倒计时信息
-}
-*/
+       if(convertHour != DifferHour) a=DifferHour+":";
+       if(convertMinute != DifferMinute) b=DifferMinute+":";
+       if(convertSecond != DifferSecond) c=DifferSecond+"分"
+         d=dSecs
+         if (DifferHour>0) {a=a}
+         else {a=''}
+       document.getElementById("jstimerBox"+key).innerHTML = a + b + c ; //显示倒计时信息
+    }
+    */
 
 
   // 倒计时
@@ -415,19 +415,6 @@ $v[goods_id]))}" title="{$v.goods_name}">
     });
   </script>
 
-<section class="index_floor_lou">
-<div class="floor_body ">
-<h2>
-<em></em>
-<div class="geng">
-<a href="javascript:void(0);" >更多</a>
-<span></span>
-</div>
-</h2>
-<ul></ul>
-</div>
-</section>
-
 <div id="index_banner" class="index_banner">
 <div class="bd">
 <ul>
@@ -527,35 +514,19 @@ function goTop(){
 </form>
 </div>
 </div>
-<!--
-    <div class="search_body">
-<div class="search_box">
-<form action="search.php" method="post" id="searchForm" name="searchForm">
-<div>
-<select id='search_type' name="search_type" style="width:15%;">
-<option value='search'>宝贝</option>
-<option value='stores'>店铺</option>
-</select>
-<input class="text" type="search" name="keywords" id="keywordBox" autofocus>
-<button type="submit" value="搜 索" ></button>
-</div>
-</form>
-</div>
-</div>
--->
 <section class="mix_recently_search">
-<h3>热门搜索</h3>
-<ul>
-<foreach name="tpshop_config.hot_keywords" item="wd" key="k">
-<li>
-<a href="{:U('Goods/search',array('q'=>
-$wd))}"
-<if condition="$k eq 0">class="ht"</if>
->{$wd}
-</a>
-</li>
-</foreach>
-</ul>
+    <h3>热门搜索</h3>
+    <ul>
+        <foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+            <li>
+                <a href="{:U('Goods/search',array('q'=>
+                    $wd))}"
+                    <if condition="$k eq 0">class="ht"</if>
+                    >{$wd}
+                </a>
+            </li>
+        </foreach>
+    </ul>
 </section>
 </div>
 
@@ -587,6 +558,8 @@ $('#searchtype').val($(this).attr('0'));
 </script>
 <script src="__PUBLIC__/js/jqueryUrlGet.js"></script>
 <!--获取get参数插件-->
-<script>set_first_leader(); //设置推荐人</script>
+<script>
+set_first_leader(); //设置推荐人
+</script>
 </body>
 </html>

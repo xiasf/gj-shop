@@ -1,0 +1,217 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="TPshop v1.1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>发现-{$tpshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css"/>
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/TouchSlide.1.1.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/jquery.json.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js"></script>
+</head>
+<body>
+    <div id="page" class="showpage">
+        <div>
+            <div id="scrollimg" class="scrollimg">
+                <div class="bd">
+                    <ul>
+                        <adv pid ="2" limit="5" item="v">
+                            <li>
+                                <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if>
+                                >
+                                <img src="{$v[ad_code]}" title="{$v[title]}"width="100%" style="{$v[style]}"/>
+                            </a>
+                        </li>
+                    </adv>
+                </ul>
+            </div>
+            <div class="hd">
+                <ul></ul>
+            </div>
+        </div>
+        <script type="text/javascript">
+            TouchSlide({
+                slideCell:"#scrollimg",
+                titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+                mainCell:".bd ul",
+                effect:"leftLoop",
+                autoPage:true,//自动分页
+                autoPlay:true //自动播放
+            });
+        </script>
+    </div>
+</div>
+
+<style>
+    dl.list {
+        margin-top: .2rem;
+        margin-bottom: 0;
+        background-color: #fff;
+    }
+    dl.list-in {
+        margin: 0;
+        padding: 10px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+    }
+
+    dl.list dt, dl.list dd {
+        margin: 0;
+        overflow: hidden;
+        font-size: inherit;
+        font-weight: 400;
+        position: relative;
+    }
+
+
+    .icon-list {
+        height: auto;
+    }
+
+    .page.current {
+        z-index: 2;
+    }
+
+
+    .icon-list .icon {
+        display: inline-block;
+        box-sizing: border-box;
+        width: 25%;
+        text-align: center;
+        float: left;
+    }
+
+    .icon-list .icon>a {
+        padding: .2rem 0;
+    }
+
+    a {
+        color: #06c1ae;
+        text-decoration: none;
+        outline: 0;
+    }
+
+    .iconfont {
+    font-family: iconfont!important;
+    font-size: 16px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: .2px;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-list .new-icon-circle {
+    display: block;
+    margin: auto;
+    margin-bottom: .14rem;
+    width: .8rem;
+    height: .8rem;
+    border-radius: 10rem;
+    text-align: center;
+    line-height: .8rem;
+    font-size: .5rem;
+    color: #fff;
+}
+
+.meishi:before {
+    content: "\e603";
+}
+
+.icon-list .icon-desc {
+    text-align: center;
+    font-size: .24rem;
+    color: #666;
+}
+
+</style>
+
+<dl class="list list-in">
+    <dd class="icon-wrapper h_gesture_">
+        <ul class="icon-list current">
+            <li class="icon">
+                <a style="display:block" gaevent="imt/homepage/category1/1" data-stid_b="1" href="http://i.meituan.com/huanggang?cid=1&amp;cateType=poi">
+                    <span class="new-icon-circle iconfont meishi" style="background: #fd9d21"></span>
+                    <span class="icon-desc">美食</span>
+                </a>
+            </li>
+            <li class="icon">
+                <a style="display:block" gaevent="imt/homepage/category1/99" data-stid_b="1" href="http://m.maoyan.com/imeituan/?_v_=yes&amp;ci=258">
+                    <span class="new-icon-circle iconfont dianying" style="background: #ff6767"></span>
+                    <span class="icon-desc">电影</span>
+                </a>
+            </li>
+            <li class="icon">
+                <a style="display:block" gaevent="imt/homepage/category1/20" href="/awp/h5/hotel/search/search.html" data-stid_b="1">
+                    <span class="new-icon-circle iconfont jiudian" style="background: #8a90fa"></span>
+                    <span class="icon-desc">酒店</span>
+                </a>
+            </li>
+            <li class="icon">
+                <a style="display:block" gaevent="imt/homepage/category1/2" data-stid_b="1" href="http://i.meituan.com/huanggang?cid=2&amp;cateType=poi">
+                    <span class="new-icon-circle iconfont xiuxianyule" style="background: #fed030"></span>
+                    <span class="icon-desc">休闲娱乐</span>
+                </a>
+            </li>
+            <li class="icon">
+                <a style="display:block" gaevent="imt/homepage/category1/394" href="http://i.waimai.meituan.com/mti/home?cityId=258&amp;lat=30.3&amp;lng=115.34" data-stid_b="1">
+                    <span class="new-icon-circle iconfont waimai" style="background: #fd9d21"></span>
+                    <span class="icon-desc">外卖</span>
+                </a>
+            </li>
+            <li class="icon">
+                <a style="display:block" gaevent="imt/homepage/category1/10" data-stid_b="1" href="http://i.meituan.com/huanggang?cid=10&amp;cateType=poi">
+                    <span class="new-icon-circle iconfont ktv" style="background: #fed030"></span>
+                    <span class="icon-desc">KTV</span>
+                </a>
+            </li>
+            <li class="icon">
+                <a style="display:block" gaevent="imt/homepage/category1/22" href="/catehome/22">
+                    <span class="new-icon-circle iconfont liren" style="background: #ff80c2"></span>
+                    <span class="icon-desc">丽人</span>
+                </a>
+            </li>
+            <li class="icon">
+                <a style="display:block" gaevent="imt/homepage/category1/99999" href="http://i.meituan.com/category?city=huanggang">
+                    <span class="new-icon-circle iconfont quanbu" style="background: #00d3be"></span>
+                    <span class="icon-desc">全部分类</span>
+                </a>
+            </li>
+        </ul>
+        <ul class="list-ico list"></ul>
+    </dd>
+</dl>
+
+<div id="shop_list">加载中……</div>
+
+
+<!-- 这个先加载，渲染比较好，不然要慢慢最后才显示，体验会不好的 -->
+<include file="Public/footer_nav"/>
+
+<script>
+    $(function(){
+        var url = "{:U('getShopList')}";
+        $.ajax({
+            type : "GET",
+            url  : url,
+            error: function(request) {
+                alert("服务器繁忙!");
+                return;
+            },
+            success: function(v) {
+                $('#shop_list').empty().html(v);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

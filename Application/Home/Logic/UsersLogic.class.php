@@ -22,11 +22,13 @@ use Think\Page;
  * Class CatsLogic
  * @package Home\Logic
  */
-class UsersLogic extends RelationModel {
+class UsersLogic extends RelationModel
+{
     /*
      * 登陆
      */
-    public function login($username, $password) {
+    public function login($username, $password)
+    {
         $result = array();
         if (!$username || !$password) {
             $result = array('status' => 0, 'msg' => '请填写账号或密码');
@@ -53,7 +55,8 @@ class UsersLogic extends RelationModel {
     /*
      * app端登陆
      */
-    public function app_login($username, $password) {
+    public function app_login($username, $password)
+    {
 
         $result = array();
         if (!$username || !$password) {
@@ -82,7 +85,8 @@ class UsersLogic extends RelationModel {
     /*
      * 第三方登录
      */
-    public function thirdLogin($data = array()) {
+    public function thirdLogin($data = array())
+    {
         $openid = $data['openid']; //第三方返回唯一标识
         $oauth  = $data['oauth']; //来源
         if (!$openid || !$oauth) {
@@ -147,7 +151,8 @@ class UsersLogic extends RelationModel {
      * @param $password2 确认密码
      * @return array
      */
-    public function reg($username, $password, $password2) {
+    public function reg($username, $password, $password2)
+    {
         $is_validated = 0;
         if (check_email($username)) {
             $is_validated           = 1;
@@ -224,7 +229,8 @@ class UsersLogic extends RelationModel {
     /*
      * 获取当前登录用户信息
      */
-    public function get_info($user_id) {
+    public function get_info($user_id)
+    {
         if (!$user_id > 0) {
             return array('status' => -1, 'msg' => '缺少参数', 'result' => '');
         }
@@ -247,7 +253,8 @@ class UsersLogic extends RelationModel {
     /*
      * 获取最近一笔订单
      */
-    public function get_last_order($user_id) {
+    public function get_last_order($user_id)
+    {
         $last_order = M('order')->where("user_id = {$user_id}")->order('order_id DESC')->find();
         return $last_order;
     }
@@ -255,7 +262,8 @@ class UsersLogic extends RelationModel {
     /*
      * 获取订单商品
      */
-    public function get_order_goods($order_id) {
+    public function get_order_goods($order_id)
+    {
         $sql        = "SELECT og.*,g.original_img FROM __PREFIX__order_goods og LEFT JOIN __PREFIX__goods g ON g.goods_id = og.goods_id WHERE order_id = " . $order_id;
         $goods_list = $this->query($sql);
 
@@ -268,7 +276,8 @@ class UsersLogic extends RelationModel {
     /*
      * 获取账户资金记录
      */
-    public function get_account_log($user_id, $type = 0) {
+    public function get_account_log($user_id, $type = 0)
+    {
         //查询条件
         //        $type = I('get.type',0);
         if ($type == 1) {
@@ -294,7 +303,8 @@ class UsersLogic extends RelationModel {
     /*
      * 获取优惠券
      */
-    public function get_coupon($user_id, $type = 0) {
+    public function get_coupon($user_id, $type = 0)
+    {
 
         //查询条件
         //    $type = I('get.type',0);
@@ -334,7 +344,8 @@ class UsersLogic extends RelationModel {
      * 获取商品收藏列表
      * @param $user_id  用户id
      */
-    public function get_goods_collect($user_id) {
+    public function get_goods_collect($user_id)
+    {
         $count = M('goods_collect')->where(array('user_id' => $user_id))->count();
         $page  = new Page($count, 10);
         $show  = $page->show();
@@ -357,7 +368,8 @@ class UsersLogic extends RelationModel {
      * @param $status  状态 0 未评论 1 已评论
      * @return mixed
      */
-    public function get_comment($user_id, $status = 2) {
+    public function get_comment($user_id, $status = 2)
+    {
         if ($status == 1) {
             //已评论
             $count2 = M('')->query("select count(*) as count from `__PREFIX__comment`  as c inner join __PREFIX__order_goods as g on c.goods_id = g.goods_id and c.order_id = g.order_id where c.user_id = $user_id");
@@ -399,7 +411,8 @@ class UsersLogic extends RelationModel {
      * @param $username  用户名
      * @return bool
      */
-    public function add_comment($add) {
+    public function add_comment($add)
+    {
         if (!$add[order_id] || !$add[goods_id]) {
             return array('status' => -1, 'msg' => '非法操作', 'result' => '');
         }
@@ -439,7 +452,8 @@ class UsersLogic extends RelationModel {
      * @param int $user_id  用户id
      * @return bool
      */
-    public function update_email_mobile($email_mobile, $user_id, $type = 1) {
+    public function update_email_mobile($email_mobile, $user_id, $type = 1)
+    {
         //检查是否存在邮件
         if ($type == 1) {
             $field = 'email';
@@ -470,7 +484,8 @@ class UsersLogic extends RelationModel {
      * @param $post  要更新的信息
      * @return bool
      */
-    public function update_info($user_id, $post = array()) {
+    public function update_info($user_id, $post = array())
+    {
         $model = M('users')->where("user_id = " . $user_id);
         $row   = $model->setField($post);
         if ($row === false) {
@@ -486,7 +501,8 @@ class UsersLogic extends RelationModel {
      * @param $user_id 地址id(编辑时需传入)
      * @return array
      */
-    public function add_address($user_id, $address_id = 0, $data) {
+    public function add_address($user_id, $address_id = 0, $data)
+    {
         $post = $data;
         if ($address_id == 0) {
             $c = M('UserAddress')->where("user_id = $user_id")->count();
@@ -561,7 +577,8 @@ class UsersLogic extends RelationModel {
      * @param $post
      * @return array
      */
-    public function add_pick_up($user_id, $post) {
+    public function add_pick_up($user_id, $post)
+    {
         //检查用户是否已经有自提点
         $user_pickup_address_id = M('user_address')->where('user_id=' . $user_id . ' AND is_pickup=1')->getField('address_id');
         $pick_up                = M('pick_up')->where(array('pickup_id' => $post['pickup_id']))->find();
@@ -592,7 +609,8 @@ class UsersLogic extends RelationModel {
      * @param $user_id
      * @param $address_id
      */
-    public function set_default($user_id, $address_id) {
+    public function set_default($user_id, $address_id)
+    {
         M('user_address')->where(array('user_id' => $user_id))->save(array('is_default' => 0)); //改变以前的默认地址地址状态
         $row = M('user_address')->where(array('user_id' => $user_id, 'address_id' => $address_id))->save(array('is_default' => 1));
         if (!$row) {
@@ -609,7 +627,8 @@ class UsersLogic extends RelationModel {
      * @param $new_password  新密码
      * @param $confirm_password 确认新 密码
      */
-    public function password($user_id, $old_password, $new_password, $confirm_password, $is_update = true) {
+    public function password($user_id, $old_password, $new_password, $confirm_password, $is_update = true)
+    {
         $data = $this->get_info($user_id);
         $user = $data['result'];
         if (strlen($new_password) < 6) {
@@ -636,7 +655,8 @@ class UsersLogic extends RelationModel {
     /**
      * 取消订单
      */
-    public function cancel_order($user_id, $order_id) {
+    public function cancel_order($user_id, $order_id)
+    {
         $order = M('order')->where(array('order_id' => $order_id, 'user_id' => $user_id))->find();
         //检查是否未支付订单 已支付联系客服处理退款
         if (empty($order)) {
@@ -681,7 +701,8 @@ class UsersLogic extends RelationModel {
      * @param $code
      * @param $session_id
      */
-    public function sms_log($mobile, $code, $session_id) {
+    public function sms_log($mobile, $code, $session_id)
+    {
         //判断是否存在验证码
         $data = M('sms_log')->where(array('mobile' => $mobile, 'session_id' => $session_id))->order('id DESC')->find();
         //获取时间配置
@@ -713,7 +734,8 @@ class UsersLogic extends RelationModel {
      * @param $session_id   唯一标示
      * @return bool
      */
-    public function sms_code_verify($mobile, $code, $session_id) {
+    public function sms_code_verify($mobile, $code, $session_id)
+    {
         //判断是否存在验证码
         $data = M('sms_log')->where(array('mobile' => $mobile, 'session_id' => $session_id, 'code' => $code))->order('id DESC')->find();
         if (empty($data)) {
@@ -738,7 +760,8 @@ class UsersLogic extends RelationModel {
      * @param $type 发送类型
      * @return json
      */
-    public function send_validate_code($sender, $type) {
+    public function send_validate_code($sender, $type)
+    {
         $sms_time_out = tpCache('sms.sms_time_out');
         $sms_time_out = $sms_time_out ? $sms_time_out : 180;
         //获取上一次的发送时间
@@ -776,7 +799,8 @@ class UsersLogic extends RelationModel {
         return $res;
     }
 
-    public function check_validate_code($code, $sender) {
+    public function check_validate_code($code, $sender)
+    {
         $check = session('validate_code');
         if (empty($check)) {
             $res = array('status' => 0, 'msg' => '请先获取验证码');
@@ -797,7 +821,8 @@ class UsersLogic extends RelationModel {
      * @author dyr
      * 设置用户系统消息已读
      */
-    public function setSysMessageForRead() {
+    public function setSysMessageForRead()
+    {
         $user_info = session('user');
         if (!empty($user_info['user_id'])) {
             $data['status'] = 1;
