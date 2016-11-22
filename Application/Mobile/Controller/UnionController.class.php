@@ -195,7 +195,7 @@ class UnionController extends MobileBaseController
                     // 减兑币
                     $userLogic = new UsersLogic();
                     $data['exchange'] = $this->user['exchange'] - $pay_exchange_num;
-                    $userLogic->update_info($this->user_id, $data))
+                    $userLogic->update_info($this->user_id, $data);
                     // 记录日志
                     $data4['user_id']     = $this->user_id;
                     $data4['user_money']  = 0;
