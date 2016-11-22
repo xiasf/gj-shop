@@ -139,7 +139,7 @@ class WechatController extends BaseController {
         $menu['button'][] = array(
             'name' => '测试',
             'type' => 'view',
-            'url'  => 'http://wwwtp-shhop.cn',
+            'url'  => 'http://www.tp-shop.cn',
         );
         $menu['button'][] = array(
             'name'       => '测试',

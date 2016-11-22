@@ -39,7 +39,7 @@ class WeixinController extends BaseController
 
     public function index()
     {
-        echo "true";
+        echo I('get.echostr');
         exit;
         if ($this->wechat_config['wait_access'] == 0) {
             exit($_GET["echostr"]);
