@@ -40,7 +40,7 @@ class IndexController extends MobileBaseController
         $wx_user    = M('wx_user')->find();
         $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
         $wx_content = "你刚刚下了一笔订单:111 尽快支付，过期失效!";
-        $res = $jssdk->push_msg($user['openid'], $wx_content);
+        $res = $jssdk->push_msg(session('user.user_id'), $wx_content);
         var_dump($res);exit;
 
     }
