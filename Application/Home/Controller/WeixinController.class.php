@@ -39,8 +39,8 @@ class WeixinController extends BaseController
 
     public function index()
     {
-        echo I('get.echostr');
-        exit;
+        // echo I('get.echostr');
+        // exit;
         if ($this->wechat_config['wait_access'] == 0) {
             exit($_GET["echostr"]);
         } else {
@@ -51,7 +51,7 @@ class WeixinController extends BaseController
 
     public function responseMsg()
     {
-        echo "aaaa";
+        // echo "aaaa";
         //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         //extract post data
