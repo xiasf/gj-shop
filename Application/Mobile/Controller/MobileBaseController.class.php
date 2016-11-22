@@ -53,7 +53,7 @@ class MobileBaseController extends Controller
                 session('subscribe', $wxuser['subscribe']); // 当前这个用户是否关注了微信公众号
                 //微信自动登录
                 $data = array(
-                    'openid'   => $wxuser['openid'], //支付宝用户号
+                    'openid'   => $wxuser['openid'], //用户号
                     'oauth'    => 'weixin',
                     'nickname' => trim($wxuser['nickname']) ? trim($wxuser['nickname']) : '微信用户',
                     'sex'      => $wxuser['sex'],
@@ -124,7 +124,7 @@ class MobileBaseController extends Controller
             // 上面跳转, 这里跳了回来
             //获取code码，以获取openid
             $code               = $_GET['code'];
-            $data               = $this->getOpenidFromMp($code);
+            $data               = $this->GetOpenidFromMp($code);
             $data2              = $this->GetUserInfo($data['access_token'], $data['openid']);
             $data['nickname']   = $data2['nickname'];
             $data['sex']        = $data2['sex'];
@@ -231,7 +231,7 @@ class MobileBaseController extends Controller
         $urlObj["appid"]         = $this->weixin_config['appid'];
         $urlObj["redirect_uri"]  = "$redirectUrl";
         $urlObj["response_type"] = "code";
-//        $urlObj["scope"] = "snsapi_base";
+        // $urlObj["scope"] = "snsapi_base";
         $urlObj["scope"] = "snsapi_userinfo";
         $urlObj["state"] = "STATE" . "#wechat_redirect";
         $bizString       = $this->ToUrlParams($urlObj);

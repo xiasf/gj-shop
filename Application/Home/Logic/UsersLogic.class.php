@@ -133,7 +133,7 @@ class UsersLogic extends RelationModel
             $coupon = M('coupon')->where("send_end_time > " . time() . " and ((createnum - send_num) > 0 or createnum = 0) and type = 2")->select();
             foreach ($coupon as $key => $val) {
                 // 送券
-                M('coupon_list')->add(array('cid' => $val['id'], 'type' => $val['type'], 'uid' => $user[user_id], 'send_time' => time()));
+                M('coupon_list')->add(array('cid' => $val['id'], 'type' => $val['type'], 'uid' => $user['user_id'], 'send_time' => time()));
                 M('Coupon')->where("id = {$val['id']}")->setInc('send_num'); // 优惠券领取数量加一
             }
 
