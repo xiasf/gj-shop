@@ -19,6 +19,13 @@ class BaseController extends Controller {
      * 初始化操作
      */
     public function _initialize() {
+
+      // 如果是手机跳转到 手机模块
+      if(true == isMobile()){
+          header("Location: ".U('Mobile/' . CONTROLLER_NAME . '/' . ACTION_NAME));
+          exit;
+      }
+
       header('Content-Type:text/html; charset=utf-8');
       echo '电脑版开发中……';
       exit;
