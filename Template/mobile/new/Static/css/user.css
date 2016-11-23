@@ -55,7 +55,7 @@
 .cash_num table tr{border-bottom: 1px solid #dedede;}
 .cash_num table tr th,.cash_num table tr td{text-align: center;}
 
-.Icon{ display:block; float:left; width:35px; height:35px; margin-top:5px; position:absolute}
+.Icon{left: 4px; display:block; float:left; width:35px; height:35px; margin-top:5px; position:absolute}
 .Icon1,.Icon2,.Icon3,.Icon4,.Icon5,.Icon6,.Icon7,.Icon8,.Icon9,.Icon11{background-image: url(../images/user.png);background-repeat: no-repeat;background-size: auto 1200%; }
 .Icon10{background-image: url(../images/user1.png);background-repeat: no-repeat;background-size: auto 820%; }
 .Icon1{ background-position:0px 3px}

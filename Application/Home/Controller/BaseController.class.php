@@ -19,6 +19,9 @@ class BaseController extends Controller {
      * 初始化操作
      */
     public function _initialize() {
+      header('Content-Type:text/html; charset=utf-8');
+      echo '电脑版开发中……';
+      exit;
     	$this->session_id = session_id(); // 当前的 session_id
         define('SESSION_ID',$this->session_id); //将当前的session_id保存为常量，供其它方法调用
         // 判断当前用户是否手机                
