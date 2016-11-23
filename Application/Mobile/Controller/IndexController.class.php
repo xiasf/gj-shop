@@ -33,16 +33,7 @@ class IndexController extends MobileBaseController
         $this->assign('hot_goods', $hot_goods);
         $favourite_goods = M('goods')->where("is_recommend=1 and is_on_sale=1")->order('goods_id DESC')->limit(20)->cache(true, TPSHOP_CACHE_TIME)->select(); //首页推荐商品
         $this->assign('favourite_goods', $favourite_goods);
-        // $this->display();
-
-
-
-        $wx_user    = M('wx_user')->find();
-        $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
-        $wx_content = "你刚刚下了一笔订单:111 尽快支付，过期失效!";
-        $res = $jssdk->push_msg(session('user.openid'), $wx_content);
-        var_dump($res);exit;
-
+        $this->display();
     }
 
     /**
