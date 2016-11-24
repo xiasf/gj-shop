@@ -191,7 +191,8 @@
                         </select>
                     </div>
                     <div class="col-xs-4">
-                        <input type="text" placeholder="详细地址" class="form-control" name="address" value="{$info.address}"></div>
+                        <input type="text" placeholder="详细地址" class="form-control" name="address" value="{$info.address}">
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -208,6 +209,12 @@
                 <td>默认排序：</td>
                 <td>
                     <input type="text" class="input-sm" name="sort" value="{$info.sort}"  placeholder="50"></td>
+            </tr>
+            <tr>
+                <td>简介：</td>
+                <td>
+                    <textarea name="describe">{$info.describe}</textarea>
+                </td>
             </tr>
         </tbody>
         <tfoot>

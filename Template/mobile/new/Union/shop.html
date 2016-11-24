@@ -25,14 +25,17 @@
             padding-left: 11px;
             color: #929292;
         }
-        .shop_info li {
+        .shop-info li {
             padding: 1px 7px;
             font-size: 1.4rem;
             border-bottom: 1px #E0E0E0 solid;
         }
-        .shop_info strong {
+        .shop-info strong {
             font-weight: 100;
             color: #5A5A5A;
+        }
+        .shop-info .describe {
+            line-height: 2.2rem;
         }
         .f {
             position: fixed;
@@ -82,7 +85,7 @@
 
     <div id="img_logo" style="background-image: url('{$info.head_pic}');"><a href="/" onclick="" class="hou"><i class="icon iconfont icon-qiehuanqizuo"></i></a></div>
 
-    <div class="shop_info">
+    <div class="shop-info">
         <ul>
             <li> <strong>商家：</strong>
                 {$info.seller_name}
@@ -109,6 +112,7 @@
                 <strong>兑币抵扣：</strong>
                 {$info['exchange']}%<span class="small">最高抵扣消费金额的{$info['exchange']}%（注：享受折扣后的折上折）</span>
             </li>
+            <li class="describe">{$info['describe']}</li>
         </ul>
     </div>
 
