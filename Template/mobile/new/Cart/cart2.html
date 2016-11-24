@@ -411,9 +411,9 @@
                 $("#payables").text(data.result.payables);                      // 应付
                 $("#order_prom_amount").text(data.result.order_prom_amount);    // 订单 优惠活动
 
-                $('#exchange_val').val(data.result.exchange);
+                $('#exchange_val').val(data.result.exchange_num);
                 $('#user_money').val(data.result.balance);
-                $('#pay_points').val(data.result.pointsFee);
+                $('#pay_points').val(data.result.pointsFee_num);
             }
         });
     }
@@ -444,17 +444,6 @@
                     return false;
                 }
                 // console.log(data);
-                $("#postFee").text(data.result.postFee);                        // 物流费
-                $("#couponFee").text(data.result.couponFee);                    // 优惠券
-                $("#balance").text(data.result.balance);                        // 余额
-                $("#exchange").text(data.result.exchange);                      // 兑币支付
-                $("#pointsFee").text(data.result.pointsFee);                    // 积分支付
-                $("#payables").text(data.result.payables);                      // 应付
-                $("#order_prom_amount").text(data.result.order_prom_amount);    // 订单 优惠活动
-
-                $('#exchange_val').val(data.result.exchange);
-                $('#user_money').val(data.result.balance);
-                $('#pay_points').val(data.result.pointsFee);
 
                 alert('订单提交成功，跳转支付页面!');
                 location.href = "/index.php?m=Mobile&c=Cart&a=cart4&order_id="+data.result;

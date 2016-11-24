@@ -836,10 +836,28 @@ a .ba-po--185:hover{ background:url(../images/thirdfast_login_all.png) no-repeat
 .wi70{ width:70px}
 .wi120{ width:120px}
 .order-ha{font-family: 'Tahoma','\5FAE\8F6F\96C5\9ED1';margin-bottom: 48px;}
-.erhuh{border-top: 2px solid #7abd54;background-color: #f1f8ee;position: relative;padding-left: 27%;min-height: 116px;padding-bottom: 21px;}
+.erhuh{    border-top: 2px solid #7abd54;
+    background-color: #f1f8ee;
+    position: relative;
+    min-height: 116px;
+    padding: 10px;}
 .icon-succ{position: absolute;top: 35px;left: 56px;display: inline-block;width: 72px;height: 72px;background-position: 0 0; background:url(../images/icon30.png) no-repeat}
-.icon-succa{position: absolute;top: 35px;left: 20px;display: inline-block;width: 50px;height: 50px;background-position: 0 0; background:url(../images/icon33.png) -24px 0; background-repeat:no-repeat; background-size:188px}
-.icon-sucsa{position: absolute;top: 35px;left: 20px;display: inline-block;width: 50px;height: 50px;background-position: 0 0; background:url(../images/icon33.png) -81px 0; background-repeat:no-repeat; background-size:188px}
+.icon-succa{    width: 50px;
+    height: 50px;
+    background-position: 0 0;
+    background: url(../images/icon33.png) -24px 0;
+    background-repeat: no-repeat;
+    background-size: 188px;
+    display: block;
+    margin: 23px auto;}
+.icon-sucsa{    width: 50px;
+    height: 50px;
+    background-position: 0 0;
+    background: url(../images/icon33.png) -81px 0;
+    background-repeat: no-repeat;
+    background-size: 188px;
+    display: block;
+    margin: 23px auto;}
 
 .erhuh h3{font-size: 16px;color: #7baa61; font-weight:400}
 .erhuh p{ color:#777}

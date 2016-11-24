@@ -27,9 +27,9 @@ class BaseController extends Controller
     public function __construct()
     {
         parent::__construct();
-        $upgradeLogic = new UpgradeLogic();
-        $upgradeMsg   = $upgradeLogic->checkVersion(); //升级包消息
-        $this->assign('upgradeMsg', $upgradeMsg);
+        // $upgradeLogic = new UpgradeLogic();
+        // $upgradeMsg   = $upgradeLogic->checkVersion(); //升级包消息
+        // $this->assign('upgradeMsg', $upgradeMsg);
         //用户中心面包屑导航
         $navigate_admin = navigate_admin();
         $this->assign('navigate_admin', $navigate_admin);

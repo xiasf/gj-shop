@@ -4,7 +4,7 @@ return array(
     'code'=> 'qq',
     'name' => 'QQ登陆',
     'version' => '1.0',
-    'author' => '彭老师',
+    'author' => '广佳',
     'desc' => 'QQ登陆插件 ',
     'icon' => 'logo.jpg',
     'config' => array(

@@ -13,6 +13,7 @@
 namespace Mobile\Controller;
 
 use Home\Logic\UsersLogic;
+use Think\Page;
 
 class UnionController extends MobileBaseController
 {
@@ -27,8 +28,6 @@ class UnionController extends MobileBaseController
     public function _initialize()
     {
         parent::_initialize();
-        $this->cartLogic = new \Home\Logic\CartLogic();
-        // 如果用户登录了
         if (session('?user')) {
             $user = session('user');
             $user = M('users')->where("user_id = {$user['user_id']}")->find();
@@ -36,14 +35,12 @@ class UnionController extends MobileBaseController
             $this->user    = $user;
             $this->user_id = $user['user_id'];
             $this->assign('user', $user); //存储用户信息
-            // [修改购物车] 给用户计算会员价 登录前后不一样
-            if ($user) {
-                // 会员折扣，默认为1不享受
-                $user['discount'] = empty($user['discount']) ? 1 : $user['discount'];
-                // 购物车有可能没登录时加入了商品，登陆后则不适用原先为登录的商品了
-                M('Cart')->execute("update `__PREFIX__cart` set member_goods_price = goods_price * {$user['discount']} where (user_id ={$user['user_id']} or session_id = '{$this->session_id}') and prom_type = 0");
-                // 并且此享受折扣价的商品还不能参加活动
-            }
+        }
+        // 不需要登录的操作
+        $nologin = ['index', 'getShopList', 'shop', 'cp_order'];
+        if (!$this->user_id && !in_array(ACTION_NAME, $nologin)) {
+            header("location:" . U('Mobile/User/login'));
+            exit;
         }
     }
 
@@ -188,14 +185,13 @@ class UnionController extends MobileBaseController
 
             $order_id = M('union_order')->data($data)->add();
             if (!$order_id) {
-                $return_arr = array('status' => -2, 'msg' => '提交失败', 'result' => ''); // 返回结果状态
+                $return_arr = array('status' => -2, 'msg' => '支付失败', 'result' => ''); // 返回结果状态
             } else {
 
                 if ($pay_exchange_num) {
                     // 减兑币
                     $userLogic = new UsersLogic();
-                    $data['exchange'] = $this->user['exchange'] - $pay_exchange_num;
-                    $userLogic->update_info($this->user_id, $data);
+                    $userLogic->update_info($this->user_id, ['exchange' => $this->user['exchange'] - $pay_exchange_num]);
                     // 记录日志
                     $data4['user_id']     = $this->user_id;
                     $data4['user_money']  = 0;
@@ -206,7 +202,7 @@ class UnionController extends MobileBaseController
                     M("AccountLog")->add($data4);
                 }
 
-                $return_arr = array('status' => 1, 'msg' => '提交成功', 'result' => $order_id); // 返回结果状态
+                $return_arr = array('status' => 1, 'msg' => '支付成功', 'result' => $order_id); // 返回结果状态
             }
             exit(json_encode($return_arr));
         }
@@ -223,6 +219,50 @@ class UnionController extends MobileBaseController
         // 返回计算结果
         $return_arr = array('status' => 1, 'msg' => '计算成功', 'result' => $result); // 返回结果状态
         exit(json_encode($return_arr));
+    }
+
+
+    /*
+     * 订单详情页面
+     */
+    public function order()
+    {
+
+        $order_id = I('order_id/s');
+
+        $order    = M('UnionOrder')->where(['user_id' => $this->user_id, 'order_id' => $order_id])->find();
+        // 如果已经支付过的订单直接到订单详情页面
+        if (!$order) {
+            $this->error('订单不存在！');
+        }
+
+        $this->assign('order', $order);
+        $this->display();
+    }
+
+
+    /*
+     * 订单列表
+     */
+    public function order_list()
+    {
+        $where = ' user_id=' . $this->user_id;
+        $count = M('UnionOrder')->where($where)->count();
+        $Page  = new Page($count, 10);
+
+        $show       = $Page->show();
+        $order_str  = "order_id DESC";
+        $order_list = M('UnionOrder')->order($order_str)->where($where)->limit($Page->firstRow . ',' . $Page->listRows)->select();
+
+        $this->assign('page', $show);
+        $this->assign('lists', $order_list);
+
+        if ($_GET['is_ajax']) {
+            $this->display('ajax_order_list');
+            exit;
+        }
+
+        $this->display();
     }
 
 }

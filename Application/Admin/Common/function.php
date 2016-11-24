@@ -172,7 +172,7 @@ function getAllMenu() {
             array('name' => '发货单', 'act' => 'delivery_list', 'control' => 'Order'),
             //array('name' => '快递单', 'act'=>'express_list', 'control'=>'Order'),
             array('name' => '退货单', 'act' => 'return_list', 'control' => 'Order'),
-            array('name' => '添加订单', 'act' => 'add_order', 'control' => 'Order'),
+            // array('name' => '添加订单', 'act' => 'add_order', 'control' => 'Order'),
             array('name' => '订单日志', 'act' => 'order_log', 'control' => 'Order'),
         )),
         'promotion' => array('name' => '促销管理', 'icon' => 'fa-bell', 'sub_menu' => array(
@@ -195,11 +195,11 @@ function getAllMenu() {
         )),
         'weixin'    => array('name' => '微信管理', 'icon' => 'fa-weixin', 'sub_menu' => array(
             array('name' => '公众号管理', 'act' => 'index', 'control' => 'Wechat'),
-            array('name' => '微信菜单管理', 'act' => 'menu', 'control' => 'Wechat'),
-            array('name' => '文本回复', 'act' => 'text', 'control' => 'Wechat'),
-            array('name' => '图文回复', 'act' => 'img', 'control' => 'Wechat'),
-            array('name' => '组合回复', 'act' => 'nes', 'control' => 'Wechat'),
-            array('name' => '消息推送', 'act' => 'news', 'control' => 'Wechat'),
+            // array('name' => '微信菜单管理', 'act' => 'menu', 'control' => 'Wechat'),
+            // array('name' => '文本回复', 'act' => 'text', 'control' => 'Wechat'),
+            // array('name' => '图文回复', 'act' => 'img', 'control' => 'Wechat'),
+            // array('name' => '组合回复', 'act' => 'nes', 'control' => 'Wechat'),
+            // array('name' => '消息推送', 'act' => 'news', 'control' => 'Wechat'),
         )),
         // 'theme'     => array('name' => '模板管理', 'icon' => 'fa-adjust', 'sub_menu' => array(
         //     array('name' => 'PC端模板', 'act' => 'templateList?t=pc', 'control' => 'Template'),

@@ -31,7 +31,7 @@ define('PLUGIN_PATH', 'plugins/');
 // ob_start ( GZIP_ENABLE ? 'ob_gzhandler' : null );
 
 define('UPLOAD_PATH', 'Public/upload/'); // 编辑器图片上传路径
-define('TPSHOP_CACHE_TIME', 0); // TPshop 缓存时间  31104000
+define('TPSHOP_CACHE_TIME', 1); // TPshop 缓存时间  31104000
 define('SITE_URL', 'http://' . $_SERVER['HTTP_HOST']); // 网站域名
 define('HTML_PATH', './Application/Runtime/Html/'); //静态缓存文件目录，HTML_PATH可任意设置，此处设为当前项目下新建的html目录
 

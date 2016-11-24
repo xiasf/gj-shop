@@ -1,53 +1,21 @@
-<style>
-.dealcard {
-    margin: 10px 0;
-}
-
-.dealcard-img {
-    height: 100px;
-    width: 100px;
-    position: absolute;
-}
-
-.dealcard-block-right {
-    margin-left: 121px;
-    height: 100px;
-}
-.more {
-    text-align: center;
-}
-
-</style>
-
-<div id="guessLike" class="guess-like">
-    <dl class="list" style="opacity: 1;">
-        <dd>
-            <dl class="list" style="opacity: 1;">
-                <dt>猜你喜欢</dt>
-                <foreach name="list" item="info">
-                <dd class="item">
-                    <a href="{:U('shop', ['id' => $info['id']])}" class="react ">
-                        <div class="dealcard" data-did="33249272">
-                            <div class="dealcard-img imgbox" style="background: none;">
-                                <img src="{$info.head_pic}" style="width: 100%;height: 100%">
-                            </div>
-                            <div class="dealcard-block-right">
-                                <div class="dealcard-brand single-line">{$info.seller_name}</div>
-                                <div class="price">
-                                    <span class="strong">{$info.discount}折</span>
-                                    <span class="line-right">800人消费</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </dd>
-                </foreach>
-            </dl>
-        </dd>
-        <dd class="db">
-            <a class="react " href="">
-                <div class="more">查看更多</div>
-            </a>
-        </dd>
-    </dl>
-</div>
+<foreach name="list" item="info">
+<dd class="seller-item">
+    <a href="{:U('shop', ['id' => $info['id']])}" class="react ">
+        <div class="dealcard" data-did="33249272">
+            <div class="dealcard-img imgbox" style="background: none;">
+                <img src="{$info.head_pic}" style="width: 100%;height: 100%">
+            </div>
+            <div class="dealcard-block-right">
+                <div class="dealcard-brand">{$info.seller_name}</div>
+                <div class="price">
+                    <span class="discount">{$info['discount'] / 10}折</span>
+                    <span class="slee">800人消费</span>
+                </div>
+                <div class="local">
+                    <i></i><span class="strong">1.2km</span>
+                </div>
+            </div>
+        </div>
+    </a>
+</dd>
+</foreach>

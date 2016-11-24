@@ -192,15 +192,15 @@ return array(
             'finance'  => '财务统计',
         ),
     ),
-    'admin/distribut' => array(
-        'name'   => '分销管理',
-        'action' => array(
-            'tree'        => '分销关系',
-            'set'         => '分销设置',
-            'withdrawals' => '提现申请记录',
-            'remittance'  => '汇款记录',
-            'rebate_log'  => '分成记录',
-        ),
-    ),
+    // 'admin/distribut' => array(
+    //     'name'   => '分销管理',
+    //     'action' => array(
+    //         'tree'        => '分销关系',
+    //         'set'         => '分销设置',
+    //         'withdrawals' => '提现申请记录',
+    //         'remittance'  => '汇款记录',
+    //         'rebate_log'  => '分成记录',
+    //     ),
+    // ),
 
 );

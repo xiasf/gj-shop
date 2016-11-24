@@ -1,0 +1,14 @@
+<volist name="lists" id="list">
+    <div class="order_list">
+        <a href="{:U('order', ['order_id' => $list['order_id']])}">
+            <h2>
+                <img src="__STATIC__/images/dianpu.png">
+                <span>{$list.name}</span> <strong><img src="__STATIC__/images/icojiantou1.png"></strong>
+            </h2>
+        </a>
+        <div class="pic" style="border:0;">
+            <span style="float:left;">创建时间：{$list['add_time']|date='Y-m-d H:i:s',###}</span>
+            <span>实付：</span> <strong>￥{$list['order_amount']}元</strong>
+        </div>
+    </div>
+</volist>

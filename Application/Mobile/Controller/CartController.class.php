@@ -312,6 +312,10 @@ class CartController extends MobileBaseController
             $result['balance']           += $value['balance'];                  // 共 使用用户余额
             $result['exchange']          += $value['exchange'];                 // 兑币支付（全部订单 共）
             $result['pointsFee']         += $value['pointsFee'];                // 积分支付（全部订单 共）
+
+            $result['exchange_num']          += ($value['exchange'] * tpCache('shopping.exchange_rate'));                 // 兑币支付数量（全部订单 共）
+            $result['pointsFee_num']         += ($value['pointsFee'] * tpCache('shopping.point_rate'));                // 积分支付数量（全部订单 共）
+
             $result['payables']          += $value['payables'];                 // 全部订单 应付金额
             $result['goodsFee']          += $value['goodsFee'];                 // 全部订单 商品价格
             $result['order_prom_id']     += $value['order_prom_id'];            // 全部 订单优惠活动id

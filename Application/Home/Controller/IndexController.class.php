@@ -53,6 +53,10 @@ class IndexController extends BaseController {
         if(true == isMobile()){
             header("Location: ".U('Mobile/Union/index'));
             exit;
+        } else {
+            header('Content-Type:text/html; charset=utf-8');
+            echo '电脑版开发中……';
+            exit;
         }
         
         $hot_goods = $hot_cate = $cateList = array();
