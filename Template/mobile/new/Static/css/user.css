@@ -403,8 +403,8 @@
 .Funds{ background:#fff; margin:10px 10px 10px; padding:0px 10px 0px; border-left: 1px solid #ccc;}
 .Funds ul{ margin:auto; padding-top:8px; padding-bottom:8px;}
 .Funds ul .Funds_li{ position: relative; padding: 15px 10px; border-bottom: 1px dotted #ccc;}
-.Funds ul .Funds_li .icon{ display:block;width:9px; height:9px; background:#666; position:absolute;top:42%;left:-15px;border-radius:5px;}
-.Funds ul .Funds_li .icon.on{ background:#e41735;}
+.Funds ul .Funds_li .icon{ display:block;width:9px; height:9px; background:#FF7C7C; position:absolute;top:42%;left:-15px;border-radius:5px;}
+.Funds ul .Funds_li .icon.on{ background:#2B9A1D;}
 .Funds ul li strong{ display:inline-block; width:30%;}
 .Funds ul li span{ display:block; font-size:14px; color:#666; line-height:24px;}
 .Funds ul li span em{ color:#e41735;}
