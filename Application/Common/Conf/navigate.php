@@ -17,7 +17,7 @@ return array(
         ),
     ),
     'admin/index'     => array(
-        'name'   => 'TPshop系统管理',
+        'name'   => 'gjshop系统管理',
         'action' => array(
             'index' => '欢迎页面',
         ),

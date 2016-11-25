@@ -197,7 +197,7 @@ if (typeof jQuery === 'undefined') {
   Button.DEFAULTS = {
     loadingText: 'loading...'
   }
-  //搜豹/网/络/有/限/公/司 版/权/所/有 //
+  //广佳/网/络/有/限/公/司 版/权/所/有 //
   Button.prototype.setState = function (state) {
     var d    = 'disabled'
     var $el  = this.$element

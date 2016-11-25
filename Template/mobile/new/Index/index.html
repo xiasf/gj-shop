@@ -1,12 +1,12 @@
 <!DOCTYPE html >
 <html>
 <head>
-    <meta name="Generator" content="TPshop v1.1" />
+    <meta name="Generator" content="gjshop v1.1" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>首页-{$tpshop_config['shop_info_store_title']}</title>
-    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <title>首页-{$gjshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
@@ -25,7 +25,7 @@
             <header id="header">
                 <a href="{:U('Goods/categoryList')}" class="top_bt"></a>
                 <a href="{:U('Cart/cart')}" class='user_btn'></a>
-                <span href="javascript:void(0)" class="logo">{$tpshop_config['shop_info_store_name']}</span>
+                <span href="javascript:void(0)" class="logo">{$gjshop_config['shop_info_store_name']}</span>
             </header>
 
             <div id="scrollimg" class="scrollimg">
@@ -182,7 +182,7 @@
   // 倒计时
   function GetRTime2(){
     //var text = GetRTime('2016/02/27 17:34:00');
-     <tpshop sql="select * from __PREFIX__goods as g inner join __PREFIX__flash_sale as f on g.goods_id = f.goods_id limit 3" key="k" item='v'>
+     <gjshop sql="select * from __PREFIX__goods as g inner join __PREFIX__flash_sale as f on g.goods_id = f.goods_id limit 3" key="k" item='v'>
     var text{$v[goods_id]} = GetRTime('{$v.end_time|date="Y/m/d H:i:s",###}');
 
     if (typeof(text{$v[goods_id]}) == "undefined")
@@ -190,7 +190,7 @@
     else
         $("#surplus_text{$v[goods_id]}").text(text{$v[goods_id]});
 
-     </tpshop>
+     </gjshop>
   }
   setInterval(GetRTime2,1000);
 </script>
@@ -206,7 +206,7 @@
 </h2>
 <div id="scroll_promotion">
 <ul>
-<tpshop sql="select * from __PREFIX__goods as g inner join __PREFIX__flash_sale as f on g.goods_id = f.goods_id limit 3" key="key" item='val'>
+<gjshop sql="select * from __PREFIX__goods as g inner join __PREFIX__flash_sale as f on g.goods_id = f.goods_id limit 3" key="key" item='val'>
     <li>
         <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$val.goods_name}"></a>
         <div class="index_pro">
@@ -224,7 +224,7 @@
             </div>
         </div>
     </li>
-</tpshop>
+</gjshop>
 </ul>
 </div>
 </div>
@@ -276,7 +276,7 @@
 <div class="bd">
 <ul>
 <assign name="fl" value="1"/>
-<tpshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
+<gjshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
 <li>
 <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>
 $v[goods_id]))}" title="{$v.goods_name}">
@@ -294,7 +294,7 @@ $v[goods_id]))}" title="{$v.goods_name}">
 </li>
 <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul>
 <ul></if>
-</tpshop>
+</gjshop>
 </ul>
 </div>
 <div class="hd">
@@ -327,7 +327,7 @@ $v[goods_id]))}" title="{$v.goods_name}">
 <div class="bd">
 <ul>
 <assign name="fl" value="1"/>
-<tpshop sql="select * from __PREFIX__goods where is_new=1 order by sort limit 9" item="v" key="k">
+<gjshop sql="select * from __PREFIX__goods where is_new=1 order by sort limit 9" item="v" key="k">
 <li>
 <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>
 $v[goods_id]))}" title="{$v.goods_name}">
@@ -345,7 +345,7 @@ $v[goods_id]))}" title="{$v.goods_name}">
 </li>
 <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul>
 <ul></if>
-</tpshop>
+</gjshop>
 </ul>
 </div>
 <div class="hd">
@@ -378,7 +378,7 @@ $v[goods_id]))}" title="{$v.goods_name}">
 <div class="bd">
 <ul>
 <assign name="fl" value="1"/>
-<tpshop sql="select * from __PREFIX__goods where is_hot=1 order by sort limit 9" item="v" key="k">
+<gjshop sql="select * from __PREFIX__goods where is_hot=1 order by sort limit 9" item="v" key="k">
 <li>
 <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>
 $v[goods_id]))}" title="{$v.goods_name}">
@@ -396,7 +396,7 @@ $v[goods_id]))}" title="{$v.goods_name}">
 </li>
 <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul>
 <ul></if>
-</tpshop>
+</gjshop>
 </ul>
 </div>
 <div class="hd">
@@ -517,7 +517,7 @@ function goTop(){
 <section class="mix_recently_search">
     <h3>热门搜索</h3>
     <ul>
-        <foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+        <foreach name="gjshop_config.hot_keywords" item="wd" key="k">
             <li>
                 <a href="{:U('Goods/search',array('q'=>
                     $wd))}"

@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="__STATIC__/css/appointment.css">
-<title>用户中心-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<title>用户中心-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 <link rel="stylesheet" href="__STATIC__/css/common_order.css"></link>
 </head>
 <style>
@@ -33,7 +33,7 @@
 <!-- 头部-e -->
 <div class="wrap"> 
   <!-- bread crumbs star -->
-  <div class="bread_crumbs"> <a href="{:U('Home/User/index')}" class="crumbs_font target_no">我的TPshop</a> </div>
+  <div class="bread_crumbs"> <a href="{:U('Home/User/index')}" class="crumbs_font target_no">我的gjshop</a> </div>
   <!-- bread crumbs end --> 
   
   <!--菜单--> 
@@ -49,7 +49,7 @@
           <h2>
             <span class="num" id="spanNickname">{$user.nickname}</span>
             <div> <a class="usertitle target_no" href="" >普通会员</a> </div>
-            <p id="greeting" class="greeting">您好，欢迎来到TPshop网</p>
+            <p id="greeting" class="greeting">您好，欢迎来到gjshop网</p>
           </h2>
         </li>
         <!--                     <li class="in_02"> --> 
@@ -95,7 +95,7 @@
                 <div style="width:80%" class="progress"></div>
               </div>
               <span class="security_tips">高</span>
-            <!--  <a class="security_up blue target_no" href="https://i.tp-shop.cn/safetySettings/view">强化</a>-->
+            <!--  <a class="security_up blue target_no" href="https://i.gj-shop.cn/safetySettings/view">强化</a>-->
             </div>
             <ul class="genre clearfix">
               <li>
@@ -133,7 +133,7 @@
           </div>
           <div class="order_list J_order_list">
           
-           <tpshop sql="select * from `__PREFIX__order` where user_id = $user[user_id] order by order_id desc limit 1" item="v" key="k" >
+           <gjshop sql="select * from `__PREFIX__order` where user_id = $user[user_id] order by order_id desc limit 1" item="v" key="k" >
            <?php  
            		$v = set_btn_order_status($v);  // 添加属性  包括按钮显示属性 和 订单状态显示属性
            ?>
@@ -153,7 +153,7 @@
                      </div>
                   </td>
                 </tr>
-	           <tpshop sql="select * from `__PREFIX__order_goods` where order_id = $v[order_id]" item="v2" key="k2">
+	           <gjshop sql="select * from `__PREFIX__order_goods` where order_id = $v[order_id]" item="v2" key="k2">
                 <tr class='list_cont '>
                   <td class="td_01">
                     <div class="list_main clearfix">
@@ -171,7 +171,7 @@
                     </if>                    
                   </td>
                 </tr>
-                </tpshop> 
+                </gjshop> 
                 <!-- 预售单处理 -->
               </table>
               <!--购买过商品 end-->
@@ -182,7 +182,7 @@
               </div>
               <!--未购买过商品 end--> 
             </if>
-           </tpshop> 
+           </gjshop> 
             
             
           </div>
@@ -191,7 +191,7 @@
           <h4 class="cell_title">商品收藏</h4>
           <div class="browse_related_list J_slide_parent">
                      
-           <tpshop sql="select * from __PREFIX__goods_collect where user_id = $user[user_id] order by collect_id desc limit 3" result_name="collect_result"></tpshop>          
+           <gjshop sql="select * from __PREFIX__goods_collect where user_id = $user[user_id] order by collect_id desc limit 3" result_name="collect_result"></gjshop>          
             <if condition="count($collect_result) gt 0"> 
               <!--有收藏-->
               <div id="favShow" class="slide_box J_slide_box">
@@ -219,7 +219,7 @@
         <div class="my_card">
           <h4 class="cell_title">我的优惠券</h4>
           <div class="browse_related_list J_slide_parent">          
-           <tpshop sql="select * from __PREFIX__goods_collect where user_id = $user[user_id] order by collect_id desc limit 3" result_name="coupon_list"></tpshop>
+           <gjshop sql="select * from __PREFIX__goods_collect where user_id = $user[user_id] order by collect_id desc limit 3" result_name="coupon_list"></gjshop>
             <if condition="count($collect_result) gt 0">           
               <!--有优惠券-->
               <div id="favShow" class="slide_box J_slide_box">
@@ -257,7 +257,7 @@
                   <!--为你推荐-->
                   <div id="guessShow" class="slide_box J_slide_box">
                     <ul class="clearfix">
-			         <tpshop sql="select * from __PREFIX__goods order by goods_id desc limit 4"  item="v" key="k" >
+			         <gjshop sql="select * from __PREFIX__goods order by goods_id desc limit 4"  item="v" key="k" >
                       <li class="heig_tz">
                           <a class="items_tit items_tz" href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">
                                 <img width="150" height="150" src="{$v.goods_id|goods_thum_images=160,160}">
@@ -265,7 +265,7 @@
                                 <span class="num"><em class="rmb">￥</em>{$v[shop_price]}</span>                             
                           </a>                      
                       </li>
-                     </tpshop> 
+                     </gjshop> 
                     </ul>
                   </div>
                   <!--为你推荐 end--> 
@@ -287,7 +287,7 @@
         <div class="my_cart">
           <h4 class="cell_title">我的购物车</h4>
           <div class="browse_related_list" id="cartShow">
-           <tpshop sql="select * from __PREFIX__cart where user_id = $user[user_id] order by id desc limit 8" result_name="cart_list"></tpshop>
+           <gjshop sql="select * from __PREFIX__cart where user_id = $user[user_id] order by id desc limit 8" result_name="cart_list"></gjshop>
             <if condition="count($cart_list) gt 0">             
               <!--购物车有商品-->
               <ul class="clearfix">

@@ -25,7 +25,7 @@ $verify_result = $alipayNotify->verifyNotify();
 if($verify_result) {//验证成功
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	//请在这里加上商户的业务逻辑程序代
-file_put_contents('/web/tpshop2/app/a.html','success ok');//FILE_APPEND
+file_put_contents('/web/gjshop2/app/a.html','success ok');//FILE_APPEND
 	
 	//——请根据您的业务逻辑来编写程序（以下代码仅作参考）——
 	
@@ -76,7 +76,7 @@ file_put_contents('/web/tpshop2/app/a.html','success ok');//FILE_APPEND
 }
 else {
 	
-	file_put_contents('/web/tpshop2/app/a.html','ERROR ====');//FILE_APPEND
+	file_put_contents('/web/gjshop2/app/a.html','ERROR ====');//FILE_APPEND
     //验证失败
     echo "fail";
 //echo "success";		//请不要修改或删除

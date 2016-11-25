@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="pull-right">
                 <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
-            	<a href="javascript:;" class="btn btn-default" data-url="http://www.tp-shop.cn/Doc/Index/article/id/1015/developer/user.html" onclick="get_help(this)"><i class="fa fa-question-circle"></i> 帮助</a>
+            	<a href="javascript:;" class="btn btn-default" data-url="http://www.gj-shop.cn/Doc/Index/article/id/1015/developer/user.html" onclick="get_help(this)"><i class="fa fa-question-circle"></i> 帮助</a>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -249,7 +249,7 @@ $("#prom_type").on("change",function(){
 	      break;
 	    }
 	    case 3:{
-	      expression = '<td><b class="red">*</b>代金券：</td> <td><select name="expression"><tpshop sql="select * from __PREFIX__coupon where type=0" item="v"><option value="{$v.id}" <if condition="$v[id] eq $info[expression]">selected</if>>{$v.name}</option></tpshop></select></td>';
+	      expression = '<td><b class="red">*</b>代金券：</td> <td><select name="expression"><gjshop sql="select * from __PREFIX__coupon where type=0" item="v"><option value="{$v.id}" <if condition="$v[id] eq $info[expression]">selected</if>>{$v.name}</option></gjshop></select></td>';
 	      break;
 	    }
 	    case 4:{

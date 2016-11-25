@@ -5,22 +5,22 @@
  * @author @mirjalal
  */
 
-$PHPMAILER_LANG['authenticate']         = 'SMTP xətası: Giriş uğursuz oldu.';
-$PHPMAILER_LANG['connect_host']         = 'SMTP xətası: SMTP serverinə qoşulma uğursuz oldu.';
-$PHPMAILER_LANG['data_not_accepted']    = 'SMTP xətası: Verilənlər qəbul edilməyib.';
-$PHPMAILER_LANG['empty_message']        = 'Boş mesaj göndərilə bilməz.';
-$PHPMAILER_LANG['encoding']             = 'Qeyri-müəyyən kodlaşdırma: ';
-$PHPMAILER_LANG['execute']              = 'Əmr yerinə yetirilmədi: ';
-$PHPMAILER_LANG['file_access']          = 'Fayla giriş yoxdur: ';
-$PHPMAILER_LANG['file_open']            = 'Fayl xətası: Fayl açıla bilmədi: ';
-$PHPMAILER_LANG['from_failed']          = 'Göstərilən poçtlara göndərmə uğursuz oldu: ';
-$PHPMAILER_LANG['instantiate']          = 'Mail funksiyası işə salına bilmədi.';
+$PHPMAILER_LANG['authenticate']         = 'SMTP xtasi: Giris ugursuz oldu.';
+$PHPMAILER_LANG['connect_host']         = 'SMTP xtasi: SMTP serverin qosulma ugursuz oldu.';
+$PHPMAILER_LANG['data_not_accepted']    = 'SMTP xtasi: Verilnlr qbul edilmyib.';
+$PHPMAILER_LANG['empty_message']        = 'Bos mesaj g"ondril bilmz.';
+$PHPMAILER_LANG['encoding']             = 'Qeyri-müyyn kodlasdirma: ';
+$PHPMAILER_LANG['execute']              = 'mr yerin yetirilmdi: ';
+$PHPMAILER_LANG['file_access']          = 'Fayla giris yoxdur: ';
+$PHPMAILER_LANG['file_open']            = 'Fayl xtasi: Fayl acila bilmdi: ';
+$PHPMAILER_LANG['from_failed']          = 'G"ostriln poctlara g"ondrm ugursuz oldu: ';
+$PHPMAILER_LANG['instantiate']          = 'Mail funksiyasi is salina bilmdi.';
 $PHPMAILER_LANG['invalid_address']      = 'Düzgün olmayan e-mail adresi: ';
-$PHPMAILER_LANG['mailer_not_supported'] = ' - e-mail kitabxanası dəstəklənmir.';
-$PHPMAILER_LANG['provide_address']      = 'Ən azı bir e-mail adresi daxil edilməlidir.';
-$PHPMAILER_LANG['recipients_failed']    = 'SMTP xətası: Aşağıdakı ünvanlar üzrə alıcılara göndərmə uğursuzdur: ';
-$PHPMAILER_LANG['signing']              = 'İmzalama xətası: ';
-$PHPMAILER_LANG['smtp_connect_failed']  = 'SMTP serverinə qoşulma uğursuz oldu.';
-$PHPMAILER_LANG['smtp_error']           = 'SMTP serveri xətası: ';
-$PHPMAILER_LANG['variable_set']         = 'Dəyişənin quraşdırılması uğursuz oldu: ';
+$PHPMAILER_LANG['mailer_not_supported'] = ' - e-mail kitabxanasi dstklnmir.';
+$PHPMAILER_LANG['provide_address']      = 'n azi bir e-mail adresi daxil edilmlidir.';
+$PHPMAILER_LANG['recipients_failed']    = 'SMTP xtasi: Asagidaki ünvanlar üzr alicilara g"ondrm ugursuzdur: ';
+$PHPMAILER_LANG['signing']              = 'Imzalama xtasi: ';
+$PHPMAILER_LANG['smtp_connect_failed']  = 'SMTP serverin qosulma ugursuz oldu.';
+$PHPMAILER_LANG['smtp_error']           = 'SMTP serveri xtasi: ';
+$PHPMAILER_LANG['variable_set']         = 'Dyisnin qurasdirilmasi ugursuz oldu: ';
 //$PHPMAILER_LANG['extension_missing']    = 'Extension missing: ';

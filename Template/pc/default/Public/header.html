@@ -29,7 +29,7 @@
     <div class="layout">
     
     <!--logo开始-->
-        <div class="logo"><a href="/" title="TPshop"><img src="{$tpshop_config['shop_info_store_logo']}" alt="TPshop"></a></div>
+        <div class="logo"><a href="/" title="gjshop"><img src="{$gjshop_config['shop_info_store_logo']}" alt="gjshop"></a></div>
     <!--logo结束-->
     
     <!-- 搜索开始-->
@@ -42,7 +42,7 @@
             </div>
             <div class="searchBar-hot">
                 <b>热门搜索</b>
-               	<foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+               	<foreach name="gjshop_config.hot_keywords" item="wd" key="k">
         			<a target="_blank" href="{:U('Home/Goods/search',array('q'=>$wd))}" <if condition="$k eq 0">class="ht"</if>>{$wd}</a>
         		</foreach>
             </div>
@@ -90,7 +90,7 @@
                                      </div>
                                      <div class="p-status">
                                         <div class="p-price">
-                                            <b>¥&nbsp;{$v[goods_price]}</b>
+                                            <b>yen&nbsp;{$v[goods_price]}</b>
                                             <em>x</em>
                                             <span>{$v[goods_num]}</span>
                                         </div>
@@ -105,7 +105,7 @@
                         </ul>
                         </div>
                         <div class="settle">
-                            <p>共<em>{$cart_total_price[anum]}</em>件商品，金额合计<b>¥&nbsp;{$cart_total_price[total_fee]}</b></p>
+                            <p>共<em>{$cart_total_price[anum]}</em>件商品，金额合计<b>yen&nbsp;{$cart_total_price[total_fee]}</b></p>
                             <a class="js-button" href="{:U('Home/Cart/cart')}">去结算</a>
                         </div>
                     </div>
@@ -184,9 +184,9 @@
             <div class="ongoods">
             	<ul class="navlist">
             		<li class="homepage"><a href="/"><span>首页</span></a></li>
-                    <tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 ORDER BY `sort` DESC" key="k" item='v'>
+                    <gjshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 ORDER BY `sort` DESC" key="k" item='v'>
             			<li class="page"><a href="{$v[url]}" <if condition="$v[is_new] eq 1">target="_blank" </if><span>{$v[name]}</span></a></li>
-					</tpshop> 
+					</gjshop> 
             	</ul>
             </div>
         </div>

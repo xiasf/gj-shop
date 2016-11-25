@@ -118,7 +118,7 @@ ul.catagories li:hover .catagory-detail {
       <if condition="$user_id gt 0">
       <li id="link_signup"><a href="{:U('Home/user/logout')}" class="signup target_no">[退出]</a></li>
       </if>
-      <li><a href="{:U('Home/user/index')}">我的TPshop</a></li>
+      <li><a href="{:U('Home/user/index')}">我的gjshop</a></li>
       <li><a href="{:U('Home/Article/detail',array('article_id'=>17))}" target="_blank">帮助中心</a></li>
     </ul>
   </div>
@@ -131,7 +131,7 @@ ul.catagories li:hover .catagory-detail {
   </div>
   <div id="headerall" class="wrapper clearfix"> <a href="/" title="首页" class="logohref">
     <h1 id="hd-logo" class="icon-feiniu">
-      <img src="{$tpshop_config['shop_info_store_logo']}"/>
+      <img src="{$gjshop_config['shop_info_store_logo']}"/>
     </h1>
     </a>
 <!--搜索框-->
@@ -144,7 +144,7 @@ ul.catagories li:hover .catagory-detail {
       </div>
       <div class="hd-hot-keywords">
         <ul id="hotsearch">
-        	<foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+        	<foreach name="gjshop_config.hot_keywords" item="wd" key="k">
         		<li><a href="{:U('Home/Goods/search',array('q'=>$wd))}" <if condition="$k eq 0">class="ht"</if>>{$wd}</a></li>
         	</foreach>          
         </ul>
@@ -164,7 +164,7 @@ ul.catagories li:hover .catagory-detail {
                     <div class="ui_poptip_container">
                       <div class="ui_poptip_arrow poptip_up"></div>
                       <div class="ui_poptip_content">
-                        <span class="nop emptycart">购物车中没有TPshop商品哟！</span>
+                        <span class="nop emptycart">购物车中没有gjshop商品哟！</span>
                       </div>
                     </div>
                   </div>
@@ -184,7 +184,7 @@ ul.catagories li:hover .catagory-detail {
                                   <li><a class="pdetail" href=""><img src="{$v.goods_id|goods_thum_images=60,60}">
                                     <p>
                                       <span class="name">{$v[goods_name]}</span>
-                                      <span class="price"><em class="symbol">¥</em>{$v[goods_price]}</span>
+                                      <span class="price"><em class="symbol">yen</em>{$v[goods_price]}</span>
                                     </p>
                                     </a>
                                     <div class="mini_op">                                    
@@ -199,7 +199,7 @@ ul.catagories li:hover .catagory-detail {
                             <p class="cart_num">共<span class="num" id="total_qty">{$cart_total_price[anum]}</span>件商品</p>
                             <p class="cart_total">
                               <span class="tit">共计</span>
-                              <span class="price"><em class="symbol">¥</em>
+                              <span class="price"><em class="symbol">yen</em>
                               <span id="total_pay">{$cart_total_price[total_fee]}</span>
                               </span>
                             </p>
@@ -289,12 +289,12 @@ ul.catagories li:hover .catagory-detail {
       <li is_fresh="0"><a class="" href="/">
         <span>首页</span>
         <i class=""></i></a></li>
-      <tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 ORDER BY `sort` DESC" key="k" item='v'>
+      <gjshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 ORDER BY `sort` DESC" key="k" item='v'>
         <li is_fresh="0"> 
           <a <if condition="$v[is_new] eq 1">target="_blank"</if>href="{$v[url]}" >
           <span>{$v[name]}</span>
           <i class=""></i> </a> </li>
-      </tpshop>
+      </gjshop>
     </ul>
   </div>
 </nav>

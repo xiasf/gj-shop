@@ -1,6 +1,6 @@
 <?php
 /**
-* 2015-06-29 修复签名问题
+* 2016-11-26 修复签名问题
 **/
 require_once "WxPay.Config.php";
 require_once "WxPay.Exception.php";
@@ -203,7 +203,7 @@ class WxPayResults extends WxPayDataBase
 	{	
 		$obj = new self();
 		$obj->FromXml($xml);
-		//fix bug 2015-06-29
+		//fix bug 2016-11-26
 		if($obj->values['return_code'] != 'SUCCESS'){
 			 return $obj->GetValues();
 		}

@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>个人信息-{$tpshop_config['shop_info_store_title']}</title>
-    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <title>个人信息-{$gjshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
     <link rel="stylesheet" href="__STATIC__/css/index.css" type="text/css">
     <link rel="stylesheet" href="__STATIC__/css/page.css" type="text/css">
     <script src="__STATIC__/js/jquery-1.10.2.min.js"></script>
@@ -43,7 +43,7 @@
                                 <td class="cl_left">提现金额：</td>
                                 <td>
                                     <div class="dv_cell_left">
-	                                    <input type="text" id="money" name="money"  class="imput_text vam" placeholder="最少提现额度{$tpshop_config['distribut_min']}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')"/>
+	                                    <input type="text" id="money" name="money"  class="imput_text vam" placeholder="最少提现额度{$gjshop_config['distribut_min']}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')"/>
                                     </div>
                                 </td>
                             </tr>
@@ -138,9 +138,9 @@ function checkSubmit(){
 		alert('提现金额必填');
 		return false;
 	}
-	if(money < {$tpshop_config['distribut_min']} || money > {$user['user_money']})
+	if(money < {$gjshop_config['distribut_min']} || money > {$user['user_money']})
 	{
-		//alert("每次最少提现额度{$tpshop_config['distribut_min']},你的账户余额{$user['user_money']}");
+		//alert("每次最少提现额度{$gjshop_config['distribut_min']},你的账户余额{$user['user_money']}");
 		//return false;
 	}
 			

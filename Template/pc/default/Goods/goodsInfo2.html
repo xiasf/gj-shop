@@ -1,9 +1,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>{$goods.goods_name}-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<title>{$goods.goods_name}-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 
 </head>
 <body>
@@ -78,7 +78,7 @@
                               </tr>
                               <tr>
                                 <td width="60px" align="right">服&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务：</td>
-                                <td><p class="ma-le-6">由tpshop商城负责发货，并提供售后服务</p></td>
+                                <td><p class="ma-le-6">由gjshop商城负责发货，并提供售后服务</p></td>
                               </tr>
                             </table>
                         </div>
@@ -154,7 +154,7 @@
                 </div>
                 <div class="history-bott">
                 	<ul class="history-comm">
-                     <tpshop sql="select * from `__PREFIX__goods` where is_recommend = 1 order by goods_id desc limit 5" item="v" key="k" >    
+                     <gjshop sql="select * from `__PREFIX__goods` where is_recommend = 1 order by goods_id desc limit 5" item="v" key="k" >    
                 		<li>
                         	<div>
                         		<p class="p-img-comm fl">
@@ -164,11 +164,11 @@
                                 	<a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">{$v.goods_name}</a>
                                 </p>
                         		<p class="p-price-comm">
-                                	<b>¥{$v.shop_price}</b>
+                                	<b>yen{$v.shop_price}</b>
                                 </p>
                         	</div>
                         </li>
-                      </tpshop>
+                      </gjshop>
                 	</ul>
                 </div>
             </div>
@@ -357,7 +357,7 @@
                             <br>
                             售后服务电话：400-830-8300
                             <br>
-                            <span>TPshop消费者官网： <a href="">http://www.tp-shop.com</a></span>
+                            <span>gjshop消费者官网： <a href="">http://www.gj-shop.com</a></span>
                             <br>
                         </p>
                     </div>

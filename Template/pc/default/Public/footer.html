@@ -8,26 +8,26 @@
         </ul>
     </div>
     <div class="helpful layout">
-    <tpshop sql="select * from `__PREFIX__article_cat` where cat_id in(1,2,3,4,7)" key="k" item='v'>
+    <gjshop sql="select * from `__PREFIX__article_cat` where cat_id in(1,2,3,4,7)" key="k" item='v'>
             <dl <if condition="$k neq 0">class="jszc"</if> >
                 <dt>{$v[cat_name]}</dt>
                 <dd>
                     <ol>
-                    	<tpshop sql="select * from `__PREFIX__article` where cat_id = $v[cat_id] and is_open=1" key="k2" item='v2'>
+                    	<gjshop sql="select * from `__PREFIX__article` where cat_id = $v[cat_id] and is_open=1" key="k2" item='v2'>
                         <li><a href="{:U('Home/Article/detail',array('article_id'=>$v2[article_id]))}" target="_blank">{$v2[title]}</a></li>
-					 	</tpshop>                        
+					 	</gjshop>                        
                     </ol>
                 </dd>
             </dl>
- 	</tpshop>
+ 	</gjshop>
      </div>
      <div class="keep-on-record">
         <p>
-        Copyright © 2016-2025 {$tpshop_config['shop_info_store_name']}  版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']}
+        Copyright (c) 2016-2025 {$gjshop_config['shop_info_store_name']}  版权所有 保留一切权利 备案号:{$gjshop_config['shop_info_record_no']}
         
-        <!--您好,请您给TPshop留个友情链接-->
-        &nbsp;&nbsp;<a href="http://www.tp-shop.cn/">TPshop开源商城</a>
-        <!--您好,请您给TPshop留个友情链接-->
+        <!--您好,请您给gjshop留个友情链接-->
+        &nbsp;&nbsp;<a href="http://www.gj-shop.cn/">gjshop开源商城</a>
+        <!--您好,请您给gjshop留个友情链接-->
         </p>
      </div>
  </div>

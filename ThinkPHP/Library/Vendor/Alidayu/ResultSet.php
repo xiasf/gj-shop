@@ -3,7 +3,7 @@
  * 返回的默认类
  * 
  * @author auto create
- * @since 1.0, 2015-01-20
+ * @since 1.0, 2016-11-26
  */
 class ResultSet
 {

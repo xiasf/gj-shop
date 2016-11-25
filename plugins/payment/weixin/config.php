@@ -4,7 +4,7 @@ return array(
     'code'=> 'weixin',
     'name' => '微信支付',
     'version' => '1.0',
-    'author' => 'IT宇宙人',
+    'author' => '广佳',
     'desc' => 'PC端+微信公众号支付',
     'icon' => 'logo.jpg',
     'scene' => 0,  // 使用场景 0 PC+手机 1 手机 2 PC

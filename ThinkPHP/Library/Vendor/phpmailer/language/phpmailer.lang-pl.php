@@ -4,23 +4,23 @@
  * @package PHPMailer
  */
 
-$PHPMAILER_LANG['authenticate']         = 'Błąd SMTP: Nie można przeprowadzić uwierzytelnienia.';
-$PHPMAILER_LANG['connect_host']         = 'Błąd SMTP: Nie można połączyć się z wybranym hostem.';
-$PHPMAILER_LANG['data_not_accepted']    = 'Błąd SMTP: Dane nie zostały przyjęte.';
-$PHPMAILER_LANG['empty_message']        = 'Wiadomość jest pusta.';
+$PHPMAILER_LANG['authenticate']         = 'Blad SMTP: Nie mozna przeprowadzi'c uwierzytelnienia.';
+$PHPMAILER_LANG['connect_host']         = 'Blad SMTP: Nie mozna polaczy'c sie z wybranym hostem.';
+$PHPMAILER_LANG['data_not_accepted']    = 'Blad SMTP: Dane nie zostaly przyjete.';
+$PHPMAILER_LANG['empty_message']        = 'Wiadomo's'c jest pusta.';
 $PHPMAILER_LANG['encoding']             = 'Nieznany sposób kodowania znaków: ';
-$PHPMAILER_LANG['execute']              = 'Nie można uruchomić: ';
-$PHPMAILER_LANG['file_access']          = 'Brak dostępu do pliku: ';
-$PHPMAILER_LANG['file_open']            = 'Nie można otworzyć pliku: ';
-$PHPMAILER_LANG['from_failed']          = 'Następujący adres Nadawcy jest nieprawidłowy: ';
-$PHPMAILER_LANG['instantiate']          = 'Nie można wywołać funkcji mail(). Sprawdź konfigurację serwera.';
-$PHPMAILER_LANG['invalid_address']      = 'Nie można wysłać wiadomości, '.
-    'następujący adres Odbiorcy jest nieprawidłowy: ';
-$PHPMAILER_LANG['provide_address']      = 'Należy podać prawidłowy adres email Odbiorcy.';
-$PHPMAILER_LANG['mailer_not_supported'] = 'Wybrana metoda wysyłki wiadomości nie jest obsługiwana.';
-$PHPMAILER_LANG['recipients_failed']    = 'Błąd SMTP: Następujący odbiorcy są nieprawidłowi: ';
-$PHPMAILER_LANG['signing']              = 'Błąd podpisywania wiadomości: ';
+$PHPMAILER_LANG['execute']              = 'Nie mozna uruchomi'c: ';
+$PHPMAILER_LANG['file_access']          = 'Brak dostepu do pliku: ';
+$PHPMAILER_LANG['file_open']            = 'Nie mozna otworzy'c pliku: ';
+$PHPMAILER_LANG['from_failed']          = 'Nastepujacy adres Nadawcy jest nieprawidlowy: ';
+$PHPMAILER_LANG['instantiate']          = 'Nie mozna wywola'c funkcji mail(). Sprawd'z konfiguracje serwera.';
+$PHPMAILER_LANG['invalid_address']      = 'Nie mozna wysla'c wiadomo'sci, '.
+    'nastepujacy adres Odbiorcy jest nieprawidlowy: ';
+$PHPMAILER_LANG['provide_address']      = 'Nalezy poda'c prawidlowy adres email Odbiorcy.';
+$PHPMAILER_LANG['mailer_not_supported'] = 'Wybrana metoda wysylki wiadomo'sci nie jest obslugiwana.';
+$PHPMAILER_LANG['recipients_failed']    = 'Blad SMTP: Nastepujacy odbiorcy sa nieprawidlowi: ';
+$PHPMAILER_LANG['signing']              = 'Blad podpisywania wiadomo'sci: ';
 $PHPMAILER_LANG['smtp_connect_failed']  = 'SMTP Connect() zakończone niepowodzeniem.';
-$PHPMAILER_LANG['smtp_error']           = 'Błąd SMTP: ';
-$PHPMAILER_LANG['variable_set']         = 'Nie można ustawić lub zmodyfikować zmiennej: ';
+$PHPMAILER_LANG['smtp_error']           = 'Blad SMTP: ';
+$PHPMAILER_LANG['variable_set']         = 'Nie mozna ustawi'c lub zmodyfikowa'c zmiennej: ';
 //$PHPMAILER_LANG['extension_missing']    = 'Extension missing: ';

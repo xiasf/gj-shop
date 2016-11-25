@@ -24,7 +24,7 @@
                       <li><a class="pdetail" href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}"><img src="{$v.goods_id|goods_thum_images=60,60}">
 	                        <p>
 	                          <span class="name">{$v[goods_name]}</span>
-	                          <span class="price"><em class="symbol">¥</em>{$v[goods_price]}</span> X {$v[goods_num]}
+	                          <span class="price"><em class="symbol">yen</em>{$v[goods_price]}</span> X {$v[goods_num]}
 	                        </p>
                         </a>
                         <div class="mini_op">
@@ -39,7 +39,7 @@
                 <p class="cart_num">共<span class="num" id="total_qty">{$cart_total_price[num]}</span>件商品</p>
                 <p class="cart_total">
                   <span class="tit">共计</span>
-                  <span class="price"><em class="symbol">¥</em>
+                  <span class="price"><em class="symbol">yen</em>
                   <span id="total_pay">{$cart_total_price[total_fee]}</span>
                   </span>
                 </p>

@@ -1,16 +1,16 @@
 <?php
 
 /**
- * tpshop
+ * gjshop
  * ============================================================================
- * 版权所有 2015-2027 深圳搜豹网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.tp-shop.cn
+ * 版权所有 2016-2027 湖北广佳网络科技有限公司，并保留所有权利。
+ * 网站地址: http://www.gj-shop.cn
  * ----------------------------------------------------------------------------
- * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用 .
- * 不允许对程序代码以任何形式任何目的的再发布。
+ * 广佳微商城
+ * 版权所有
  * ============================================================================
- * Author: 当燃
- * Date: 2015-09-09
+ * Author: 广佳
+ * Date: 2016-11-26
  */
 
 namespace Admin\Controller;
@@ -60,12 +60,12 @@ class BaseController extends Controller
      */
     public function public_assign()
     {
-        $tpshop_config = array();
+        $gjshop_config = array();
         $tp_config     = M('config')->select();
         foreach ($tp_config as $k => $v) {
-            $tpshop_config[$v['inc_type'] . '_' . $v['name']] = $v['value'];
+            $gjshop_config[$v['inc_type'] . '_' . $v['name']] = $v['value'];
         }
-        $this->assign('tpshop_config', $tpshop_config);
+        $this->assign('gjshop_config', $gjshop_config);
     }
 
     public function check_priv()

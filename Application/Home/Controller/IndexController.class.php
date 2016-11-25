@@ -1,14 +1,14 @@
 <?php
 /**
- * tpshop
+ * gjshop
  * ============================================================================
- * * 版权所有 2015-2027 深圳搜豹网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.tp-shop.cn
+ * 版权所有 2016-2027 湖北广佳网络科技有限公司，并保留所有权利。
+ * 网站地址: http://www.gj-shop.cn
  * ----------------------------------------------------------------------------
- * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用 .
- * 不允许对程序代码以任何形式任何目的的再发布。
+ * 广佳微商城
+ * 版权所有
  * ============================================================================
- * $Author: IT宇宙人 2015-08-10 $
+ * $Author: 广佳 2016-11-26 $
  */ 
 namespace Home\Controller;
 use Think\Page;
@@ -97,7 +97,7 @@ class IndexController extends BaseController {
     // 二维码
     public function qr_code(){        
         // 导入Vendor类库包 Library/Vendor/Zend/Server.class.php
-        //http://www.tp-shop.cn/Home/Index/erweima/data/www.99soubao.com
+        //http://www.gj-shop.cn/Home/Index/erweima/data/www.99soubao.com
          require_once 'ThinkPHP/Library/Vendor/phpqrcode/phpqrcode.php';
           //import('Vendor.phpqrcode.phpqrcode');
             error_reporting(E_ERROR);            
@@ -140,8 +140,8 @@ class IndexController extends BaseController {
         $table = array('tp_admin','tp_config','tp_region','tp_system_module','tp_admin_role','tp_system_menu');
         foreach($tables as $key => $val)
         {                                    
-            if(!in_array($val['tables_in_tpshop'], $table))                             
-                echo "truncate table ".$val['tables_in_tpshop'].' ; ';
+            if(!in_array($val['tables_in_gjshop'], $table))                             
+                echo "truncate table ".$val['tables_in_gjshop'].' ; ';
                 echo "<br/>";         
         }                
     }

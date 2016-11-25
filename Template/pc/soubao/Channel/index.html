@@ -6,10 +6,10 @@
 <meta content="zh-cn" http-equiv="content-language">
 <meta name="renderer" content="webkit|ie-comp|ie-stand">
 <meta http-equiv="Cache-control" content="public" max-age="no-cache">
-<link rel="canonical" href="http://beauty.tp-shop.cn">
-<title>频道页面-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<link rel="canonical" href="http://beauty.gj-shop.cn">
+<title>频道页面-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 <link href="__STATIC__/css/beauty.min.css" rel="stylesheet" type="text/css">
 <link href="__STATIC__/css/beautycare.css" rel="stylesheet" type="text/css">
 <link href="__STATIC__/css/channel.css" rel="stylesheet" type="text/css">
@@ -224,11 +224,11 @@
       
       <div class="brand-slide editable ui-switchable" moduleid="1557937_bottom" fnp="brand-slide" data-widget-cid="widget-626a691d3389b7c9fc8bb8496ad82b83">
         <ul class="slide ui-switchable-content" data-role="content" style="position: relative; width: 35791197px; left: 0px;">
-        <tpshop sql="select * from `__PREFIX__goods` where cat_id in($cat_id_str) and is_on_sale = 1 order by goods_id limit 4" key="k5" item='v5'>
+        <gjshop sql="select * from `__PREFIX__goods` where cat_id in($cat_id_str) and is_on_sale = 1 order by goods_id limit 4" key="k5" item='v5'>
           <li class="item ui-switchable-clone" style="float: left;"> <a href="javascript:;"> <img class="img img100" src="{$v5.goods_id|goods_thum_images=150,150}"/> </a>
             <div class="intro"> <a class="title" href="javascript:;">{$v5.goods_name|getSubstr=0,18}</a> <span class="price">￥<font id="201504CM170003044_1557937" class="">89</font></span> </div>
           </li>
-        </tpshop>          
+        </gjshop>          
         </ul>
         <a href="javascript:;" class="ctrl ctrl-prev ui-switchable-prev-btn" data-role="prev"></a> <a href="javascript:;" class="ctrl ctrl-next ui-switchable-next-btn" data-role="next"></a> </div>
     </div>

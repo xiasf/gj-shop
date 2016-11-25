@@ -1,10 +1,10 @@
 
 @font-face {font-family: "iconfont";
-  src: url('iconfont.eot?t=1479434847907'); /* IE9*/
-  src: url('iconfont.eot?t=1479434847907#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('iconfont.woff?t=1479434847907') format('woff'), /* chrome, firefox */
-  url('iconfont.ttf?t=1479434847907') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-  url('iconfont.svg?t=1479434847907#iconfont') format('svg'); /* iOS 4.1- */
+  src: url('iconfont.eot?t=1480111253387'); /* IE9*/
+  src: url('iconfont.eot?t=1480111253387#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('iconfont.woff?t=1480111253387') format('woff'), /* chrome, firefox */
+  url('iconfont.ttf?t=1480111253387') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('iconfont.svg?t=1480111253387#iconfont') format('svg'); /* iOS 4.1- */
 }
 
 .iconfont {
@@ -76,6 +76,8 @@
 
 .icon-woguanzhudepinpai:before { content: "\e61d"; }
 
+.icon-zuliao:before { content: "\e668"; }
+
 .icon-gonggao:before { content: "\e61e"; }
 
 .icon-tishi:before { content: "\e61f"; }
@@ -98,11 +100,15 @@
 
 .icon-tianmaotuihuobaozhangqia:before { content: "\e628"; }
 
+.icon-jiudianicon:before { content: "\e663"; }
+
 .icon-fenlei:before { content: "\e629"; }
 
 .icon-sousuo:before { content: "\e62a"; }
 
 .icon-goumai:before { content: "\e62b"; }
+
+.icon-lvyoutese:before { content: "\e6d5"; }
 
 .icon-wo:before { content: "\e62c"; }
 
@@ -130,6 +136,8 @@
 
 .icon-dianzan:before { content: "\e638"; }
 
+.icon-gengduo:before { content: "\e667"; }
+
 .icon-shoucangxuanzhong:before { content: "\e639"; }
 
 .icon-shoucang:before { content: "\e63a"; }
@@ -145,6 +153,8 @@
 .icon-guanyuwo:before { content: "\e63f"; }
 
 .icon-bangzhu:before { content: "\e640"; }
+
+.icon-xiuxiansolid:before { content: "\e6dd"; }
 
 .icon-jia:before { content: "\e641"; }
 
@@ -211,4 +221,14 @@
 .icon-31shoucangdedianpu:before { content: "\e660"; }
 
 .icon-jiage:before { content: "\e661"; }
+
+.icon-meishi:before { content: "\e662"; }
+
+.icon-liren:before { content: "\e664"; }
+
+.icon-dianying:before { content: "\e665"; }
+
+.icon-ktv:before { content: "\e666"; }
+
+.icon-xiuxian-copy:before { content: "\e669"; }
 

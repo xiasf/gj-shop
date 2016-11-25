@@ -2,31 +2,31 @@
 <div class="foot">
           <div class="foot-box container fn-clear fixed">
     <dl class="foot-item foot-phone">
-              <dt>{$tpshop_config['shop_info_phone']}</dt>
-              <!--<dd>CEO邮箱：ceo@tp-shop.cn</dd>-->
-              <dd>客服邮箱：CS@tp-shop.cn</dd>
+              <dt>{$gjshop_config['shop_info_phone']}</dt>
+              <!--<dd>CEO邮箱：ceo@gj-shop.cn</dd>-->
+              <dd>客服邮箱：CS@gj-shop.cn</dd>
             </dl>
-	    <tpshop sql="select * from `__PREFIX__article_cat` where cat_id in(1,2,3,4,7)" key="k" item='v'>
+	    <gjshop sql="select * from `__PREFIX__article_cat` where cat_id in(1,2,3,4,7)" key="k" item='v'>
 	    	<dl class="foot-item foot-list">
               <dt class="">{$v[cat_name]}</dt>
-              <tpshop sql="select * from `__PREFIX__article` where cat_id = $v[cat_id]" key="k2" item='v2'>
+              <gjshop sql="select * from `__PREFIX__article` where cat_id = $v[cat_id]" key="k2" item='v2'>
             	<dd><a target="_blank" href="{:U('Home/Article/detail',array('article_id'=>$v2[article_id]))}">{$v2[title]}</a></dd>
-              </tpshop>
+              </gjshop>
 	        </dl>
-	    </tpshop>  
+	    </gjshop>  
     <dl class="foot-item foot-attention">
               <dd>
         <div class="att-weixin"> <img src="__STATIC__/images/weixin.png" width="85" height="85"> </div>
-        <p>TPshop网微信</p>
+        <p>gjshop网微信</p>
       </dd>
               <dd>
         <div class="att-client"> <img src="__STATIC__/images/app.png" width="85" height="85"> </div>
-        <p>TPshop网客户端</p>
+        <p>gjshop网客户端</p>
       </dd>
             </dl>
   </div>
   <div class="foot-info container">
-    <p>Copyright <em>©</em> 2016-2025 {$tpshop_config['shop_info_store_name']}  版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']}</p> 
+    <p>Copyright <em>(c)</em> 2016-2025 {$gjshop_config['shop_info_store_name']}  版权所有 保留一切权利 备案号:{$gjshop_config['shop_info_record_no']}</p> 
     <ul class="foot-chop">
               <!--			<li class="icbc">
 							<a href="" target="_blank"></a>

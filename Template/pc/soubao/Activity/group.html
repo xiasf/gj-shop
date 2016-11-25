@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>{$goods.goods_name}-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<title>{$goods.goods_name}-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="applicable-device" content="pc">
 <meta name="mobile-agent" content="">
@@ -231,7 +231,7 @@
                 <dt class="attr">购买数量</dt>
                 <dd class="product-number-select">
                   <ul>
-                    <li class="number fn-clear" data-type="match"> <a href="javascript:void(0);" class="mins no-mins" data-carnum="-1">−</a>
+                    <li class="number fn-clear" data-type="match"> <a href="javascript:void(0);" class="mins no-mins" data-carnum="-1">-</a>
                       <input type="text" value="1" class="buyNum tbuyNum" name="goods_num" autocomplete="off">
                       <a href="javascript:void(0)" class="add" data-carnum="1">+</a> </li>
                     <li id="pre_label" style="display:none">已预订数量<strong id="numValue">1</strong>件，剩余数量<strong id="numLast" data-maxnum=""></strong>件</li>
@@ -264,11 +264,11 @@
             <!-- 服务承诺 start [[-->
             <dl class="sevice public-pl67 marginFR25">
               <dt class="attr">服务承诺</dt>
-              <dd> <a><i class="fn-icon seven"></i>
+              <dd> <a><i class="fn-icon seven"></i>
                 <span>支持7天无理由退货</span>
-                </a> <a><i class="fn-icon"></i>
+                </a> <a><i class="fn-icon"></i>
                 <span>正品保证</span>
-                </a> <a><i class="fn-icon"></i>
+                </a> <a><i class="fn-icon"></i>
                 <span>假一赔三</span>
                 </a> </dd>
             </dl>
@@ -356,16 +356,16 @@
   <div class="side-public side-look sale-top">
     <h2 class="title">销量排行榜</h2>
     <ul>
-      <tpshop sql="select * from `__PREFIX__goods` where is_recommend = 1 and cat_id=$goods[cat_id] order by goods_id desc limit 6" item="v" key="k" >
+      <gjshop sql="select * from `__PREFIX__goods` where is_recommend = 1 and cat_id=$goods[cat_id] order by goods_id desc limit 6" item="v" key="k" >
       	<li>
 	      	<a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="look-img" target="_blank">
 	       	<img src="{$v.goods_id|goods_thum_images=200,200}" alt=""></a>
 	        <h4 class="look-title"><a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" target="_blank">{$v.goods_name}</a></h4>
-	        <p class="look-price"><del><q class="fn-rmb">¥</q><strong class="fn-rmb-num">{$v.market_price}</strong></del>
-	        <q class="fn-rmb">¥</q> <strong class="fn-rmb-num">{$v.shop_price}</strong></p>
+	        <p class="look-price"><del><q class="fn-rmb">yen</q><strong class="fn-rmb-num">{$v.market_price}</strong></del>
+	        <q class="fn-rmb">yen</q> <strong class="fn-rmb-num">{$v.shop_price}</strong></p>
 	        <a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="look-bottom" target="_blank">查看详情</a> 
         </li>
-      </tpshop>
+      </gjshop>
     </ul>
   </div>
   <!-- 销量排行榜 end ]]--> 
@@ -590,7 +590,7 @@
 		<dt class="red">以下状况飞牛网将不接受您的退货：</dt>
 		<dd>
 		  <ol>
-		    <li>商品非TPSHOP网所贩售出之商品，如：商品序号不符。</li>
+		    <li>商品非gjshop网所贩售出之商品，如：商品序号不符。</li>
 		    <li>未经授权的维修、误用、碰撞、疏忽、滥用、进液、事故、改动、不正确的安装所造成的商品质量问题，或撕毁、涂改标贴、机器序号、 防伪标记。</li>
 		    <li>若有索取发票未随货退回、或发票有经涂改、破损影响识别之状况。</li>
 		    <li>食品类、保健品、烟酒类、化妆品、个人卫生用品、耗材、电池、胶卷、虚拟商品、软件类等商品已有拆封状况；服饰、配件类已进行修改。</li>
@@ -634,8 +634,8 @@
 	         	<a href="{:U('Home/Goods/goodsInfo',array('id'=>$look[goods_id]))}">{$look.goods_name|getSubstr=0,30}</a>
 	         </h4>
 	         <p class="look-price">
-	         	<del><q class="fn-rmb">¥</q><strong class="fn-rmb-num">{$look.market_price}</strong></del>
-	         	<q class="fn-rmb">¥</q> <strong class="fn-rmb-num">{$look.shop_price}</strong>
+	         	<del><q class="fn-rmb">yen</q><strong class="fn-rmb-num">{$look.market_price}</strong></del>
+	         	<q class="fn-rmb">yen</q> <strong class="fn-rmb-num">{$look.shop_price}</strong>
 	         </p>
        </li>
 	  </foreach>
@@ -846,7 +846,7 @@ $('#collectLink').click(function(){
 	if(getCookie('user_id') == ''){
 	    layer.open({
 	        type: 2,
-	        title: '<b>登陆TPshop</b>',
+	        title: '<b>登陆gjshop</b>',
 	        skin: 'layui-layer-rim',
 	        shadeClose: true,
 	        shade: 0.5,

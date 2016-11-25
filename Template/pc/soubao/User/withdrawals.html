@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=8">
-<title>账户管理-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<title>账户管理-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 </head>
 <body> 
 <!-- 头部-s -->
@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="__STATIC__/css/favorite.css">
 
 <div class="wrap">
-  <div class="bread_crumbs"> <a href="{:U('Home/User/index')}" class="crumbs_font">我的TPshop</a>&gt;<span class="color">资金管理</span></div>
+  <div class="bread_crumbs"> <a href="{:U('Home/User/index')}" class="crumbs_font">我的gjshop</a>&gt;<span class="color">资金管理</span></div>
   <!--菜单--> 
   <include file="User/menu" /> 
   <!--菜单-->     
@@ -59,7 +59,7 @@
 								<div class="cash_num bb1">
 									<p class="tx_cash">
                                         <span>提现金额：</span>
-                                    	<input type="text" id="money" name="money"  class="imput_text vam" placeholder="最少提现额度{$tpshop_config['distribut_min']}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')"/>
+                                    	<input type="text" id="money" name="money"  class="imput_text vam" placeholder="最少提现额度{$gjshop_config['distribut_min']}" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')"/>
                                     </p>
 									<p class="tx_cash">
                                     	<span>银行名称：</span>
@@ -142,9 +142,9 @@ function checkSubmit(){
 		alert('提现金额必填');
 		return false;
 	}
-	if(money < {$tpshop_config['distribut_min']} || money > {$user['user_money']})
+	if(money < {$gjshop_config['distribut_min']} || money > {$user['user_money']})
 	{
-		//alert("每次最少提现额度{$tpshop_config['distribut_min']},你的账户余额{$user['user_money']}");
+		//alert("每次最少提现额度{$gjshop_config['distribut_min']},你的账户余额{$user['user_money']}");
 		//return false;
 	}
 			

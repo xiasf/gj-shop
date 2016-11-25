@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>确认订单-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<title>确认订单-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 <script src="__PUBLIC__/js/jquery-1.8.2.min.js"></script>
 <script src="__PUBLIC__/js/global.js"></script>
 <script src="__PUBLIC__/js/pc_common.js"></script>
@@ -16,7 +16,7 @@
     	<div class="layout after">
         	<div class="fl">
             	<div class="logo pa-to-36 wi345">
-                	<a href="/"><img src="{$tpshop_config['shop_info_store_logo']}" alt=""></a>
+                	<a href="/"><img src="{$gjshop_config['shop_info_store_logo']}" alt=""></a>
                 </div>
             </div>
         	<div class="fr">
@@ -116,9 +116,9 @@
                                              </ul>
                                          </td>
                                         <!-- 预付订金商品的价格为空 -->
-                                        <td class="tr-price te-al">¥{$v.goods_price}</td>
+                                        <td class="tr-price te-al">yen{$v.goods_price}</td>
                                         <if condition="($user[discount] neq 1)">
-                                        	<td class="tr-price te-al">¥{$v.member_goods_price}</td>
+                                        	<td class="tr-price te-al">yen{$v.member_goods_price}</td>
                                         </if>
                                         <td class="tr-quantity te-al">{$v.goods_num}</td>
                                         <td rowspan="1" class="tr-subtotal te-al">
@@ -170,7 +170,7 @@
                                                     <label class="fo-fa-ta" for="order-chick">余额支付:</label>
                                                     <input type="text" id="user_money" name="user_money" class="texter vam span-150 ma-ri-10 he18 li-he-18" placeholder="请输入使用余额"   onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')"/>
                                                     <input type="button" class="button-style-disabled-4 button-action-use-disabled te-al ou-no vam" value="使用" onClick="ajax_order_price();" />
-                                                    您的可用余额 ¥ {$user['user_money']}
+                                                    您的可用余额 yen {$user['user_money']}
                                                     </td>
                                                 </tr>                                                
                                             </tbody>
@@ -185,37 +185,37 @@
                                 <tbody>
                                     <tr>
                                         <td class="tal">商品总金额：</td>
-                                        <td class="tar">&nbsp;¥&nbsp;
+                                        <td class="tar">&nbsp;yen&nbsp;
                                            <em id="order-cost-area">{$total_price.total_fee}</em>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="tal">运费：</td>
-                                        <td class="tar">&nbsp;¥&nbsp;
+                                        <td class="tar">&nbsp;yen&nbsp;
                                                <em id="postFee">0.00</em> 
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="tal">使用优惠券：</td>
-                                        <td class="tar">-&nbsp;¥&nbsp;
+                                        <td class="tar">-&nbsp;yen&nbsp;
                                           <em><span id="couponFee">0.00</span> </em>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="tal">使用积分：</td>
-                                        <td class="tar">-&nbsp;¥&nbsp;
+                                        <td class="tar">-&nbsp;yen&nbsp;
                                           <em><span id="pointsFee">0.00</span> </em>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="tal">优惠活动：</td>
-                                        <td class="tar">-&nbsp;¥&nbsp;
+                                        <td class="tar">-&nbsp;yen&nbsp;
                                           <em><span id="order_prom_amount">0.00</span> </em>
                                         </td>
                                     </tr>                                    
                                     <tr>
                                         <td class="tal">使用余额:</td>
-                                        <td class="tar">-&nbsp;¥&nbsp;
+                                        <td class="tar">-&nbsp;yen&nbsp;
                                           <em><span id="balance">0.00</span> </em>
                                         </td>
                                     </tr>                                    
@@ -223,7 +223,7 @@
                             </table>
                             <p class="yifje-order">
                             	<span class="p-subtotal-price"> 应付金额：
-                                    <b class="total">¥</b>
+                                    <b class="total">yen</b>
                                     <b class="total" id="payables">0.00</b>
                                 </span>
                             </p>
@@ -233,7 +233,7 @@
             </div>
             <div class="order-action-area te-al-ri">
             	<div class="woypdbe sc-acti-list pa-to-20">
-                	<!--<span class="p-subtotal-price">应付总额：<b>¥<span class="vab" id="payableTotal">2276.00</span></b></span>-->
+                	<!--<span class="p-subtotal-price">应付总额：<b>yen<span class="vab" id="payableTotal">2276.00</span></b></span>-->
                     <a class="Sub-orders gwc-qjs" href="javascript:void(0);" onClick="submit_order();"><span>提交订单</span></a>
                 </div>
             </div>

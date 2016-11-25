@@ -2,9 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>加入购物车-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<title>加入购物车-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 </head>
 <body>
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/detail.css">
@@ -32,13 +32,13 @@
                   <div id="watch">
                     <span>热卖产品：</span>
                     <ul class="fn-clear buy-list">
-                    <tpshop sql="select * from `__PREFIX__goods` where  is_recommend = 1 limit 4" item="v" key="k">
+                    <gjshop sql="select * from `__PREFIX__goods` where  is_recommend = 1 limit 4" item="v" key="k">
                       <li>
                         <a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="watch-img" target="_parent"><img src="{$v.goods_id|goods_thum_images=200,200}" /></a>
                         <h4><a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" target="_parent">{$v[goods_name]}</a></h4>
-                        <p><q class="fn-rmb">¥</q><strong class="fn-rmb-num">{$v[shop_price]}</strong></p>
+                        <p><q class="fn-rmb">yen</q><strong class="fn-rmb-num">{$v[shop_price]}</strong></p>
                       </li>
-                     </tpshop>  
+                     </gjshop>  
                     </ul>
                   </div>
                 </div>

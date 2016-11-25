@@ -15,11 +15,11 @@ use Think\Template\TagLib;
  * 自定义标签
  */
 
-class Tpshop extends TagLib {
+class Gjshop extends TagLib {
 	protected $tags = array(
 		'adv' => array('attr'=>'limit,order,where,item','close'=>1),
 		'article' => array('attr'=>'limit,order,where','close'=>1),
-                'tpshop' => array('attr'=>'sql,key,item,result_name','close'=>1,'level'=>3), // tpshop sql 万能标签
+                'gjshop' => array('attr'=>'sql,key,item,result_name','close'=>1,'level'=>3), // gjshop sql 万能标签
                 'goods_img' =>  array('attr'=>'id,width,height','close'=>0), // 商品缩列图标签
 	);
 	
@@ -41,8 +41,8 @@ class Tpshop extends TagLib {
            
         $str = '<?php ';
         $str .= '$pid ='.$pid.';';
-        $str .= '$ad_position = M("ad_position")->cache(true,TPSHOP_CACHE_TIME)->getField("position_id,position_name,ad_width,ad_height");';
-        $str .= '$result = D("ad")->where("pid=$pid  and enabled = 1 and start_time < '.strtotime(date('Y-m-d H:00:00')).' and end_time > '.strtotime(date('Y-m-d H:00:00')).' ")->order("orderby desc")->cache(true,TPSHOP_CACHE_TIME)->limit("'.$limit.'")->select();';
+        $str .= '$ad_position = M("ad_position")->cache(true,GJSHOP_CACHE_TIME)->getField("position_id,position_name,ad_width,ad_height");';
+        $str .= '$result = D("ad")->where("pid=$pid  and enabled = 1 and start_time < '.strtotime(date('Y-m-d H:00:00')).' and end_time > '.strtotime(date('Y-m-d H:00:00')).' ")->order("orderby desc")->cache(true,GJSHOP_CACHE_TIME)->limit("'.$limit.'")->select();';
         $str .= '
 
 if(!in_array($pid,array_keys($ad_position)) && $pid)
@@ -92,7 +92,7 @@ foreach($result as $'.$key.'=>$'.$item.'):
 	}
         
     /**
-     * _tpshopassign标签解析
+     * _gjshopassign标签解析
      * 在模板中给某个变量赋值 支持变量赋值
      * 格式： <assign name="" value="" />
      * @access public
@@ -100,7 +100,7 @@ foreach($result as $'.$key.'=>$'.$item.'):
      * @param string $content  标签内容
      * @return string
      
-    public function _tpshopassign($tag,$content) {
+    public function _gjshopassign($tag,$content) {
         $name       =   $this->autoBuildVar($tag['name']);
         if('$'==substr($tag['value'],0,1)) {
             $value  =   $this->autoBuildVar(substr($tag['value'],1));
@@ -118,7 +118,7 @@ foreach($result as $'.$key.'=>$'.$item.'):
 	 * @param string $content  标签内容
 	 * @return string
 	 */
-	public function _tpshop($tag,$content){
+	public function _gjshop($tag,$content){
             $sql = $tag['sql']; // sql 语句     
             //  file_put_contents('a.html', $sql.PHP_EOL, FILE_APPEND);
             $sql = str_replace(' eq ', ' = ', $sql); // 等于
@@ -135,7 +135,7 @@ foreach($result as $'.$key.'=>$'.$item.'):
             $key  =  !empty($tag['key']) ? $tag['key'] : 'key';// 返回的变量key
             $item  =  !empty($tag['item']) ? $tag['item'] : 'item';// 返回的变量item	
             $result_name  =  !empty($tag['result_name']) ? $tag['result_name'] : 'result_name';// 返回的变量key			
-            $t  =  !empty($tag['t']) ? $tag['t'] : TPSHOP_CACHE_TIME;// 缓存时间
+            $t  =  !empty($tag['t']) ? $tag['t'] : GJSHOP_CACHE_TIME;// 缓存时间
             //$Model = new \Think\Model();
             //$name = 'sql_result_'.$item.rand(10000000,99999999); // 数据库结果集返回命名
             $name = 'sql_result_'.$item;//.rand(10000000,99999999); // 数据库结果集返回命名

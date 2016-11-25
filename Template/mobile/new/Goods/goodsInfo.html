@@ -1,12 +1,12 @@
 <!DOCTYPE html >
 <html>
 <head>
-    <meta name="Generator" content="tpshop" />
+    <meta name="Generator" content="gjshop" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>{$goods.goods_name}_{$tpshop_config.shop_info_store_title}</title>
-    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <title>{$goods.goods_name}_{$gjshop_config.shop_info_store_title}</title>
+    <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/goods.css"/>
@@ -141,14 +141,14 @@
                                     </li>
                                 </ul>
                             </if>
-                            <tpshop sql="select * from `__PREFIX__prom_order` order by  id desc limit 5" item="v" key="k" >
+                            <gjshop sql="select * from `__PREFIX__prom_order` order by  id desc limit 5" item="v" key="k" >
                                 <ul class="youhui_list1" style="margin-top:0px;">
                                     <li>
                                         <img src="__STATIC__/images/hui.png">
                                         {$v['name']}&nbsp;&nbsp;(活动时间：{$v[start_time]|date="m月d日",###} - {$v[end_time]|date="m月d日",###})
                                     </li>
                                 </ul>
-                            </tpshop>
+                            </gjshop>
                             <div class="blank10"></div>
                         </div>
                     </section>
@@ -399,7 +399,7 @@
                 </a>
             </li>
             <li class="bian">
-                <a href="tel:{$tpshop_config['shop_info_phone']}"> <em class="goods_nav2"></em>
+                <a href="tel:{$gjshop_config['shop_info_phone']}"> <em class="goods_nav2"></em>
                     <span>客服</span>
                 </a>
             </li>

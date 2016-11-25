@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>商品列表-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<title>商品列表-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 </head>
 
 <body>
@@ -126,7 +126,7 @@
     <h2 class="rehottit">推荐热卖</h2>
     <div class="rehotcon" id="rehotcon">
      
-    <tpshop sql="select * from `__PREFIX__goods` where  is_recommend = 1 limit 5" item="v" key="k">
+    <gjshop sql="select * from `__PREFIX__goods` where  is_recommend = 1 limit 5" item="v" key="k">
       <div class="hotitem">
         <div class="itemin">
              <a class="proname"  href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">
@@ -134,12 +134,12 @@
                   <span>{$v[goods_name]}</span>
              </a>
           <p class="itemprice">
-            <span class="new" rehot="90101748934_201480" style="display: block; float: left;"><i class="fn-rmb">¥</i>{$v[market_price]}</span>
-            <span class="old"><i class="fn-rmb">¥</i>{$v[shop_price]}</span>
+            <span class="new" rehot="90101748934_201480" style="display: block; float: left;"><i class="fn-rmb">yen</i>{$v[market_price]}</span>
+            <span class="old"><i class="fn-rmb">yen</i>{$v[shop_price]}</span>
           </p>
         </div>
       </div>
-     </tpshop> 
+     </gjshop> 
        
     </div>
   </div>
@@ -318,7 +318,7 @@
           <!-- 价格 -->
           <div class="discountPrice">
             <div class="price-cash">
-              <span class="text13 colf22e01">¥</span>
+              <span class="text13 colf22e01">yen</span>
               <span class="text18 colf22e01 fontT">{$v[shop_price]}</span>
               <del></del>
               <span class="text12" style="float: right;color: gray;position: relative;top:3px">{$v[sales_sum]}人付款</span>

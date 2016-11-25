@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>订单列表-{$tpshop_config['shop_info_store_title']}</title>
-    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <title>订单列表-{$gjshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
     <link rel="stylesheet" href="__STATIC__/css/index.css" type="text/css">
     <link rel="stylesheet" href="__STATIC__/css/page.css" type="text/css">
     <script src="__STATIC__/js/jquery-1.10.2.min.js"></script>
@@ -94,10 +94,10 @@
                                             </p>
                                         </td>
                                         <td class="col-pro-info te-al-le" ><p class="p-name"><a title="" target="_blank" href="{:U('Home/Goods/goodsInfo',array('id'=>$good['goods_id']))}">{$good.goods_name}</a></p></td>
-                                        <td class="col-price"><em>¥</em><span>{$good.goods_price}</span></td>
-                                        <td class="col-price"><em>¥</em><span>{$good.member_goods_price}</span></td>                                        
+                                        <td class="col-price"><em>yen</em><span>{$good.goods_price}</span></td>
+                                        <td class="col-price"><em>yen</em><span>{$good.member_goods_price}</span></td>                                        
                                         <td class="col-quty">{$good.goods_num}</td>
-                                        <td rowspan="1" class="col-pay"><p><em>¥</em><span>{$good['goods_num'] * $good['member_goods_price']}</span></p></td>
+                                        <td rowspan="1" class="col-pay"><p><em>yen</em><span>{$good['goods_num'] * $good['member_goods_price']}</span></p></td>
                                         <td rowspan="1" class="col-pay">
                                         <if condition="($list[return_btn] eq 1) and ($good[is_send] eq 1)">
 						<p class="p-link">

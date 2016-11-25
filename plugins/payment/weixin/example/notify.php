@@ -47,7 +47,7 @@ class PayNotifyCallBack extends WxPayNotify
                 $appid = $data['appid']; //公众账号ID
                 $order_sn = $out_trade_no = $data['out_trade_no']; //商户系统的订单号，与请求一致。
                 $attach = $data['attach']; //商家数据包，原样返回                
-                //file_put_contents('/web/tpshop2/c.html',print_r($data,true),FILE_APPEND);
+                //file_put_contents('/web/gjshop2/c.html',print_r($data,true),FILE_APPEND);
 		//20160316 JSAPI支付情况 去掉订单号后面的十位时间戳
 		if(strlen($order_sn) > 18){
 			$order_sn = substr($order_sn,0,18);

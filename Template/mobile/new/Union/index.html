@@ -1,12 +1,12 @@
 <!DOCTYPE html >
 <html>
 <head>
-    <meta name="Generator" content="TPshop v1.1" />
+    <meta name="Generator" content="gjshop v1.1" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <title>发现-{$tpshop_config['shop_info_store_title']}</title>
-    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <title>发现-{$gjshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
     <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
@@ -56,8 +56,10 @@
 
     .icon-wrapper {
         margin: 10px 0;
-        padding: 15px 0;
+        padding: 10px 0;
         box-shadow: 0px 5px 7px rgb(216, 216, 216);
+        margin-top: 5px;
+        padding-bottom: 5px;
     }
 
     .icon-list li {
@@ -85,56 +87,59 @@
         color: #333;
         font-size: 1.2rem;
     }
+    .icon-list li:nth-child(5+n) {
+        margin-top: 10px;
+    }
 </style>
 
 <div class="icon-wrapper">
     <ul class="icon-list">
         <li>
             <a href="javascript:void(0);" data-cat="0">
-                <i class="icon iconfont icon-chuzu"></i>
+                <i class="icon iconfont icon-meishi" style="background: #fd9d21;"></i>
                 <span class="icon-desc">美食</span>
             </a>
         </li>
         <li>
             <a href="javascript:void(0);" data-cat="1">
-                <i class="icon iconfont icon-chuzu"></i>
+                <i class="icon iconfont icon-dianying" style="    background: #ff6767;"></i>
                 <span class="icon-desc">电影</span>
             </a>
         </li>
         <li>
             <a href="javascript:void(0);" data-cat="2">
-                <i class="icon iconfont icon-chuzu"></i>
+                <i class="icon iconfont icon-jiudianicon" style="background: #8a90fa;"></i>
                 <span class="icon-desc">酒店</span>
             </a>
         </li>
         <li>
             <a href="javascript:void(0);" data-cat="3">
-                <i class="icon iconfont icon-chuzu"></i>
+                <i class="icon iconfont icon-xiuxian-copy" style="    background-color: #BF5CFD;"></i>
                 <span class="icon-desc">休闲娱乐</span>
             </a>
         </li>
         <li>
             <a href="javascript:void(0);" data-cat="4">
-                <i class="icon iconfont icon-chuzu"></i>
-                <span class="icon-desc">外卖</span>
+                <i class="icon iconfont icon-zuliao" style="background-color: #FD58B4;"></i>
+                <span class="icon-desc">足疗按摩</span>
             </a>
         </li>
         <li>
             <a href="javascript:void(0);" data-cat="5">
-                <i class="icon iconfont icon-chuzu"></i>
+                <i class="icon iconfont icon-ktv" style="    background-color: #7D68F5;"></i>
                 <span class="icon-desc">KTV</span>
             </a>
         </li>
         <li>
             <a href="javascript:void(0);" data-cat="6">
-                <i class="icon iconfont icon-chuzu"></i>
+                <i class="icon iconfont icon-liren" style="    background: #ff80c2;"></i>
                 <span class="icon-desc">丽人</span>
             </a>
         </li>
         <li>
             <a href="javascript:void(0);" data-cat="7">
-                <i class="icon iconfont icon-chuzu"></i>
-                <span class="icon-desc">全部分类</span>
+                <i class="icon iconfont icon-gengduo" style="background: #00d3be;"></i>
+                <span class="icon-desc">其他</span>
             </a>
         </li>
         <div class="clear"></div>
@@ -160,14 +165,14 @@
     }
 
     #guessLike .dealcard-img {
-        height: 100px;
-        width: 100px;
+        height: 160px;
+        width: 160px;
         position: absolute;
     }
 
     #guessLike .dealcard-block-right {
-        margin-left: 112px;
-        height: 100px;
+        margin-left: 172px;
+        height: 160px;
     }
     #guessLike .more {
         text-align: center;
@@ -189,13 +194,24 @@
         display: block;
         text-align: center;
     }
+    #positioning {
+        color: #FFFFFF;
+        font-size: 1.3rem;
+        margin-left: 10px;
+        background-color: #00D3BE;
+        padding: 1px 7px;
+        border-radius: 9px;
+    }
+    #positioning i {
+        margin-left: 5px;
+    }
 </style>
 
 <div id="guessLike" class="guess-like">
     <dl class="list" style="opacity: 1;">
         <dd>
             <dl class="list" id="ajax_return" style="opacity: 1;">
-                <dt class="title">附近商家</dt>
+                <dt class="title">附近商家<span id="positioning">东门路28号<i class="icon iconfont icon-31shuaxin"></i></span></dt>
                 <dd id="get_more_load">
                     <a href="javascript:;" style="text-align:center; display:block;">
                         <img src="__STATIC__/images/category/loader.gif" width="12" height="12">

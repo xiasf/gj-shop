@@ -1,14 +1,14 @@
 <?php
 /**
- * tpshop
+ * gjshop
  * ============================================================================
- * * 版权所有 2015-2027 深圳搜豹网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.tp-shop.cn
+ * 版权所有 2016-2027 湖北广佳网络科技有限公司，并保留所有权利。
+ * 网站地址: http://www.gj-shop.cn
  * ----------------------------------------------------------------------------
- * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用 .
- * 不允许对程序代码以任何形式任何目的的再发布。
+ * 广佳微商城
+ * 版权所有
  * ============================================================================
- * $Author: IT宇宙人 2015-08-10 $
+ * $Author: 广佳 2016-11-26 $
  */ 
 namespace Api\Controller;
 use Think\Controller;
@@ -23,7 +23,7 @@ class IndexController extends BaseController {
      */
     public function home(){
         //获取轮播图
-        $data = M('ad')->where('pid = 2')->field(array('ad_link','ad_name','ad_code'))->cache(true,TPSHOP_CACHE_TIME)->select();
+        $data = M('ad')->where('pid = 2')->field(array('ad_link','ad_name','ad_code'))->cache(true,GJSHOP_CACHE_TIME)->select();
         //广告地址转换
         foreach($data as $k=>$v){
 //            exit($this->http_url);
@@ -34,7 +34,7 @@ class IndexController extends BaseController {
 
         }
         //获取大分类
-        $category_arr = M('goods_category')->where('parent_id=0')->field('id,name')->limit(3)->cache(false,TPSHOP_CACHE_TIME)->select();
+        $category_arr = M('goods_category')->where('parent_id=0')->field('id,name')->limit(3)->cache(false,GJSHOP_CACHE_TIME)->select();
         $result = array();
         foreach($category_arr as $c){
             $cat_arr = getCatGrandson($c['id']);
@@ -43,7 +43,7 @@ class IndexController extends BaseController {
             //$goods = M()->query($sql);
             if($cat_arr)
                 $cat_id = implode (',', $cat_arr);
-            $goodsList = M('goods')->where("cat_id in($cat_id)")->limit(4)->cache(false,TPSHOP_CACHE_TIME)->getField("goods_id,goods_name,original_img,shop_price");
+            $goodsList = M('goods')->where("cat_id in($cat_id)")->limit(4)->cache(false,GJSHOP_CACHE_TIME)->getField("goods_id,goods_name,original_img,shop_price");
             foreach($goodsList as $k => $v){
                 $v['original_img'] = SITE_URL.$v['original_img'];
                 $c['goods_list'][] = $v;
@@ -90,7 +90,7 @@ class IndexController extends BaseController {
             ->where($goods_where)
             ->order('sort DESC')
             ->page($p,10)
-            ->cache(true,TPSHOP_CACHE_TIME)
+            ->cache(true,GJSHOP_CACHE_TIME)
             ->select();
         $json = array(
             'status'=>1,

@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>{$goods.goods_name}-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<title>{$goods.goods_name}-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="applicable-device" content="pc">
 <meta name="mobile-agent" content="">
@@ -55,7 +55,7 @@
                 <!-- <em class="send">送积分&nbsp;<span id="point">49</span>
                 <a href="" target="_blank" class="help_center_url">详</a></em>-->
                 <span class="attr">参&nbsp;考&nbsp;价</span>
-                <del> <q class="fn-rmb">¥</q><strong class="fn-rmb-num">{$goods.market_price}</strong> </del> </li>
+                <del> <q class="fn-rmb">yen</q><strong class="fn-rmb-num">{$goods.market_price}</strong> </del> </li>
               <li class="nett fn-clear">
                 <if condition="$goods['promoting'] eq 1">
                   <span class="attr ssm-price-label">优&nbsp;惠&nbsp;价</span>
@@ -63,7 +63,7 @@
                   <span class="attr fn-price-label">商&nbsp;城&nbsp;价</span>
                 </if>
                 <div class="nett-box fn-clear" id="J_product_value">
-                  <div class="nett-box-value"> <q class="fn-rmb">¥</q>
+                  <div class="nett-box-value"> <q class="fn-rmb">yen</q>
                     <if condition="$goods['prom_type'] eq 1"> 
                     <strong class="fn-rmb-num"  id="goods_price"> {$goods['flash_sale']['price']} </strong> 
                     	 <i class="onlylost">仅剩<em><strong id="countdown" style="color:#db384c">
@@ -90,12 +90,12 @@
               <if condition="($goods['shop_price'] egt ($goods['exchange_integral']/$point_rate)) AND $goods['exchange_integral'] gt 0">
               <li class="nett fn-clear">
                 <span class="attr">促销信息</span>
-                <q class="fn-rmb">¥</q><strong class="fn-rmb-num">{$goods['shop_price']-$goods['exchange_integral']/$point_rate}+{$goods['exchange_integral']}积分</strong>
+                <q class="fn-rmb">yen</q><strong class="fn-rmb-num">{$goods['shop_price']-$goods['exchange_integral']/$point_rate}+{$goods['exchange_integral']}积分</strong>
               </li>
               </if>
               <li class="nett fn-clear">
                 <span class="attr">运&nbsp;&nbsp;&nbsp;费</span>
-                <strong class="fn-rmb-num">满<q class="fn-rmb">¥{$freight_free}</q>免运费</strong>
+                <strong class="fn-rmb-num">满<q class="fn-rmb">yen{$freight_free}</q>免运费</strong>
               </li>
               <li class="nett fn-clear">
                 <span class="attr">配&nbsp;送&nbsp;至</span>
@@ -178,7 +178,7 @@
                 <dt class="attr">购买数量</dt>
                 <dd class="product-number-select">
                   <ul>
-                    <li class="number fn-clear" data-type="match"> <a href="javascript:void(0);" class="mins no-mins" data-carnum="-1">−</a>
+                    <li class="number fn-clear" data-type="match"> <a href="javascript:void(0);" class="mins no-mins" data-carnum="-1">-</a>
                       <input type="text" value="1" class="buyNum tbuyNum" name="goods_num" autocomplete="off">
                       <a href="javascript:void(0)" class="add" data-carnum="1">+</a> </li>
                     <li id="pre_label" style="display:none">已预订数量<strong id="numValue">1</strong>件，剩余数量<strong id="numLast" data-maxnum=""></strong>件</li>
@@ -211,11 +211,11 @@
             <!-- 服务承诺 start [[-->
             <dl class="sevice public-pl67 marginFR25">
               <dt class="attr">服务承诺</dt>
-              <dd> <a><i class="fn-icon seven"></i>
+              <dd> <a><i class="fn-icon seven"></i>
                 <span>支持7天无理由退货</span>
-                </a> <a><i class="fn-icon"></i>
+                </a> <a><i class="fn-icon"></i>
                 <span>正品保证</span>
-                </a> <a><i class="fn-icon"></i>
+                </a> <a><i class="fn-icon"></i>
                 <span>假一赔三</span>
                 </a> </dd>
             </dl>
@@ -317,16 +317,16 @@
   <div class="side-public side-look sale-top">
     <h2 class="title">销量排行榜</h2>
     <ul>
-      <tpshop sql="select * from `__PREFIX__goods` where is_recommend = 1 and cat_id=$goods[cat_id] order by goods_id desc limit 6" item="v" key="k" >
+      <gjshop sql="select * from `__PREFIX__goods` where is_recommend = 1 and cat_id=$goods[cat_id] order by goods_id desc limit 6" item="v" key="k" >
       	<li>
 	      	<a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="look-img" target="_blank">
 	       	<img src="{$v.goods_id|goods_thum_images=200,200}" alt=""></a>
 	        <h4 class="look-title"><a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" target="_blank">{$v.goods_name}</a></h4>
-	        <p class="look-price"><del><q class="fn-rmb">¥</q><strong class="fn-rmb-num">{$v.market_price}</strong></del>
-	        <q class="fn-rmb">¥</q> <strong class="fn-rmb-num">{$v.shop_price}</strong></p>
+	        <p class="look-price"><del><q class="fn-rmb">yen</q><strong class="fn-rmb-num">{$v.market_price}</strong></del>
+	        <q class="fn-rmb">yen</q> <strong class="fn-rmb-num">{$v.shop_price}</strong></p>
 	        <a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="look-bottom" target="_blank">查看详情</a> 
         </li>
-      </tpshop>
+      </gjshop>
     </ul>
   </div>
   <!-- 销量排行榜 end ]]--> 
@@ -492,15 +492,15 @@
 <!-- 售后服务 start [[-->
 <div class="detail-service detail-box hide">
 <!--转单非生鲜-->
-	<p style="font-weight: bold;padding: 20px 0 0 30px;">本商品由TPshop网入驻商家提供配送服务，购买前请仔细阅读以下退货说明</p>
+	<p style="font-weight: bold;padding: 20px 0 0 30px;">本商品由gjshop网入驻商家提供配送服务，购买前请仔细阅读以下退货说明</p>
 	<dl>
 	<dt class="red">商家直送的商品退货流程（七天无理由退货）：</dt>
 		<dd>
 		  <ol>
 		    <li>自买家签收商品隔日起七日内可自助提交退货申请，请直接至「<a class="sevice_url" target="_blank" href="{:U('Home/User/order_list')}">我的订单</a>」→「<a class="sevice_url" target="_blank" href="{:U('Home/User/return_goods_list')}">退订</a>」提交退货申请。</li>
 		    <li>顾客依照「退订」中的退货寄件地址自行安排第三方物流或快递寄回商品，并且支付运费。</li>
-		    <li>商品退回检測无误后，TPshop网将提交退款申请, 通过线上支付的订单办理退货, 实际款项会依照各银行作业时间返还至您原支付方式。</li>
-		    <li>若退回商品有缺件、影响二次销售状况时，不符合退货条件, 退款作业将暂时停止，TPshop网客服人员会与您联系说明，并由商家将商品返还给您 （如对于结果有异议,可联系<a class="sevice_url" target="_blank" href="">TPshop客服咨询</a>或<a class="sevice_url" target="_blank" href="">重新发起申请退货</a>并补充相关凭证）。</li>
+		    <li>商品退回检測无误后，gjshop网将提交退款申请, 通过线上支付的订单办理退货, 实际款项会依照各银行作业时间返还至您原支付方式。</li>
+		    <li>若退回商品有缺件、影响二次销售状况时，不符合退货条件, 退款作业将暂时停止，gjshop网客服人员会与您联系说明，并由商家将商品返还给您 （如对于结果有异议,可联系<a class="sevice_url" target="_blank" href="">gjshop客服咨询</a>或<a class="sevice_url" target="_blank" href="">重新发起申请退货</a>并补充相关凭证）。</li>
 		  </ol>
 		</dd>
 		<dt class="red">商家直送的商品退货流程（有理由退货）：</dt>
@@ -508,36 +508,36 @@
 		  <ol>
 		    <li>由于商品缺件、寄错商品、产品瑕疵等原因而发起的退货，请直接至「<a class="sevice_url" target="_blank" href="{:U('Home/User/order_list')}">我的订单</a>」→「<a class="sevice_url" target="_blank" href="">退订</a>」提交退货申请。</li>
 		    <li>顾客依照「<a class="sevice_url red">退订</a>」中的退货寄件地址自行安排第三方物流或快递寄回商品，并且垫付运费。</li>
-		    <li>商品退回检測无误后，TPshop网将提交退款申请, 通过线上支付的订单办理退货, 实际款项会依照各银行作业时间返还至您原支付方式。同时TPshop网会补贴10元抵用券到您的TPshop网帐户以作为退货运费补偿。</li>
-		    <li>若退回商品有缺件、影响二次销售状况时，不符合退货条件, 退款作业将暂时停止，TPshop网客服人员会与您联系说明，并由商家将商品返还给您 （如对于结果有异议,可连系<a class="sevice_url" target="_blank" href="">TPshop客服咨询</a>或<a class="sevice_url" target="_blank" href="">重新发起申请退货</a>并补充相关凭证）。</li>
+		    <li>商品退回检測无误后，gjshop网将提交退款申请, 通过线上支付的订单办理退货, 实际款项会依照各银行作业时间返还至您原支付方式。同时gjshop网会补贴10元抵用券到您的gjshop网帐户以作为退货运费补偿。</li>
+		    <li>若退回商品有缺件、影响二次销售状况时，不符合退货条件, 退款作业将暂时停止，gjshop网客服人员会与您联系说明，并由商家将商品返还给您 （如对于结果有异议,可连系<a class="sevice_url" target="_blank" href="">gjshop客服咨询</a>或<a class="sevice_url" target="_blank" href="">重新发起申请退货</a>并补充相关凭证）。</li>
 		  </ol>
 		</dd>
 		<dt class="red">注意：</dt>
 		<dd>
 		  <ol>
-		    <li>顾客办理退货后，需要自行联系物流公司将退货商品寄回TPshop网指定退货地点；该商品为TPshop入驻商家直送，暂未提供上门取件的服务，不便之处，敬请谅解。</li>
-		    <li>TPshop网办理退货不收取任何手续费、入仓费等费用，退货时如遇快递公司要求收取额外费用，建议您更换其他快递。</li>
+		    <li>顾客办理退货后，需要自行联系物流公司将退货商品寄回gjshop网指定退货地点；该商品为gjshop入驻商家直送，暂未提供上门取件的服务，不便之处，敬请谅解。</li>
+		    <li>gjshop网办理退货不收取任何手续费、入仓费等费用，退货时如遇快递公司要求收取额外费用，建议您更换其他快递。</li>
 		    <li>顾客需选择快递方式将商品寄回，并支付快递费用，本商品退货不接受平邮或以到付形式寄回包裹。</li>
-		    <li>由“有理由退货”而产生的TPshop运费补贴（10元抵用券）有效期为2个月。</li>
-		    <li>多张订单同一包裹寄回，仅补贴一次运费。TPshop网有权对无正当理由多次退货或拒收商品的用户保留不再给予10元抵用券退货补贴的权利。</li>
-		    <li>退回来的包裹中用纸条写明退货的订单号和TPshop帐号名称，才可以顺利完成退货。</li>
+		    <li>由“有理由退货”而产生的gjshop运费补贴（10元抵用券）有效期为2个月。</li>
+		    <li>多张订单同一包裹寄回，仅补贴一次运费。gjshop网有权对无正当理由多次退货或拒收商品的用户保留不再给予10元抵用券退货补贴的权利。</li>
+		    <li>退回来的包裹中用纸条写明退货的订单号和gjshop帐号名称，才可以顺利完成退货。</li>
 		    <li>退货发回来以后请顾客留存物流单号和对应快递公司，便于后续追踪退件物流信息。</li>
 		  </ol>
 		</dd>
 		<dt class="red">温馨提醒：</dt>
 		<dd>
 		  <ol>
-		    <li>此商品由入驻TPshop网的商家直接发货，且不支持货到付款。</li>
+		    <li>此商品由入驻gjshop网的商家直接发货，且不支持货到付款。</li>
 		    <li>商品会以第三方物流方式配送。</li>
 		    <li>配送地址需在快递可送货范围内，如遇偏远地区无法送达的地方，我们会将商品送达当地最近物流点并通知顾客自提。</li>
 		    <li>物品需本人签收，收到物品请务必先行检查，确认完好后再签收。</li>
-		    <li>如果收货过程中，发现任何问题请第一时间联系TPshop网客服400-920-6565，我们会及时解决您的问题。</li>
+		    <li>如果收货过程中，发现任何问题请第一时间联系gjshop网客服400-920-6565，我们会及时解决您的问题。</li>
 		  </ol>
 		</dd>
-		<dt class="red">以下状况TPshop网将不接受您的退货：</dt>
+		<dt class="red">以下状况gjshop网将不接受您的退货：</dt>
 		<dd>
 		  <ol>
-		    <li>商品非TPshop网所贩售出之商品，如：商品序号不符。</li>
+		    <li>商品非gjshop网所贩售出之商品，如：商品序号不符。</li>
 		    <li>未经授权的维修、误用、碰撞、疏忽、滥用、进液、事故、改动、不正确的安装所造成的商品质量问题，或撕毁、涂改标贴、机器序号、 防伪标记。</li>
 		    <li>若有索取发票未随货退回、或发票有经涂改、破损影响识别之状况。</li>
 		    <li>食品类、保健品、烟酒类、化妆品、个人卫生用品、耗材、电池、胶卷、虚拟商品、软件类等商品已有拆封状况；服饰、配件类已进行修改。</li>
@@ -572,8 +572,8 @@
 	         	<a href="{:U('Home/Goods/goodsInfo',array('id'=>$look[goods_id]))}">{$look.goods_name|getSubstr=0,30}</a>
 	         </h4>
 	         <p class="look-price">
-	         	<del><q class="fn-rmb">¥</q><strong class="fn-rmb-num">{$look.market_price}</strong></del>
-	         	<q class="fn-rmb">¥</q> <strong class="fn-rmb-num">{$look.shop_price}</strong>
+	         	<del><q class="fn-rmb">yen</q><strong class="fn-rmb-num">{$look.market_price}</strong></del>
+	         	<q class="fn-rmb">yen</q> <strong class="fn-rmb-num">{$look.shop_price}</strong>
 	         </p>
        </li>
 	  </foreach>
@@ -769,7 +769,7 @@ $('#collectLink').click(function(){
 	if(getCookie('user_id') == ''){
 	    layer.open({
 	        type: 2,
-	        title: '<b>登陆TPshop网</b>',
+	        title: '<b>登陆gjshop网</b>',
 	        skin: 'layui-layer-rim',
 	        shadeClose: true,
 	        shade: 0.5,

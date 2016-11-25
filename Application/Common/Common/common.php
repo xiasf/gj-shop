@@ -1,18 +1,18 @@
 <?php
 /**
- * tpshop
+ * gjshop
  * ============================================================================
- * * 版权所有 2015-2027 深圳搜豹网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.tp-shop.cn
+ * 版权所有 2016-2027 湖北广佳网络科技有限公司，并保留所有权利。
+ * 网站地址: http://www.gj-shop.cn
  * ----------------------------------------------------------------------------
- * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用 .
- * 不允许对程序代码以任何形式任何目的的再发布。
+ * 广佳微商城
+ * 版权所有
  * ============================================================================
- * $Author: IT宇宙人 2015-08-10 $
+ * $Author: 广佳 2016-11-26 $
  */
 
 /**
- * tpshop检验登陆
+ * gjshop检验登陆
  * @param
  * @return bool
  */
@@ -437,9 +437,9 @@ function getCatGrandson($cat_id)
     // 先把自己的id 保存起来
     $GLOBALS['catGrandson'][] = $cat_id;
     // 把整张表找出来
-    $GLOBALS['category_id_arr'] = M('GoodsCategory')->cache(true, TPSHOP_CACHE_TIME)->getField('id,parent_id');
+    $GLOBALS['category_id_arr'] = M('GoodsCategory')->cache(true, GJSHOP_CACHE_TIME)->getField('id,parent_id');
     // 先把所有儿子找出来
-    $son_id_arr = M('GoodsCategory')->where("parent_id = $cat_id")->cache(true, TPSHOP_CACHE_TIME)->getField('id', true);
+    $son_id_arr = M('GoodsCategory')->where("parent_id = $cat_id")->cache(true, GJSHOP_CACHE_TIME)->getField('id', true);
     foreach ($son_id_arr as $k => $v) {
         getCatGrandson2($v);
     }

@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>团购页面-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<title>团购页面-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 </head>
 <style>
 span.virtual_num {
@@ -131,7 +131,7 @@ span.virtual_num {
                               </tr>
                               <tr>
                                 <td width="60px" align="right">服&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务：</td>
-                                <td><p class="ma-le-6">由tpshop商城负责发货，并提供售后服务</p></td>
+                                <td><p class="ma-le-6">由gjshop商城负责发货，并提供售后服务</p></td>
                                 <td><!-- JiaThis Button BEGIN -->
                                 <div class="jiathis_style">
                                     <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt" target="_blank"><img src="http://v3.jiathis.com/code_mini/images/btn/v1/jiathis1.gif" border="0" /></a>
@@ -195,7 +195,7 @@ span.virtual_num {
                               <if condition="empty($filter_spec)">
                               <tr>
                               	<td align="right" style="vertical-align:top">送&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;货：</td>
-                                <td>由TPshop商城从 全国最近点 发货，并提供售后服务。如有问题咨询在线客服~!<br/>上午08:30前完成下单下午送达,下午下单隔日第二天送达.</td>
+                                <td>由gjshop商城从 全国最近点 发货，并提供售后服务。如有问题咨询在线客服~!<br/>上午08:30前完成下单下午送达,下午下单隔日第二天送达.</td>
                               </tr>
                               </if>
                             </table>
@@ -227,7 +227,7 @@ span.virtual_num {
                 </div>
                 <div class="history-bott">
                 	<ul class="history-comm">
-                     <tpshop sql="select * from `__PREFIX__goods` where is_recommend = 1 order by goods_id desc limit 10" item="v" key="k" >    
+                     <gjshop sql="select * from `__PREFIX__goods` where is_recommend = 1 order by goods_id desc limit 10" item="v" key="k" >    
                 		<li>
                         	<div>
                         		<p class="p-img-comm fl">
@@ -237,11 +237,11 @@ span.virtual_num {
                                 	<a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">{$v.goods_name}</a>
                                 </p>
                         		<p class="p-price-comm">
-                                	<b>¥{$v.shop_price}</b>
+                                	<b>yen{$v.shop_price}</b>
                                 </p>
                         	</div>
                         </li>
-                      </tpshop>
+                      </gjshop>
                 	</ul>
                 </div>                
             </div>
@@ -300,7 +300,7 @@ span.virtual_num {
                             <br>
                             售后服务电话：400-830-8300
                             <br>
-                            <span>TPshop消费者官网： <a href="">http://www.tp-shop.com</a></span>
+                            <span>gjshop消费者官网： <a href="">http://www.gj-shop.com</a></span>
                             <br>
                         </p>
                     </div>

@@ -43,10 +43,10 @@
       </li>
       <li class="fl sep"></li>       
       <li class="fl dropdown mobile-feiniu"><a class="menu-item" href=""><i class="fl ico"></i>
-        <span class="fl">手机TPshop网</span>
+        <span class="fl">手机gjshop网</span>
         <i class="dd"></i></a>
         <div class="sub-panel m-lst">
-          <p>扫一扫，下载TPshop客户端</p>
+          <p>扫一扫，下载gjshop客户端</p>
           <dl>
             <dt class="fl mr10"><a target="_blank" href=""><img height="80" width="80" src="__STATIC__/images/qrcode_vmall_app01.png"></a></dt>
             <dd class="fl mb10"><a target="_blank" href=""><i class="andr"></i> Andiord</a></dd>
@@ -63,7 +63,7 @@
         <div class="sub-panel wx-box">
           <span class="arrow-b">◆</span>
           <span class="arrow-a">◆</span>
-          <p class="n"> 扫描二维码 <br>	关注TPshop网官方微信 </p>
+          <p class="n"> 扫描二维码 <br>	关注gjshop网官方微信 </p>
           <img src="__STATIC__/images/qrcode_vmall_app01.png"></div>
       </li>
     </ul>
@@ -103,7 +103,7 @@
       <div class="sub-panel u-fn-cart u-mn-cart">
         <div id="miniCartRight"></div>
         <div class="empty-c fn-hide">
-          <span class="ma"><i class="c-i oh"></i>购物车中没有TPshop商品哟！</span>
+          <span class="ma"><i class="c-i oh"></i>购物车中没有gjshop商品哟！</span>
         </div>
       </div>
     </div>
@@ -113,9 +113,9 @@
   <div class="container">
     <div class="logo fl">
     	<a href="/" target="_blank" class="item fl">
-    	<img height="60" width="160" src="{$tpshop_config['shop_info_store_logo']}"></a>
+    	<img height="60" width="160" src="{$gjshop_config['shop_info_store_logo']}"></a>
     	<!-- <a href="" target="_blank" class="item fl"><img height="60" width="140" src="__STATIC__/images/csmrrvbluvoamtx8aaeoswlm7gg007.gif"></a>--
-    	<a href="http://beauty.tp-shop.cn" target="_blank" class="item fl">
+    	<a href="http://beauty.gj-shop.cn" target="_blank" class="item fl">
     		<img height="60" width="140" src="http://img14.fn-mart.com/group1/M00/DC/08/CsnBP1Y691GAZQRtAAAGc8GxEf8284.png">
     	</a>-->
     </div>
@@ -126,7 +126,7 @@
           <a data-role="btn" href="javascript:void(0);" class="s-btn fl" onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();">搜索</a>
         </div>
         <div class="s-hotword">           
-        	<foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+        	<foreach name="gjshop_config.hot_keywords" item="wd" key="k">
         		<a href="{:U('Home/Goods/search',array('q'=>$wd))}" <if condition="$wd eq I('q')">class="ht"</if>>{$wd}</a>
         	</foreach>
         </div>
@@ -140,7 +140,7 @@
       <div id="show_minicart" class="sub-panel u-fn-cart u-mn-cart">
         <div id="minicart" class="minicartContent">
           <div class="empty-c fn-hide">
-            <span class="ma"><i class="c-i oh"></i>购物车中没有TPshop商品哟！</span>
+            <span class="ma"><i class="c-i oh"></i>购物车中没有gjshop商品哟！</span>
           </div>
         </div>
       </div>
@@ -152,7 +152,7 @@
     <div class="container">
       <div class="u-g-logo fl"><a target="_blank" class="fl logo" href=""><img height="40" width="100" src="__STATIC__/images/logo3.png"></a></div>
       <div fnp="m-top-search-form" class="m-top-search-form fl">
-        <form data-role="form" action="http://search.tp-shop.cn">
+        <form data-role="form" action="http://search.gj-shop.cn">
           <div data-role="form-inner" class="s-form"><i class="s-ico"></i>
             <input type="text" data-role="input-search" autocomplete="off" class="fl s-input" name="q">
             <input type="hidden" data-role="input-c" name="cpseq" disabled="disabled">
@@ -176,13 +176,13 @@
       <div class="main-slider" style ="display:none;position: absolute;top: 40px;">
           <div fnp="nav-list" class="nav-list eidtModule" moduleId="nav">
             <ul class="nav-list-warpper">
-              <tpshop sql="select * from `__PREFIX__goods_category` where is_show = 1 and `level` = 1  limit 15" key="k" item='v'>
+              <gjshop sql="select * from `__PREFIX__goods_category` where is_show = 1 and `level` = 1  limit 15" key="k" item='v'>
 	              <li data-role="nav-item" class="nav-item" index="{$v.id}">
 	                <span class="nav-menu-item"><i class="iconfont icon"></i>
 	                <span class="title"><a href="{:U('Home/Channel/index',array('id'=>$v[id]))}" target="_blank">{$v.name}</a></span>
 	                </span>
 	              </li>
-              </tpshop>
+              </gjshop>
             </ul>
            <foreach name="goods_category_tree" item="vo" key="k">
 	        <div data-role="menu-sub" class="menu-sub" index ="{$k}" style="height:440px">
@@ -259,12 +259,12 @@
     </div>
     <ul class="main-nav">
       <li class="nav-item"><a class="menu-item <if condition=" CONTROLLER_NAME eq 'Index' ">menu-item-active"</if> target="_blank" href="/" style="overflow: visible;">首页 </a></li>
-      <tpshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 ORDER BY `sort` DESC" key="k" item='v'>
+      <gjshop sql="SELECT * FROM `__PREFIX__navigation` where is_show = 1 ORDER BY `sort` DESC" key="k" item='v'>
        <li class="nav-item"><a  style="overflow: visible;"   href="{$v[url]}" 
        		<?php  if($_SERVER['REQUEST_URI']==str_replace('&amp;','&',$v[url])){ echo "class='menu-item menu-item-active'";}
        		else{ echo "class='menu-item'"; } ?>> {$v[name]} </a></li>
-      </tpshop>
-      <li class="nav-item"><a class="menu-item " target="_blank" href="http://www.tp-shop.cn" style="overflow: visible;">TPshop商城<i class="e-hot"></i></a></li>
+      </gjshop>
+      <li class="nav-item"><a class="menu-item " target="_blank" href="http://www.gj-shop.cn" style="overflow: visible;">gjshop商城<i class="e-hot"></i></a></li>
     </ul>  
    </div>
 </div>

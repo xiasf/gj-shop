@@ -1,12 +1,12 @@
 <html>
 <head>
-<meta name="Generator" content="tpshop" />
+<meta name="Generator" content="gjshop" />
 <meta charset="utf-8">
 <meta name="format-detection" content="telephone=no">
 <meta name="viewport" content="minimal-ui=yes,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-<title>商品列表-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<title>商品列表-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
 <link rel="stylesheet" type="text/css" href="__STATIC__/css/category_list.css"/>
 <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
@@ -253,7 +253,7 @@ var  page = 1;
     <section class="mix_search_list"></section>
     <section class="mix_recently_search"><h3>热门搜索</h3>
      <ul>
-            <foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+            <foreach name="gjshop_config.hot_keywords" item="wd" key="k">
                <li><a href="{:U('Goods/search',array('q'=>$wd))}" <if condition="$k eq 0">class="ht"</if>>{$wd}</a></li>
             </foreach>     
       </ul>

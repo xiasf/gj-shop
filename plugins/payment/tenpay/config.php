@@ -3,7 +3,7 @@ return array(
     'code'=> 'tenpay',
     'name' => 'PC端财付通',
     'version' => '1.0',
-    'author' => 'IT宇宙人',
+    'author' => '广佳',
     'desc' => 'PC端财付通插件 ',
     'scene' =>2,  // 使用场景 0 PC+手机 1 手机 2 PC
     'icon' => 'logo.jpg',

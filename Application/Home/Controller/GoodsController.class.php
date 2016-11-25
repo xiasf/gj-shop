@@ -1,14 +1,14 @@
 <?php
 /**
- * tpshop
+ * gjshop
  * ============================================================================
- * * 版权所有 2015-2027 深圳搜豹网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.tp-shop.cn
+ * 版权所有 2016-2027 湖北广佳网络科技有限公司，并保留所有权利。
+ * 网站地址: http://www.gj-shop.cn
  * ----------------------------------------------------------------------------
- * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用 .
- * 不允许对程序代码以任何形式任何目的的再发布。
+ * 广佳微商城
+ * 版权所有
  * ============================================================================
- * $Author: IT宇宙人 2015-08-10 $
+ * $Author: 广佳 2016-11-26 $
  */ 
 namespace Home\Controller;
 use Home\Logic\CartLogic;
@@ -374,7 +374,7 @@ class GoodsController extends BaseController {
         C('TOKEN_ON',true);        
         $goods_id = I("goods_id",'0'); // 商品id
         $consult_type = I("consult_type",'1'); // 商品咨询类型
-        $username = I("username",'TPshop用户'); // 网友咨询
+        $username = I("username",'gjshop用户'); // 网友咨询
         $content = I("content"); // 咨询内容
         
         $verify = new Verify();

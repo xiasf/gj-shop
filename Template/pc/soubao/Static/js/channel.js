@@ -1,6 +1,6 @@
 /*************************************************
  *  Function  channel
- *  Copyright frontEnd http://www.tp-shop.cn/
+ *  Copyright frontEnd http://www.gj-shop.cn/
  *  Designed and built by frontEnd  @yangyang.li
  *  Date 2016/03/14
  ************************************************/

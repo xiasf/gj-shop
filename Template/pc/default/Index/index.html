@@ -2,9 +2,9 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>首页-{$tpshop_config['shop_info_store_title']}</title>
-<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+<title>首页-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
 </head>
 <body>
 <!--------头部开始-------------->
@@ -64,7 +64,7 @@ $(function() {
     	<div class="bs-le">
         	<div class="first">
             	<ul>                 
-                <tpshop sql="select * from `__PREFIX__goods` where is_new = 1 and is_hot = 1 and is_recommend = 1 and is_on_sale = 1 order by goods_id desc limit 4" item="v" key="k" >    
+                <gjshop sql="select * from `__PREFIX__goods` where is_new = 1 and is_hot = 1 and is_recommend = 1 and is_on_sale = 1 order by goods_id desc limit 4" item="v" key="k" >    
             		<li class="sellers">
                     	<div class="best">
                         	<div class="best-about">
@@ -81,7 +81,7 @@ $(function() {
                                 	<div class="intr-b">买的更多更优惠</div>
                                 </div>
                                 <div class="price">
-                                	<span>¥</span><em>{$v['shop_price']}</em>
+                                	<span>yen</span><em>{$v['shop_price']}</em>
                                 </div>
                                 <div class="imm-button">
                                 	<a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}"><span>立即抢购</span></a>
@@ -96,7 +96,7 @@ $(function() {
                             </div>
                         </div>
                     </li>
-            	 </tpshop> 
+            	 </gjshop> 
             	</ul>
             </div>
         </div>
@@ -117,14 +117,14 @@ $(function() {
                 </div>
             	<div class="notice_b">
                 	<ul class="nob1">
-                            <tpshop sql="select * from `__PREFIX__article`  where cat_id = 5 order by article_id desc limit 4" item="v" key="k" >    
+                            <gjshop sql="select * from `__PREFIX__article`  where cat_id = 5 order by article_id desc limit 4" item="v" key="k" >    
                 		<li><a href="{:U('Home/Article/detail',array('article_id'=>$v[article_id]))}">{$v['title']|getSubstr=0,18}</a></li>
-                            </tpshop>    
+                            </gjshop>    
                 	</ul>
                     <ul class="nob2">
-                            <tpshop sql="select * from `__PREFIX__article`  where cat_id = 6 order by article_id desc limit 4" item="v" key="k" >    
+                            <gjshop sql="select * from `__PREFIX__article`  where cat_id = 6 order by article_id desc limit 4" item="v" key="k" >    
                 		<li><a href="{:U('Home/Article/detail',array('article_id'=>$v[article_id]))}">{$v['title']|getSubstr=0,18}</a></li>
-                            </tpshop>    
+                            </gjshop>    
                      </ul>
                 </div> 
              </div>
@@ -155,7 +155,7 @@ $(function() {
 <!--------中部banner-结束-------------->
 
 <!--------楼层-开始-------------->
-<tpshop sql="select * from `__PREFIX__goods_category` where is_show = 1 and `level` = 1  limit 7" key="key" item='val'>
+<gjshop sql="select * from `__PREFIX__goods_category` where is_show = 1 and `level` = 1  limit 7" key="key" item='val'>
 <?php 
     $cat_id_arr = getCatGrandson($val[id]); // 找到某个大类下面的所有子分类id
     $cat_id_str = implode(',',$cat_id_arr);
@@ -165,9 +165,9 @@ $(function() {
     	<div class="ground-flool">
         	<div class="flool-t">
             	<h2><a href="">{$val[name]}</a></h2>                
-                <tpshop sql="select * from `__PREFIX__goods_category` where is_show = 1 and parent_id = $val[id]" key="key2" item='val2'>
+                <gjshop sql="select * from `__PREFIX__goods_category` where is_show = 1 and parent_id = $val[id]" key="key2" item='val2'>
 	                <em>{$val2[name]}</em>
-                </tpshop>                
+                </gjshop>                
                 <ul><!--
 					<li><a href="{:U('/Home/Goods/goodsList',array('brand_id'=>1))}">诺基亚</a></li>
                     -->
@@ -177,7 +177,7 @@ $(function() {
             	<ul class="flool-cle">
             		<li class="sellers sell_ons">
                     	<div class="best">
-                        <tpshop sql="select * from `__PREFIX__goods` where cat_id in($cat_id_str) and is_on_sale = 1 order by goods_id limit 1" key="k" item='v'>
+                        <gjshop sql="select * from `__PREFIX__goods` where cat_id in($cat_id_str) and is_on_sale = 1 order by goods_id limit 1" key="k" item='v'>
                         	<div class="best-about">
                             	<div class="best_img best_img2">
                                 	<a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}"><img src="{$v.goods_id|goods_thum_images=222,222}" /></a>
@@ -190,7 +190,7 @@ $(function() {
                                 	<div class="intr-b">{$v.goods_remark|getSubstr=0,51}</div>
                                 </div>
                                 <div class="price">
-                                	<span>¥</span><em>{$v.shop_price}</em>
+                                	<span>yen</span><em>{$v.shop_price}</em>
                                 </div>
                                 <div class="imm-button">
                                 	<a href="{:U('/Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}"><span>立即抢购</span></a>
@@ -199,10 +199,10 @@ $(function() {
                                 	<img src="__STATIC__/images/1382542488099.png" alt="热卖" />
                                 </div>
                             </div>
-                            </tpshop>
+                            </gjshop>
                         </div>
                     </li>
-                    <tpshop sql="select * from `__PREFIX__goods` where  cat_id in($cat_id_str) and is_on_sale = 1 order by goods_id limit 1,6" key="k" item='v'>
+                    <gjshop sql="select * from `__PREFIX__goods` where  cat_id in($cat_id_str) and is_on_sale = 1 order by goods_id limit 1,6" key="k" item='v'>
                         <li class="sellers sellers2 sell_ons">
                             <div class="best">
                                 <div class="best-about">
@@ -211,7 +211,7 @@ $(function() {
                                     </div>
                                         <div class="intr-t intr-t3">{$v.goods_name|getSubstr=0,18}</div>
                                     <div class="price prices">
-                                        <span>¥</span><em>{$v.shop_price}</em>
+                                        <span>yen</span><em>{$v.shop_price}</em>
                                     </div>
                                     <div class="tag">
                                         <!--<img src="__STATIC__/images/1382593860805.png" alt="首发" />-->
@@ -219,12 +219,12 @@ $(function() {
                                 </div>
                             </div>
                         </li>
-			       </tpshop>             
+			       </gjshop>             
                  </ul>
             </div>
         </div>
     </div>
-</tpshop>    
+</gjshop>    
 <!--------楼层-结束-------------->
  
 

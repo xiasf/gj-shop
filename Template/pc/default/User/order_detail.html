@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>订单详情-{$tpshop_config['shop_info_store_title']}</title>
-    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <title>订单详情-{$gjshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
     <link rel="stylesheet" href="__STATIC__/css/index.css" type="text/css">
     <script src="__STATIC__/js/jquery-1.10.2.min.js"></script>
     <script src="__STATIC__/js/slider.js"></script>
@@ -238,10 +238,10 @@
                                     </p>
                                 </td>
                                 <td class="col-pro-info te-al-le"><p class="p-name"><a title="" target="_blank" href="{:U('Goods/goodsInfo',array('id'=>$good[goods_id]))}">{$good.goods_name}</a></p></td>
-                                <td class="col-price"><em>¥</em><span>{$good.goods_price}</span></td>
-                                <td class="col-price"><em>¥</em><span>{$good.member_goods_price}</span></td>                                
+                                <td class="col-price"><em>yen</em><span>{$good.goods_price}</span></td>
+                                <td class="col-price"><em>yen</em><span>{$good.member_goods_price}</span></td>                                
                                 <td class="col-quty">{$good.goods_num}</td>
-                                <td rowspan="1" class="col-pay"><p><em>¥</em><span>{$good['member_goods_price'] * $good['goods_num']}</span></p></td>
+                                <td rowspan="1" class="col-pay"><p><em>yen</em><span>{$good['member_goods_price'] * $good['goods_num']}</span></p></td>
                                 <td rowspan="1" class="col-operate">                                    
                                     <if condition="($order_info[return_btn] eq 1) and ($good[is_send] eq 1)">                                    
                                         <p class="p-link"><a style="color:#999;" href="{:U('Home/User/return_goods',array('order_id'=>$order_info['order_id'],'order_sn'=>$order_info['order_sn'],'goods_id'=>$good['goods_id'],'spec_key'=>$good['spec_key']))}">申请退款</a></p>    
@@ -263,25 +263,25 @@
                         <tbody>
                         <tr>
                             <td class="tal">商品总金额：</td>
-                            <td class="tar">&nbsp;¥&nbsp;
+                            <td class="tar">&nbsp;yen&nbsp;
                                 <em id="order-cost-area">{$order_info.goods_price}</em>
                             </td>
                         </tr>
                         <tr>
                             <td class="tal">运费：</td>
-                            <td class="tar">&nbsp;¥&nbsp;
+                            <td class="tar">&nbsp;yen&nbsp;
                                 <em id="order-deliveryCharge">{$order_info.shipping_price}</em>
                             </td>
                         </tr>
                         <tr>
                             <td class="tal">积分：</td>
-                            <td class="tar">-&nbsp;¥&nbsp;
+                            <td class="tar">-&nbsp;yen&nbsp;
                                 <em><span id="oreder-huaban-num">{$order_info.integral_money}</span> </em>
                             </td>
                         </tr>
                         <tr>
                             <td class="tal">使用优惠券：</td>
-                            <td class="tar">-&nbsp;¥&nbsp;
+                            <td class="tar">-&nbsp;yen&nbsp;
                                 <em><span id="order-couponDiscount">{$order_info.coupon_price}</span> </em>
                             </td>
                         </tr>
@@ -289,13 +289,13 @@
                         <tr>
                             <td class="tal">余额
                             </td>
-                            <td class="tar">-&nbsp;¥&nbsp;<em>{$order_info.user_money}</em>
+                            <td class="tar">-&nbsp;yen&nbsp;<em>{$order_info.user_money}</em>
                             </td>
                         </tr>
                         <tr>
                             <td class="tal">优惠活动
                             </td>
-                            <td class="tar">-&nbsp;¥&nbsp;<em>{$order_info.order_prom_amount}</em>
+                            <td class="tar">-&nbsp;yen&nbsp;<em>{$order_info.order_prom_amount}</em>
                             </td>
                         </tr>                        
                         </tbody>
@@ -304,7 +304,7 @@
             </div>
             <div class="order-action-area te-al-ri cl-bo">
                 <div class="woypdbe sc-acti-list" style="background-color:#f5f5f5; padding:10px 0 20px 0">
-                    <span class="p-subtotal-price">合计（含运费）：<b>¥&nbsp;&nbsp;<span class="vab" id="payableTotal">{$order_info.order_amount}</span></b></span>
+                    <span class="p-subtotal-price">合计（含运费）：<b>yen&nbsp;&nbsp;<span class="vab" id="payableTotal">{$order_info.order_amount}</span></b></span>
                 </div>
             </div>
             <div class="woypdbe sc-acti-list pa-to-20">                    

@@ -1,15 +1,15 @@
 <?php
 /**
- * tpshop 支付宝插件
+ * gjshop 支付宝插件
  * ============================================================================
- * 版权所有 2015-2027 深圳搜豹网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.tp-shop.cn
+ * 版权所有 2016-2027 湖北广佳网络科技有限公司，并保留所有权利。
+ * 网站地址: http://www.gj-shop.cn
  * ----------------------------------------------------------------------------
- * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用 .
- * 不允许对程序代码以任何形式任何目的的再发布。
+ * 广佳微商城
+ * 版权所有
  * ============================================================================
- * Author: IT宇宙人
- * Date: 2015-09-09
+ * Author: 广佳
+ * Date: 2016-11-26
  */
 
 //namespace plugins\payment\alipay;
@@ -65,7 +65,7 @@ class alipay extends RelationModel
                         "notify_url"	=> SITE_URL.U('Payment/notifyUrl',array('pay_code'=>'alipay')) , //服务器异步通知页面路径 //必填，不能修改
                         "return_url"	=> SITE_URL.U('Payment/returnUrl',array('pay_code'=>'alipay')),  //页面跳转同步通知页面路径
                         "out_trade_no"	=> $order['order_sn'], //商户订单号                        
-                        "subject"	=> 'TPshop 商城', //订单名称 可以中文
+                        "subject"	=> 'gjshop 商城', //订单名称 可以中文
                         "total_fee"	=> $order['order_amount'], //付款金额
                         "_input_charset"=> trim(strtolower($this->alipay_config['input_charset'])) //字符编码格式 目前支持 gbk 或 utf-8
                     );

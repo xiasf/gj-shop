@@ -1,15 +1,15 @@
 <?php
 /**
- * tpshop
+ * gjshop
  * ============================================================================
- * 版权所有 2015-2027 深圳搜豹网络科技有限公司，并保留所有权利。
- * 网站地址: http://www.tp-shop.cn
+ * 版权所有 2016-2027 湖北广佳网络科技有限公司，并保留所有权利。
+ * 网站地址: http://www.gj-shop.cn
  * ----------------------------------------------------------------------------
- * 这不是一个自由软件！您只能在不用于商业目的的前提下对程序代码进行修改和使用 .
- * 不允许对程序代码以任何形式任何目的的再发布。
+ * 广佳微商城
+ * 版权所有
  * ============================================================================
- * Author: 当燃
- * Date: 2015-09-09
+ * Author: 广佳
+ * Date: 2016-11-26
  */
 
 namespace Admin\Controller;
@@ -139,7 +139,7 @@ class WechatController extends BaseController {
         $menu['button'][] = array(
             'name' => '测试',
             'type' => 'view',
-            'url'  => 'http://www.tp-shop.cn',
+            'url'  => 'http://www.gj-shop.cn',
         );
         $menu['button'][] = array(
             'name'       => '测试',
@@ -167,7 +167,7 @@ class WechatController extends BaseController {
         }
         $access_token = $this->get_access_token($wechat['appid'], $wechat['appsecret']);
         if (!$access_token) {
-            $this->error('获取access_token失败', U('Wechat/menu')); //  http://www.tpshop.com/index.php/Admin/Wechat/menu
+            $this->error('获取access_token失败', U('Wechat/menu')); //  http://www.gjshop.com/index.php/Admin/Wechat/menu
 
             exit;
         }
@@ -403,7 +403,7 @@ class WechatController extends BaseController {
      */
     public function select_goods() {
         $url = 'http://' . $_SERVER['HTTP_HOST'];
-        //http://www.tp-shop.cn/index.php?m=Home&c=Goods&a=info&id=
+        //http://www.gj-shop.cn/index.php?m=Home&c=Goods&a=info&id=
 
         $count = M('goods')->count();
         $pager = new Page($count, 10);
