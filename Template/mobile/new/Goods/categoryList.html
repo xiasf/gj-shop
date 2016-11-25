@@ -34,7 +34,7 @@
     <assign name="j" value="0"/>
     <foreach name="goods_category_tree" key="kk" item="vo">      
       <dl style="margin-top:46px;padding-bottom:50px;<if condition='$j eq 0'>display:block;<else/>display:none;</if>" data-id="{$j++}"> 
-        <span>            
+        <span class="hide">            
           <adv  limit="1" item="v" pid="400">          
             <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> >
             <em>全部>></em>

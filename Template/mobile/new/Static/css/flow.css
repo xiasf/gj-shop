@@ -170,7 +170,7 @@ input[type="hidden" i], input[type="image" i], input[type="file" i] {
 .qb_tac { text-align: center; color: #534949; line-height: 40px; color: #999; font-size: 18px; margin-top: 20px; }
 .qb_tac img { margin-bottom: 20px; }
 .qb_gap { padding-left: 10px; padding-right: 10px; margin-bottom: 10px }
-.mod_btn { text-align: center; text-decoration: none; line-height: 45px; height: 45px; font-size: 15px; display: block; width: 100%; color: #ffffff!important; -webkit-border-radius: .3em; -moz-border-radius: .3em; -ms-border-radius: .3em; -o-border-radius: .3em; border-radius: .3em; background-color: #DD2726; }
+.mod_btn { text-align: center; text-decoration: none; line-height: 45px; height: 45px; font-size: 15px; display: block; width: 100%; color: #ffffff!important; -webkit-border-radius: .3em; -moz-border-radius: .3em; -ms-border-radius: .3em; -o-border-radius: .3em; border-radius: .3em; background-color: #3DD1E0; }
 /*
 
 收货地址页面

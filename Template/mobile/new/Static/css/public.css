@@ -25,7 +25,7 @@ html, body, div, ul, li, dd, dt, dl, p, h1, h2, h3, h4, h5, h6, span, samp, stro
 }
 
 .hide {
-    display: none;
+    display: none!important;
 }
 
 /*css初始值*/
@@ -74,7 +74,15 @@ width: 0;height: 0;border-style: solid;border-color: transparent transparent #56
 /* 页面头部  */
 .header { width:100%; height:45px; background:#F6F6F6;top:0; z-index:9999; border:0; border-bottom:1px solid #CCC;background: url(../images/header-bg-m.png) #F6F6F6 no-repeat 0 center;max-width: 640px;    background: #1E909C;}
 .h-left{float:left;width:15%; height:45px;}
-.h-left a{ display:block; width:45px; height:45px; margin:auto; background: url(../images/category/arrow_left.png) no-repeat 15px center; background-size: auto 16px; }
+.h-left a{ display: block;
+    width: 45px;
+    height: 45px;
+    margin: 0;
+    /* background: url(../images/category/arrow_left.png) no-repeat 15px center; */
+    background-size: auto 16px;
+    color: #fff;
+    line-height: 45px;
+    text-align: center;}
 .h-right{float:left; width:15%;height:45px;}
 
 .h-mid { width:70%; height:45px; float:left; text-align:center; color:#fff; font-size:16px; line-height:45px; position:relative;font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif;}
@@ -116,8 +124,8 @@ width: 0;height: 0;border-style: solid;border-color: transparent transparent #56
     bottom: 0;
     width: 100%;
     height: 45px;
-    background-color: #1E909C;
-    border-top: #dcdcdc 1px solid;
+    background-color: rgba(30, 144, 156, 0.95);
+    /*border-top: #dcdcdc 1px solid;*/
     z-index: 97;
     padding: 0px;
     margin: 0 auto;
@@ -206,9 +214,10 @@ position: absolute;
     width: 18px;
     height: 18px;
     line-height: 18px;
-    background: #ff2233;
+    background: #FD4444;
     border-radius: 50%;
-    background: -webkit-gradient(linear,0 50%,100% 50%,from(#CA1414),to(#FF63C1));
+    /* background: -webkit-gradient(linear,0 50%,100% 50%,from(#CA1414),to(#FF63C1)); */
+    border: 1px #1A5C63 solid;
 }
 /*没有筛选结果文字样式*/
 p.goods_title{ width:100%; font-size:14px; display:block; height:100px; line-height:100px; text-align:center; margin-top:30px; margin-bottom:30px;}

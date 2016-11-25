@@ -68,7 +68,7 @@ html, body { height: 100%; width: 100% }
 
 .tips_a{width:70%;margin:20px auto 0px;padding: 5px}
 .tips_a img{width:150px;}
-.tips .tishi{border: 1px solid #f23;  padding: 5px;  color: #fff;  background: #F34;  border-radius: 5px;  width: 40%;  display: inline-block;  margin: auto; font-size: 14px;margin: 0px 3px;}
+.tips .tishi{/*border: 1px solid #f23;*/  padding: 5px;  color: #fff;  background: #3ABAC7;  border-radius: 5px;  width: 40%;  display: inline-block;  margin: auto; font-size: 14px;margin: 0px 3px;}
 
 
 

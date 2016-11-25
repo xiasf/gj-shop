@@ -4,7 +4,7 @@
     <div class="tab_nav">
         <div class="header">
             <div class="h-left">
-                <a class="sb-back" href="javascript:history.back(-1)" title="返回"></a>
+                <a class="sb-back" href="javascript:history.back(-1)" title="返回"><i class="icon iconfont icon-qiehuanqizuo"></i></a>
             </div>
             <div class="h-mid">我的订单</div>
             <div class="h-right">
@@ -33,28 +33,28 @@
                 <a href="{:U('/Mobile/User/order_list',array('type'=>
                     'WAITPAY'))}"      class="tab_head
                     <if condition="$_GET[type] eq 'WAITPAY'">on</if>
-                    ">待付款({$count_order.WAITPAY})
+                    ">待付款
                 </a>
             </li>
             <li>
                 <a href="{:U('/Mobile/User/order_list',array('type'=>
                     'WAITSEND'))}"     class="tab_head
                     <if condition="$_GET[type] eq 'WAITSEND'">on</if>
-                    ">待发货({$count_order.WAITSEND})
+                    ">待发货
                 </a>
             </li>
             <li>
                 <a href="{:U('/Mobile/User/order_list',array('type'=>
                     'WAITRECEIVE'))}"  class="tab_head
                     <if condition="$_GET[type] eq 'WAITRECEIVE'">on</if>
-                    ">待收货({$count_order.WAITRECEIVE})
+                    ">待收货
                 </a>
             </li>
             <li>
                 <a href="{:U('/Mobile/User/order_list',array('type'=>
                     'WAITCCOMMENT'))}" class="tab_head
                     <if condition="$_GET[type] eq 'WAITCCOMMENT'">on</if>
-                    ">已完成({$count_order.WAITCCOMMENT})
+                    ">已完成
                 </a>
             </li>
         </ul>

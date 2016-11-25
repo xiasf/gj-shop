@@ -13,7 +13,7 @@
 namespace Mobile\Controller;
 class ChannelController extends MobileBaseController {
 	
-	public function index(){
+	public function index(){exit;
 		$cat_id = I('cat_id',1);
 		$channel_cate = $this->cateTrre[$cat_id]['tmenu'];
 		$sub_id = ''; $sub_goods = array();
@@ -28,7 +28,7 @@ class ChannelController extends MobileBaseController {
 		
 		//查询所有此频道三级分类商品
 		$sub_id_str = '('.trim($sub_id,',').')';
-		$sql = "select goods_id,cat_id,goods_name,shop_price,market_price from __PREFIX__goods where is_on_sale=1 and cat_id in $sub_id_str ";
+		$sql = "select goods_id,cat_id,goods_name,shop_price,market_price from __PREFIX__goods where is_on_sale=1 and cat_id in $sub_id_str ";echo $sql;exit;
 		$sub_goods_arr = M()->query($sql);
 		if($sub_goods_arr){
 			foreach ($sub_goods_arr as $val){
