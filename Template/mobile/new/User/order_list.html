@@ -26,35 +26,35 @@
             <ul>
                 <li>
                     <a href="{:U('/Mobile/User/order_list')}" class="tab_head <if condition="$_GET[type] eq ''">on</if>
-                    "  >全部
+                    "  >全部({$count_order.ALL})
                 </a>
             </li>
             <li>
                 <a href="{:U('/Mobile/User/order_list',array('type'=>
                     'WAITPAY'))}"      class="tab_head
                     <if condition="$_GET[type] eq 'WAITPAY'">on</if>
-                    ">待付款
+                    ">待付款({$count_order.WAITPAY})
                 </a>
             </li>
             <li>
                 <a href="{:U('/Mobile/User/order_list',array('type'=>
                     'WAITSEND'))}"     class="tab_head
                     <if condition="$_GET[type] eq 'WAITSEND'">on</if>
-                    ">待发货
+                    ">待发货({$count_order.WAITSEND})
                 </a>
             </li>
             <li>
                 <a href="{:U('/Mobile/User/order_list',array('type'=>
                     'WAITRECEIVE'))}"  class="tab_head
                     <if condition="$_GET[type] eq 'WAITRECEIVE'">on</if>
-                    ">待收货
+                    ">待收货({$count_order.WAITRECEIVE})
                 </a>
             </li>
             <li>
                 <a href="{:U('/Mobile/User/order_list',array('type'=>
                     'WAITCCOMMENT'))}" class="tab_head
                     <if condition="$_GET[type] eq 'WAITCCOMMENT'">on</if>
-                    ">已完成
+                    ">已完成({$count_order.WAITCCOMMENT})
                 </a>
             </li>
         </ul>

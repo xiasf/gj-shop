@@ -238,13 +238,30 @@ class UserController extends MobileBaseController
         $this->assign('pay_status', C('PAY_STATUS'));
         $this->assign('page', $show);
         $this->assign('lists', $order_list);
-        $this->assign('active', 'order_list');
+        $this->assign('lists', $order_list);
+        $this->assign('count_order', $this->count_order());
         $this->assign('active_status', I('get.type'));
         if ($_GET['is_ajax']) {
             $this->display('ajax_order_list');
             exit;
         }
         $this->display();
+    }
+
+    /**
+     * 计算订单数量
+     * @return [type] [description]
+     */
+    public function count_order()
+    {
+        $where = ' user_id=' . $this->user_id;
+        $arr = ['WAITPAY', 'WAITSEND', 'WAITRECEIVE', 'WAITCCOMMENT'];
+        $tem = [];
+        $tem['ALL'] = M('order')->where($where)->count();
+        foreach ($arr as $v) {
+            $tem[$v] = M('order')->where($where . C(strtoupper($v)))->count();
+        }
+        return $tem;
     }
 
     /*
