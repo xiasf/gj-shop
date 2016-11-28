@@ -124,13 +124,14 @@ class UnionController extends MobileBaseController
 
 
         // 商家可以限制最多使用
+        // 不做折上折
         if ($info['exchange'] != 0 && $info['exchange'] != 100) {
-            $exchange_amount_max = $total_amount * ($info['exchange'] / 100);
+            $exchange_amount_max = $total * ($info['exchange'] / 100);
             // 本次最多使用兑币数
             $exchange_max = $exchange_amount_max / tpCache('shopping.exchange_rate');
         } else {
             $exchange_amount_max = 0;// 不限制
-            $exchange_max = $total_amount / tpCache('shopping.exchange_rate');
+            $exchange_max = $total / tpCache('shopping.exchange_rate');
         }
 
         $exchange_max = (int) $exchange_max;
