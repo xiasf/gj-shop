@@ -6,7 +6,7 @@
  * @author Rob Morris <rob@irongaze.com>
  * @author Chris Corbyn <chris@w3style.co.uk>
  *
- * Copyright (c) 2013-2014 Rob Morris.
+ * Copyright © 2013-2014 Rob Morris.
  */
 
 namespace Boris;
@@ -270,4 +270,4 @@ class ColoredInspector implements Inspector {
 
     return false;
   }
-}
+}
