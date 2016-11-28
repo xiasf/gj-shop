@@ -30,7 +30,7 @@ require_once("lib/alipay_submit.class.php");
         $target_service = "user.auth.quick.login";
         //必填
         //必填，页面跳转同步通知页面路径
-        $return_url = "http://e.99soubao.com/plugins/login/alipay/return_url.php";
+        $return_url = "http://e.gj.com/plugins/login/alipay/return_url.php";
         //需http://格式的完整路径，不允许加?id=123这类自定义参数
         //防钓鱼时间戳
         $anti_phishing_key = "";

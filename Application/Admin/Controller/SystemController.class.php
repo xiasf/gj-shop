@@ -100,7 +100,7 @@ class SystemController extends BaseController
         }
         $system_nav = array(
             'http://www.gj-shop.cn'                     => 'gjshop官网',
-            'http://www.99soubao.com'                   => '广佳公司',
+            'http://www.gj.com'                   => '广佳公司',
             '/index.php?m=Home&c=Index&a=promoteList'   => '限时抢购',
             '/index.php?m=Home&c=Activity&a=group_list' => '团购',
             '/index.php?m=Home&c=Goods&a=integralMall'  => '积分商城',

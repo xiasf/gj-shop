@@ -21,7 +21,7 @@
 /*
  * @ reset style
  * @ Copyright 2014
- * @ http://www.tp-shop.cn
+ * @ http://www.gj-shop.cn
  * @ @zmhan.zhu
  * @ update 2014-10-15
  */
@@ -178,7 +178,7 @@ mark {
 /*
  * @ public style
  * @ Copyright 2014
- * @ http://www.tp-shop.cn
+ * @ http://www.gj-shop.cn
  * @ @zmhan.zhu
  * @ update 2014-12-23
  */
@@ -1700,7 +1700,7 @@ body {
 /*
  * @ index style
  * @ Copyright 2014
- * @ http://www.tp-shop.cn
+ * @ http://www.gj-shop.cn
  * @ @zmhan.zhu
  * @ update 2014-12-23
  */
@@ -7231,7 +7231,7 @@ opacity: 0;
     padding:12px 0px;
 }
 
-/**TPshop商城 评论因子 @japin.pan 20150924 start**/
+/**gjshop商城 评论因子 @japin.pan 20150924 start**/
 .comm_box .dd_02 li.addDefine {
   /*display: none;*/
 }
@@ -7295,7 +7295,7 @@ opacity: 0;
   background-color: #ffebeb;
   color: #e4393c;
 }
-/**TPshop商城 评论因子 @japin.pan 20150924 end**/
+/**gjshop商城 评论因子 @japin.pan 20150924 end**/
 
 /**电子发票 @japin.pan 20151012 start**/
 .invoice .details_list .cont_07 {

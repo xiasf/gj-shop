@@ -62,13 +62,13 @@
         }
         #img_logo .hou {
             position: absolute;
-            top: 5px;
-            left: 5px;
+            top: 10px;
+            left: 10px;
             width: 2.5rem;
             height: 2.5rem;
             line-height: 2.6rem;
             text-align: center;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(0, 0, 0, 0.72);
             color: #FFF;
             font-size: 1.2rem;
             border-radius: 50px;
@@ -358,8 +358,10 @@
             });
             $('#zf-main-wrap').remove();
 
-            $('input[name="total_amount"]').focus(function() {
-                $('.layui-m-layerchild').css('bottom', '-100px');
+            $('input[name="total_amount"]').click(function() {
+                $('.layui-m-layerchild').css('bottom', '-126px');
+            }).focus(function() {
+                $('.layui-m-layerchild').css('bottom', '-126px');
             }).blur(function() {
                 $('.layui-m-layerchild').css('bottom', '0');
             });

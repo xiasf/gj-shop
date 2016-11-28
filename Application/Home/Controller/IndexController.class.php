@@ -24,7 +24,7 @@ class IndexController extends BaseController {
             
             $data = array(                    
                     'goods_id'=>$val,
-                    'email'=>'www.99soubao.com',
+                    'email'=>'www.gj.com',
                     'username'=>'淑女',
                     'content'=>'买回来用了一段时间, 真心感觉bucuo  ....',
                     'deliver_rank'=>rand(0, 5),
@@ -97,7 +97,7 @@ class IndexController extends BaseController {
     // 二维码
     public function qr_code(){        
         // 导入Vendor类库包 Library/Vendor/Zend/Server.class.php
-        //http://www.gj-shop.cn/Home/Index/erweima/data/www.99soubao.com
+        //http://www.gj-shop.cn/Home/Index/erweima/data/www.gj.com
          require_once 'ThinkPHP/Library/Vendor/phpqrcode/phpqrcode.php';
           //import('Vendor.phpqrcode.phpqrcode');
             error_reporting(E_ERROR);            
