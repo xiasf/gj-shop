@@ -211,7 +211,7 @@
     <dl class="list" style="opacity: 1;">
         <dd>
             <dl class="list" id="ajax_return" style="opacity: 1;">
-                <dt class="title">附近商家<span id="positioning">东门路28号<i class="icon iconfont icon-31shuaxin"></i></span></dt>
+                <dt class="title">附近商家<span id="positioning">正在定位…<i class="icon iconfont icon-31shuaxin"></i></span></dt>
                 <dd id="get_more_load">
                     <a href="javascript:;" style="text-align:center; display:block;">
                         <img src="__STATIC__/images/category/loader.gif" width="12" height="12">
@@ -265,16 +265,19 @@
         // 拉取商家列表
         getSeller();
         // 获取地理位置名称
-        get_lacol_name(callback2);
+        getLocalName('wgs84ll', callback2);
     }
 
     // 获取到地理位置之后的回调
-    function callback2(res) {
-        $('#positioning').text(res);
+    function callback2(result) {
+        $('#positioning').text(result.result.formatted_address);
     }
 
     // 微信定位
     function getWxLocation(callback) {
+        layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…'});
+        $('#positioning').text('正在定位……');
+
         wx.getLocation({
             type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
             success: function (res) {
@@ -299,12 +302,36 @@
 
     // 普通定位
     function getLocation(callback) {
-        // body...
+        layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…'});
+        $('#positioning').text('正在定位……');
+
+        getLocationApi(function (position) {
+            Local.longitude = position.coords.longitude;
+            Local.latitude = position.coords.latitude;
+        });
     }
 
     // 根据坐标获取地理位置名称
-    function get_lacol_name(argument) {
-        // body...
+    function getLocalName(coordtype, callback2) {
+        var lat_lng = Local.latitude + ',' + Local.longitude;
+        if (!coordtype) coordtype = 'wgs84ll';
+        $.getJSON('http://api.map.baidu.com/geocoder/v2/?callback=?', {'ak':'9Go7FByT2xPEH5VcPKMiZWoY', 'location':lat_lng, 'coordtype':coordtype, 'output':'json', 'pois':0}, function(result) {
+                if (result.status == 0) {
+                    layer.open({
+                        content: '猜你在：<font color=red>'+result.result.formatted_address+'</font>',
+                        btn: ['嗯嗯，是的', '错了，笨蛋'],
+                        yes: function(index){
+                            callback2(result);
+                        },
+                        no: function(index){
+                            layer_no();
+                        },
+                    });
+                } else {
+                    layer.open({content: '<i class="fa fa-exclamation-triangle"></i>&nbsp;哎呀妈，暂无法获取您的位置。'});
+                }
+            }
+        );
     }
 
     function getSeller() {
@@ -329,6 +356,73 @@
             }
         });
     }
+
+    // 浏览器定位API
+    function getLocationApi(successCallback) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(successCallback, showError);
+        } else {
+            layer.open({content: '<i class="fa fa-exclamation-triangle"></i>&nbsp;悲催，浏览器不支持地理定位。'});
+        }
+    }
+
+    function showError(error) {
+        switch(error.code) {
+            case error.PERMISSION_DENIED:
+                layer.open({content: '<i class="fa fa-exclamation-triangle"></i>&nbsp;定位失败，用户残忍地拒绝了请求地理定位服务'});
+                break;
+            case error.POSITION_UNAVAILABLE:
+                layer.open({content: '<i class="fa fa-exclamation-triangle"></i>&nbsp;定位失败，位置信息是不可用的'});
+                break;
+            case error.TIMEOUT:
+                layer.open({content: '<i class="fa fa-exclamation-triangle"></i>&nbsp;定位失败，请求获取用户位置超时'});
+                break;
+            case error.UNKNOWN_ERROR:
+                layer.open({content: '<i class="fa fa-exclamation-triangle"></i>&nbsp;定位失败，定位系统失效'});
+                break;
+        }
+    }
+
+    var layer_no = function(){
+        layer.open({
+            content: '<i class="fa fa-meh-o"></i>&nbsp;我错了，我哄你还不行吗，别生气了，嗯？',
+            btn: ['再试一次', '我讨厌你'],
+            yes: function(index){
+                get_location();
+            },
+            no: function(index){
+                layer.open({
+                    content: '<i class="fa fa-meh-o"></i>&nbsp;别生气了，我真的错了，我错在不乖，连给你定个位都不准，要我有什么用呢，我给你讲个笑话听好不好，不要生气了',
+                    btn: ['嗯', '不听'],
+                    yes: function(index){
+                        layer.open({
+                            content: '“小时候去动物园看老虎，看着特威风可爱，暗暗发誓长大以后一定也要养一个。20年后，这个梦想终于实现了。不说了，该给媳妇做饭去了……”',
+                            btn: ['好吧，原谅你了', '一点都不好笑'],
+                            yes: function(index){
+                                layer.open({
+                                    content: '嘻嘻，那不要生气了哦，让我再试一次好吧？',
+                                    btn: ['嗯嗯', '不用了，你歇一会'],
+                                    yes: function(index){
+                                        get_location();
+                                    },
+                                    no: function(index){
+                                        layer.open({content: '那你不要生气了啊，生气对身体不好。', time:2});
+                                    },
+                                });
+                            },
+                            no: function(index){
+                                layer.open({content: '<i class="fa fa-frown-o"></i>&nbsp;对不起，我错了，我面壁去了。',time:2});
+                            },
+                        });
+                    },
+                    no: function(index){
+                        layer.open({content: '<i class="fa fa-frown-o"></i>&nbsp;大哭', time:2});
+                    },
+                });
+            },
+        });
+    };
+
 </script>
 
 </body>
