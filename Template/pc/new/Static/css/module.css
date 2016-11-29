@@ -2435,7 +2435,7 @@
     background: none repeat scroll 0 0 #EEEEEE;
 }
 
-/* 搜索首页 */
+/*  广索首页 */
 .search-form {
 	margin-bottom: 30px;
 	font-size: 16px;
@@ -2460,7 +2460,7 @@
 	background: #72B939;
 }
 
-/* 搜索,标签选项卡导航 */
+/*  广索,标签选项卡导航 */
 .search-tab {
 	margin-bottom: 10px;
 }
@@ -2707,7 +2707,7 @@
 	vertical-align: middle;
 }
 
-/* 搜索结果页 */
+/*  广索结果页 */
 .search-opt .selected {
 	font-size: 16px;
 	font-weight: bold;

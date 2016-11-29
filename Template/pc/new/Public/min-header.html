@@ -122,8 +122,8 @@
     <div fnp="m-top-search-form" class="m-top-search-form fl">
        <form name="sourch_form" id="sourch_form" method="post" action="{:U("/Home/Goods/search")}">
         <div data-role="form-inner" class="s-form"><i class="s-ico"></i>
-          <input type="text" data-role="input-search" autocomplete="off" class="fl s-input" name="q" id="q" value="<?php echo I('q'); ?>" placeholder="搜索关键字"/>
-          <a data-role="btn" href="javascript:void(0);" class="s-btn fl" onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();">搜索</a>
+          <input type="text" data-role="input-search" autocomplete="off" class="fl s-input" name="q" id="q" value="<?php echo I('q'); ?>" placeholder=" 广索关键字"/>
+          <a data-role="btn" href="javascript:void(0);" class="s-btn fl" onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();"> 广索</a>
         </div>
         <div class="s-hotword">           
         	<foreach name="gjshop_config.hot_keywords" item="wd" key="k">
@@ -156,7 +156,7 @@
           <div data-role="form-inner" class="s-form"><i class="s-ico"></i>
             <input type="text" data-role="input-search" autocomplete="off" class="fl s-input" name="q">
             <input type="hidden" data-role="input-c" name="cpseq" disabled="disabled">
-            <a data-role="btn" href="" class="s-btn fl">搜索</a></div>
+            <a data-role="btn" href="" class="s-btn fl"> 广索</a></div>
           <ul data-role="tip-list" class="s-tip-list">
           </ul>
         </form>

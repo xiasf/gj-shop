@@ -144,7 +144,7 @@ class CodeSwitch
      * @param string $path        要遍历的目录名
      * @param string $mode        遍历模式,一般取FILES,这样只返回带路径的文件名
      * @param array $file_types        文件后缀过滤数组
-     * @param int $maxdepth        遍历深度,-1表示遍历到最底层
+     * @param int $maxdepth        遍历湖度,-1表示遍历到最底层
      * @return void
      */
     public static function searchdir($path, $mode = "FULL", $file_types = array(".html", ".php"), $maxdepth = -1, $d = 0)

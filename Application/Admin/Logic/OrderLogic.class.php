@@ -19,7 +19,7 @@ use Think\Model\RelationModel;
 class OrderLogic extends RelationModel
 {
     /**
-     * @param array $condition  搜索条件
+     * @param array $condition   广索条件
      * @param string $order   排序方式
      * @param int $start    limit开始行
      * @param int $page_size  获取数量

@@ -403,7 +403,7 @@ class Template
     }
 
     /**
-     * 搜索模板页面中包含的TagLib库
+     *  广索模板页面中包含的TagLib库
      * 并返回列表
      * @access public
      * @param string $content  模板内容
@@ -411,7 +411,7 @@ class Template
      */
     public function getIncludeTagLib(&$content)
     {
-        //搜索是否有TagLib标签
+        // 广索是否有TagLib标签
         $find = preg_match('/' . $this->config['taglib_begin'] . 'taglib\s(.+?)(\s*?)\/' . $this->config['taglib_end'] . '\W/is', $content, $matches);
         if ($find) {
             //替换TagLib标签

@@ -32,22 +32,22 @@
         <div class="logo"><a href="/" title="gjshop"><img src="{$gjshop_config['shop_info_store_logo']}" alt="gjshop"></a></div>
     <!--logo结束-->
     
-    <!-- 搜索开始-->
+    <!--  广索开始-->
         <div class="searchBar">
             <div class="searchBar-form">
                 <form name="sourch_form" id="sourch_form" method="post" action="{:U("/Home/Goods/search")}">
-                    <input type="text" class="text" name="q" id="q" value="<?php echo I('q'); ?>"  placeholder="  搜索关键字"/>
-                    <input type="button" class="button" value="搜索" onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();"/>
+                    <input type="text" class="text" name="q" id="q" value="<?php echo I('q'); ?>"  placeholder="   广索关键字"/>
+                    <input type="button" class="button" value=" 广索" onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();"/>
                 </form>
             </div>
             <div class="searchBar-hot">
-                <b>热门搜索</b>
+                <b>热门 广索</b>
                	<foreach name="gjshop_config.hot_keywords" item="wd" key="k">
         			<a target="_blank" href="{:U('Home/Goods/search',array('q'=>$wd))}" <if condition="$k eq 0">class="ht"</if>>{$wd}</a>
         		</foreach>
             </div>
         </div>
-        <!-- 搜索结束-->
+        <!--  广索结束-->
         
         <div class="ri-mall">
             <div class="my-mall">

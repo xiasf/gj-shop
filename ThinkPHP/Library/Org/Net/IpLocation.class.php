@@ -167,9 +167,9 @@ class IpLocation
         $location['ip'] = gethostbyname($ip); // 将输入的域名转化为IP地址
         $ip             = $this->packip($location['ip']); // 将输入的IP地址转化为可比较的IP地址
         // 不合法的IP地址会被转化为255.255.255.255
-        // 对分搜索
-        $l      = 0; // 搜索的下边界
-        $u      = $this->totalip; // 搜索的上边界
+        // 对分 广索
+        $l      = 0; //  广索的下边界
+        $u      = $this->totalip; //  广索的上边界
         $findip = $this->lastip; // 如果没有找到就返回最后一条IP记录（QQWry.Dat的版本信息）
         while ($l <= $u) {
             // 当上边界小于下边界时，查找失败
@@ -179,12 +179,12 @@ class IpLocation
             // strrev函数在这里的作用是将little-endian的压缩IP地址转化为big-endian的格式
             // 以便用于比较，后面相同。
             if ($ip < $beginip) { // 用户的IP小于中间记录的开始IP地址时
-                $u = $i - 1; // 将搜索的上边界修改为中间记录减一
+                $u = $i - 1; // 将 广索的上边界修改为中间记录减一
             } else {
                 fseek($this->fp, $this->getlong3());
                 $endip = strrev(fread($this->fp, 4)); // 获取中间记录的结束IP地址
                 if ($ip > $endip) { // 用户的IP大于中间记录的结束IP地址时
-                    $l = $i + 1; // 将搜索的下边界修改为中间记录加一
+                    $l = $i + 1; // 将 广索的下边界修改为中间记录加一
                 } else {
                     // 用户的IP在中间记录的IP范围内时
                     $findip = $this->firstip + $i * 7;

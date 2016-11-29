@@ -226,7 +226,7 @@ function selectGoods(){
 function call_back(table_html)
 {
 	$('#goods_td').empty().html('<table class="table table-bordered">'+table_html+'</table>');
-	//过滤选择重复商品
+	//过鹿恪择重复商品
 	$('input[name*="spec"]').each(function(i,o){
 		if($(o).val()){
 			var name='goods_id['+$(o).attr('rel')+']['+$(o).val()+'][goods_num]';

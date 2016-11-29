@@ -74,7 +74,7 @@ var  page = 1;
 			type : "GET",
 			url:"/index.php?m=Mobile&c=User&a=collect_list&is_ajax=1&p="+page,//+tab,			
 //			url:"{:U('Mobile/User/collect_list',null,'')}/is_ajax/1/p/"+page,//+tab,
-//			data : $('#filter_form').serialize(),// 你的formid 搜索表单 序列化提交
+//			data : $('#filter_form').serialize(),// 你的formid  广索表单 序列化提交
 			success: function(data)
 			{
 				if($.trim(data) == '')

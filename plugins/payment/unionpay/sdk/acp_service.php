@@ -69,7 +69,7 @@ class AcpService {
 		curl_setopt ( $ch, CURLOPT_POST, 1 );
 		curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, false ); // 不验证证书
 		curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, false ); // 不验证HOST
-		curl_setopt ( $ch, CURLOPT_SSLVERSION, 1 ); // http://php.net/manual/en/function.curl-setopt.php页面搜CURL_SSLVERSION_TLSv1
+		curl_setopt ( $ch, CURLOPT_SSLVERSION, 1 ); // http://php.net/manual/en/function.curl-setopt.php页面广CURL_SSLVERSION_TLSv1
 		curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
 				'Content-type:application/x-www-form-urlencoded;charset=UTF-8' 
 		) );
@@ -114,7 +114,7 @@ class AcpService {
 		curl_setopt ( $ch, CURLOPT_URL, $url );
 		curl_setopt ( $ch, CURLOPT_SSL_VERIFYPEER, false ); // 不验证证书
 		curl_setopt ( $ch, CURLOPT_SSL_VERIFYHOST, false ); // 不验证HOST
-		curl_setopt ( $ch, CURLOPT_SSLVERSION, 1 ); // http://php.net/manual/en/function.curl-setopt.php页面搜CURL_SSLVERSION_TLSv1
+		curl_setopt ( $ch, CURLOPT_SSLVERSION, 1 ); // http://php.net/manual/en/function.curl-setopt.php页面广CURL_SSLVERSION_TLSv1
 		curl_setopt ( $ch, CURLOPT_HTTPHEADER, array (
 		'Content-type:application/x-www-form-urlencoded;charset=UTF-8'
 				) );

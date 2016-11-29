@@ -114,8 +114,8 @@ body { background-color: #f8f8f8; }
 .filtrate_has1 ul li.on label { background-position: 0 -33px; }
 
 
-/* 搜索浮层 */
-/* 搜索提示 */
+/*  广索浮层 */
+/*  广索提示 */
 .mix_search_list { width: 100%; z-index: 5005; background-color: #fff; box-shadow: 0 1px 3px #ccc; }
 .mix_search_list ul li { padding: 0 10px; }
 .mix_search_list ul li a { display: block; height: 44px; line-height: 44px; border-bottom: 1px solid #e5e5e5; color: #323232; }
@@ -127,13 +127,13 @@ body { background-color: #f8f8f8; }
 .mix_search_list ul li.has_tj a { border-bottom: 0; height: 30px; line-height: 30px; }
 .mix_search_list ul li.has_tj .child { }
 .mix_search_list ul li.has_tj .child:last-child { border-bottom: 1px solid #e5e5e5; padding-bottom: 7px; }
-/* 热搜 */
+/* 热广 */
 .mix_hot_search { padding: 2px 0 7px; border-bottom: 1px solid #dcdcdc; background-color: #f2f2f2; }
 .mix_hot_search h3 { font-size: 14px; font-weight: normal; padding-left: 30px; height: 34px; line-height: 34px; background: url(../images/huo1_03.png) 10px center no-repeat; background-size: 16px 16px; }
 .mix_hot_search ul { padding-left: 10px; padding-right: 5px; }
 .mix_hot_search ul li { float: left; margin: 0 5px 5px 0; }
 .mix_hot_search ul li a { display: inline-block; border: 1px solid #ebebeb; padding: 0 10px; height: 32px; line-height: 32px; background-color: #fff; }
-/* 最近搜索 */
+/* 最近 广索 */
 .mix_recently_search { width:100%; overflow:hidden; padding-bottom:10px; background:#FFF}
 .mix_recently_search h3 { font-size: 14px; font-weight: normal; padding-left: 30px; height:40px; line-height:40px; background: #fff url(../images/category/souso.png) 10px center no-repeat; background-size: 18px 18px; color:#333;}
 .mix_recently_search ul { background-color: #fff; width:90%; overflow:hidden; margin:auto }
@@ -148,7 +148,7 @@ body { background-color: #f8f8f8; }
 .mix_new_header .search .clear_input { width: 36px; height: 36px; position: absolute; right: 0px; top: 0px; display: block; background: url(../images/category/close.png) center center no-repeat; background-size: 16px 16px; }
 .mix_new_header .mix_filtrate { position: absolute; right: 0px; top: 7px; color: #646464; font-size: 14px; height: 38px; line-height: 38px; width: 50px; text-align: center; border: none; background: none; font-family: 'microsoft yahei'; }
 .mix_new_header .mix_back { z-index: 2; position: absolute; top: 0; left: 0; height: 50px; padding-left: 40px; background: url(../images/category/arrow_left.png) no-repeat 15px center; background-size: auto 16px; font-size: 15px; }
-/* 搜索提示 */
+/*  广索提示 */
 .mix_search_list { width: 100%; z-index: 5005; background-color: #fff; box-shadow: 0 1px 3px #ccc; }
 .mix_search_list ul li { padding: 0 10px; }
 .mix_search_list ul li a { display: block; height: 44px; line-height: 44px; border-bottom: 1px solid #e5e5e5; color: #323232; }
@@ -160,18 +160,18 @@ body { background-color: #f8f8f8; }
 .mix_search_list ul li.has_tj a { border-bottom: 0; height: 30px; line-height: 30px; }
 .mix_search_list ul li.has_tj .child { }
 .mix_search_list ul li.has_tj .child:last-child { border-bottom: 1px solid #e5e5e5; padding-bottom: 7px; }
-/* 热搜 */
+/* 热广 */
 .mix_hot_search { padding: 2px 0 7px; border-bottom: 1px solid #dcdcdc; background-color: #f2f2f2; }
 .mix_hot_search h3 { font-size: 14px; font-weight: normal; padding-left: 30px; height: 34px; line-height: 34px; background: url(../images/category/huo1_03.png) 10px center no-repeat; background-size: 16px 16px; }
 .mix_hot_search ul { padding-left: 10px; padding-right: 5px; }
 .mix_hot_search ul li { float: left; margin: 0 5px 5px 0; }
 .mix_hot_search ul li a { display: inline-block; border: 1px solid #ebebeb; padding: 0 10px; height: 32px; line-height: 32px; background-color: #fff; }
-/*搜索结果页*/
+/* 广索结果页*/
 /* header */
 .search-page body { background-color: #f2f2f2; }
 #head_search_box { width: 100%; position: fixed; top: 0; z-index: 5004; overflow: hidden; max-width: 640px;}
 .search_header .filtrate { background: none; color: #b6b6b6; }
-/* 热搜 */
+/* 热广 */
 .hot_search { padding: 9px 0 8px; border-bottom: 1px solid #dcdcdc; }
 .hot_search h3 { font-size: 14px; font-weight: normal; padding-left: 10px; height: 34px; line-height: 34px; }
 .hot_search ul { padding-left: 10px; padding-right: 5px; max-height: 74px; overflow: hidden; }
@@ -276,7 +276,7 @@ background: url(../images/flow/shop-cart.png) no-repeat 5px -26px; background-si
 .touchweb-com_searchListBox .bug_car.sold_out { color: #bcbcbc; }
 .loading_banner { text-align: center; }
 .loading_banner .loading { background-image: url("../images/category/loading.png"); display: inline-block; margin: 10px 0; background-size: 12px; width: 12px; height: 12px; -webkit-animation: rotate 2s linear 0s infinite; animation: rotate 2s linear 0s infinite; }
-/* 搜索提示 */
+/*  广索提示 */
 .search_list { width: 100%; position: absolute; left: 0; top: 46px; border-top: 1px solid #dcdcdc; z-index: 5005; background-color: #fff; box-shadow: 0 1px 3px #ccc; padding-bottom: 10px; }
 .search_list ul { margin-bottom: 10px; }
 .search_list ul li { padding: 0 10px; }
@@ -286,17 +286,17 @@ background: url(../images/flow/shop-cart.png) no-repeat 5px -26px; background-si
 .search_list ul li:last-child a { border-bottom: 0; }
 .search_list .clear_search { display: block; width: 86%; margin: 0 auto; height: 32px; text-align: center; line-height: 32px; border: 1px solid #dcdcdc; }
 .shadow_box { z-index: 5003; width: 100%; height: 100%; position: fixed; left: 0; top: 0; background-color: rgba(0,0,0,.7); }
-/* 搜索无结果 */
+/*  广索无结果 */
 .search_null { padding: 140px 0 60px; background: url(../images/category/search_null.png) center 84px no-repeat; background-size: 79px 39px; color: #989da2; text-align: center; }
 
-/*搜索结果页面*/
+/* 广索结果页面*/
 .header { width:100%; height:45px; background:#F6F6F6; z-index:9999999; border:0; border-bottom:1px solid #e0dddd; position:relative;}
 .h-left{float:left;width:15%; height:45px;}
 .h-left a{ display:block; width:40px; height:40px; margin:auto; background: url(../images/category/arrow_left.png) no-repeat 15px center; background-size: auto 16px; }
 .h-right{float:left; width:15%;height:45px;}
 .h-mid { width:70%; height:45px; float:left; text-align:center; color:#666; font-size:18px; line-height:45px;}
 .h-mid h6 { color:#333; font-size:16px; font-family: "微软雅黑", "宋体", Arial, Helvetica, sans-serif; font-weight:normal;}
-/*搜索店铺csssearch_list.lbi*/
+/* 广索店铺csssearch_list.lbi*/
 .rzs_info { width: 100%; margin-top: 10px; overflow: hidden; background: #FFF; padding-top: 10px; padding-bottom: 10px; margin-bottom: 10px; }
 .rzs_info dl { width: 95%; margin: auto; overflow: hidden; }
 .rzs_info dl dt { width: 20%; float: left; overflow: hidden }

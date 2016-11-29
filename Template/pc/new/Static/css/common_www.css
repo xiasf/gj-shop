@@ -297,7 +297,7 @@ button{font-family:Tahoma, Arial, "Simsun", sans-serif;cursor:pointer}
 #hd-logo{width:326px;height:60px}
 #hd-logo span{display:block;text-indent:100%;white-space:nowrap;overflow:hidden}
 .logohref{float:left;display:block}
-/*搜尋*/
+/*广尋*/
 /*#hd-search{margin:0 200px 0 330px;font-family:Tahoma, Arial, "Simsun", sans-serif}*/
 #hd-search{float:left;width:690px;height:40px;font-family:Tahoma, Arial, "Simsun", sans-serif; position:relative}
 #hd-search .search-form{height:34px;padding-left:30px;border:#f22e00 3px solid;background:#fff url("../images/feiniu-index-icon-www.png") -310px -127px no-repeat;position:relative}
@@ -558,7 +558,7 @@ button{font-family:Tahoma, Arial, "Simsun", sans-serif;cursor:pointer}
     color: #fff;
 }
 
-/*搜尋框 - 自動完成*/
+/*广尋框 - 自動完成*/
 .ui-front{z-index:100}
 .ui-autocomplete{position:absolute;top:0;left:0;cursor:default}
 .ui-widget{font-family:Verdana,Arial,sans-serif;font-size:1.1em}

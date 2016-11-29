@@ -130,7 +130,7 @@ class ExchangeController extends BaseController
 
         $eid = I('get.id');
 
-        //搜索条件
+        // 广索条件
         $where = 'where 1=1 ';
 
         $where += ' and eid = '. $eid;

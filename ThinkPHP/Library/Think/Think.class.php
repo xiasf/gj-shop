@@ -195,7 +195,7 @@ class Think
                     }
                 }
             }
-            // 根据自动加载路径设置进行尝试搜索
+            // 根据自动加载路径设置进行尝试 广索
             foreach (explode(',', C('APP_AUTOLOAD_PATH')) as $path) {
                 if (import($path . '.' . $class))
                 // 如果加载类成功则返回

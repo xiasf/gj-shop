@@ -512,7 +512,7 @@ html.mm-opening .mm-page, html.mm-opening #mm-blocker, html.mm-opening .mm-fixed
 .scroll_position li.on {
 	background-color: #ffffff;
 }
-/*首页搜索*/
+/*首页 广索*/
 #fake-search {
 	padding: 0 18px;
 	margin-top: 17px;
@@ -834,7 +834,7 @@ html.mm-opening .mm-page, html.mm-opening #mm-blocker, html.mm-opening .mm-fixed
 	max-height: 35px;
 	margin-top: 14px;
 }
-/*搜索弹出模块*/ 
+/* 广索弹出模块*/ 
 .search_hide {
 	display: none
 }
@@ -6316,7 +6316,7 @@ table.general td .inputBg {
 	font-weight: bold;
 	color: #999;
 }
-/*修改 搜索店铺页面*/
+/*修改  广索店铺页面*/
 .flow {
 	width: 100%;
 	position: relative;

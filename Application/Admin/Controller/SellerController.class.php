@@ -35,10 +35,10 @@ class SellerController extends BaseController
      */
     public function ajaxSellerList()
     {
-        $where = ' 1 = 1 '; // 搜索条件
+        $where = ' 1 = 1 '; //  广索条件
         // (I('is_on_sale') !== '') && $where = "$where and is_on_sale = " . I('is_on_sale');
         // $cat_id                            = I('cat_id');
-        // 关键词搜索
+        // 关键词 广索
         $key_word = I('key_word') ? trim(I('key_word')) : '';
         if ($key_word) {
             $where = "$where and (seller_name like '%$key_word%')";
@@ -47,7 +47,7 @@ class SellerController extends BaseController
         $model = M('seller');
         $count = $model->where($where)->count();
         $Page  = new AjaxPage($count, 10);
-        /**  搜索条件下 分页赋值
+        /**   广索条件下 分页赋值
         foreach($condition as $key=>$val) {
         $Page->parameter[$key]   =   urlencode($val);
         }

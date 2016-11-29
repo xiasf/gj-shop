@@ -208,11 +208,11 @@ class UserController extends BaseController {
      */
     public function order_list(){
         $where = ' user_id='.$this->user_id;
-        //条件搜索
+        //条件 广索
        if(I('get.type')){
            $where .= C(strtoupper(I('get.type')));
        }
-       // 搜索订单 根据商品名称 或者 订单编号
+       //  广索订单 根据商品名称 或者 订单编号
        $search_key = trim(I('search_key'));       
        if($search_key)
        {
