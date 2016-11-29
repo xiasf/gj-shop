@@ -153,7 +153,7 @@ class CartController extends MobileBaseController
         // 找出这个用户的优惠券 没过期的  并且 订单金额达到 condition 优惠券指定标准的
         // 这个优惠券是网站优惠券，而非店铺优惠券
         $couponList = M('coupon as c1')
-                        ->join('INNER JOIN __COUPON_LIST__ as c2 on c2.cid = c1.id')
+                        ->join('INNER JOI2N __COUPON_LIST__ as c2 on c2.cid = c1.id')
                         ->field('c1.name,c1.money,c1.condition,c2.*')
                         ->where(['c1.type' => ['in', '0,1,2,3']])
                         ->where(['c2.uid' => $this->user_id, 'order_id' => 0])
@@ -254,6 +254,11 @@ class CartController extends MobileBaseController
                             $shop['proportion'] // 传入比例用于计算
                         );
 
+            // 计算出错
+            if ($result['status'] < 0) {
+                exit(json_encode($result));
+            }
+
             // 尽最大可能全部用出去，而不考虑比例（可能会出现后面的订单没有使用到抵扣）
             $pay_points_ = $result['result']['integral_money'] * tpCache('shopping.point_rate');  // 这次使用积分
             $pay_points -= $pay_points_;
@@ -262,11 +267,6 @@ class CartController extends MobileBaseController
 
             $exchange_ = $result['result']['exchange'] * tpCache('shopping.exchange_rate');  // 使用兑币
             $exchange -= $exchange_;
-
-            // 计算出错
-            if ($result['status'] < 0) {
-                exit(json_encode($result));
-            }
 
             // 这个不受多订单，比例影响，因为这个就是单个订单的活动
             $order_prom                            = get_order_promotion($result['result']['order_amount']);
