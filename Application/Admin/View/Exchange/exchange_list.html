@@ -1,0 +1,87 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+
+            <!-- <div class="navbar navbar-default">
+                <form action="" id="search-form2" class="navbar-form form-inline" method="post" onsubmit="return false">
+                    <div class="form-group">
+                        <label class="control-label" for="input-mobile">手机号码</label>
+                        <div class="input-group">
+                            <input type="text" name="mobile" value="" placeholder="手机号码" id="input-mobile" class="form-control"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label" for="input-email">email</label>
+                        <div class="input-group">
+                            <input type="text" name="email" value="" placeholder="email" id="input-email" class="form-control"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" for="input-order-id">昵称关键词</label>
+                        <div class="input-group">
+                            <input type="text" name="nickname" value="{$nickname}" placeholder="搜索词" id="input-order-id" class="form-control"></div>
+                    </div>
+                    <button type="button" onclick="ajax_get_table('search-form2',1)" id="button-filter search-order" class="btn btn-primary"> <i class="fa fa-search"></i>
+                        查找
+                    </button>
+                    <button type="button" onclick="doconfirm()" id="button-filter" class="btn btn-info pull-right">确定发送优惠券</button>
+                </form>
+            </div> -->
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"> <i class="fa fa-list"></i>
+                        兑币列表
+                    </h3>
+                </div>
+                <div id="ajax_return">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <td class="text-center">ID</td>
+                                    <td class="text-center">兑币名称</td>
+                                    <td class="text-center">面值</td>
+                                    <td class="text-center">使用会员</td>
+                                    <td class="text-center">使用时间</td>
+                                    <td class="text-center">兑币码</td>
+                                    <td class="text-center">卡密</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <volist name="lists" id="list">
+                                    <tr>
+                                        <td class="text-center">{$list.id}</td>
+                                        <td class="text-center">{$list.name}</td>
+                                        <td class="text-center">{$list.money}&nbsp;兑币/张</td>
+                                        <td class="text-center">{$list.nickname|default='-'}</td>
+                                        <td class="text-center">
+                                            <if condition="$list[use_time] gt 0">
+                                                {$list.use_time|date='Y-m-d H:i',###}
+                                                <else/>
+                                                -
+                                            </if>
+                                        </td>
+                                        <td class="text-center">{$list.code}</td>
+                                        <td class="text-center">{$list.password}</td>
+                                    </tr>
+                                </volist>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12 text-right">{$page}</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
+</div>
+</body>
+</html>
