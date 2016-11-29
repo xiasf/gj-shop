@@ -270,6 +270,7 @@
 
     // 获取到地理位置之后的回调
     function callback2(result) {
+        console.log(result);
         $('#positioning').text(result.result.formatted_address);
     }
 
