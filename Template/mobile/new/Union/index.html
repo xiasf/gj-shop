@@ -326,7 +326,7 @@
                 if (result.status == 0) {
                     callback2(result);
                     layer.open({
-                        content: '猜你在：<font color=red>'+result.result.formatted_address+'</font>',
+                        content: '猜你在：<font color=red>'+result.result.sematic_description+'</font>',
                         btn: ['嗯嗯，是的', '错了，笨蛋'],
                         yes: function(index){
                             layer.close(index);
