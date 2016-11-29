@@ -323,6 +323,7 @@
                         btn: ['嗯嗯，是的', '错了，笨蛋'],
                         yes: function(index){
                             callback2(result);
+                            layer.close(index);
                         },
                         no: function(index){
                             layer_no();
@@ -389,7 +390,7 @@
             content: '<i class="fa fa-meh-o"></i>&nbsp;我错了，我哄你还不行吗，别生气了，嗯？',
             btn: ['再试一次', '我讨厌你'],
             yes: function(index){
-                get_location();
+                $('#positioning').click();
             },
             no: function(index){
                 layer.open({
@@ -404,7 +405,7 @@
                                     content: '嘻嘻，那不要生气了哦，让我再试一次好吧？',
                                     btn: ['嗯嗯', '不用了，你歇一会'],
                                     yes: function(index){
-                                        get_location();
+                                        $('#positioning').click();
                                     },
                                     no: function(index){
                                         layer.open({content: '那你不要生气了啊，生气对身体不好。', time:2});
