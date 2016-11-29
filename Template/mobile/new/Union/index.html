@@ -212,7 +212,7 @@
     <dl class="list" style="opacity: 1;">
         <dd>
             <dl class="list" id="ajax_return" style="opacity: 1;">
-                <dt class="title">附近商家<span id="positioning">正在定位…<i class="icon iconfont icon-31shuaxin"></i></span></dt>
+                <dt class="title">附近商家<span id="positioning"><i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…</span></dt>
                 <dd id="get_more_load">
                     <a href="javascript:;" style="text-align:center; display:block;">
                         <img src="__STATIC__/images/category/loader.gif" width="12" height="12">
@@ -272,13 +272,13 @@
     // 获取到地理位置之后的回调
     function callback2(result) {
         console.log(result);
-        $('#positioning').text(result.result.formatted_address);
+        $('#positioning').html(result.result.formatted_address);
     }
 
     // 微信定位
     function getWxLocation(callback) {
         layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…'});
-        $('#positioning').text('正在定位……');
+        $('#positioning').text('<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…');
 
         wx.getLocation({
             type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
@@ -305,7 +305,7 @@
     // 普通定位
     function getLocation(callback) {
         layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…'});
-        $('#positioning').text('正在定位……');
+        $('#positioning').html('<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…');
 
         getLocationApi(function (position) {
             Local.longitude = position.coords.longitude;
