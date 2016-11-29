@@ -246,6 +246,12 @@
                 fail: function (errMsg) {
                     console.log(errMsg);
                     alert(errMsg);
+                },
+                complete: function () {
+                    alert('end');
+                },
+                cancel: function () {
+                    alert('cancel');
                 }
             });
 
