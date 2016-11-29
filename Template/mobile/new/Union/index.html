@@ -228,54 +228,92 @@
 <include file="Public/footer_nav"/>
 
 <script>
-    var Local = {};
+    var Local = {longitude:0, latitude:0};
+    var cat = 0;
     $(function(){
 
         // 定位
         if(typeof wx != "undefined") {
+
+            $('#positioning').click(function() {
+                getWxLocation(callback);
+            });
+
             wx.ready(function(){
                 // 微信定位接口
-                wx.getLocation({
-                    type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-                    success: function (res) {
-                        Local.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
-                        Local.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
-                        Local.speed = res.speed; // 速度，以米/每秒计
-                        Local.accuracy = res.accuracy; // 位置精度
-                        console.log(Local);
-                    },
-                    fail: function (errMsg) {
-                        console.log(errMsg);
-                    },
-                    complete: function () {
-                        console.log('Local to complete');
-                    },
-                    cancel: function () {
-                        alert('you cancel getLocation');
-                    }
-                });
+                getWxLocation(callback);
             });
         } else {
+
+            $('#positioning').click(function() {
+                getLocation(callback);
+            });
+
             // 普通定位接口
+            getLocation(callback);
         }
 
-        getSeller();
         $('.icon-list li a').click(function() {
             $('.seller-item').empty();
-            getSeller($(this).data('cat'));
+            cat = $(this).data('cat');
+            getSeller();
         });
     });
 
-    function getSeller(cat) {
+    // 定位之后的回调
+    function callback() {
+        // 拉取商家列表
+        getSeller();
+        // 获取地理位置名称
+        get_lacol_name(callback2);
+    }
+
+    // 获取到地理位置之后的回调
+    function callback2(res) {
+        $('#positioning').text(res);
+    }
+
+    // 微信定位
+    function getWxLocation(callback) {
+        wx.getLocation({
+            type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            success: function (res) {
+                Local.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                Local.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                Local.speed = res.speed; // 速度，以米/每秒计
+                Local.accuracy = res.accuracy; // 位置精度
+                console.log(Local);
+            },
+            fail: function (errMsg) {
+                console.log(errMsg);
+            },
+            complete: function () {
+                console.log('Local to complete');
+                callback();
+            },
+            cancel: function () {
+                alert('you cancel getLocation');
+            }
+        });
+    }
+
+    // 普通定位
+    function getLocation(callback) {
+        // body...
+    }
+
+    // 根据坐标获取地理位置名称
+    function get_lacol_name(argument) {
+        // body...
+    }
+
+    function getSeller() {
         $('#getmore').hide();
         $('#get_more_load').show();
-        if (!cat) {
-            cat = 0;
-        }
         var url = "{:U('getShopList')}";
         $.ajax({
             type : "GET",
-            url  : url + '?cat=' + cat + '&t=' + Math.random(),
+            url  : url + '?cat=' + cat + '&longitude=' + Local.longitude + '&latitude=' + Local.latitude + '&t=' + Math.random(),
             error: function(request) {
                 alert("服务器繁忙!");
                 return;
