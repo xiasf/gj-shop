@@ -242,6 +242,10 @@
                     Local.speed = res.speed; // 速度，以米/每秒计
                     Local.accuracy = res.accuracy; // 位置精度
                     console.log(Local);alert(Local);
+                },
+                fail: function (errMsg) {
+                    console.log(errMsg);
+                    alert(errMsg);
                 }
             });
 
