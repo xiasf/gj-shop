@@ -231,6 +231,7 @@
 <script>
     var Local = {longitude:0, latitude:0};
     var cat = 0;
+    var p = 1;
     $(function(){
 
         // 定位
@@ -256,6 +257,7 @@
 
         $('.icon-list li a').click(function() {
             $('.seller-item').empty();
+            p = 1;
             cat = $(this).data('cat');
             getSeller();
         });
@@ -263,6 +265,9 @@
 
     // 定位之后的回调
     function callback() {
+        // 初始化
+        $('.seller-item').empty();
+        p = 1;
         // 拉取商家列表
         getSeller();
         // 获取地理位置名称
@@ -343,7 +348,7 @@
         var url = "{:U('getShopList')}";
         $.ajax({
             type : "GET",
-            url  : url + '?cat=' + cat + '&longitude=' + Local.longitude + '&latitude=' + Local.latitude + '&t=' + Math.random(),
+            url  : url + '?cat=' + cat + '&p=' + p + '&longitude=' + Local.longitude + '&latitude=' + Local.latitude + '&t=' + Math.random(),
             error: function(request) {
                 alert("服务器繁忙!");
                 return;
@@ -353,6 +358,7 @@
                 if (data) {
                     $('#get_more_load').before(data);
                     $('#getmore').show();
+                    p++;
                 } else {
                     $('#getmore').hide();
                 }
