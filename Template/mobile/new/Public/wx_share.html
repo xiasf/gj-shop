@@ -33,6 +33,29 @@
 
     // config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在 页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready 函数中。
     wx.ready(function(){
+
+    
+    wx.getLocation({
+                type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                success: function (res) {
+                    Local.latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                    Local.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                    Local.speed = res.speed; // 速度，以米/每秒计
+                    Local.accuracy = res.accuracy; // 位置精度
+                    console.log(Local);alert(Local);
+                },
+                fail: function (errMsg) {
+                    console.log(errMsg);
+                    alert(errMsg);
+                },
+                complete: function () {
+                    alert('end');
+                },
+                cancel: function () {
+                    alert('cancel');
+                }
+            });
+
         // 获取"分享到朋友圈"按钮点击状态及自定义分享内容接口
         wx.onMenuShareTimeline({
             title: "{$gjshop_config['shop_info_store_title']}", // 分享标题
