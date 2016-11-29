@@ -232,7 +232,7 @@
     $(function(){
 
         // 定位
-        if(typeof wx != "undefined") {
+        if(typeof wx != "undefined") {alert(1);
             // 微信定位接口
             wx.getLocation({
                 type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
@@ -241,7 +241,7 @@
                     Local.longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
                     Local.speed = res.speed; // 速度，以米/每秒计
                     Local.accuracy = res.accuracy; // 位置精度
-                    console.log(Local);
+                    console.log(Local);alert(Local);
                 }
             });
 
