@@ -102,7 +102,7 @@ class UnionController extends MobileBaseController
 
         $result = M()->query("select count(1) from `__PREFIX__seller` where latitude != 0 and latitude > '{$squares['right-bottom']['lat']}' and latitude < '{$squares['left-top']['lat']}' and longitude > '{$squares['left-top']['lng']}' and longitude < '{$squares['right-bottom']['lng']}' and type = 1");
         $count  = $result[0]['count'];
-        $page   = new AjaxPage($count, 10);
+        $page   = new AjaxPage($count, 500);
 
         $limit = " limit " . $page->firstRow . ',' . $page->listRows;
 
@@ -115,6 +115,9 @@ class UnionController extends MobileBaseController
                 $value['distance'] = $this->getDistance($latitude, $longitude, $value['latitude'], $value['longitude']);
             }
         }
+
+        // 排序
+        $shopList = list_sort_by($shopList, 'distance', 'asc');
 
         // $shopList = M('seller')->where(['type' => 1])->select();
 
