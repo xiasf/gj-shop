@@ -16,7 +16,7 @@
     <script type="text/javascript" src="__STATIC__/js/TouchSlide.1.1.js"></script>
     <script type="text/javascript" src="__STATIC__/js/jquery.json.js"></script>
     <script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
-    <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
     <script src="__PUBLIC__/js/global.js"></script>
     <script src="__PUBLIC__/js/mobile_common.js"></script>
 </head>
@@ -309,9 +309,14 @@
         layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…'});
         $('#positioning').html('<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…');
 
+        Local.longitude = '114.921551';
+        Local.latitude = '30.480784';
+        callback();
+        return;
         getLocationApi(function (position) {
             Local.longitude = position.coords.longitude;
             Local.latitude = position.coords.latitude;
+            callback();
         });
     }
 
@@ -362,6 +367,11 @@
                     p++;
                 } else {
                     $('#getmore').hide();
+                    layer.open({
+                        content: '没有更多了哦！'
+                        ,skin: 'msg'
+                        ,time: 2
+                    });
                 }
             }
         });

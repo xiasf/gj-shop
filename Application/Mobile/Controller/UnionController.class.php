@@ -14,6 +14,7 @@ namespace Mobile\Controller;
 
 use Home\Logic\UsersLogic;
 use Think\Page;
+use Think\AjaxPage;
 
 class UnionController extends MobileBaseController
 {
@@ -49,9 +50,73 @@ class UnionController extends MobileBaseController
         $this->display();
     }
 
+    /**
+     *计算某个经纬度的周围某段距离的正方形的四个点
+     *
+     *@param lng float 经度
+     *@param lat float 纬度
+     *@param distance float 该点所在圆的半径，该圆与此正方形内切，默认值为0.5千米
+     *@return array 正方形的四个点的经纬度坐标
+     */
+    private function returnSquarePoint($lng, $lat, $distance = 2)
+    {
+        $dlng = 2 * asin(sin($distance / (2 * 6371)) / cos(deg2rad($lat)));
+        $dlng = rad2deg($dlng);
+
+        $dlat = $distance / 6371;
+        $dlat = rad2deg($dlat);
+
+        return array(
+            'left-top'     => array('lat' => $lat + $dlat, 'lng' => $lng - $dlng),
+            'right-top'    => array('lat' => $lat + $dlat, 'lng' => $lng + $dlng),
+            'left-bottom'  => array('lat' => $lat - $dlat, 'lng' => $lng - $dlng),
+            'right-bottom' => array('lat' => $lat - $dlat, 'lng' => $lng + $dlng),
+        );
+    }
+
+    //计算两个坐标的直线距离
+    private function getDistance($lat1, $lng1, $lat2, $lng2)
+    {
+        $earthRadius = 6378138; //近似地球半径米
+        // 转换为弧度
+        $lat1 = ($lat1 * pi()) / 180;
+        $lng1 = ($lng1 * pi()) / 180;
+        $lat2 = ($lat2 * pi()) / 180;
+        $lng2 = ($lng2 * pi()) / 180;
+        // 使用半正矢公式  用尺规来计算
+        $calcLongitude      = $lng2 - $lng1;
+        $calcLatitude       = $lat2 - $lat1;
+        $stepOne            = pow(sin($calcLatitude / 2), 2) + cos($lat1) * cos($lat2) * pow(sin($calcLongitude / 2), 2);
+        $stepTwo            = 2 * asin(min(1, sqrt($stepOne)));
+        $calculatedDistance = $earthRadius * $stepTwo;
+        return round($calculatedDistance);
+    }
+
     public function getShopList()
     {
-        $shopList = M('seller')->where(['type' => 1])->select();
+        $longitude = I('longitude');
+        $latitude  = I('latitude');
+        $p         = I('p', 1);
+
+        $squares = $this->returnSquarePoint($longitude, $latitude);
+
+        $result = M()->query("select count(1) from `__PREFIX__seller` where latitude != 0 and latitude > '{$squares['right-bottom']['lat']}' and latitude < '{$squares['left-top']['lat']}' and longitude > '{$squares['left-top']['lng']}' and longitude < '{$squares['right-bottom']['lng']}' and type = 1");
+        $count  = $result[0]['count'];
+        $page   = new AjaxPage($count, 10);
+
+        $limit = " limit " . $page->firstRow . ',' . $page->listRows;
+
+        $sql = "select * from `__PREFIX__seller` where latitude != 0 and latitude > '{$squares['right-bottom']['lat']}' and latitude < '{$squares['left-top']['lat']}' and longitude > '{$squares['left-top']['lng']}' and longitude < '{$squares['right-bottom']['lng']}' and type = 1 order by sort asc $limit";
+
+        $shopList = M()->query($sql);
+
+        if ($shopList) {
+            foreach ($shopList as &$value) {
+                $value['distance'] = $this->getDistance($latitude, $longitude, $value['latitude'], $value['longitude']);
+            }
+        }
+
+        // $shopList = M('seller')->where(['type' => 1])->select();
 
         $this->assign('list', $shopList);
         $this->display('shop_list');
@@ -71,7 +136,6 @@ class UnionController extends MobileBaseController
         $this->display('shop');
     }
 
-
     public function cp_order()
     {
         if (!IS_POST) {
@@ -86,7 +150,7 @@ class UnionController extends MobileBaseController
         $total    = $total_amount    = I("total_amount/d", 0); // 支付
         $exchange = I("exchange/d", 0); // 使用兑币
 
-        $discount = I("discount/d", 0);
+        $discount  = I("discount/d", 0);
         $exchange_ = I("exchange_/d", 0);
 
         $order_amount_ = I("order_amount/f", 0);
@@ -122,7 +186,6 @@ class UnionController extends MobileBaseController
             $total_amount_ = 0;
         }
 
-
         // 商家可以限制最多使用
         // 不做折上折
         if ($info['exchange'] != 0 && $info['exchange'] != 100) {
@@ -130,8 +193,8 @@ class UnionController extends MobileBaseController
             // 本次最多使用兑币数
             $exchange_max = $exchange_amount_max / tpCache('shopping.exchange_rate');
         } else {
-            $exchange_amount_max = 0;// 不限制
-            $exchange_max = $total / tpCache('shopping.exchange_rate');
+            $exchange_amount_max = 0; // 不限制
+            $exchange_max        = $total / tpCache('shopping.exchange_rate');
         }
 
         $exchange_max = (int) $exchange_max;
@@ -148,16 +211,14 @@ class UnionController extends MobileBaseController
         }
         unset($exchange_amount_max);
 
-
         // 兑币抵扣的金额怎么能出现小数，那就成BUG了，所以要直接取整，不要小数位（这对用户来说不会损失什么，相当于如果1兑币等于1元的话，那么当兑币抵扣1.1元时，会出现使用1.1个兑币的情况，所以要处理一下，以保证兑币是整数，这样会出现这样的情况，当系统计算得到兑币需要抵扣0.9元时，即使用户输入1个兑币来抵扣，那么也不会出现扣用户0.9个兑币的情况的，不会抵扣兑币，相当于强制让用户输入了0，不使用兑币）
         // 另外产生应付不一样的原因很多，跟价格的计算方式有关，有可能应付一样，但实际上很多东西其实都改变了，所以还是要像上面一样，尽量拍短一些关键的数据是否一致
         // 就算不提示对系统来说也没有影响，提示的原因是因为到时候用户怪罪说怎么提交时的价格，数据等和我提交前算的，看的不一样了，就这个原因而已。
         $pay_exchange_num = $pay_exchange * tpCache('shopping.exchange_rate');
         if (!is_int($pay_exchange_num)) {
             $pay_exchange_num = (int) $pay_exchange_num;
-            $pay_exchange = $pay_exchange_num / tpCache('shopping.exchange_rate');
+            $pay_exchange     = $pay_exchange_num / tpCache('shopping.exchange_rate');
         }
-
 
         $order_amount = $total_amount - $pay_exchange;
 
@@ -212,7 +273,7 @@ class UnionController extends MobileBaseController
         $result['exchange']      = $pay_exchange_num; // 兑币支付
         $result['order_amount']  = $order_amount; // 应付金额
         $result['total_amount_'] = $total_amount_; // 优惠了多少钱
-        $result['exchange_max'] = $exchange_max; // 本次最多能使用的兑币数量
+        $result['exchange_max']  = $exchange_max; // 本次最多能使用的兑币数量
 
         // 都没有考虑为每个商品计算商品活动的优惠
         // 也没有考虑每个店铺各自的优惠情况
@@ -222,7 +283,6 @@ class UnionController extends MobileBaseController
         exit(json_encode($return_arr));
     }
 
-
     /*
      * 订单详情页面
      */
@@ -231,7 +291,7 @@ class UnionController extends MobileBaseController
 
         $order_id = I('order_id/s');
 
-        $order    = M('UnionOrder')->where(['user_id' => $this->user_id, 'order_id' => $order_id])->find();
+        $order = M('UnionOrder')->where(['user_id' => $this->user_id, 'order_id' => $order_id])->find();
         // 如果已经支付过的订单直接到订单详情页面
         if (!$order) {
             $this->error('订单不存在！');
@@ -240,7 +300,6 @@ class UnionController extends MobileBaseController
         $this->assign('order', $order);
         $this->display();
     }
-
 
     /*
      * 订单列表
