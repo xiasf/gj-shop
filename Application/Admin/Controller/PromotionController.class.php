@@ -287,7 +287,7 @@ class PromotionController extends BaseController
         $this->assign('categoryList', $categoryList);
 
         $goods_id = I('goods_id');
-        $where    = ' is_on_sale = 1 and prom_type=0 and store_count>0 '; // 广索条件
+        $where    = ' is_on_sale = 1 and prom_type=0 and store_count>0 '; // 搜索条件
         if (!empty($goods_id)) {
             $where .= " and goods_id not in ($goods_id) ";
         }
@@ -295,7 +295,7 @@ class PromotionController extends BaseController
         if (I('cat_id')) {
             $this->assign('cat_id', I('cat_id'));
             $grandson_ids = getCatGrandson(I('cat_id'));
-            $where        = " $where  and cat_id in(" . implode(',', $grandson_ids) . ") "; // 初始化 广索条件
+            $where        = " $where  and cat_id in(" . implode(',', $grandson_ids) . ") "; // 初始化 搜索条件
         }
         if (I('brand_id')) {
             $this->assign('brand_id', I('brand_id'));

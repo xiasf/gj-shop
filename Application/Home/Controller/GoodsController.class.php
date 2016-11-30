@@ -203,7 +203,7 @@ class GoodsController extends BaseController {
     }
 
     /**
-     * 商品 广索列表页
+     * 商品 搜索列表页
      */
     public function search()
     {
@@ -217,8 +217,8 @@ class GoodsController extends BaseController {
         $start_price = trim(I('start_price','0')); // 输入框价钱
         $end_price = trim(I('end_price','0')); // 输入框价钱
         if($start_price && $end_price) $price = $start_price.'-'.$end_price; // 如果输入框有价钱 则使用输入框的价钱
-        $q = urldecode(trim(I('q',''))); // 关键字 广索
-        empty($q) && $this->error('请输入 广索词');
+        $q = urldecode(trim(I('q',''))); // 关键字 搜索
+        empty($q) && $this->error('请输入 搜索词');
 
 
         $id && ($filter_param['id'] = $id); //加入帅选条件中                       

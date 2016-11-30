@@ -132,7 +132,7 @@ class CouponController extends BaseController
 
     public function ajax_get_user()
     {
-        // 广索条件
+        // 搜索条件
         $condition                         = array();
         I('mobile') ? $condition['mobile'] = I('mobile') : false;
         I('email') ? $condition['email']   = I('email') : false;

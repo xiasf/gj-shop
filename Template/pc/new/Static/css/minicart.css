@@ -86,7 +86,7 @@
 
 
 
-/* 广索和馆页浮动小购物车*/
+/* 搜索和馆页浮动小购物车*/
 #global-nav #hd-my-cart.fixed {
    margin-top: 0;
 }
@@ -105,7 +105,7 @@
 }
 #hd-my-cart.fixed>.quantity{color:#fff;font-weight:700;text-align:center;width:20px;left:28px;top:1px;position:absolute;cursor:pointer}
 #global-nav #hd-my-cart.fixed #content_test {margin-top:39px;}
-/* 广索和馆页浮动小购物车*/
+/* 搜索和馆页浮动小购物车*/
 
 /*mini购物车外壳*/
 #content_test{

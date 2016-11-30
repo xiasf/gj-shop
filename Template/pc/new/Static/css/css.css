@@ -386,7 +386,7 @@ ul.products .price1 strong{ font-weight:normal; font-size:15px;}
 .menber_main{ border:none;}
 .templet_box h3{ border-bottom:none; background:none; font-size:15px; font-weight:bold;}
 .menber_main_text{ padding:0px 20px 20px 20px;}
-/* 广索*/
+/* 搜索*/
 .searchbox .searchfrom{ width:270px; height:37px; border:1px solid #ddd; box-shadow:2px 0px 4px #e2e2e2 inset;}
 .searchbox .searchfrom .input_txt{ width:230px; border:0; height:37px; line-height:37px; float:left; text-indent:10px; background:none;}
 .searchbox .searchfrom .input_btn{ width:37px; height:37px; border:0; float:right; cursor:pointer;  background:url(../images/input_btnicon.png) no-repeat; }

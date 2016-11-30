@@ -28,7 +28,7 @@ class UserController extends BaseController {
      * 会员列表
      */
     public function ajaxindex(){
-        //  广索条件
+        //  搜索条件
         $condition = array();
         I('mobile') ? $condition['mobile'] = I('mobile') : false;
         I('email') ? $condition['email'] = I('email') : false;
@@ -37,7 +37,7 @@ class UserController extends BaseController {
         $model = M('users');
         $count = $model->where($condition)->count();
         $Page  = new AjaxPage($count,10);
-        //   广索条件下 分页赋值
+        //   搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
             $Page->parameter[$key]   =   urlencode($val);
         }
@@ -264,7 +264,7 @@ class UserController extends BaseController {
     }
 
     /**
-     *  广索用户名
+     *  搜索用户名
      */
     public function search_user()
     {

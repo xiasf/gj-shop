@@ -141,7 +141,7 @@ function checkEmail2(email){
 			type : "GET",
 			url:"/index.php?m=Home&c=Api&a=issetMobileOrEmail",//+tab,
 //			url:"{:U('Mobile/User/comment',array('status'=>$_GET['status']),'')}/is_ajax/1/p/"+page,//+tab,
-			data :{mobile:email},// 你的formid  广索表单 序列化提交
+			data :{mobile:email},// 你的formid  搜索表单 序列化提交
 			success: function(data)
 			{
 				if(data == '0')
@@ -176,7 +176,7 @@ function checkMobilePhone(mobile){
 			type : "GET",			
 			url:"/index.php?m=Home&c=Api&a=issetMobile",//+tab,
 //			url:"{:U('Mobile/User/comment',array('status'=>$_GET['status']),'')}/is_ajax/1/p/"+page,//+tab,
-			data :{mobile:mobile},// 你的formid  广索表单 序列化提交
+			data :{mobile:mobile},// 你的formid  搜索表单 序列化提交
 			success: function(data)
 			{
 				if(data == '0')

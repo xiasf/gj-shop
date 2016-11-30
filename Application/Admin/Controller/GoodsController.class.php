@@ -180,12 +180,12 @@ class GoodsController extends BaseController
     public function ajaxGoodsList()
     {
 
-        $where                             = ' 1 = 1 '; //  广索条件
+        $where                             = ' 1 = 1 '; //  搜索条件
         I('intro') && $where               = "$where and " . I('intro') . " = 1";
         I('brand_id') && $where            = "$where and brand_id = " . I('brand_id');
         (I('is_on_sale') !== '') && $where = "$where and is_on_sale = " . I('is_on_sale');
         $cat_id                            = I('cat_id');
-        // 关键词 广索
+        // 关键词 搜索
         $key_word = I('key_word') ? trim(I('key_word')) : '';
         if ($key_word) {
             $where = "$where and (goods_name like '%$key_word%' or goods_sn like '%$key_word%')";
@@ -193,13 +193,13 @@ class GoodsController extends BaseController
 
         if ($cat_id > 0) {
             $grandson_ids = getCatGrandson($cat_id);
-            $where .= " and cat_id in(" . implode(',', $grandson_ids) . ") "; // 初始化 广索条件
+            $where .= " and cat_id in(" . implode(',', $grandson_ids) . ") "; // 初始化 搜索条件
         }
 
         $model = M('Goods');
         $count = $model->where($where)->count();
         $Page  = new AjaxPage($count, 10);
-        /**   广索条件下 分页赋值
+        /**   搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
         $Page->parameter[$key]   =   urlencode($val);
         }
@@ -360,9 +360,9 @@ class GoodsController extends BaseController
     public function ajaxGoodsAttributeList()
     {
         //ob_start('ob_gzhandler'); // 页面压缩输出
-        $where                 = ' 1 = 1 '; //  广索条件
+        $where                 = ' 1 = 1 '; //  搜索条件
         I('type_id') && $where = "$where and type_id = " . I('type_id');
-        // 关键词 广索
+        // 关键词 搜索
         $model              = M('GoodsAttribute');
         $count              = $model->where($where)->count();
         $Page               = new AjaxPage($count, 13);
@@ -635,9 +635,9 @@ class GoodsController extends BaseController
     public function ajaxSpecList()
     {
         //ob_start('ob_gzhandler'); // 页面压缩输出
-        $where                 = ' 1 = 1 '; //  广索条件
+        $where                 = ' 1 = 1 '; //  搜索条件
         I('type_id') && $where = "$where and type_id = " . I('type_id');
-        // 关键词 广索
+        // 关键词 搜索
         $model      = D('spec');
         $count      = $model->where($where)->count();
         $Page       = new AjaxPage($count, 13);

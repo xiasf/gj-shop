@@ -212,7 +212,7 @@ class UserController extends MobileBaseController
     public function order_list()
     {
         $where = ' user_id=' . $this->user_id;
-        //条件 广索
+        //条件 搜索
         if (in_array(strtoupper(I('type')), array('WAITCCOMMENT', 'COMMENTED'))) {
             $where .= " AND order_status in(1,4) "; //代评价 和 已评价
         } elseif (I('type')) {

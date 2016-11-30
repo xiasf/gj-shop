@@ -134,12 +134,12 @@ ul.catagories li:hover .catagory-detail {
       <img src="{$gjshop_config['shop_info_store_logo']}"/>
     </h1>
     </a>
-<!-- 广索框-->
+<!-- 搜索框-->
     <div id="hd-search">
       <div class="search-form">
 		<form name="sourch_form" id="sourch_form" method="post" action="{:U("/Home/Goods/search")}">
-		  <input type="text" data-role="input-search" autocomplete="off" class="search-keyword"  name="q" id="q" value="{$Think.post.search_key}" placeholder=" 广索关键字"/>
-          <button class="btn-search" type="submit"onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();"> 广索</button>
+		  <input type="text" data-role="input-search" autocomplete="off" class="search-keyword"  name="q" id="q" value="{$Think.post.search_key}" placeholder=" 搜索关键字"/>
+          <button class="btn-search" type="submit"onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();"> 搜索</button>
         </form>
       </div>
       <div class="hd-hot-keywords">
@@ -150,7 +150,7 @@ ul.catagories li:hover .catagory-detail {
         </ul>
       </div>
     </div>
-<!-- 广索框  end -->    
+<!-- 搜索框  end -->    
     <!--鼠标移动上去 显示购物车-->
     <div id="hd-my-cart">
       <span class="icon-cart-gwc">

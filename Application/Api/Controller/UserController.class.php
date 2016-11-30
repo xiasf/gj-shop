@@ -212,7 +212,7 @@ class UserController extends BaseController {
        // $user_id = I('user_id',0);
         $type = I('type','');
         if(!$this->user_id) exit(json_encode(array('status'=>-1,'msg'=>'缺少参数','result'=>'')));
-        //条件 广索
+        //条件 搜索
         //I('field') && $map[I('field')] = I('value');
         //I('type') && $map['type'] = I('type');
         //$map['user_id'] = $user_id;

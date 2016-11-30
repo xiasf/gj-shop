@@ -222,7 +222,7 @@ class GoodsController extends BaseController {
     }    
 
      /**
-     * 商品 广索列表页
+     * 商品 搜索列表页
      */
     public function search(){
     	
@@ -239,10 +239,10 @@ class GoodsController extends BaseController {
     	$filter_param['id'] = $id; //加入帅选条件中
     	$brand_id  && ($filter_param['brand_id'] = $brand_id); //加入帅选条件中    	    	
     	$price  && ($filter_param['price'] = $price); //加入帅选条件中
-        $q = urldecode(trim(I('q',''))); // 关键字 广索
+        $q = urldecode(trim(I('q',''))); // 关键字 搜索
         $q  && ($_GET['q'] = $filter_param['q'] = $q); //加入帅选条件中
         if(empty($q))
-            exit(json_encode(array('status'=>-1,'msg'=>'请输入 广索关键词'),true));            
+            exit(json_encode(array('status'=>-1,'msg'=>'请输入 搜索关键词'),true));            
         
     	$goodsLogic = new \Home\Logic\GoodsLogic(); // 前台商品操作逻辑类    	     
     	$filter_goods_id = M('goods')->where("is_on_sale=1 and goods_name like '%{$q}%'  ")->cache(true)->getField("goods_id",true);

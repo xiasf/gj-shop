@@ -127,7 +127,7 @@ class GoodsController extends MobileBaseController
     }
 
     /**
-     * 商品列表页 ajax 翻页请求  广索
+     * 商品列表页 ajax 翻页请求  搜索
      */
     public function ajaxGoodsList()
     {
@@ -136,7 +136,7 @@ class GoodsController extends MobileBaseController
         $cat_id = I("id", 0); // 所选择的商品分类id
         if ($cat_id > 0) {
             $grandson_ids = getCatGrandson($cat_id);
-            $where .= " WHERE cat_id in(" . implode(',', $grandson_ids) . ") "; // 初始化 广索条件
+            $where .= " WHERE cat_id in(" . implode(',', $grandson_ids) . ") "; // 初始化 搜索条件
         }
 
         $Model  = new \Think\Model();
@@ -265,7 +265,7 @@ class GoodsController extends MobileBaseController
         $this->display();
     }
     /**
-     * 商品 广索列表页
+     * 商品 搜索列表页
      */
     public function search()
     {
@@ -285,10 +285,10 @@ class GoodsController extends MobileBaseController
         $filter_param['id'] = $id; //加入帅选条件中
         $brand_id && ($filter_param['brand_id'] = $brand_id); //加入帅选条件中
         $price && ($filter_param['price'] = $price); //加入帅选条件中
-        $q = urldecode(trim(I('q', ''))); // 关键字 广索
+        $q = urldecode(trim(I('q', ''))); // 关键字 搜索
         $q && ($_GET['q'] = $filter_param['q'] = $q); //加入帅选条件中
         //if(empty($q))
-        //    $this->error ('请输入 广索关键词');
+        //    $this->error ('请输入 搜索关键词');
 
         $goodsLogic      = new \Home\Logic\GoodsLogic(); // 前台商品操作逻辑类
         $filter_goods_id = M('goods')->where("is_on_sale=1 and goods_name like '%{$q}%'  ")->cache(true)->getField("goods_id", true);
@@ -336,7 +336,7 @@ class GoodsController extends MobileBaseController
     }
 
     /**
-     * 商品 广索列表页
+     * 商品 搜索列表页
      */
     public function ajaxSearch()
     {

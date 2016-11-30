@@ -181,7 +181,7 @@ class GoodsLogic extends RelationModel
      * 6 => Array( // 内存
      * [0] => 14 // 8G
      * ) 其查询类似于  where 网络 in (4G,3G) and 内存 in(G)
-     * @param type $spec_item_id 前台列表 广索页面 提交过来的  规格id 和规格项id
+     * @param type $spec_item_id 前台列表 搜索页面 提交过来的  规格id 和规格项id
      * @param $mode 0  返回数组形式  1 直接返回result
      * @return array
      */

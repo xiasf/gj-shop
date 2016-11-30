@@ -55,7 +55,7 @@ class OrderController extends BaseController {
         	$begin = strtotime($gap[0]);
         	$end = strtotime($gap[1]);
         }
-        //  广索条件
+        //  搜索条件
         $condition = array();
         I('consignee') ? $condition['consignee'] = trim(I('consignee')) : false;
         if($begin && $end){
@@ -70,7 +70,7 @@ class OrderController extends BaseController {
         $sort_order = I('order_by','DESC').' '.I('sort');
         $count = M('order')->where($condition)->count();
         $Page  = new AjaxPage($count,20);
-        //   广索条件下 分页赋值
+        //   搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
             $Page->parameter[$key]   =  urlencode($val);
         }
@@ -96,7 +96,7 @@ class OrderController extends BaseController {
         $condition['order_status'] = array('in','1,2,4');
     	$count = M('order')->where($condition)->count();
     	$Page  = new AjaxPage($count,10);
-    	// 广索条件下 分页赋值
+    	// 搜索条件下 分页赋值
     	foreach($condition as $key=>$val) {
     		$Page->parameter[$key]   =   urlencode($val);
     	}
@@ -497,7 +497,7 @@ class OrderController extends BaseController {
      * ajax 退货订单列表
      */
     public function ajax_return_list(){
-        //  广索条件        
+        //  搜索条件        
         $order_sn =  trim(I('order_sn'));
         $order_by = I('order_by') ? I('order_by') : 'id';
         $sort_order = I('sort_order') ? I('sort_order') : 'desc';
@@ -658,7 +658,7 @@ class OrderController extends BaseController {
 
     public function export_order()
     {
-    	// 广索条件
+    	// 搜索条件
 		$where = 'where 1=1 ';
 		$consignee = I('consignee');
 		if($consignee){
@@ -811,7 +811,7 @@ class OrderController extends BaseController {
     }
     
     /**
-     * 选择 广索商品
+     * 选择 搜索商品
      */
     public function search_goods()
     {
@@ -819,12 +819,12 @@ class OrderController extends BaseController {
     	$categoryList =  M("goods_category")->select();
     	$this->assign('categoryList',$categoryList);
     	$this->assign('brandList',$brandList);   	
-    	$where = ' is_on_sale = 1 ';// 广索条件
+    	$where = ' is_on_sale = 1 ';// 搜索条件
     	I('intro')  && $where = "$where and ".I('intro')." = 1";
     	if(I('cat_id')){
     		$this->assign('cat_id',I('cat_id'));    		
             $grandson_ids = getCatGrandson(I('cat_id')); 
-            $where = " $where  and cat_id in(".  implode(',', $grandson_ids).") "; // 初始化 广索条件
+            $where = " $where  and cat_id in(".  implode(',', $grandson_ids).") "; // 初始化 搜索条件
                 
     	}
         if(I('brand_id')){
