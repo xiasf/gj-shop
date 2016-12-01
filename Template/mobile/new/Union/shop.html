@@ -331,7 +331,7 @@
                     layer.open({
                         content: data.msg
                         ,btn: 'OK'
-                        ,yes: function(index){
+                        ,end: function(index){
                             layer.close(index);
                             location.href = "/index.php?m=Mobile&c=Union&a=order&order_id="+data.result;
                         }
