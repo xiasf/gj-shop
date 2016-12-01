@@ -267,7 +267,7 @@ class UnionController extends MobileBaseController
                     M("AccountLog")->add($data4);
                 }
 
-                $return_arr = array('status' => 1, 'msg' => '支付成功', 'result' => $order_id); // 返回结果状态
+                $return_arr = array('status' => 1, 'msg' => ($pay_exchange_num ? '兑币抵扣成功' : '下单成功'), 'result' => $order_id); // 返回结果状态
             }
             exit(json_encode($return_arr));
         }
