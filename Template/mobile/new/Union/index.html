@@ -382,7 +382,7 @@
                 } else {
                     $('#getmore').hide();
                     layer.open({
-                        content: p == 1 ? '附近没有商家哦' :'没有更多了哦！'
+                        content: p == 1 ? '附近没有'+ $($('.icon-list li a i.on')[0]).next().text() +'商家哦' :'没有更多了哦！'
                         ,skin: 'msg'
                         ,time: 2
                     });
