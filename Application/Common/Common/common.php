@@ -1295,7 +1295,7 @@ function get_seller_type($type)
 
 function get_seller_category($category)
 {
-    $arr = ['餐饮', 'KTV', '酒店'];
+    $arr = ['餐饮', '电影', '酒店', '休闲娱乐', '足疗按摩', 'KTV', '丽人', '其他'];
     if (!isset($arr[$category]))
         $category = 0;
     return $arr[$category];
