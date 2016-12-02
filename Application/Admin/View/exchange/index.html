@@ -32,8 +32,9 @@
                                             <td class="text-center">面额</td>
                                             <td class="text-center">发放总量</td>
                                             <td class="text-center">已使用</td>
-                                            <td class="text-center">发放时间</td>
+                                            <td class="text-center">使用开始日期</td>
                                             <td class="text-center">使用截止日期</td>
+                                            <td class="text-center">状态</td>
                                             <td class="text-center">操作</td>
                                         </tr>
                                     </thead>
@@ -47,8 +48,14 @@
                                                 <td class="text-center">{$list.money}&nbsp;兑币/张</td>
                                                 <td class="text-center">{$list.createnum}</td>
                                                 <td class="text-center">{$list.use_num}</td>
-                                                <td class="text-center">{$list.add_time|date='Y-m-d H:i:s',###}</td>
+                                                <td class="text-center">{$list.use_start_time|date='Y-m-d H:i:s',###}</td>
                                                 <td class="text-center">{$list.use_end_time|date='Y-m-d H:i:s',###}</td>
+                                                <td class="text-center">
+                                                    <img width="20" height="20" src="__PUBLIC__/images/<if condition='$list[status] eq 1'>yes.png
+                                                    <else />cancel.png
+                                                </if>
+                                                " onclick="changeTableVal('exchange','id','{$list.id}','status',this)"/>
+                                                </td>
                                                 <td class="text-center">
                                                     <a href="{:U('Admin/exchange/exchange_list',array('id'=>
                                                         $list['id']))}" data-toggle="tooltip" title="" class="btn btn-info exchange_list" data-original-title="查看">

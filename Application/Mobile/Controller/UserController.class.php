@@ -553,6 +553,14 @@ class UserController extends MobileBaseController
                     $this->error("充值卡不存在");
                 }
 
+                if (1 != $e_info['status'] || 1 != $el_info['status']) {
+                    $this->error("充值卡禁用");
+                }
+
+                if (time() < $e_info['use_start_time'] || time() > $e_info['use_end_time']) {
+                    $this->error("充值卡不可用");
+                }
+
                 $data['exchange'] = $this->user['exchange'] + $e_info['money'];
 
                 if (!$a = $userLogic->update_info($this->user_id, $data)) {

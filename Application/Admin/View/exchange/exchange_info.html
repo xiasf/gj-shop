@@ -32,7 +32,7 @@
                                         <tr>
                                             <td class="col-sm-2">兑币卡模板名称：</td>
                                             <td class="col-sm-4">
-                                                <input type="text" value="{$exchange.name}" class="form-control" id="name" name="name" placeholder="第1批兑币卡发放" >
+                                                <input type="text" value="" class="form-control" id="name" name="name" placeholder="第1批兑币卡发放" >
                                                 <span id="err_attr_name" style="color:#F00; display:none;"></span>
                                             </td>
                                             <td class="col-sm-4">请填写兑币卡模板名称</td>
@@ -40,18 +40,35 @@
                                         <tr>
                                             <td>兑币卡面额：</td>
                                             <td >
-                                                <input type="text" value="{$exchange.money}" class="form-control" id="money" name="money"  onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"/>
+                                                <input type="text" value="" class="form-control" id="money" name="money"  onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')"/>
                                             </td>
                                             <td class="col-sm-4">每张兑币卡面值多少个兑币</td>
                                         </tr>
                                         <tr>
                                             <td>发放数量:</td>
                                             <td>
-                                                <input type="text" value="{$exchange.createnum}" class="form-control" id="createnum" name="createnum" placeholder="0" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" />
+                                                <input type="text" value="" class="form-control" id="createnum" name="createnum" placeholder="0" onpaste="this.value=this.value.replace(/[^\d]/g,'')" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" />
                                             </td>
-                                            <td class="col-sm-4">发放数量最高为800张</td>
+                                            <td class="col-sm-4">发放数量最高为2000张</td>
                                         </tr>
-
+                                        <tr>
+                                            <td>状态:</td>
+                                            <td>
+                                                启用:<input type="radio" value="1" checked="checked" name="status"> 
+                                        不启用:<input type="radio"  value="0" name="status"> 
+                                            </td>
+                                        </tr>
+<tr>
+                                            <td>使用开始日期:</td>
+                                            <td>
+                                                <div class="input-prepend input-group">
+                                                    <span class="add-on input-group-addon">
+                                                        <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+                                                    </span>
+                                                    <input type="text" value="{$exchange.use_start_time|date='Y-m-d H:i',###}" class="form-control" id="use_start_time" name="use_start_time"></div>
+                                            </td>
+                                            <td class="col-sm-4">发布后不可更改</td>
+                                        </tr>
                                         <tr>
                                             <td>使用结束日期:</td>
                                             <td>
@@ -59,9 +76,9 @@
                                                     <span class="add-on input-group-addon">
                                                         <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
                                                     </span>
-                                                    <input type="text" value="{$exchange.use_end_time|date='Y-m-d H:i:s',###}" class="form-control" id="use_end_time" name="use_end_time"></div>
+                                                    <input type="text" value="{$exchange.use_end_time|date='Y-m-d H:i',###}" class="form-control" id="use_end_time" name="use_end_time"></div>
                                             </td>
-                                            <td class="col-sm-4"></td>
+                                            <td class="col-sm-4">发布后不可更改</td>
                                         </tr>
                                     </tbody>
                                     <tfoot>
@@ -84,6 +101,7 @@
 <script>
 
 $(function(){
+    data_pick('use_start_time');
     data_pick('use_end_time');
 });
 

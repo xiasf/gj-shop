@@ -49,8 +49,8 @@ class ExchangeController extends BaseController
             if (!$data['createnum'] > 0) {
                 $this->error("发放数量不能小于0");
             }
-            if ($data['createnum'] > 800) {
-                $this->error('每次发放数量不能超过800张');
+            if ($data['createnum'] > 2000) {
+                $this->error('每次发放数量不能超过2000张');
             }
             if ($data['money'] <= 0) {
                 $this->error("每张面额不能小于0");
@@ -77,7 +77,7 @@ class ExchangeController extends BaseController
             $this->success('发送成功', U('Admin/exchange/index'));
             exit;
         }
-
+        $def['use_start_time'] = time();
         $def['use_end_time'] = strtotime("+2 month");
         $this->assign('exchange', $def);
         $this->display();
@@ -92,6 +92,14 @@ class ExchangeController extends BaseController
     {
         //获取兑币ID
         $eid = I('get.id');
+        $status = I('get.status', 2);
+        if ($status == 2) {
+            $s = '';
+        } elseif ($status == 1) {
+            $s = ' and l.status = 1';
+        } elseif ($status == 0) {
+            $s = ' and l.status = 0';
+        }
         //查询是否存在兑币
         $check_exchange = M('exchange')->field('id')->where(array('id' => $eid))->find();
         if (!$check_exchange['id'] > 0) {
@@ -101,7 +109,7 @@ class ExchangeController extends BaseController
         //查询该兑币的列表的数量
         $sql = "SELECT count(1) as c FROM __PREFIX__exchange_list  l " .
         "LEFT JOIN __PREFIX__exchange c ON c.id = l.eid " . //联合兑币表查询名称
-        "LEFT JOIN __PREFIX__users u ON u.user_id = l.uid WHERE l.eid = " . $eid; //联合用户表去查询用户名
+        "LEFT JOIN __PREFIX__users u ON u.user_id = l.uid WHERE l.eid = " . $eid . $s; //联合用户表去查询用户名
 
         $count = M()->query($sql);
         $count = $count[0]['c'];
@@ -111,11 +119,13 @@ class ExchangeController extends BaseController
         //查询该兑币的列表
         $sql = "SELECT l.*,c.name,c.money,c.add_time,c.use_end_time,u.nickname FROM __PREFIX__exchange_list  l " .
         "LEFT JOIN __PREFIX__exchange c ON c.id = l.eid " . //联合兑币表查询名称
-        "LEFT JOIN __PREFIX__users u ON u.user_id = l.uid WHERE l.eid = " . $eid . //联合用户表去查询用户名
+        "LEFT JOIN __PREFIX__users u ON u.user_id = l.uid WHERE l.eid = " . $eid . $s . //联合用户表去查询用户名
         " limit {$Page->firstRow} , {$Page->listRows}";// order by `l`.`id` desc
         $exchange_list = M()->query($sql);
         $this->assign('exchange_type', C('exchange_TYPE'));
         $this->assign('lists', $exchange_list);
+        $this->assign('eid', $eid);
+        $this->assign('status', $status);
         $this->assign('page', $show);
         $this->display();
     }

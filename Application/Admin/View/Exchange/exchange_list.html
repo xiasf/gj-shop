@@ -4,30 +4,18 @@
     <section class="content">
         <div class="container-fluid">
 
-            <!-- <div class="navbar navbar-default">
+            <div class="navbar navbar-default">
                 <form action="" id="search-form2" class="navbar-form form-inline" method="post" onsubmit="return false">
                     <div class="form-group">
-                        <label class="control-label" for="input-mobile">手机号码</label>
-                        <div class="input-group">
-                            <input type="text" name="mobile" value="" placeholder="手机号码" id="input-mobile" class="form-control"></div>
+                        状态：
+                        <select name="status" class="input-sm" style="width:100px;" onchange="window.location.href=this.value">
+                            <option value="{:U('exchange_list', ['id' => $eid, 'status' => 2])}" <if condition='$status eq 2'>selected="selected"</if>>全部</option>
+                            <option value="{:U('exchange_list', ['id' => $eid, 'status' => 0])}" <if condition='$status eq 0'>selected="selected"</if>>禁用</option>
+                            <option value="{:U('exchange_list', ['id' => $eid, 'status' => 1])}" <if condition='$status eq 1'>selected="selected"</if>>启用</option>
+                        </select>
                     </div>
-
-                    <div class="form-group">
-                        <label class="control-label" for="input-email">email</label>
-                        <div class="input-group">
-                            <input type="text" name="email" value="" placeholder="email" id="input-email" class="form-control"></div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="input-order-id">昵称关键词</label>
-                        <div class="input-group">
-                            <input type="text" name="nickname" value="{$nickname}" placeholder=" 搜索词" id="input-order-id" class="form-control"></div>
-                    </div>
-                    <button type="button" onclick="ajax_get_table('search-form2',1)" id="button-filter search-order" class="btn btn-primary"> <i class="fa fa-search"></i>
-                        查找
-                    </button>
-                    <button type="button" onclick="doconfirm()" id="button-filter" class="btn btn-info pull-right">确定发送优惠券</button>
                 </form>
-            </div> -->
+            </div>
 
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -47,6 +35,7 @@
                                     <td class="text-center">使用时间</td>
                                     <td class="text-center">兑币码</td>
                                     <td class="text-center">卡密</td>
+                                    <td class="text-center">状态</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,6 +54,16 @@
                                         </td>
                                         <td class="text-center">{$list.code}</td>
                                         <td class="text-center">{$list.password}</td>
+                                        <td class="text-center">
+                                        <if condition="$list[use_time] gt 0">
+                                                已使用
+                                                <else/>
+                                                <img width="20" height="20" src="__PUBLIC__/images/<if condition='$list[status] eq 1'>yes.png
+                                                    <else />cancel.png
+                                                </if>
+                                                " onclick="changeTableVal('exchange_list','id','{$list.id}','status',this)"/>
+                                            </if>
+                                                </td>
                                     </tr>
                                 </volist>
                             </tbody>
@@ -78,7 +77,6 @@
 
             </div>
         </div>
-    </div>
     <!-- /.row -->
 </section>
 <!-- /.content -->
