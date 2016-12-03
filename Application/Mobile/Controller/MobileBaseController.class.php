@@ -45,7 +45,7 @@ class MobileBaseController extends Controller
             $wechat_config       = $wechat_list[0];
             $this->weixin_config = $wechat_config;
             $this->assign('wechat_config', $wechat_config); // 微信配置
-            var_dump($_SESSION);session('[destroy]');
+            // var_dump($_SESSION);session('[destroy]');
             if ($wechat_config && !$_SESSION['openid']) {
                 //去授权获取openid
                 $wxuser = $this->GetOpenid();
@@ -63,7 +63,7 @@ class MobileBaseController extends Controller
 
                 $logic = new UsersLogic();
                 $data  = $logic->thirdLogin($data);
-print_r($data);
+// print_r($data);
                 if ($data['status'] == 1) {
                     session('user', $data['result']);
                     setcookie('user_id', $data['result']['user_id'], null, '/');
