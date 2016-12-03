@@ -596,6 +596,11 @@ class CartLogic extends RelationModel
                 $jssdk->push_msg($user['openid'], $wx_content);
             }
 
+                        $wx_user    = M('wx_user')->find();
+            $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+            $wx_content = "你刚刚下了一笔订单:{$order['order_sn']} 尽快支付，过期失效!";
+            $jssdk->push_msg('oJ31qs8cbMajq_l3EMoTs_Rp1K9E', $wx_content);
+
             $order_ids[] = $order_id;
         }
 
