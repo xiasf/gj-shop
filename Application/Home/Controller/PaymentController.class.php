@@ -108,10 +108,10 @@ class PaymentController extends BaseController
         // 支付成功后微信通知来了
         // $user = M('users')->where("user_id = $user_id")->find();
         // if ($user['oauth'] == 'weixin') {
-            $wx_user    = M('wx_user')->find();
-            $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
-            $wx_content = "支付成功后微信通知来了！";
-            $jssdk->push_msg('oJ31qs8cbMajq_l3EMoTs_Rp1K9E', $wx_content);
+            // $wx_user    = M('wx_user')->find();
+            // $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+            // $wx_content = "支付成功后微信通知来了！";
+            // $jssdk->push_msg('oJ31qs8cbMajq_l3EMoTs_Rp1K9E', $wx_content);
         // }
 
         $this->payment->response();

@@ -868,6 +868,15 @@ function update_pay_status($order_sn, $pay_status = 1)
             M('users')->where("user_id = {$order['user_id']}")->save(array('is_distribut' => 1));
         }
 
+        // 支付成功后微信通知来了
+        $user = M('users')->where("user_id = {$order['user_id']}")->find();
+        if ($user['oauth'] == 'weixin') {
+            $wx_user    = M('wx_user')->find();
+            $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+            $wx_content = "订单：{$order_sn}支付成功！";
+            $jssdk->push_msg($user['openid'], $wx_content);
+        }
+
     }
 }
 
