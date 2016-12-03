@@ -41,7 +41,7 @@ class MobileBaseController extends Controller
         //获取微信配置
         $wechat_list = M('wx_user')->select();
         //微信浏览器
-        if (strstr($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') && $wechat_list[0]['wait_access']) {
+        if (strstr($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') && $wechat_list[0]['wait_access']) {exit('MicroMessenger');
             $wechat_config       = $wechat_list[0];
             $this->weixin_config = $wechat_config;
             $this->assign('wechat_config', $wechat_config); // 微信配置
