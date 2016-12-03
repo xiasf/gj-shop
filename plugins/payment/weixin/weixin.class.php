@@ -107,7 +107,7 @@ class weixin extends RelationModel
         $input->SetTime_start(date("YmdHis"));
         $input->SetTime_expire(date("YmdHis", time() + 600));
         $input->SetGoods_tag("tp_wx_pay");
-        $input->SetNotify_url(SITE_URL . '/index.php/Home/Payment/notifyUrl/pay_code/weixin');
+        $input->SetNotify_url(SITE_URL . '/Home/Payment/notifyUrl/pay_code/weixin');
         $input->SetTrade_type("JSAPI");
         $input->SetOpenid($openId);
         $order2 = WxPayApi::unifiedOrder($input);
