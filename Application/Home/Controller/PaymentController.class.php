@@ -110,7 +110,7 @@ class PaymentController extends BaseController
         // if ($user['oauth'] == 'weixin') {
             $wx_user    = M('wx_user')->find();
             $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
-            $wx_content = "你刚刚下了一笔订单:{$order['order_sn']} 尽快支付，过期失效!";
+            $wx_content = "支付成功后微信通知来了！";
             $jssdk->push_msg('oJ31qs8cbMajq_l3EMoTs_Rp1K9E', $wx_content);
         // }
 
