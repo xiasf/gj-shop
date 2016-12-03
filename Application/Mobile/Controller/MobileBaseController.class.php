@@ -45,7 +45,8 @@ class MobileBaseController extends Controller
             $wechat_config       = $wechat_list[0];
             $this->weixin_config = $wechat_config;
             $this->assign('wechat_config', $wechat_config); // 微信配置
-            // var_dump($_SESSION);session('[destroy]');
+            var_dump($_SESSION);
+            // session('[destroy]');
             if ($wechat_config && (!$_SESSION['openid'] || empty($_SESSION['user']))) {
                 //去授权获取openid
                 $wxuser = $this->GetOpenid();
