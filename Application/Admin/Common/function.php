@@ -31,6 +31,7 @@ function getAdminInfo($admin_id) {
 }
 
 function tpversion() {
+    return;
     if (!empty($_SESSION['isset_push'])) {
         return false;
     }

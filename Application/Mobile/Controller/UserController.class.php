@@ -291,6 +291,8 @@ class UserController extends MobileBaseController
         $data                     = $model->get_order_goods($order_info['order_id']);
         $order_info['goods_list'] = $data['result'];
         //$order_info['total_fee'] = $order_info['goods_price'] + $order_info['shipping_price'] - $order_info['integral_money'] -$order_info['coupon_price'] - $order_info['discount'];
+        //
+        $seller = M('seller')->where(['id' => $order_info['seller_id']])->find();
 
         $region_list            = get_region_list();
         $invoice_no             = M('DeliveryDoc')->where("order_id = $id")->getField('invoice_no', true);
@@ -303,6 +305,7 @@ class UserController extends MobileBaseController
         $this->assign('region_list', $region_list);
         $this->assign('order_info', $order_info);
         $this->assign('order_action', $order_action);
+        $this->assign('seller', $seller);
         $this->display();
     }
 

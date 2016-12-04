@@ -282,10 +282,10 @@ class CartLogic extends RelationModel
     public function cart_freight2($shipping_code, $province, $city, $district, $weight)
     {
 
+        // 商品没有重量
         if ($weight == 0) {
             return 0;
         }
-        // 商品没有重量
         if ($shipping_code == '') {
             return 0;
         }

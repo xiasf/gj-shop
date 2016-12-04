@@ -146,7 +146,7 @@
         <section class="qita">
             <div class="navContent">
                 <ul>
-                    <li class="first">配送方式&nbsp;:&nbsp;{$order_info.shipping_name}</li>
+                <li class="first">配送方式&nbsp;:&nbsp;{$order_info.shipping_name}<if condition="$order_info.shipping_name eq '自提'">&nbsp;&nbsp;&nbsp;&nbsp;商家地址：{$seller.address}</if></li>
                     <li>支付方式&nbsp;:&nbsp;{$order_info.pay_name}</li>
                 </ul>
             </div>

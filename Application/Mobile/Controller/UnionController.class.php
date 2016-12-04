@@ -268,6 +268,17 @@ class UnionController extends MobileBaseController
                 }
 
                 $return_arr = array('status' => 1, 'msg' => ($pay_exchange_num ? '兑币抵扣成功' : '下单成功'), 'result' => $order_id); // 返回结果状态
+
+
+                // 如果有微信公众号 则推送一条消息到微信
+                $user = M('users')->where("user_id = $this->user_id")->find();
+                if ($user['oauth'] == 'weixin') {
+                    $wx_user    = M('wx_user')->find();
+                    $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+                    $wx_content = "感谢您光临{$info['seller_name']}，祝您生活愉快！";
+                    $jssdk->push_msg($user['openid'], $wx_content);
+                }
+
             }
             exit(json_encode($return_arr));
         }

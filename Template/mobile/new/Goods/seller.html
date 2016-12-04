@@ -1,0 +1,189 @@
+<html>
+<head>
+<meta name="Generator" content="gjshop" />
+<meta charset="utf-8">
+<meta name="format-detection" content="telephone=no">
+<meta name="viewport" content="minimal-ui=yes,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<title>商品列表-{$gjshop_config['shop_info_store_title']}</title>
+<meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+<meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=20161130040319"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/category_list.css?v=20161130040319"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/goods.css?v=20161130040319"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=20161130040319"/>
+<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+<script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+<script src="__PUBLIC__/js/global.js"></script>
+<script src="__PUBLIC__/js/mobile_common.js"></script>
+</head>
+<body>
+<section class="_pre" >
+
+
+<div class="is_scroll">
+                      <section class="rzs_info">
+                          <div class="top_info">
+                              <dl>
+                                  <dt>
+                                      <a href="{:U('seller', ['id' => $seller['id']])}">
+                                          <div style="background-image:url({$seller.head_pic})"></div>
+                                      </a>
+                                  </dt>
+                                  <dd> <strong>卖家:{$seller.seller_name}</strong>
+                                  </dd>
+                                  <dd> <strong>地址:{$seller.address}</strong>
+                                  </dd>
+                              </dl>
+                              <ul>
+                                  <li>
+                                      <span>宝贝描述</span> <strong>:5.0</strong> <em>高</em>
+                                  </li>
+                                  <li>
+                                      <span>卖家服务</span>
+                                      <strong>:5.0</strong>
+                                      <em>高</em>
+                                  </li>
+                                  <li>
+                                      <span>物流服务</span>
+                                      <strong>:5.0</strong>
+                                      <em>高</em>
+                                  </li>
+                              </ul>
+                          </div>
+                          <div class="s_dianpu">
+                              <span>
+                                  <a href="tel:{$seller.mobile}" style=" margin-left:7%;">
+                                      <em class="bg1"></em>
+                                      联系客服
+                                  </a>
+                              </span>
+                              <span>
+                                  <a href="{:U('seller', ['id' => $seller['id']])}" style=" margin-left:3%;">
+                                      <em class="bg2"></em>
+                                      进入店铺
+                                  </a>
+                              </span>
+                          </div>
+                      </section>
+                  </div>
+
+
+
+<section>
+<div class="touchweb-com_searchListBox openList" id="goods_list">
+  <empty name="goods_list">
+  <p class="goods_title">抱歉暂时没有相关结果，换个筛选条件试试吧</p>
+  <else /> 
+   <foreach name="goods_list" item="vo" key="k">
+     <li>
+        <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo[goods_id]))}" class="item">
+            <div class="pic_box">
+                <div class="active_box">
+                    <span style=" background-position:0px -36px">新品</span>
+                </div>
+                <img src="{$vo.goods_id|goods_thum_images=400,400}">
+            </div>
+            <div class="title_box">{$vo.goods_name}</div>
+            <div class="price_box">
+                <span class="new_price"><i>￥{$vo.shop_price}元</i></span>
+            </div>
+            <div class="comment_box">已售0</div>
+        </a>
+        <div class="ui-number b"> 
+            <a class="decrease" onClick="goods_cut({$vo.goods_id});">-</a>
+            <input class="num" id="number_{$vo.goods_id}" type="text" onBlur="changePrice();" value="1" onFocus="if(value=='1') {value=''}" size="4" maxlength="5">
+            <a class="increase" onClick="goods_add({$vo.goods_id});">+</a> 
+        </div>
+        <span class="bug_car" onClick="AjaxAddCart({$vo[goods_id]},1,0);"><i class="icon-shop_cart"></i></span>
+      </li>
+   </foreach>
+  </empty>
+</div>
+<notempty name="goods_list">
+   <div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">
+        <a href="javascript:void(0)" onClick="ajax_sourch_submit()">点击加载更多</a>
+  </div>  
+</notempty>
+</section> 
+</section>
+
+
+<script>
+var  page = 1;
+ /*** ajax 提交表单 查询订单列表结果*/  
+ function ajax_sourch_submit()
+ {           
+        page += 1;
+        $.ajax({
+            type : "GET",
+            url:"<?php echo urldecode(U('Mobile/Goods/seller', ['id' => $seller['id']], ''));?>/is_ajax/1/p/"+page,//+tab,
+//          data : $('#filter_form').serialize(),// 你的formid  搜索表单 序列化提交
+            success: function(data)
+            {
+                if($.trim(data) == '')
+                    $('#getmore').hide();
+                else
+                    $("#goods_list").append(data);
+            }
+        }); 
+ } 
+</script>
+
+
+
+
+<script type="text/javascript" src="__STATIC__/js/zepto.min.js"></script>
+<script type="text/javascript" src="__STATIC__/js/filter.min.js"></script>
+<script>
+$(document).ready(function(){
+        //筛选浮层显示控制
+        var filtrate = $(".filtrate"), submit = $(".submit,.back,.reset");
+        filtrate.bind("click", function () {
+            $("._next").show();
+            $("._pre").hide();
+            window.scrollTo(0, 0);
+        });
+        submit.bind("click", function () {
+            $("._next").hide();
+            $("._pre").show();
+        });
+        //初始化筛选浮层
+        bizFilter.init();
+});
+
+function goods_cut($val){  
+    var num_val=document.getElementById('number_'+$val);  
+    var new_num=num_val.value;  
+    var Num = parseInt(new_num);  
+    if(Num>1)Num=Num-1;  
+    num_val.value=Num;  
+} 
+
+function goods_add($val){ 
+    var num_val=document.getElementById('number_'+$val);  
+    var new_num=num_val.value;  
+    var Num = parseInt(new_num);  
+    Num=Num+1;  
+    num_val.value=Num;  
+}
+</script>
+
+
+<script type="Text/Javascript" language="JavaScript">
+<!--
+function selectPage(sel)
+{
+  sel.form.submit();
+}
+//-->
+</script>
+
+<footer><include file="Public/footer_nav"/></footer>
+<script>
+function goTop(){
+    $('html,body').animate({'scrollTop':0},600);
+}
+</script>
+<a href="javascript:goTop();" class="gotop" style=" z-index:9999"><img src="__STATIC__/images/topup.png"></a> 
+</body>
+</html>

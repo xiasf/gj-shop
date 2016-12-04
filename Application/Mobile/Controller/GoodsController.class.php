@@ -153,6 +153,11 @@ class GoodsController extends MobileBaseController
         exit($html);
     }
 
+    public function tp404($value='')
+    {
+        $this->error($value);
+    }
+
     /**
      * 商品详情页
      */
@@ -189,6 +194,8 @@ class GoodsController extends MobileBaseController
             $this->assign('flash_sale', $flash_sale);
         }
 
+        $seller      = M('seller')->where("id = {$goods['seller_id']}")->find();
+
         $this->assign('commentStatistics', $commentStatistics); //评论概览
         $this->assign('goods_attribute', $goods_attribute); //属性值
         $this->assign('goods_attr_list', $goods_attr_list); //属性列表
@@ -196,7 +203,48 @@ class GoodsController extends MobileBaseController
         $this->assign('goods_images_list', $goods_images_list); //商品缩略图
         $goods['discount'] = round($goods['shop_price'] / $goods['market_price'], 2) * 10;
         $this->assign('goods', $goods);
+        $this->assign('seller', $seller);
         $this->display();
+    }
+
+    public function seller()
+    {
+        $id   = I("get.id");
+        $seller      = M('seller')->where("id = $id")->find();
+        if (empty($seller)) {
+            $this->tp404('此店铺不存在或者已下架');
+        }
+
+        $sort         = I('sort', 'goods_id'); // 排序
+        $sort_asc     = I('sort_asc', 'asc'); // 排序
+
+        $filter_goods_id = M('goods')->where("is_on_sale=1 and seller_id = $id")->cache(true)->getField("goods_id", true);
+
+        $count = count($filter_goods_id);
+        $page  = new Page($count, 4);
+        if ($count > 0) {
+            $goods_list       = M('goods')->where("goods_id in (" . implode(',', $filter_goods_id) . ")")->order("$sort $sort_asc")->limit($page->firstRow . ',' . $page->listRows)->select();
+            $filter_goods_id2 = get_arr_column($goods_list, 'goods_id');
+            if ($filter_goods_id2) {
+                $goods_images = M('goods_images')->where("goods_id in (" . implode(',', $filter_goods_id2) . ")")->cache(true)->select();
+            }
+
+        }
+        $this->assign('goods_list', $goods_list);
+        $this->assign('goods_images', $goods_images); // 相册图片
+
+        $this->assign('page', $page); // 赋值分页输出
+        $this->assign('sort_asc', $sort_asc == 'asc' ? 'desc' : 'asc');
+        C('TOKEN_ON', false);
+
+        $this->assign('seller', $seller); // 赋值分页输出
+
+        if ($_GET['is_ajax']) {
+            $this->display('ajaxGoodsList');
+        } else {
+            $this->display();
+        }
+
     }
 
     /**

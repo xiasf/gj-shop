@@ -294,8 +294,8 @@
                           </div>
                       </section>
                   </div> -->
-
-                  <!--<div class="is_scroll">
+                <if condition="$seller neq null">
+                  <div class="is_scroll">
                       <input type="hidden" id="chat_supp_id" value="1" />
                       <div style=" height:8px; background:#eeeeee; margin-top:-1px;"></div>
                       <section class="rzs_info">
@@ -303,11 +303,10 @@
                               <dl>
                                   <dt>
                                       <a href="supplier.php?suppId=1">
-                                          <div style="background-image:url(./..//data/supplier/logo/logo_supplier1.jpg)"></div>
+                                          <div style="background-image:url({$seller.head_pic})"></div>
                                       </a>
                                   </dt>
-                                  <dd> <strong>卖家:
-                                          <a href="supplier.php?suppId=1" style="color:#333; font-size:18px;">天天果园旗舰店</a></strong>  <em>初级店铺</em>
+                                  <dd> <strong>卖家:{$seller.seller_name}</strong>
                                   </dd>
                               </dl>
                               <ul>
@@ -328,20 +327,22 @@
                           </div>
                           <div class="s_dianpu">
                               <span>
-                                  <a href="tel:03350785268" style=" margin-left:7%;">
+                                  <a href="tel:{$seller.mobile}" style=" margin-left:7%;">
                                       <em class="bg1"></em>
                                       联系客服
                                   </a>
                               </span>
                               <span>
-                                  <a href="supplier.php?suppId=1" style=" margin-left:3%;">
+                                  <a href="{:U('seller', ['id' => $seller['id']])}" style=" margin-left:3%;">
                                       <em class="bg2"></em>
                                       进入店铺
                                   </a>
                               </span>
                           </div>
                       </section>
-                  </div>-->
+                  </div>
+                  </if>
+
             </form>
         </div>
 

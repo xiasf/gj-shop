@@ -1180,6 +1180,7 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         $shipping_price = $cartLogic->cart_freight2($shipping_code, $province, $city, $district, $goods_weight);
         $freight_free   = tpCache('shopping.freight_free'); // 全场满多少免运费
         // 单个订单满额多少，而不是一次真正的全场
+        // 每笔订单就是每个店铺的订单，运费单独收的
         if ($freight_free > 0 && $goods_price >= $freight_free) {
             $shipping_price = 0;
         }
