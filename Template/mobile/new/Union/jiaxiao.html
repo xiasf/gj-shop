@@ -1,0 +1,329 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="gjshop v1.1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>驾校-{$gjshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=20161130040319"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css?v=20161130040319"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=20161130040319"/>
+    <link href="__PUBLIC__/bootstrap/css/font-awesome.min.css?v=20161130040319" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/TouchSlide.1.1.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/jquery.json.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js"></script>
+</head>
+<body>
+    <style>
+        
+        .scrollimg .hd {
+            position: absolute;
+            bottom: 0px;
+            text-align: center;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.38);
+        }
+        .scrollimg .hd li {
+            background-color: #000;
+            border: 1px #ddd solid;
+        }
+        .scrollimg .hd li.on {
+            background-color: red;
+            border: 1px #ddd solid;
+        }
+    </style>
+    <div id="page" class="showpage">
+        <div>
+            <div id="scrollimg" class="scrollimg">
+                <div class="bd">
+                    <ul>
+                        <adv pid ="51317" limit="5" item="v">
+                            <li>
+                                <a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if>
+                                >
+                                    <img src="{$v[ad_code]}" title="{$v[title]}"width="100%" style="{$v[style]}"/>
+                                </a>
+                            </li>
+                        </adv>
+                    </ul>
+                </div>
+                <div class="hd">
+                    <ul></ul>
+                </div>
+            </div>
+            <script type="text/javascript">
+                TouchSlide({
+                    slideCell:"#scrollimg",
+                    titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+                    mainCell:".bd ul",
+                    effect:"leftLoop",
+                    autoPage:true,//自动分页
+                    autoPlay:true //自动播放
+                });
+            </script>
+        </div>
+    </div>
+
+
+<style>
+    .denglu-top-contents-top {
+        height: 50px;
+        overflow: hidden;
+        border: 1px #EFEFEF solid;
+        padding: 0 10px;
+        margin: 10px 0;
+        line-height: 30px;
+        font-size: 1.5rem;
+    }
+    .denglu-top-contents-top .apple i {
+        margin-right: 5px;
+    }
+    .denglu-top-contents-top .apple ul li {
+        height: 30px;
+        line-height: 30px;
+        padding: 10px;
+    }
+    .denglu-top-contents-top .apple ul li p {
+        height: 30px;
+        line-height: 30px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+</style>
+
+<div class="denglu-top-contents-top">
+    <div class="apple">
+        <ul>
+            <li>
+                <p>
+                    <i class="icon iconfont icon-gonggao"></i><span>最新公告：</span>限时报名优惠了！限时报名优惠了！限时报名优惠了！
+                </p>
+            </li>
+            <li>
+                <p>
+                    <i class="icon iconfont icon-gonggao"></i><span>最新公告：</span>限时报名优惠了！限时报名优惠了！限时报名优惠了！
+                </p>
+            </li>
+            <li>
+                <p>
+                    <i class="icon iconfont icon-gonggao"></i><span>最新公告：</span>限时报名优惠了！限时报名优惠了！限时报名优惠了！
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    function autoScroll(obj){
+        $(obj).find("ul").animate({
+            marginTop : "-50px"
+        },500,function(){
+            $(this).css({marginTop : "0px"}).find("li:first").appendTo(this);
+        });
+    }
+    setInterval('autoScroll(".apple")',2500);
+</script>
+
+<style>
+
+    .icon-wrapper {
+        margin: 10px 0;
+        padding: 10px 0;
+        margin-top: 20px;
+        padding-bottom: 5px;
+        border: 1px #ECECEC solid;
+    }
+
+    .icon-list li {
+        width: 25%;
+        float: left;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .icon-list .icon {
+        display: block;
+        font-size: 2.8rem;
+        color: #fff;
+        background-color: #1E909C;
+        width: 3.8rem;
+        height: 3.8rem;
+        padding: 2px;
+        line-height: 3.8rem;
+        text-align: center;
+        margin: 0 auto;
+        border-radius: 50%;
+        transition: all 0.2s ease-out;
+    }
+
+    .icon-list .icon.on {
+        box-shadow: 0px 1px 3px #000000!important;
+        transform: rotate(360deg);
+    }
+
+    .icon-list .icon-desc {
+        display: block;
+        color: #333;
+        font-size: 1.2rem;
+    }
+    .icon-list li:nth-child(5+n) {
+        margin-top: 10px;
+    }
+</style>
+
+<div class="icon-wrapper">
+    <ul class="icon-list">
+        <li>
+            <a href="tel:0713-8831666" data-cat="0">
+                <i class="icon iconfont icon-lianxi" style="background: #643796;   "></i>
+                <span class="icon-desc">联系我们</span>
+            </a>
+        </li>
+        <li>
+            <a href="javascript:jx('黄州大道北79号，黄冈市驾驶员考试中心前600米，黄冈联升中专校内');" data-cat="1">
+                <i class="icon iconfont icon-31dingwei" style="    background: #A00F0F;  "></i>
+                <span class="icon-desc">驾校地址</span>
+            </a>
+        </li>
+        <li>
+            <a href="tel:0713-8831666" data-cat="2">
+                <i class="icon iconfont icon-chuzu" style="background: #242BAF;    "></i>
+                <span class="icon-desc">预约练车</span>
+            </a>
+        </li>
+        <li>
+            <a href="http://mp.weixin.qq.com/s/_AcLqpxErF12PTn7WWAsCw" data-cat="3">
+                <i class="icon iconfont icon-quanbudingdan1" style="    background-color: #D03A3A; "></i>
+                <span class="icon-desc">驾校简介</span>
+            </a>
+        </li>
+        <div class="clear"></div>
+    </ul>
+</div>
+
+<style>
+    .c {
+        margin: 25px 0;
+    }
+    .c dt {
+        height: 30px;
+        line-height: 30px;
+        font-size: 1.8rem;
+        margin: 10px 0;
+        padding-left: 10px;
+        border-left: 5px #2895A0 solid;
+        border-bottom: 1px #DEDEDE solid;
+        padding-bottom: 5px;
+        border-top: 1px #DEDEDE solid;
+        padding-top: 5px;
+    }
+    .c dd {
+        float: left;
+        width: 25%;
+        text-align: center;
+        /*height: 50px;*/
+        line-height: 50px;
+        font-size: 1.5rem;
+    }
+    .c dd a {
+        display: block;
+        border: 1px #EFEFEF solid;
+    }
+    .c dd i {
+        display: block;
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        color: #000;
+        font-size: 3.8rem;
+    }
+</style>
+
+<div class="c">
+    <dl>
+        <dt>在线报名</dt>
+        <dd><a href="http://mnks.jxedt.com/"><i class="icon iconfont icon-zaixiankaoshi" style=""></i>模拟考试</a></dd>
+        <dd><a href="http://www.jxedt.com/wen/"><i class="icon iconfont icon-wenda" style=""></i>学车问答</a></dd>
+        <dd><a href="http://jiqiao.jxedt.com/"><i class="icon iconfont icon-tubiaozhizuomoban" style=""></i>学车指南</a></dd>
+        <dd><a href="http://mnks.jxedt.com/"><i class="icon iconfont icon-wenda1" style=""></i>我要练习</a></dd>
+        <div class="clear"></div>
+    </dl>
+</div>
+
+
+<script>
+    function jx(v) {
+        layer.open({
+            title: [
+              '驾校地址',
+              'background-color: rgba(30, 144, 156, 0.95); color:#fff;'
+            ],
+            content: v,
+            btn: ['知道了', '去导航'],
+            yes: function(index){
+                layer.close(index);
+            },
+            no: function(index){
+                window.location.href = 'http://apis.map.qq.com/uri/v1/marker?marker=coord:30.4853600266453,114.90609712100952;title:广佳驾校;addr:黄州大道北79号，黄冈市驾驶员考试中心前600米，黄冈联升中专校内&referer=myapp';
+            },
+        });
+    }
+</script>
+
+<style>
+    .ce {
+        font-size: 1.3rem;
+        padding: 10px;
+        line-height: 29px;
+        border-top: 1px whitesmoke solid;
+        background-color: #F0FEFF;
+    }
+    .ce h2 {
+        height: 30px;
+        font-size: 2.5rem;
+        margin: 16px 0;
+        text-align: center;
+        margin-top: 6px;
+    }
+    .ce img {
+        max-width: 100%;
+    }
+    .ce p {
+        margin: 10px 0;
+    }
+</style>
+
+<div class="ce">
+
+    <h2>黄冈广佳驾校，不一样的驾校！</h2>
+
+    <img src="__STATIC__/images/gjjx.jpg">
+
+    <p>黄冈广佳驾校，是由黄冈联升中等专业学校投资兴建，经交通、公安等主管部门批准成立的一所二级专项类驾校，学校占地面积78亩，校内绿树成荫、环境优美，服务周到，交通便利，是学习驾驶技术的绝佳选择！</p>
+    <p>广佳驾校，地理位置优越，座落在黄州禹王古城遗址，与黄州区禹王高新技术产业园毗邻。学校南面与平安驾考中心相距600米，西面到城铁黄冈西站仅仅1000米，直通黄冈长江大桥，从学校到武汉，最短仅需24分钟，交通四通八达，数路公交车途经学校，每相隔15分钟左右即有1台公交车经过，出行极其便利。</p>
+    <p>坚持“从严治校”之信念，树立“风清气正”之校风。广佳驾校坚决禁止“吃、拿、卡、要”等不正之风；最大限度方便学员，最大努力服务学员；根据学员实际需求，学校开设有周末班、夜训班、假日班，设置“一人班、四人班、预约计时班”，还专门为只有琐碎 时间的繁忙一族打造“扫忙班”……每班各有特色，总有一款——适合您！  随到随学、约时练车，不用拥挤、不用排队，学员随到随学，学完即考、高效培训。</p>
+    <p>黄冈广佳驾校，完全不一样的驾校！</p>
+ <p>报名地址：黄州大道北79号，黄冈市驾驶员考试中心前600米，黄冈联升中专校内<br />
+报名热线：0713-8831666<br />
+免费电话：400-0713-488<br />
+企业 Q Q：77-0713-888<br />
+企业微信：hg770713888<br />
+    驾校网址：http://www.guangjiavip.com</p>
+
+</div>
+
+
+
+<!-- 这个先加载，渲染比较好，不然要慢慢最后才显示，体验会不好的 -->
+<include file="Public/footer_nav"/>
+
+
+</body>
+</html>
