@@ -110,7 +110,7 @@ class weixin extends RelationModel
         $input->SetNotify_url(SITE_URL . '/Home/Payment/notifyUrl/pay_code/weixin');
         $input->SetTrade_type("JSAPI");
         $input->SetOpenid($openId);
-        $order2 = WxPayApi::unifiedOrder($input);
+        $order2 = WxPayApi::unifiedOrder($input);var_dump($order2);
         //echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
         //printf_info($order);exit;
         $jsApiParameters = $tools->GetJsApiParameters($order2);
