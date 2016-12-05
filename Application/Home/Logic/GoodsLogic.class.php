@@ -700,6 +700,7 @@ class GoodsLogic extends RelationModel
             }
         }
         //匹配到就返回物流信息和运费
+        // 这样有问题，一个商品可能同时满足某一物流的多个配置，且多个配置的物流费用不一致，这就导致用户有可能得到不是最低价格的哪一个配置
         $goods_shipping = M('')
             ->table(C('DB_PREFIX') . 'area_region ar')
             ->join('INNER JOIN __SHIPPING_AREA__ sa  ON sa.shipping_area_id = ar.shipping_area_id')

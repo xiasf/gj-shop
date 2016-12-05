@@ -36,6 +36,7 @@ class IndexController extends MobileBaseController
         $this->display();
     }
 
+
     /**
      * 分类列表显示
      */
