@@ -275,7 +275,7 @@ class UnionController extends MobileBaseController
                 if ($user['oauth'] == 'weixin') {
                     $wx_user    = M('wx_user')->find();
                     $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
-                    $wx_content = "感谢您光临{$info['seller_name']}，祝您生活愉快！";
+                    $wx_content = "感谢您光临[{$info['seller_name']}]，祝您生活愉快！";
                     $jssdk->push_msg($user['openid'], $wx_content);
                 }
 
