@@ -41,6 +41,8 @@
         background-color: red;
         font-size: 2.8rem;
         position: relative;
+        transition: all 0.2s ease-in-out;
+        -webkit-transform: scale(.2);
     }
     .a a {
         position: absolute;
@@ -77,6 +79,10 @@
         margin-top: 12px;
         border-left: 2px #3EDC9B solid;
         padding-left: 10px;
+    }
+    .bb .num {
+        color: #F31B4E;
+        margin-left: 2px;
     }
     .Funds {
         margin: 0;
@@ -116,6 +122,14 @@
     <a href="javascript:r();">如何推广？</a>
 </div>
 
+<script>
+    setTimeout(function() {
+        $('.a .p').css('-webkit-transform', 'scale(1.83)');
+    }, 0);
+    setTimeout(function() {
+        $('.a .p').css('-webkit-transform', 'scale(1)');
+    }, 500);
+</script>
 
 <style>
     .tg {
@@ -203,7 +217,7 @@
 
 
 <div class="bb">
-    <p>我的推广</p>
+    <p>我的推广<span class="num">(115人)</span></p>
     <div class="Funds">
         <ul>
             <li class="Funds_li">
