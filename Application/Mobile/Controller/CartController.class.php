@@ -226,6 +226,14 @@ class CartController extends MobileBaseController
         $car = $this->cartLogic->cartList($this->user, $this->session_id, 1, 1);
 
         foreach ($car['cartList'] as &$shop) {
+
+            // 不计算购物车中未选中的商品
+            foreach ($shop['item'] as $key => $value) {
+                if ($value['selected'] == 0) {
+                    unset($shop['item'][$key]);
+                }
+            }
+
             // 计算出每个店铺占总体的比例（这样取两位小数会导致少算，不过并不会有问题，只是有可能[产生两位以上小数时]让用户少抵扣钱了，并不会让用户有任何损失）
             $shop['proportion'] = substr(($shop['total_fee'] / $car['total_price']['total_fee']), 0, 4);
         }
