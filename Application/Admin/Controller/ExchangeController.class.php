@@ -58,14 +58,15 @@ class ExchangeController extends BaseController
             $data['add_time'] = time();
             $new_id           = $row           = M('exchange')->add($data);
             if (!$row) {
-                $this->error('发送失败');
+                $this->error('发放失败');
             }
 
             $add['eid']  = $new_id;
             for ($i = 0; $i < $data['createnum']; $i++) {
                 do {
                     $code        = strtolower(get_rand_str(8, 0, 1)); // 获取随机8位字符串
-                    $password    = strtolower(get_rand_str(4, 0, 1)); // 获取随机4位字符串
+                    // $code = zerofill(mt_rand(0, 99999999), 8);
+                    $password    = mt_rand(1000, 9999); // 获取随机4位数字
                     $check_exist = M('exchange_list')->where(array('code' => $code))->find();
                 } while ($check_exist);
                 $add['code']     = $code;

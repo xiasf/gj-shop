@@ -478,6 +478,16 @@ function get_rand_str($randLength = 6, $addtime = 1, $includenumber = 0)
     return $tokenvalue;
 }
 
+// 零填充
+function zerofill($value, $length)
+{
+    $len     = strlen($value);
+    $_len = $length - $len;
+    $value = str_repeat('0', $_len) . $value;
+    return $value;
+}
+
+
 /**
  * CURL请求
  * @param $url 请求url地址
