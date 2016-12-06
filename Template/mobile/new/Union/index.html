@@ -63,7 +63,7 @@
         padding-bottom: 5px;
     }
 
-    .icon-list li {
+    .icon-list dd {
         width: 25%;
         float: left;
         display: inline-block;
@@ -95,64 +95,209 @@
         color: #333;
         font-size: 1.2rem;
     }
-    .icon-list li:nth-child(5+n) {
+    .icon-list dd:nth-child(5+n) {
         margin-top: 10px;
     }
-</style>
 
+
+    #ico-s .hd {
+        position: inherit;
+        height: 11px;
+        line-height: 0px;
+    }
+
+    #ico-s .hd li {
+        background-color: #8C8C8C;
+    }
+
+    #ico-s .hd li.on {
+        background-color: rgb(0, 211, 190);
+    }
+
+</style>
 <div class="icon-wrapper">
-    <ul class="icon-list">
-        <li>
-            <a href="javascript:void(0);" data-cat="0">
-                <i class="icon iconfont icon-meishi" style="background: #fd9d21;    box-shadow: 0px 1px 3px #fd9d21;"></i>
-                <span class="icon-desc">美食</span>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);" data-cat="1">
-                <i class="icon iconfont icon-dianying" style="    background: #ff6767;    box-shadow: 0px 1px 3px #ff6767;"></i>
-                <span class="icon-desc">电影</span>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);" data-cat="2">
-                <i class="icon iconfont icon-jiudianicon" style="background: #8a90fa;    box-shadow: 0px 1px 3px #8a90fa;"></i>
-                <span class="icon-desc">酒店</span>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);" data-cat="3">
-                <i class="icon iconfont icon-xiuxian-copy" style="    background-color: #BF5CFD;    box-shadow: 0px 1px 3px #BF5CFD;"></i>
-                <span class="icon-desc">休闲娱乐</span>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);" data-cat="4">
-                <i class="icon iconfont icon-zuliao" style="background-color: #FD58B4;    box-shadow: 0px 1px 3px #FD58B4;"></i>
-                <span class="icon-desc">足疗按摩</span>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);" data-cat="5">
-                <i class="icon iconfont icon-ktv" style="    background-color: #7D68F5;    box-shadow: 0px 1px 3px #7D68F5;"></i>
-                <span class="icon-desc">KTV</span>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);" data-cat="6">
-                <i class="icon iconfont icon-liren" style="    background: #ff80c2;    box-shadow: 0px 1px 3px #ff80c2;"></i>
-                <span class="icon-desc">丽人</span>
-            </a>
-        </li>
-        <li>
-            <a href="javascript:void(0);" data-cat="7">
-                <i class="icon iconfont icon-gengduo" style="background: #00d3be;    box-shadow: 0px 1px 3px #00d3be;"></i>
-                <span class="icon-desc">其他</span>
-            </a>
-        </li>
-        <div class="clear"></div>
-    </ul>
+    <div id="ico-s" class="scrollimg">
+        <div class="bd">
+            <ul>
+                <li>
+                    <dl class="icon-list">
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="0">
+                                <i class="icon iconfont icon-meishi" style="background: #fd9d21;    box-shadow: 0px 1px 3px #fd9d21;"></i>
+                                <span class="icon-desc">餐饮</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="1">
+                                <i class="icon iconfont icon-dianying" style="    background: #ff6767;    box-shadow: 0px 1px 3px #ff6767;"></i>
+                                <span class="icon-desc">电影</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="2">
+                                <i class="icon iconfont icon-jiudianicon" style="background: #8a90fa;    box-shadow: 0px 1px 3px #8a90fa;"></i>
+                                <span class="icon-desc">酒店</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="3">
+                                <i class="icon iconfont icon-ktv" style="    background-color: #BF5CFD;    box-shadow: 0px 1px 3px #BF5CFD;"></i>
+                                <span class="icon-desc">休闲娱乐</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="4">
+                                <i class="icon iconfont icon-zuliao" style="background-color: #FD58B4;    box-shadow: 0px 1px 3px #FD58B4;"></i>
+                                <span class="icon-desc">养生保健</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="5">
+                                <i class="icon iconfont icon-jiushui" style="    background-color: #7D68F5;    box-shadow: 0px 1px 3px #7D68F5;"></i>
+                                <span class="icon-desc">酒水</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="6">
+                                <i class="icon iconfont icon-meirong" style="    background: #ff80c2;    box-shadow: 0px 1px 3px #ff80c2;"></i>
+                                <span class="icon-desc">美容美发</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="7">
+                                <i class="icon iconfont icon-jinrong" style="background: #00d3be;    box-shadow: 0px 1px 3px #00d3be;"></i>
+                                <span class="icon-desc">金融</span>
+                            </a>
+                        </dd>
+                        <div class="clear"></div>
+                    </dl>
+                </li>
+                <li style="display: none;">
+                    <dl class="icon-list">
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="0">
+                                <i class="icon iconfont icon-lvyou" style="background: #21CAFD;    box-shadow: 0px 1px 3px #21CAFD;"></i>
+                                <span class="icon-desc">旅游</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="1">
+                                <i class="icon iconfont icon-binguan" style="    background: #53CBC5;    box-shadow: 0px 1px 3px #53CBC5;"></i>
+                                <span class="icon-desc">宾馆</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="2">
+                                <i class="icon iconfont icon-huanfu" style="background: #FA9F8A;    box-shadow: 0px 1px 3px #FA9F8A;"></i>
+                                <span class="icon-desc">服装</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="3">
+                                <i class="icon iconfont icon-xiebaopeishi" style="    background-color: #5CF6FD;    box-shadow: 0px 1px 3px #5CF6FD;"></i>
+                                <span class="icon-desc">鞋包</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="4">
+                                <i class="icon iconfont icon-go" style="background-color: #FF3D3D;    box-shadow: 0px 1px 3px #FF3D3D;"></i>
+                                <span class="icon-desc">汽车</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="5">
+                                <i class="icon iconfont icon-fangchan" style="    background-color: #F568E4;    box-shadow: 0px 1px 3px #F568E4;"></i>
+                                <span class="icon-desc">房产</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="6">
+                                <i class="icon iconfont icon-baoxian" style="    background: #29C343;    box-shadow: 0px 1px 3px #29C343;"></i>
+                                <span class="icon-desc">保险</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="7">
+                                <i class="icon iconfont icon-zaixianzixun" style="background: #D1D421;    box-shadow: 0px 1px 3px #D1D421;"></i>
+                                <span class="icon-desc">咨询</span>
+                            </a>
+                        </dd>
+                        <div class="clear"></div>
+                    </dl>
+                </li>
+                <li style="display: none;">
+                    <dl class="icon-list">
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="0">
+                                <i class="icon iconfont icon-jiancai" style="background: #437780;    box-shadow: 0px 1px 3px #437780;"></i>
+                                <span class="icon-desc">建材</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="1">
+                                <i class="icon iconfont icon-zhuangxiu" style="    background: #67FFFF;    box-shadow: 0px 1px 3px #67FFFF;"></i>
+                                <span class="icon-desc">装修</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="2">
+                                <i class="icon iconfont icon-73316" style="background: #8AC1FA;    box-shadow: 0px 1px 3px #8AC1FA;"></i>
+                                <span class="icon-desc">医疗</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="3">
+                                <i class="icon iconfont icon-jiazhengfuwu" style="    background-color: #FD5CB5;    box-shadow: 0px 1px 3px #FD5CB5;"></i>
+                                <span class="icon-desc">家政</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="4">
+                                <i class="icon iconfont icon-tubiao" style="background-color: #6CCC44;    box-shadow: 0px 1px 3px #6CCC44;"></i>
+                                <span class="icon-desc">文化</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="5">
+                                <i class="icon iconfont icon-baoji" style="    background-color: #F5A968;    box-shadow: 0px 1px 3px #F5A968;"></i>
+                                <span class="icon-desc">教育</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="6">
+                                <i class="icon iconfont icon-yundong" style="    background: #80FFCA;    box-shadow: 0px 1px 3px #80FFCA;"></i>
+                                <span class="icon-desc">运动</span>
+                            </a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:void(0);" data-cat="7">
+                                <i class="icon iconfont icon-gengduo" style="background: #E6E6E6;    box-shadow: 0px 1px 3px #E6E6E6;"></i>
+                                <span class="icon-desc">其他</span>
+                            </a>
+                        </dd>
+                        <div class="clear"></div>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <div class="hd">
+            <ul></ul>
+        </div>
+    </div>
 </div>
+
+<script type="text/javascript">
+    TouchSlide({
+        slideCell:"#ico-s",
+        titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+        mainCell:".bd ul",
+        effect:"leftLoop",
+        autoPage:true,//自动分页
+        autoPlay:false //自动播放
+    });
+    // 解决闪动问题，其实这一句不要也可以，默认会自动显示出来的
+    $('#ico-s li').show();
+</script>
 
 
 <style>
@@ -260,8 +405,8 @@
             getLocation(callback);
         }
 
-        $('.icon-list li a').click(function() {
-            $('.icon-list li a').find('i').removeClass('on');
+        $('.icon-list dd a').click(function() {
+            $('.icon-list dd a').find('i').removeClass('on');
             $(this).find('i').addClass('on');
 
             $('.seller-item').empty();
@@ -382,7 +527,7 @@
                 } else {
                     $('#getmore').hide();
                     layer.open({
-                        content: p == 1 ? '附近没有'+ $($('.icon-list li a i.on')[0]).next().text() +'商家哦' :'没有更多了哦！'
+                        content: p == 1 ? '附近没有'+ $($('.icon-list dd a i.on')[0]).next().text() +'商家哦' :'没有更多了哦！'
                         ,skin: 'msg'
                         ,time: 2
                     });
