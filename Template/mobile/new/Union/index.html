@@ -435,7 +435,7 @@
 
     // 微信定位
     function getWxLocation(callback) {
-        layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…'});
+        layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…', skin:'msg', time:2});
         $('#positioning').html('<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…');
 
         wx.getLocation({
@@ -462,7 +462,7 @@
 
     // 普通定位
     function getLocation(callback) {
-        layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…'});
+        layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…', skin:'msg', time:2});
         $('#positioning').html('<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在定位…');
 
         Local.longitude = '114.921551';
@@ -478,7 +478,7 @@
 
     // 根据坐标获取地理位置名称
     function getLocalName(coordtype, callback2) {
-        layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在获取位置…'});
+        layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在获取位置…', skin:'msg', time:2});
         $('#positioning').html('<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在获取位置…');
 
         var lat_lng = Local.latitude + ',' + Local.longitude;
