@@ -486,7 +486,7 @@
         $.getJSON('http://api.map.baidu.com/geocoder/v2/?callback=?', {'ak':'9Go7FByT2xPEH5VcPKMiZWoY', 'location':lat_lng, 'coordtype':coordtype, 'output':'json', 'pois':0}, function(result) {
                 if (result.status == 0) {
                     callback2(result);
-                    // layer.closeAll();
+                    layer.closeAll();
                     // 这是测试阶段好用，实际情况不需要这些多余的东西
                     // layer.open({
                     //     content: '猜你在：<font color=red>'+result.result.formatted_address+'</font>',
