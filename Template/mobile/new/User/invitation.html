@@ -123,7 +123,24 @@
         font-family: '微软雅黑';
         padding-bottom: 50px;
     }
-    .tg i {
+    .tg .close {
+        width: 45px;
+        height: 46px;
+        line-height: 20px;
+        color: #ddd;
+        position: absolute;
+        right: 0;
+        top: 10px;
+        text-align: center;
+    }
+    .tg .close i {
+        font-size: 2.5rem;
+        padding: 10px;
+        background-color: #E83E75;
+        color: #fff;
+        border-radius: 0 0 0 12px;
+    }
+    .tg span i {
         background: #DADADA;
         box-shadow: 0px 1px 3px #E6E6E6;
         margin: 0 10px;
@@ -165,6 +182,7 @@
 
 <textarea id="pageii" style="display:none;">
     <div class="tg">
+        <div class="close" onclick="layer.closeAll();"><i class="icon iconfont icon-guanbi"></i></div>
         <h2 style="margin-bottom: 20px;">如何推广赚钱</h2>
         <p> <strong>方法一：</strong>
             <br />
@@ -231,11 +249,6 @@
 
 
 <script>
-document.addEventListener("visibilitychange", function() {
-if ( document.hidden ) {
-alert(1);
-}
-}, false);
     function r() {
         var pageii = layer.open({
             type: 1
