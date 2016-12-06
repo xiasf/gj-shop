@@ -98,6 +98,7 @@ class UsersLogic extends RelationModel
         if (!$user) {
             //账户不存在 注册一个
             $map['password'] = '';
+            $map['subscribe']   = $subscribe;
             $map['openid']   = $openid;
             $map['nickname'] = $data['nickname'];
             $map['reg_time'] = time();
@@ -109,6 +110,13 @@ class UsersLogic extends RelationModel
             if ($_GET['first_leader']) {
                 $map['first_leader'] = $_GET['first_leader'];
             }
+
+
+            if ($_GET['leaderuid']) {
+                $leaderuid = (int) $_GET['leaderuid'];
+            }
+
+
             // 微信授权登录返回时 get 带着参数的
 
             // 如果找到他老爸还要找他爷爷他祖父等
@@ -129,6 +137,44 @@ class UsersLogic extends RelationModel
 
             $row  = M('users')->add($map);
             $user = get_user_info($openid, 3, $oauth);
+
+
+            if ($leaderuid && ($leaderUser = get_user_info($leaderuid))) {
+
+                // 此人关注了广佳驾校，那么要给leaderuid发放奖励
+                if ($data['subscribe']) {
+                    $invitation['status'] = 1;
+
+                    $invitation_reward = tpCache('shopping.invitation_reward');
+
+                    M('users')->where("user_id = '{$leaderUser['user_id']}'")->save(['exchange' => $leaderUser['exchange'] + $invitation_reward]);
+
+                    $data4['user_id']     = $leaderUser['user_id'];
+                    $data4['user_money']  = 0;
+                    $data4['pay_points']  = 0;
+                    $data4['exchange']    = +$invitation_reward;
+                    $data4['change_time'] = time();
+                    $data4['desc']        = '推广奖励-来自' . $user['nickname'];
+                    // $data4['order_sn']    = $order['order_sn'];
+                    // $data4['order_id']    = $order_id;
+                    M("AccountLog")->add($data4);
+
+                    if ($leaderUser['oauth'] == 'weixin') {
+                        $wx_user    = M('wx_user')->find();
+                        $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+                        $wx_content = "恭喜完成推广任务奖励兑币{$invitation_reward}，推广奖励-来自{$user['nickname']}";
+                        $jssdk->push_msg($leaderUser['openid'], $wx_content);
+                    }
+
+                }
+
+                $invitation['leader_uid'] = $leaderuid;
+                $invitation['uid'] = $user['user_id'];
+
+                M('invitation')->add($invitation);
+            }
+
+
             // 会员注册送优惠券
             $coupon = M('coupon')->where("send_end_time > " . time() . " and ((createnum - send_num) > 0 or createnum = 0) and type = 2")->select();
             foreach ($coupon as $key => $val) {

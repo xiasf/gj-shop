@@ -38,13 +38,27 @@ class MobileBaseController extends Controller
             cookie('is_mobile', '0', 3600);
         }
 
+        // 已登录的情况
+        if (session('?user')) {
+            $user = session('user');
+            $user = M('users')->where("user_id = {$user['user_id']}")->find();
+            session('user', $user); //覆盖session 中的 user
+            session('subscribe', $user['subscribe']);
+            $this->user    = $user;
+            $this->user_id = $user['user_id'];
+            $this->assign('user', $user); //存储用户信息
+        }
+
         //获取微信配置
         $wechat_list = M('wx_user')->select();
+
+        // 为了调试方便，拿到外面来
+        $wechat_config       = $wechat_list[0];
+        $this->weixin_config = $wechat_config;
+        $this->assign('wechat_config', $wechat_config); // 微信配置
+
         //微信浏览器
         if (strstr($_SERVER['HTTP_USER_AGENT'], 'MicroMessenger') && $wechat_list[0]['wait_access']) {
-            $wechat_config       = $wechat_list[0];
-            $this->weixin_config = $wechat_config;
-            $this->assign('wechat_config', $wechat_config); // 微信配置
             // var_dump($_SESSION);
             // session('[destroy]');
             if ($wechat_config && (!$_SESSION['openid'] || empty($_SESSION['user']))) {
@@ -55,6 +69,7 @@ class MobileBaseController extends Controller
                 session('subscribe', $wxuser['subscribe']); // 当前这个用户是否关注了微信公众号
                 //微信自动登录
                 $data = array(
+                    'subscribe'   => $wxuser['subscribe'],
                     'openid'   => $wxuser['openid'], //用户号
                     'oauth'    => 'weixin',
                     'nickname' => trim($wxuser['nickname']) ? trim($wxuser['nickname']) : '微信用户',

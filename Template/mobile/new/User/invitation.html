@@ -1,0 +1,244 @@
+<include file="Public/header"/>
+<body>
+<header>
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"><i class="icon iconfont icon-qiehuanqizuo"></i></a></div>
+            <div class="h-mid">推广赚钱</div>
+            <div class="h-right">
+                <aside class="top_bar">
+                    <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a
+                            href="javascript:;"></a></div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</header>
+<include file="Public/menu"/>
+
+
+<style>
+    .a {
+        height: 150px;
+        padding: 10px 0;
+        background-color: #3EDC9B;
+        color: #fff;
+        line-height: 150px;
+        font-size: 1.8rem;
+        text-align: center;
+        position: relative;
+    }
+    .a .p {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto;
+        border: 4px white solid;
+        border-radius: 50%;
+        margin-top: 22px;
+        line-height: 100px;
+        box-shadow: 0 2px 6px -2px rgba(0,0,0,.7),inset 0 1px 2px 0 rgba(255, 255, 255, 0.95);
+        background-image: linear-gradient(rgba(255, 77, 106, 0.18)0px,rgba(220, 62, 208, 0.62)100%);
+        background-color: red;
+        font-size: 2.8rem;
+        position: relative;
+    }
+    .a a {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        color: #fff;
+        background-color: rgba(234, 32, 32, 0.97);
+        height: 20px;
+        width: 81px;
+        line-height: 20px;
+        display: block;
+        border-radius: 11px;
+        padding: 2px 5px;
+        background-image: linear-gradient(rgb(162, 77, 255)0px,rgb(220, 62, 179)100%);
+    }
+    .a .p:before {
+        position: absolute;
+        left: -174px;
+        top: 0;
+        content: '您已累计收益';
+        width: 200px;
+        font-size: 1.6rem;
+    }
+    .a .p:after {
+        position: absolute;
+        right: -94px;
+        top: 0;
+        content: '兑币';
+        width: 100px;
+        font-size: 1.6rem;
+    }
+    .bb p {
+        margin-left: 20%;
+        margin-top: 12px;
+        border-left: 2px #3EDC9B solid;
+        padding-left: 10px;
+    }
+    .Funds {
+        margin: 0;
+        margin-left: 20%;
+    }
+    .Funds .u-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 6px;
+        position: absolute;
+        left: -39px;
+    }
+    .Funds ul .Funds_li {
+        padding: 15px 22px;
+    }
+    .Funds .u {
+        color: #000;
+        font-size: 1.5rem;
+    }
+    .Funds .time {
+        margin-top: 10px;
+        font-size: 1.2rem;
+    }
+    .Funds .s {
+        margin-top: 10px;
+        font-size: 1.3rem;
+    }
+    .Funds .s.on {
+        color: #22B95F;
+        font-weight: bolder;
+    }
+</style>
+
+<div class="a">
+    <p class="p">12</p>
+    <a href="javascript:r();">如何推广？</a>
+</div>
+
+
+<style>
+    .tg {
+        font-family: '微软雅黑';
+    }
+    .tg i {
+        background: #DADADA;
+        box-shadow: 0px 1px 3px #E6E6E6;
+        margin: 0 10px;
+        padding: 2px 5px;
+        border-radius: 6px;
+    }
+    .tg h2 {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .tg img {
+        display: block;
+        margin: 0 auto;
+        position: relative;
+    }
+    .tg p {
+        font-size: 1.8rem;
+        margin: 25px 0;
+        line-height: 3.2rem;
+    }
+    .tg .note {
+        font-size: 1.4rem;
+        color: red;
+    }
+    .tg .button {
+        display: block;
+        margin: 0 auto;
+        width: 100px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        color: #fff;
+        background-color: #219C69;
+        margin-top: 13px;
+    }
+</style>
+
+
+
+<textarea id="pageii" style="display:none;">
+    <div class="tg" style="padding:10px;">
+        <h2 style="margin-bottom: 20px;">如何推广赚钱</h2>
+        <p> <strong>方法一：</strong>
+            <br />
+            <span>点击右上角<i class="icon iconfont icon-gengduo"></i>微信分享本页面给好友，好友点击并关注广佳驾校后，你将获得奖励。</span>
+        </p>
+        <p> <strong>方法二：</strong>
+            <br />
+            <span>
+                <img src="{:U('getUserQrcode')}" width="200">将你的专属二维码分享出去，当有好友扫描并关注广佳驾校后，你将获得奖励。</span>
+        </p>
+        <p class="note">说明：本活动永久有效，推广次数没有限制，同一用户不重复计入奖励。</p>
+        <a href="javascript:;"  class="button" onclick="layer.closeAll();">我知道了</a>
+    </div>
+</textarea>
+
+
+
+<div class="bb">
+    <p>我的推广</p>
+    <div class="Funds">
+        <ul>
+            <li class="Funds_li">
+                <span class="icon "></span>
+                <span class="u">
+                    <img class="u-img" src="/Template/mobile/new/Static/images/user68.jpg">
+                    被风儿吹散的沙朵
+                </span>
+                <span class="s">待对方关注</span>
+                <span class="time">2016-11-29 06:37:10</span>
+            </li>
+            <li class="Funds_li">
+                <span class="icon "></span>
+                <span class="u">
+                    <img class="u-img" src="/Template/mobile/new/Static/images/user68.jpg">
+                    被风儿吹散的沙朵
+                </span>
+                <span class="s">待对方关注</span>
+                <span class="time">2016-11-29 06:37:10</span>
+            </li>
+            <li class="Funds_li">
+                <span class="icon "></span>
+                <span class="u">
+                    <img class="u-img" src="/Template/mobile/new/Static/images/user68.jpg">
+                    被风儿吹散的沙朵
+                </span>
+                <span class="s on">奖励已发放</span>
+                <span class="time">2016-11-29 06:37:10</span>
+            </li>
+            <li class="Funds_li">
+                <span class="icon "></span>
+                <span class="u">
+                    <img class="u-img" src="/Template/mobile/new/Static/images/user68.jpg">
+                    被风儿吹散的沙朵
+                </span>
+                <span class="s">待对方关注</span>
+                <span class="time">2016-11-29 06:37:10</span>
+            </li>
+        </ul>
+    </div>
+        <div id="getmore" style="font-size: 0.24rem; text-align: center; color: rgb(136, 136, 136); padding: 0.25rem 0.24rem 0.4rem; clear: both; display: none;">
+            <a href="javascript:void(0)" onclick="ajax_sourch_submit()">点击加载更多</a>
+        </div>
+</div>
+
+
+<script>
+
+    function r() {
+        var pageii = layer.open({
+            type: 1
+            ,content: $('#pageii').val()
+            ,anim: 'up'
+            ,style: 'position:fixed; left:0; top:0; width:100%; height:100%; border: none;'
+        });
+    }
+
+</script>
+</body>
+</html>

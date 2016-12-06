@@ -28,14 +28,7 @@ class UserController extends MobileBaseController
     public function _initialize()
     {
         parent::_initialize();
-        if (session('?user')) {
-            $user = session('user');
-            $user = M('users')->where("user_id = {$user['user_id']}")->find();
-            session('user', $user); //覆盖session 中的 user
-            $this->user    = $user;
-            $this->user_id = $user['user_id'];
-            $this->assign('user', $user); //存储用户信息
-        }
+
         $nologin = array(
             'login', 'pop_login', 'do_login', 'logout', 'verify', 'set_pwd', 'finished',
             'verifyHandle', 'reg', 'send_sms_reg_code', 'find_pwd', 'check_validate_code',
@@ -254,9 +247,9 @@ class UserController extends MobileBaseController
      */
     public function count_order()
     {
-        $where = ' user_id=' . $this->user_id;
-        $arr = ['WAITPAY', 'WAITSEND', 'WAITRECEIVE', 'WAITCCOMMENT'];
-        $tem = [];
+        $where      = ' user_id=' . $this->user_id;
+        $arr        = ['WAITPAY', 'WAITSEND', 'WAITRECEIVE', 'WAITCCOMMENT'];
+        $tem        = [];
         $tem['ALL'] = M('order')->where($where)->count();
         foreach ($arr as $v) {
             $tem[$v] = M('order')->where($where . C(strtoupper($v)))->count();
@@ -486,7 +479,7 @@ class UserController extends MobileBaseController
                 // 上传文件
                 $upinfo = $upload->upload();
                 if (!$upinfo) {
-                // 上传错误提示错误信息
+                    // 上传错误提示错误信息
                     $this->error($upload->getError());
                 } else {
                     foreach ($upinfo as $key => $val) {
@@ -529,7 +522,6 @@ class UserController extends MobileBaseController
         $this->display();
     }
 
-
     /**
      * 兑币充值
      * @return [type] [description]
@@ -539,10 +531,10 @@ class UserController extends MobileBaseController
         if (IS_POST) {
 
             $userLogic = new UsersLogic();
-            $code = strtolower(I('post.code/s'));
-            $password = strtolower(I('post.password/s'));
+            $code      = strtolower(I('post.code/s'));
+            $password  = strtolower(I('post.password/s'));
 
-            $e = M('exchange');
+            $e  = M('exchange');
             $el = M('exchange_list');
 
             $el_info = $el->where(['uid' => 0, 'code' => $code])->find();
@@ -595,7 +587,6 @@ class UserController extends MobileBaseController
             $this->display();
         }
     }
-
 
     /*
      * 个人信息
@@ -1206,4 +1197,25 @@ class UserController extends MobileBaseController
         }
         $this->display();
     }
+
+    public function invitation()
+    {
+        $this->display();
+    }
+
+    public function getUserQrcode($value = '')
+    {
+        vendor("phpqrcode.phpqrcode");
+        $data = SITE_URL . U('Mobile/User/invitation', ['leaderuid' => $this->user_id]);
+        // 纠错级别：L、M、Q、H
+        $level = 'L';
+        // 点的大小：1到10,用于手机端4就可以了
+        $size = 4;
+        // 下面注释了把二维码图片保存到本地的代码,如果要保存图片,用$fileName替换第二个参数false
+        //$path = "images/";
+        // 生成的文件名
+        //$fileName = $path.$size.'.png';
+        \QRcode::png($data, false, $level, $size);
+    }
+
 }

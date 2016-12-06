@@ -29,14 +29,6 @@ class UnionController extends MobileBaseController
     public function _initialize()
     {
         parent::_initialize();
-        if (session('?user')) {
-            $user = session('user');
-            $user = M('users')->where("user_id = {$user['user_id']}")->find();
-            session('user', $user); //覆盖session 中的 user
-            $this->user    = $user;
-            $this->user_id = $user['user_id'];
-            $this->assign('user', $user); //存储用户信息
-        }
         // 不需要登录的操作
         $nologin = ['index', 'getShopList', 'shop', 'cp_order', 'jiaxiao'];
         if (!$this->user_id && !in_array(ACTION_NAME, $nologin)) {
