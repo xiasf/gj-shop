@@ -119,7 +119,9 @@
 
 <style>
     .tg {
+        padding: 10px;
         font-family: '微软雅黑';
+        padding-bottom: 50px;
     }
     .tg i {
         background: #DADADA;
@@ -162,7 +164,7 @@
 
 
 <textarea id="pageii" style="display:none;">
-    <div class="tg" style="padding:10px;">
+    <div class="tg">
         <h2 style="margin-bottom: 20px;">如何推广赚钱</h2>
         <p> <strong>方法一：</strong>
             <br />
@@ -229,13 +231,17 @@
 
 
 <script>
-
+document.addEventListener("visibilitychange", function() {
+if ( document.hidden ) {
+alert(1);
+}
+}, false);
     function r() {
         var pageii = layer.open({
             type: 1
             ,content: $('#pageii').val()
             ,anim: 'up'
-            ,style: 'position:fixed; left:0; top:0; width:100%; height:100%; border: none;'
+            ,style: 'position:fixed; left:0; top:0; width:100%; height:100%; border: none;overflow: auto;'
         });
     }
 
