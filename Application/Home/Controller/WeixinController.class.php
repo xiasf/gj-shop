@@ -58,7 +58,7 @@ class WeixinController extends BaseController
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         //extract post data
         if (empty($postStr)) {
-            echo '';
+            echo 'ss12';
             exit;
         }
 
@@ -158,7 +158,7 @@ class WeixinController extends BaseController
 
                 // 他的上级（推荐者）
                 $invitation = M('invitation')->where(['uid' => $user['user_id'], 'status' => 0])->find();
-                // 有推荐者，并且此推荐没生效
+                // 有推荐者，并且此推荐没生效（防止刷）
                 if ($invitation['leader_uid'] && ($leaderUser = get_user_info($invitation['leader_uid']))) {
 
                     // 这个推广状态生效
