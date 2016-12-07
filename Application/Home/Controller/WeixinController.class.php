@@ -58,9 +58,9 @@ class WeixinController extends BaseController
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         //extract post data
         if (empty($postStr)) {
-            echo 'ss12';
+            echo '';
             exit;
-        }file_put_contents(APP_PATH . 'log4.txt', 'str');
+        }
 
         /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,
         the best way is to check the validity of xml by yourself */
@@ -143,7 +143,7 @@ class WeixinController extends BaseController
             $msgType = 'text';
             $openid = $postObj->FromUserName;
 
-
+file_put_contents(APP_PATH . 'log5.txt', 'str');
             if ($postObj->Event == 'subscribe') {
                 $subscribe = 1;
                 $contentStr = '感谢关注广佳商城!';
