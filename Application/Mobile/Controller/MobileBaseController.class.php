@@ -85,7 +85,6 @@ class MobileBaseController extends Controller
                     setcookie('is_distribut', $data['result']['is_distribut'], null, '/');
                     setcookie('uname', $data['result']['nickname'], null, '/');
 
-
                     // 登录处理全部移到总控制器来了，所以这里必须这么做，不然会多跳转一次，以为没登录
                     if (session('?user')) {
                         $user = session('user');
@@ -96,7 +95,6 @@ class MobileBaseController extends Controller
                         $this->user_id = $user['user_id'];
                         $this->assign('user', $user); //存储用户信息
                     }
-
 
                     // 登录后将购物车的商品的 user_id 改为当前登录的id
                     M('cart')->where("session_id = '{$this->session_id}'")->save(array('user_id' => $data['result']['user_id']));

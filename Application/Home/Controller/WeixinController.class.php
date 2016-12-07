@@ -75,11 +75,11 @@ class WeixinController extends BaseController
         /* 微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次
         关于重试的消息排重，推荐使用FromUserName + CreateTime 排重。 */
         // 消息排重
-        if (($t = S('responseMsg-' . $fromUsername)) && (($createTime - $t) < 5)) {
-            echo '';
-            exit;
-        }
-        S('responseMsg-' . $fromUsername, $createTime);
+        // if (($t = S('responseMsg-' . $fromUsername)) && (($createTime - $t) < 5)) {
+        //     echo '';
+        //     exit;
+        // }
+        // S('responseMsg-' . $fromUsername, $createTime);
 
 
         //点击菜单拉取消息时的事件推送
@@ -141,7 +141,7 @@ class WeixinController extends BaseController
         if ($postObj->MsgType == 'event' && ($postObj->Event == 'subscribe' || $postObj->Event == 'unsubscribe')) {
             $subscribe = 0;
             $msgType = 'text';
-            $OpenID = $postObj->FromUserName;
+            $openid = $postObj->FromUserName;
 
 
             if ($postObj->Event == 'subscribe') {
