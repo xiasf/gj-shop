@@ -136,6 +136,7 @@
         padding: 10px;
         font-family: '微软雅黑';
         padding-bottom: 80px;
+        position: relative;
     }
     .tg #z1,.tg #z2 {
         position: absolute;
@@ -147,12 +148,13 @@
     }
     .tg #z1 {
         background-image: url('http://img.ithome.com/newsuploadfiles/2013/3/20130302_152522_516.jpg');
-        -webkit-filter: blur(2px);
+        background-repeat: repeat;
+        /*-webkit-filter: blur(2px);*/
         /* background-size: cover; */
         /* background-position: center 0; */
     }
     .tg #z2 {
-        background-color: rgba(0, 0, 0, 0.52);
+        background-color: rgba(0, 0, 0, 0.42);
     }
     .tg .close {
         width: 45px;
@@ -171,7 +173,7 @@
         display: block;
     }
     .tg span i {
-        background: rgba(232, 62, 117, 0.77);
+        background: rgba(60, 60, 60, 0.77);
         box-shadow: 0px 1px 3px #E6E6E6;
         margin: 0 10px;
         padding: 0px 10px;
