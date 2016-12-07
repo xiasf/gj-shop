@@ -151,13 +151,8 @@ class WeixinController extends BaseController
                 $contentStr = '人家哪里不好嘛，干嘛取消关注啊!';
             }
 
-            if ($openid == 'oJ31qs9Q1DgoY8KwGydLsIWBhTqc') {
-                file_put_contents(APP_PATH . 'ok.txt', 1);
-            }
 
-            file_put_contents(APP_PATH . 'diff.txt', $openid . "\n" . 'oJ31qs9Q1DgoY8KwGydLsIWBhTqc');
-
-            $user = get_user_info($openid, 3, 'weixin');file_put_contents(APP_PATH . '1.txt', print_r($user, true));
+            $user = get_user_info($openid, 3, 'weixin');file_put_contents(APP_PATH . 'val.txt', print_r($user, true));
             // 此人是商城用户
             if ($user) {
 file_put_contents(APP_PATH . '1.txt', 'str');
