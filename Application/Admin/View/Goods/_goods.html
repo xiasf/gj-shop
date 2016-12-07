@@ -573,7 +573,7 @@ $(document).ready(function(){
             $.ajax({
                     type:'GET',
                     data:{goods_id:goods_id,type_id:type_id}, 
-                    url:"/index.php/admin/Goods/ajaxGetAttrInput",
+                    url:"/admin/Goods/ajaxGetAttrInput",
                     success:function(data){                            
                             $("#goods_attr_table tr:gt(0)").remove()
                             $("#goods_attr_table").append(data);

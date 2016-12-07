@@ -63,7 +63,7 @@
         cur_page = page; //当前页面 保存为全局变量
             $.ajax({
                 type : "POST",
-                url:"/index.php/Admin/Coupon/ajax_get_user/p/"+page,//+tab,
+                url:"/Admin/Coupon/ajax_get_user/p/"+page,//+tab,
                 data : $('#'+tab).serialize(),// 你的formid
                 success: function(data){
                     $("#ajax_return").html('');

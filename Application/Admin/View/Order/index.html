@@ -116,7 +116,7 @@
         cur_page = page; //当前页面 保存为全局变量
             $.ajax({
                 type : "POST",
-                url:"/index.php/Admin/order/ajaxindex/p/"+page,//+tab,
+                url:"/Admin/order/ajaxindex/p/"+page,//+tab,
                 data : $('#'+tab).serialize(),// 你的formid
                 success: function(data){
                     $("#ajax_return").html('');
