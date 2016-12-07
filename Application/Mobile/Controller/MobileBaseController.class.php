@@ -42,7 +42,7 @@ class MobileBaseController extends Controller
         if (session('?user')) {
             $user = session('user');
             $user = M('users')->where("user_id = {$user['user_id']}")->find();
-            session('user', $user); //覆盖session 中的 user
+            session('user', $user); //覆盖session 中的 user（这很关键，不存在，错误的用户会在这里“去掉”）
             session('subscribe', $user['subscribe']);
             $this->user    = $user;
             $this->user_id = $user['user_id'];

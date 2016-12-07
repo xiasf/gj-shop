@@ -145,7 +145,7 @@ class UsersLogic extends RelationModel
                 if ($data['subscribe']) {
                     $invitation['status'] = 1;
 
-                    $invitation_reward = tpCache('shopping.invitation_reward');
+                    $invitation_reward = tpCache('basic.invitation_reward');
 
                     M('users')->where("user_id = '{$leaderUser['user_id']}'")->save(['exchange' => $leaderUser['exchange'] + $invitation_reward]);
 
