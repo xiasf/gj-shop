@@ -54,7 +54,7 @@ class WeixinController extends BaseController
 
     public function responseMsg()
     {
-        file_put_contents(APP_PATH . '../' . 'log123.txt', 'str');
+        file_put_contents(APP_PATH . 'log123.txt', 'str');
         //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         //extract post data
