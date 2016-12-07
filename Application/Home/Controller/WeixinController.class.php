@@ -39,24 +39,27 @@ class WeixinController extends BaseController
 
     public function index()
     {
-        // echo I('get.echostr');
-        // exit;
-        if ($this->wechat_config['wait_access'] == 0) {
-            exit($_GET["echostr"]);
-        } else {
-            $this->responseMsg();
+        $echoStr = $_GET["echostr"];
+        if ($this->checkSignature()) {
+            if ($this->wechat_config['wait_access'] == 0) {
+                // 未接入则更新接入状态
+                M('wx_user')->where(['id' => $this->wechat_config['id']])->save(['wait_access' => 1]);
+                echo $echoStr;
+                exit;
+            } else {
+                $this->responseMsg();
+            }
         }
-
     }
 
     public function responseMsg()
     {
-        // echo "aaaa";
         //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         //extract post data
         if (empty($postStr)) {
-            exit("");
+            echo '';
+            exit;
         }
 
         /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,
@@ -64,9 +67,20 @@ class WeixinController extends BaseController
         libxml_disable_entity_loader(true);
         $postObj      = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);
         $fromUsername = $postObj->FromUserName;
+        $createTime   = $postObj->CreateTime;
         $toUsername   = $postObj->ToUserName;
         $keyword      = trim($postObj->Content);
         $time         = time();
+
+        /* 微信服务器在五秒内收不到响应会断掉连接，并且重新发起请求，总共重试三次
+        关于重试的消息排重，推荐使用FromUserName + CreateTime 排重。 */
+        // 消息排重
+        if (($t = S('responseMsg-' . $fromUsername)) && (($createTime - $t) < 5)) {
+            echo '';
+            exit;
+        }
+        S('responseMsg-' . $fromUsername, $createTime);
+
 
         //点击菜单拉取消息时的事件推送
         /*
@@ -86,20 +100,20 @@ class WeixinController extends BaseController
         $wx_img = M('wx_img')->where("keyword like '%$keyword%'")->find();
         if ($wx_img) {
             $textTpl = "<xml>
-                                <ToUserName><![CDATA[%s]]></ToUserName>
-                                <FromUserName><![CDATA[%s]]></FromUserName>
-                                <CreateTime>%s</CreateTime>
-                                <MsgType><![CDATA[%s]]></MsgType>
-                                <ArticleCount><![CDATA[%s]]></ArticleCount>
-                                <Articles>
-                                    <item>
-                                        <Title><![CDATA[%s]]></Title>
-                                        <Description><![CDATA[%s]]></Description>
-                                        <PicUrl><![CDATA[%s]]></PicUrl>
-                                        <Url><![CDATA[%s]]></Url>
-                                    </item>
-                                </Articles>
-                                </xml>";
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <ArticleCount><![CDATA[%s]]></ArticleCount>
+                        <Articles>
+                            <item>
+                                <Title><![CDATA[%s]]></Title>
+                                <Description><![CDATA[%s]]></Description>
+                                <PicUrl><![CDATA[%s]]></PicUrl>
+                                <Url><![CDATA[%s]]></Url>
+                            </item>
+                        </Articles>
+                        </xml>";
             $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, 'news', '1', $wx_img['title'], $wx_img['desc']
                 , $wx_img['pic'], $wx_img['url']);
             exit($resultStr);
@@ -109,30 +123,119 @@ class WeixinController extends BaseController
         $wx_text = M('wx_text')->where("keyword like '%$keyword%'")->find();
         if ($wx_text) {
             $textTpl = "<xml>
-                                <ToUserName><![CDATA[%s]]></ToUserName>
-                                <FromUserName><![CDATA[%s]]></FromUserName>
-                                <CreateTime>%s</CreateTime>
-                                <MsgType><![CDATA[%s]]></MsgType>
-                                <Content><![CDATA[%s]]></Content>
-                                <FuncFlag>0</FuncFlag>
-                                </xml>";
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <Content><![CDATA[%s]]></Content>
+                        <FuncFlag>0</FuncFlag>
+                        </xml>";
             $contentStr = $wx_text['text'];
             $resultStr  = sprintf($textTpl, $fromUsername, $toUsername, $time, 'text', $contentStr);
             exit($resultStr);
         }
 
+
+
+        // 关注/取消关注事件
+        if ($postObj->MsgType == 'event' && ($postObj->Event == 'subscribe' || $postObj->Event == 'unsubscribe')) {
+            $subscribe = 0;
+            $msgType = 'text';
+            $OpenID = $postObj->FromUserName;
+
+
+            if ($postObj->Event == 'subscribe') {
+                $subscribe = 1;
+                $contentStr = '感谢关注广佳商城!';
+            } else {
+                $contentStr = '人家哪里不好嘛，干嘛取消关注啊!';
+            }
+
+
+            $user = get_user_info($openid, 3, 'weixin');
+            // 此人是商城用户
+            if ($user) {
+
+                // 他的上级（推荐者）
+                $invitation = M('invitation')->where(['uid' => $user['user_id'], 'status' => 0])->find();
+                // 有推荐者，并且此推荐没生效
+                if ($invitation['leader_uid'] && ($leaderUser = get_user_info($invitation['leader_uid']))) {
+
+                    // 这个推广状态生效
+                    M('invitation')->where(['leader_uid' => $invitation['leader_uid'], 'uid' => $user['user_id']])->save(['status' => 1]);
+
+                    // 给推荐者发放奖励
+                    M('users')->where("user_id = '{$leaderUser['user_id']}'")->save(['exchange' => $leaderUser['exchange'] + $invitation['exchange']]);
+
+                    $data4['user_id']     = $leaderUser['user_id'];
+                    $data4['user_money']  = 0;
+                    $data4['pay_points']  = 0;
+                    $data4['exchange']    = +$invitation['exchange'];
+                    $data4['change_time'] = time();
+                    $data4['desc']        = '推广奖励-来自' . $user['nickname'];
+                    // $data4['order_sn']    = $order['order_sn'];
+                    // $data4['order_id']    = $order_id;
+                    M("AccountLog")->add($data4);
+
+                    if ($leaderUser['oauth'] == 'weixin') {
+                        $wx_user    = M('wx_user')->find();
+                        $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+                        $wx_content = "恭喜完成推广任务奖励兑币{$invitation['exchange']}，推广奖励-来自{$user['nickname']}";
+                        $jssdk->push_msg($leaderUser['openid'], $wx_content);
+                    }
+                }
+
+                // 用户关注标记
+                M('users')->where("user_id = '{$user['user_id']}'")->save(['subscribe' => $subscribe]);
+            }
+
+            // 其他文本回复
+            $textTpl = "<xml>
+                        <ToUserName><![CDATA[%s]]></ToUserName>
+                        <FromUserName><![CDATA[%s]]></FromUserName>
+                        <CreateTime>%s</CreateTime>
+                        <MsgType><![CDATA[%s]]></MsgType>
+                        <Content><![CDATA[%s]]></Content>
+                        <FuncFlag>0</FuncFlag>
+                        </xml>";
+            $resultStr  = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
+            exit($resultStr);
+        }
+
+
         // 其他文本回复
         $textTpl = "<xml>
-                                <ToUserName><![CDATA[%s]]></ToUserName>
-                                <FromUserName><![CDATA[%s]]></FromUserName>
-                                <CreateTime>%s</CreateTime>
-                                <MsgType><![CDATA[%s]]></MsgType>
-                                <Content><![CDATA[%s]]></Content>
-                                <FuncFlag>0</FuncFlag>
-                                </xml>";
-        $contentStr = '欢迎来到gjshop商城!';
-        $resultStr  = sprintf($textTpl, $fromUsername, $toUsername, $time, 'text', $contentStr);
+                    <ToUserName><![CDATA[%s]]></ToUserName>
+                    <FromUserName><![CDATA[%s]]></FromUserName>
+                    <CreateTime>%s</CreateTime>
+                    <MsgType><![CDATA[%s]]></MsgType>
+                    <Content><![CDATA[%s]]></Content>
+                    <FuncFlag>0</FuncFlag>
+                    </xml>";
+        $msgType = 'text';
+        $contentStr = '欢迎来到广佳商城!';
+        $resultStr  = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
         exit($resultStr);
-
     }
+
+    private function checkSignature()
+    {
+        $signature = $_GET["signature"];
+        $timestamp = $_GET["timestamp"];
+        $nonce     = $_GET["nonce"];
+
+        $token  = $this->wechat_config['w_token'];
+        $tmpArr = array($token, $timestamp, $nonce);
+        // use SORT_STRING rule
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode($tmpArr);
+        $tmpStr = sha1($tmpStr);
+
+        if ($tmpStr == $signature) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
