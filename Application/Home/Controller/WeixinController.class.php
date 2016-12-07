@@ -135,7 +135,7 @@ class WeixinController extends BaseController
             exit($resultStr);
         }
 
-
+file_put_contents(APP_PATH . 'log115.txt', 'str');
 
         // 关注/取消关注事件
         if ($postObj->MsgType == 'event' && ($postObj->Event == 'subscribe' || $postObj->Event == 'unsubscribe')) {
