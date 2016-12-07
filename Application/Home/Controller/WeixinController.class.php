@@ -38,15 +38,15 @@ class WeixinController extends BaseController
     }
 
     public function index()
-    {
+    {file_put_contents(APP_PATH . 'log1.txt', 'str');
         $echoStr = $_GET["echostr"];
         if ($this->checkSignature()) {
             if ($this->wechat_config['wait_access'] == 0) {
                 // 未接入则更新接入状态
                 M('wx_user')->where(['id' => $this->wechat_config['id']])->save(['wait_access' => 1]);
-                echo $echoStr;
+                echo $echoStr;file_put_contents(APP_PATH . 'log2.txt', 'str');
                 exit;
-            } else {
+            } else {file_put_contents(APP_PATH . 'log3.txt', 'str');
                 $this->responseMsg();
             }
         }
@@ -54,7 +54,6 @@ class WeixinController extends BaseController
 
     public function responseMsg()
     {
-        file_put_contents(APP_PATH . 'log123.txt', 'str');
         //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         //extract post data
