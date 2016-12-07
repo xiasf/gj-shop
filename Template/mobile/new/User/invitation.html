@@ -261,7 +261,7 @@
     <empty name="list">
     <div class="font12">您还没有推广哦</div>
     <else/>
-    <p onclick="page = 0;ajax_sourch_submit();">我的推广<span class="num">({$count}人)</span></p>
+    <p onclick="page = 0;$('.Funds > ul').empty();ajax_sourch_submit();">我的推广<span class="num">({$count}人)</span></p>
     <div class="Funds">
         <ul>
             <foreach name="list" item="item" key="k">
@@ -279,8 +279,8 @@
         </ul>
     </div>
     </empty>
-    <div id="get_more_load">
-        <a href="javascript:;" style="text-align:center; display:none;">
+    <div id="get_more_load" style="display:none;">
+        <a href="javascript:;" style="text-align:center;">
             <img src="__STATIC__/images/category/loader.gif" width="12" height="12">
         </a>
     </div>
