@@ -261,7 +261,7 @@
     <empty name="list">
     <div class="font12">您还没有推广哦</div>
     <else/>
-    <p>我的推广<span class="num">({$count}人)</span></p>
+    <p onclick="page = 0;ajax_sourch_submit();">我的推广<span class="num">({$count}人)</span></p>
     <div class="Funds">
         <ul>
             <foreach name="list" item="item" key="k">
@@ -279,6 +279,11 @@
         </ul>
     </div>
     </empty>
+    <div id="get_more_load">
+        <a href="javascript:;" style="text-align:center; display:none;">
+            <img src="__STATIC__/images/category/loader.gif" width="12" height="12">
+        </a>
+    </div>
     <notempty name="list">
     <div id="getmore" style="font-size: 0.24rem; text-align: center; color: rgb(136, 136, 136); padding: 0.25rem 0.24rem 0.4rem; clear: both;">
         <a href="javascript:void(0)" onclick="ajax_sourch_submit()">点击加载更多</a>
@@ -307,12 +312,14 @@
     var page = 1;
     /*** ajax 提交表单 查询订单列表结果*/
     function ajax_sourch_submit() {
+        $('#get_more_load').show();
         page += 1;
         $.ajax({
             type : "GET",
             url:"/index.php?m=Mobile&c=User&a=invitation&is_ajax=1&p="+page,//+tab,
             success: function(data)
             {
+                $('#get_more_load').hide();
                 if($.trim(data) == '')
                     $('#getmore').hide();
                 else
