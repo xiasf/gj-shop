@@ -135,27 +135,43 @@
     .tg {
         padding: 10px;
         font-family: '微软雅黑';
-        padding-bottom: 50px;
+        padding-bottom: 80px;
+    }
+    .tg #z1,.tg #z2 {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+    .tg #z1 {
+        background-image: url('http://img.ithome.com/newsuploadfiles/2013/3/20130302_152522_516.jpg');
+        -webkit-filter: blur(2px);
+        /* background-size: cover; */
+        /* background-position: center 0; */
+    }
+    .tg #z2 {
+        background-color: rgba(0, 0, 0, 0.52);
     }
     .tg .close {
         width: 45px;
         height: 46px;
-        line-height: 20px;
+        line-height: 42px;
         color: #ddd;
         position: absolute;
         right: 0;
-        top: 10px;
+        top: 0;
         text-align: center;
+        z-index: 3;
     }
     .tg .close i {
         font-size: 2.5rem;
-        padding: 10px;
-        background-color: #E83E75;
         color: #fff;
-        border-radius: 0 0 0 12px;
+        display: block;
     }
     .tg span i {
-        background: #DADADA;
+        background: rgba(232, 62, 117, 0.77);
         box-shadow: 0px 1px 3px #E6E6E6;
         margin: 0 10px;
         padding: 0px 10px;
@@ -166,6 +182,9 @@
     .tg h2 {
         text-align: center;
         margin-top: 10px;
+        color: #fff;
+        position: relative;
+        z-index: 3;
     }
     .tg img {
         display: block;
@@ -176,21 +195,29 @@
         font-size: 1.8rem;
         margin: 25px 0;
         line-height: 3.2rem;
+        color: #fff;
+        position: relative;
+        z-index: 3;
     }
     .tg .note {
         font-size: 1.4rem;
-        color: red;
+        color: #000000;
+        background-color: rgba(222, 222, 222, 0.52);
+        padding: 0 8px;
+        border: 1px #EAEAEA solid;
     }
     .tg .button {
         display: block;
         margin: 0 auto;
-        width: 100px;
         height: 30px;
         line-height: 30px;
         text-align: center;
         color: #fff;
-        background-color: #219C69;
+        background-color: rgba(0, 0, 0, 0.66);
         margin-top: 13px;
+        position: relative;
+        z-index: 3;
+        padding: 10px;
     }
 </style>
 
@@ -198,6 +225,8 @@
 
 <textarea id="pageii" style="display:none;">
     <div class="tg">
+        <div id="z1"></div>
+        <div id="z2"></div>
         <div class="close" onclick="layer.closeAll();"><i class="icon iconfont icon-guanbi"></i></div>
         <h2 style="margin-bottom: 20px;">如何推广赚钱</h2>
         <p> <strong>方法一：</strong>
