@@ -38,15 +38,16 @@ class WeixinController extends BaseController
     }
 
     public function index()
-    {file_put_contents(APP_PATH . 'log1.txt', 'str');
+    {
+        // file_put_contents(APP_PATH . 'log1.txt', 'str');
         $echoStr = $_GET["echostr"];
         if ($this->checkSignature()) {
             if ($this->wechat_config['wait_access'] == 0) {
                 // 未接入则更新接入状态
                 M('wx_user')->where(['id' => $this->wechat_config['id']])->save(['wait_access' => 1]);
-                echo $echoStr;file_put_contents(APP_PATH . 'log2.txt', 'str');
+                echo $echoStr;
                 exit;
-            } else {file_put_contents(APP_PATH . 'log3.txt', 'str');
+            } else {
                 $this->responseMsg();
             }
         }
@@ -61,7 +62,7 @@ class WeixinController extends BaseController
             echo '';
             exit;
         }
-file_put_contents(APP_PATH . 'ok.txt', 'str');
+
         /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,
         the best way is to check the validity of xml by yourself */
         libxml_disable_entity_loader(true);
@@ -92,8 +93,8 @@ file_put_contents(APP_PATH . 'ok.txt', 'str');
             $keyword = trim($postObj->EventKey);
         }
 
-        if (empty($keyword)) {file_put_contents(APP_PATH . 'Input something.txt', 'str');
-            exit("Input something...");
+        if (empty($keyword)) {
+            // exit("Input something...");
         }
 
         // 图文回复
@@ -135,15 +136,15 @@ file_put_contents(APP_PATH . 'ok.txt', 'str');
             exit($resultStr);
         }
 
-file_put_contents(APP_PATH . 'log115.txt', 'str');
+
 
         // 关注/取消关注事件
         if ($postObj->MsgType == 'event' && ($postObj->Event == 'subscribe' || $postObj->Event == 'unsubscribe')) {
             $subscribe = 0;
             $msgType = 'text';
             $openid = $postObj->FromUserName;
+file_put_contents(APP_PATH . 'subscribe.txt', 'str');
 
-file_put_contents(APP_PATH . 'log5.txt', 'str');
             if ($postObj->Event == 'subscribe') {
                 $subscribe = 1;
                 $contentStr = '感谢关注广佳商城!';
