@@ -28,7 +28,6 @@ class MobileBaseController extends Controller
      */
     public function _initialize()
     {
-
         $this->session_id = session_id(); // 当前的 session_id
         define('SESSION_ID', $this->session_id); //将当前的session_id保存为常量，供其它方法调用
         // 判断当前用户是否手机
@@ -79,12 +78,25 @@ class MobileBaseController extends Controller
 
                 $logic = new UsersLogic();
                 $data  = $logic->thirdLogin($data);
-// print_r($data);
+
                 if ($data['status'] == 1) {
                     session('user', $data['result']);
                     setcookie('user_id', $data['result']['user_id'], null, '/');
                     setcookie('is_distribut', $data['result']['is_distribut'], null, '/');
                     setcookie('uname', $data['result']['nickname'], null, '/');
+
+
+                    // 登录处理全部移到总控制器来了，所以这里必须这么做，不然会多跳转一次，以为没登录
+                    if (session('?user')) {
+                        $user = session('user');
+                        $user = M('users')->where("user_id = {$user['user_id']}")->find();
+                        session('user', $user); //覆盖session 中的 user（这很关键，不存在，错误的用户会在这里“去掉”）
+                        session('subscribe', $user['subscribe']);
+                        $this->user    = $user;
+                        $this->user_id = $user['user_id'];
+                        $this->assign('user', $user); //存储用户信息
+                    }
+
 
                     // 登录后将购物车的商品的 user_id 改为当前登录的id
                     M('cart')->where("session_id = '{$this->session_id}'")->save(array('user_id' => $data['result']['user_id']));

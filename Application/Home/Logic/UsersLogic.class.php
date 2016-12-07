@@ -97,13 +97,13 @@ class UsersLogic extends RelationModel
         $user = get_user_info($openid, 3, $oauth);
         if (!$user) {
             //账户不存在 注册一个
-            $map['password'] = '';
-            $map['subscribe']   = $data['subscribe'];
-            $map['openid']   = $openid;
-            $map['nickname'] = $data['nickname'];
-            $map['reg_time'] = time();
-            $map['oauth']    = $oauth;
-            $map['head_pic'] = $data['head_pic'];
+            $map['password']  = '';
+            $map['subscribe'] = $data['subscribe'];
+            $map['openid']    = $openid;
+            $map['nickname']  = $data['nickname'];
+            $map['reg_time']  = time();
+            $map['oauth']     = $oauth;
+            $map['head_pic']  = $data['head_pic'];
             //$map['sex'] = $data['sex'];
             $map['token']        = md5(time() . mt_rand(1, 99999));
             $map['first_leader'] = cookie('first_leader'); // 推荐人id
@@ -111,11 +111,9 @@ class UsersLogic extends RelationModel
                 $map['first_leader'] = $_GET['first_leader'];
             }
 
-
             if ($_GET['leaderuid']) {
                 $leaderuid = (int) $_GET['leaderuid'];
             }
-
 
             // 微信授权登录返回时 get 带着参数的
 
@@ -138,11 +136,10 @@ class UsersLogic extends RelationModel
             $row  = M('users')->add($map);
             $user = get_user_info($openid, 3, $oauth);
 
-
             if ($leaderuid && ($leaderUser = get_user_info($leaderuid))) {
 
-                $invitation_reward = tpCache('basic.invitation_reward');
-                $invitation['status'] = 0;
+                $invitation_reward    = tpCache('basic.invitation_reward');
+                // $invitation['status'] = 0;
 
                 // 此人关注了广佳驾校，那么要给leaderuid发放奖励
                 if ($data['subscribe']) {
@@ -170,20 +167,18 @@ class UsersLogic extends RelationModel
                 }
 
                 $invitation['leader_uid'] = $leaderuid;
-                $invitation['uid'] = $user['user_id'];
-                $invitation['exchange'] = $invitation_reward;
-                $invitation['time'] = time();
+                $invitation['uid']        = $user['user_id'];
+                $invitation['exchange']   = $invitation_reward;
+                $invitation['time']       = time();
 
                 M('invitation')->add($invitation);
             }
-
 
             // 注册消息推送（但貌似没有关注就不能推送信息）
             $wx_user    = M('wx_user')->find();
             $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
             $wx_content = "亲爱的{$data['nickname']}，欢迎加入广佳商盟！";
             $jssdk->push_msg($openid, $wx_content);
-
 
             // 会员注册送优惠券
             $coupon = M('coupon')->where("send_end_time > " . time() . " and ((createnum - send_num) > 0 or createnum = 0) and type = 2")->select();
