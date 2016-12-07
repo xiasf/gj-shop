@@ -151,8 +151,7 @@ class WeixinController extends BaseController
                 $contentStr = '人家哪里不好嘛，干嘛取消关注啊!';
             }
 
-
-            $user = get_user_info($openid, 3, 'weixin');file_put_contents(APP_PATH . '1.txt', $openid);
+            $user = get_user_info($openid, 3, 'weixin');file_put_contents(APP_PATH . '1.txt', print_r($user, true));
             // 此人是商城用户
             if ($user) {
 file_put_contents(APP_PATH . '1.txt', 'str');
