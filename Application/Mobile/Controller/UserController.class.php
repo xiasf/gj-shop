@@ -1203,7 +1203,7 @@ class UserController extends MobileBaseController
         $count    = M('invitation')->where(['leader_uid' => $this->user_id])->count();
         $exchange = M('invitation')->where(['leader_uid' => $this->user_id])->sum('exchange');
         $Page     = new Page($count, 16);
-        $list     = M('invitation')->where(['leader_uid' => $this->user_id])->order('id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        $list     = M('invitation i')->field('i.*,u.head_pic,u.nickname')->join('LEFT JOIN __USERS__ u ON u.user_id = i.uid')->where(['i.leader_uid' => $this->user_id])->order('i.id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
         $page     = $Page->show();
 
         $this->assign('count', $count);

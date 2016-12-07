@@ -269,11 +269,11 @@
                         >
                 <span class="icon "></span>
                 <span class="u">
-                    <img class="u-img <if condition="$item['status'] eq 0">no</if>" src="/Template/mobile/new/Static/images/user68.jpg">
-                    被风儿吹散的沙朵
+                    <img class="u-img <if condition="$item['status'] eq 0">no</if>" src='{$item[head_pic]|default="__STATIC__/images/user68.jpg"}'>
+                    {$item.nickname}
                 </span>
                 <span class="s <if condition="$item['status']">on</if>"><if condition="$item['status']">已享受奖励+{$item['exchange']}兑币<else/>待对方关注</if></span>
-                <span class="time">2016-11-29 06:37:10</span>
+                <span class="time">{$item.time|date='Y-m-d H:i:s',###}</span>
             </li>
             </foreach>
         </ul>
