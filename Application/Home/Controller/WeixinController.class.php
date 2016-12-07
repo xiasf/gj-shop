@@ -57,7 +57,7 @@ class WeixinController extends BaseController
         //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         //extract post data
-        if (empty($postStr)) {file_put_contents(APP_PATH . 'si.txt', 'str');
+        if (empty($postStr)) {
             echo '';
             exit;
         }
@@ -92,7 +92,7 @@ file_put_contents(APP_PATH . 'ok.txt', 'str');
             $keyword = trim($postObj->EventKey);
         }
 
-        if (empty($keyword)) {
+        if (empty($keyword)) {file_put_contents(APP_PATH . 'Input something.txt', 'str');
             exit("Input something...");
         }
 
