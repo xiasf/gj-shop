@@ -141,11 +141,12 @@ class UsersLogic extends RelationModel
 
             if ($leaderuid && ($leaderUser = get_user_info($leaderuid))) {
 
+                $invitation_reward = tpCache('basic.invitation_reward');
+                $invitation['status'] = 0;
+
                 // 此人关注了广佳驾校，那么要给leaderuid发放奖励
                 if ($data['subscribe']) {
                     $invitation['status'] = 1;
-
-                    $invitation_reward = tpCache('basic.invitation_reward');
 
                     M('users')->where("user_id = '{$leaderUser['user_id']}'")->save(['exchange' => $leaderUser['exchange'] + $invitation_reward]);
 
