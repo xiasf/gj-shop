@@ -57,11 +57,11 @@ class WeixinController extends BaseController
         //get post data, May be due to the different environments
         $postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
         //extract post data
-        if (empty($postStr)) {
+        if (empty($postStr)) {file_put_contents(APP_PATH . 'si.txt', 'str');
             echo '';
             exit;
         }
-
+file_put_contents(APP_PATH . 'ok.txt', 'str');
         /* libxml_disable_entity_loader is to prevent XML eXternal Entity Injection,
         the best way is to check the validity of xml by yourself */
         libxml_disable_entity_loader(true);
