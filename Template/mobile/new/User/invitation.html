@@ -351,8 +351,8 @@
 <script type="text/javascript">
     var ShareTitle = '广佳驾校送你十块钱要不要？';
     var ShareDesc = '真的不骗你，骗你是小狗，手慢无哦';
-    var ShareLink = "{:U('invitation', ['leaderuid' => $user['user_id']])}";
-    var ShareImgUrl = "__STATIC__/images/endian.jpg"; // 分享图标
+    var ShareLink = "{:SITE_URL . U('invitation', ['leaderuid' => $user['user_id']])}";
+    var ShareImgUrl = "{:SITE_URL}__STATIC__/images/endian.jpg"; // 分享图标
 
     var is_distribut = getCookie('is_distribut'); // 是否分销代理
     var user_id = getCookie('user_id'); // 当前用户id
