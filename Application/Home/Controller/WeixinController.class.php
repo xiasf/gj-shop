@@ -143,7 +143,6 @@ class WeixinController extends BaseController
             $subscribe = 0;
             $msgType = 'text';
             $openid = $postObj->FromUserName;
-file_put_contents(APP_PATH . 'subscribe.txt', 'str');
 
             if ($postObj->Event == 'subscribe') {
                 $subscribe = 1;
@@ -156,12 +155,12 @@ file_put_contents(APP_PATH . 'subscribe.txt', 'str');
             $user = get_user_info($openid, 3, 'weixin');
             // 此人是商城用户
             if ($user) {
-
+file_put_contents(APP_PATH . '1.txt', 'str');
                 // 他的上级（推荐者）
                 $invitation = M('invitation')->where(['uid' => $user['user_id'], 'status' => 0])->find();
                 // 有推荐者，并且此推荐没生效（防止刷）
                 if ($invitation['leader_uid'] && ($leaderUser = get_user_info($invitation['leader_uid']))) {
-
+file_put_contents(APP_PATH . '2.txt', 'str');
                     // 这个推广状态生效
                     M('invitation')->where(['leader_uid' => $invitation['leader_uid'], 'uid' => $user['user_id']])->save(['status' => 1]);
 
@@ -178,7 +177,7 @@ file_put_contents(APP_PATH . 'subscribe.txt', 'str');
                     // $data4['order_id']    = $order_id;
                     M("AccountLog")->add($data4);
 
-                    if ($leaderUser['oauth'] == 'weixin') {
+                    if ($leaderUser['oauth'] == 'weixin') {file_put_contents(APP_PATH . '3.txt', 'str');
                         $wx_user    = M('wx_user')->find();
                         $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
                         $wx_content = "恭喜完成推广任务奖励兑币{$invitation['exchange']}，推广奖励-来自{$user['nickname']}";
