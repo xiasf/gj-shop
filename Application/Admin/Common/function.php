@@ -133,8 +133,8 @@ function getAllMenu() {
     return array(
         'system'    => array('name' => '系统设置', 'icon' => 'fa-cog', 'sub_menu' => array(
             array('name' => '网站设置', 'act' => 'index', 'control' => 'System'),
-            array('name' => '友情链接', 'act' => 'linkList', 'control' => 'Article'),
-            array('name' => '自定义导航', 'act' => 'navigationList', 'control' => 'System'),
+            // array('name' => '友情链接', 'act' => 'linkList', 'control' => 'Article'),
+            // array('name' => '自定义导航', 'act' => 'navigationList', 'control' => 'System'),
             array('name' => '区域管理', 'act' => 'region', 'control' => 'Tools'),
             array('name' => '权限资源列表', 'act' => 'right_list', 'control' => 'System'),
         )),

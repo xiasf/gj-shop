@@ -14,35 +14,34 @@
         <div class="panel-body">
           <div class="navbar navbar-default">
             <form action="" id="search-form2" class="navbar-form form-inline" method="post" onsubmit="return false">
-              <div class="form-group">
-              <!-- 店铺分类包括 商城类型 和 异业联盟类型 两种类型的店铺 -->
+<!--               <div class="form-group">
                 <select name="cat_id" id="cat_id" class="form-control">
                   <option value="">所有分类</option>
                   <foreach name="categoryList" item="v" key="k" >
                     <option value="{$v['id']}">{$v['name']}</option>
                   </foreach>
                 </select>
-              </div>
+              </div> -->
 
-              <div class="form-group">
+<!--               <div class="form-group">
                 <select name="is_on_sale" id="is_on_sale" class="form-control">
                   <option value="">全部</option>
                   <option value="1">上架</option>
                   <option value="0">下架</option>
                 </select>
-              </div>
+              </div> -->
 
-              <div class="form-group">
+<!--               <div class="form-group">
                 <label class="control-label" for="input-order-id">关键词</label>
                 <div class="input-group">
                   <input type="text" name="key_word" value="" placeholder=" 搜索词" id="input-order-id" class="form-control"></div>
-              </div>
+              </div> -->
               <!--排序规则-->
               <input type="hidden" name="orderby1" value="id" />
               <input type="hidden" name="orderby2" value="desc" />
-              <button type="submit" onclick="ajax_get_table('search-form2',1)" id="button-filter search-order" class="btn btn-primary"> <i class="fa fa-search"></i>
+              <!-- <button type="submit" onclick="ajax_get_table('search-form2',1)" id="button-filter search-order" class="btn btn-primary"> <i class="fa fa-search"></i>
                 筛选
-              </button>
+              </button> -->
               <button type="button" onclick="location.href='{:U('Admin/seller/addEditSeller')}'" class="btn btn-primary pull-right">
                 <i class="fa fa-plus"></i>
                 添加新店铺
