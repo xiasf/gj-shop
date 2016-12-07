@@ -96,6 +96,9 @@
         position: absolute;
         left: -39px;
     }
+    .Funds .u-img.no{
+        -webkit-filter: grayscale(100%);
+    }
     .Funds ul .Funds_li {
         padding: 15px 22px;
     }
@@ -118,7 +121,7 @@
 </style>
 
 <div class="a">
-    <p class="p">12</p>
+    <p class="p">{$exchange}</p>
     <a href="javascript:r();">如何推广？</a>
 </div>
 
@@ -255,54 +258,73 @@
 
 
 <div class="bb">
-    <p>我的推广<span class="num">(115人)</span></p>
+    <empty name="list">
+    <div class="font12">您还没有推广哦</div>
+    <else/>
+    <p>我的推广<span class="num">({$count}人)</span></p>
     <div class="Funds">
         <ul>
-            <li class="Funds_li">
+            <foreach name="list" item="item" key="k">
+            <li class="Funds_li" <if condition="$k+1 eq count($list)">style="border:0"</if>
+                        >
                 <span class="icon "></span>
                 <span class="u">
-                    <img class="u-img" src="/Template/mobile/new/Static/images/user68.jpg">
+                    <img class="u-img <if condition="$item['status'] eq 0">no</if>" src="/Template/mobile/new/Static/images/user68.jpg">
                     被风儿吹散的沙朵
                 </span>
-                <span class="s">待对方关注</span>
+                <span class="s <if condition="$item['status']">on</if>"><if condition="$item['status']">已享受奖励+{$item['exchange']}兑币<else/>待对方关注</if></span>
                 <span class="time">2016-11-29 06:37:10</span>
             </li>
-            <li class="Funds_li">
-                <span class="icon "></span>
-                <span class="u">
-                    <img class="u-img" src="/Template/mobile/new/Static/images/user68.jpg">
-                    被风儿吹散的沙朵
-                </span>
-                <span class="s">待对方关注</span>
-                <span class="time">2016-11-29 06:37:10</span>
-            </li>
-            <li class="Funds_li">
-                <span class="icon "></span>
-                <span class="u">
-                    <img class="u-img" src="/Template/mobile/new/Static/images/user68.jpg">
-                    被风儿吹散的沙朵
-                </span>
-                <span class="s on">奖励已发放</span>
-                <span class="time">2016-11-29 06:37:10</span>
-            </li>
-            <li class="Funds_li">
-                <span class="icon "></span>
-                <span class="u">
-                    <img class="u-img" src="/Template/mobile/new/Static/images/user68.jpg">
-                    被风儿吹散的沙朵
-                </span>
-                <span class="s">待对方关注</span>
-                <span class="time">2016-11-29 06:37:10</span>
-            </li>
+            </foreach>
         </ul>
     </div>
-        <div id="getmore" style="font-size: 0.24rem; text-align: center; color: rgb(136, 136, 136); padding: 0.25rem 0.24rem 0.4rem; clear: both; display: none;">
-            <a href="javascript:void(0)" onclick="ajax_sourch_submit()">点击加载更多</a>
-        </div>
+    </empty>
+    <notempty name="list">
+    <div id="getmore" style="font-size: 0.24rem; text-align: center; color: rgb(136, 136, 136); padding: 0.25rem 0.24rem 0.4rem; clear: both;">
+        <a href="javascript:void(0)" onclick="ajax_sourch_submit()">点击加载更多</a>
+    </div>
+    </notempty>
 </div>
 
 
+<a href="javascript:goTop();" class="gotop">
+    <img src="__STATIC__/images/topup.png">
+</a>
+
 <script>
+
+    $(function() {
+        $('.u-img.no').click(function(event) {
+            layer.open({
+                type : 0,
+                content: '只有对方关注了广佳驾校你才能获得奖励哦',
+                skin: 'msg',
+                time: 2
+            });
+        });
+    });
+
+    var page = 1;
+    /*** ajax 提交表单 查询订单列表结果*/
+    function ajax_sourch_submit() {
+        page += 1;
+        $.ajax({
+            type : "GET",
+            url:"/index.php?m=Mobile&c=User&a=invitation&is_ajax=1&p="+page,//+tab,
+            success: function(data)
+            {
+                if($.trim(data) == '')
+                    $('#getmore').hide();
+                else
+                    $(".Funds > ul").append(data);
+            }
+        });
+    }
+
+    function goTop(){
+        $('html,body').animate({'scrollTop':0},600);
+    }
+
     function r() {
         var pageii = layer.open({
             type: 1

@@ -1200,6 +1200,21 @@ class UserController extends MobileBaseController
 
     public function invitation()
     {
+        $count    = M('invitation')->where(['leader_uid' => $this->user_id])->count();
+        $exchange = M('invitation')->where(['leader_uid' => $this->user_id])->sum('exchange');
+        $Page     = new Page($count, 16);
+        $list     = M('invitation')->where(['leader_uid' => $this->user_id])->order('id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        $page     = $Page->show();
+
+        $this->assign('count', $count);
+        $this->assign('exchange', $exchange);
+        $this->assign('list', $list);
+        $this->assign('page', $page);
+
+        if ($_GET['is_ajax']) {
+            $this->display('ajax_invitation_list');
+            exit;
+        }
         $this->display();
     }
 

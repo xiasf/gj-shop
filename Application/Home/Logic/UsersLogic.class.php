@@ -170,6 +170,7 @@ class UsersLogic extends RelationModel
 
                 $invitation['leader_uid'] = $leaderuid;
                 $invitation['uid'] = $user['user_id'];
+                $invitation['exchange'] = $invitation_reward;
 
                 M('invitation')->add($invitation);
             }
