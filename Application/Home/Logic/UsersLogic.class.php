@@ -177,6 +177,13 @@ class UsersLogic extends RelationModel
             }
 
 
+            // 注册消息推送（但貌似没有关注就不能推送信息）
+            $wx_user    = M('wx_user')->find();
+            $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+            $wx_content = "亲爱的{$data['nickname']}，欢迎加入广佳商盟！";
+            $jssdk->push_msg($openid, $wx_content);
+
+
             // 会员注册送优惠券
             $coupon = M('coupon')->where("send_end_time > " . time() . " and ((createnum - send_num) > 0 or createnum = 0) and type = 2")->select();
             foreach ($coupon as $key => $val) {
