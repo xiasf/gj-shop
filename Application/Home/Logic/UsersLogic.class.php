@@ -98,7 +98,7 @@ class UsersLogic extends RelationModel
         if (!$user) {
             //账户不存在 注册一个
             $map['password'] = '';
-            $map['subscribe']   = $subscribe;
+            $map['subscribe']   = $data['subscribe'];
             $map['openid']   = $openid;
             $map['nickname'] = $data['nickname'];
             $map['reg_time'] = time();
