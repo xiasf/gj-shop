@@ -199,8 +199,8 @@ function getAllMenu() {
             array('name' => '微信菜单管理', 'act' => 'menu', 'control' => 'Wechat'),
             array('name' => '文本回复', 'act' => 'text', 'control' => 'Wechat'),
             array('name' => '图文回复', 'act' => 'img', 'control' => 'Wechat'),
-            array('name' => '组合回复', 'act' => 'nes', 'control' => 'Wechat'),
-            array('name' => '消息推送', 'act' => 'news', 'control' => 'Wechat'),
+            // array('name' => '组合回复', 'act' => 'nes', 'control' => 'Wechat'),
+            // array('name' => '消息推送', 'act' => 'news', 'control' => 'Wechat'),
         )),
         // 'theme'     => array('name' => '模板管理', 'icon' => 'fa-adjust', 'sub_menu' => array(
         //     array('name' => 'PC端模板', 'act' => 'templateList?t=pc', 'control' => 'Template'),

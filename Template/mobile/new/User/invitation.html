@@ -259,7 +259,7 @@
 
 <div class="bb">
     <empty name="list">
-    <div class="font12">您还没有推广哦</div>
+    <div class="font12" onclick="page = 0;$('.Funds > ul').empty();ajax_sourch_submit();">您还没有推广哦</div>
     <else/>
     <p onclick="page = 0;$('.Funds > ul').empty();ajax_sourch_submit();">我的推广<span class="num">({$count}人)</span></p>
     <div class="Funds">
