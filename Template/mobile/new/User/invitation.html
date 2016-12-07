@@ -272,7 +272,7 @@
                     <img class="u-img <if condition="$item['status'] eq 0">no</if>" src='{$item[head_pic]|default="__STATIC__/images/user68.jpg"}'>
                     {$item.nickname}
                 </span>
-                <span class="s <if condition="$item['status']">on</if>"><if condition="$item['status']">已享受奖励+{$item['exchange']}兑币<else/>待对方关注</if></span>
+                <span class="s <if condition="$item['status']">on</if>"><if condition="$item['status']">已获得奖励+{$item['exchange']}兑币<else/>待对方关注</if></span>
                 <span class="time">{$item.time|date='Y-m-d H:i:s',###}</span>
             </li>
             </foreach>

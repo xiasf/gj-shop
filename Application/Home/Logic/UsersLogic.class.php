@@ -164,6 +164,13 @@ class UsersLogic extends RelationModel
                         $jssdk->push_msg($leaderUser['openid'], $wx_content);
                     }
 
+                } else {
+                    if ($leaderUser['oauth'] == 'weixin') {
+                        $wx_user    = M('wx_user')->find();
+                        $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+                        $wx_content = "{$user['nickname']}已通过你的邀请加入广佳商城，但是还没有关注广佳，他必须关注后你才有奖励哦";
+                        $jssdk->push_msg($leaderUser['openid'], $wx_content);
+                    }
                 }
 
                 $invitation['leader_uid'] = $leaderuid;

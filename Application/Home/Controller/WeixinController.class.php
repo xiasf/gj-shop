@@ -151,16 +151,15 @@ class WeixinController extends BaseController
                 $contentStr = '人家哪里不好嘛，干嘛取消关注啊!';
             }
 
-
-            $user = get_user_info($openid, 3, 'weixin');file_put_contents(APP_PATH . 'val.txt', print_r($user, true));
+            $user = get_user_info($openid, 3, 'weixin');
             // 此人是商城用户
             if ($user) {
-file_put_contents(APP_PATH . '1.txt', 'str');
+
                 // 他的上级（推荐者）
                 $invitation = M('invitation')->where(['uid' => $user['user_id'], 'status' => 0])->find();
                 // 有推荐者，并且此推荐没生效（防止刷）
                 if ($invitation['leader_uid'] && ($leaderUser = get_user_info($invitation['leader_uid']))) {
-file_put_contents(APP_PATH . '2.txt', 'str');
+
                     // 这个推广状态生效
                     M('invitation')->where(['leader_uid' => $invitation['leader_uid'], 'uid' => $user['user_id']])->save(['status' => 1]);
 
