@@ -105,6 +105,7 @@ class UnionController extends MobileBaseController
         if ($shopList) {
             foreach ($shopList as &$value) {
                 $value['distance'] = $this->getDistance($latitude, $longitude, $value['latitude'], $value['longitude']);
+                $value['distance'] = round($value['distance'] / 1000, 2);
             }
         }
 
