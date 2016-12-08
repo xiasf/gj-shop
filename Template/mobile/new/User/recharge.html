@@ -162,12 +162,12 @@ function change_pay(obj)
 }
 
 function recharge_submit(){
-	var input_val = parseInt($('#input_val').val());
+	var input_val = parseFloat($('#input_val').val());
 	if(input_val>0){
 		$('#add_money').val(input_val);
 	}
 	var account = $('#add_money').val();
-	if(isNaN(account) || parseInt(account)<=0 || account==''){
+	if(isNaN(account) || parseFloat(account)<=0 || account==''){
 		alert('请输入正确的充值金额');
 		return false;
 	}
