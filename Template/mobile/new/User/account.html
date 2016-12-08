@@ -36,8 +36,8 @@
                         <span class="icon <if condition='($item.user_money gt 0) || ($item.pay_points gt 0) || ($item.exchange gt 0)'>on</if>"></span>
                         <span>
                             <if condition="$item.user_money neq 0">金额: <em>{$item.user_money}</em>&nbsp;</if>
-                            <if condition="$item.pay_points neq 0">积分:<em>{$item.pay_points}</em>&nbsp;</if>
-                            <if condition="$item.exchange neq 0">兑币:<em>{$item.exchange}</em>&nbsp;</if>
+                            <if condition="$item.pay_points neq 0">积分: <em>{$item.pay_points}</em>&nbsp;</if>
+                            <if condition="$item.exchange neq 0">兑币: <em>{$item.exchange}</em>&nbsp;</if>
                         </span>
                         <span>{$item.desc}</span>
                         <span>{$item.change_time|date='Y-m-d H:i:s',###}</span>
