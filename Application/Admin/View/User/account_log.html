@@ -37,6 +37,9 @@
                                 <td class="text-left">
                                 冻结资金
                                  </td>
+                                 <td class="text-left">
+                                    用户兑币
+                                </td>
                                 <td class="text-left">
                                     用户积分
                                 </td>
@@ -55,6 +58,10 @@
                                     <td class="text-left">
                                         <if condition="$list[frozen_money] gt 0">+</if>
                                         {$list.frozen_money}
+                                    </td>
+                                    <td class="text-left">
+                                        <if condition="$list[exchange] gt 0">+</if>
+                                        {$list.exchange}
                                     </td>
                                     <td class="text-left">
                                         <if condition="$list[pay_points] gt 0">+</if>

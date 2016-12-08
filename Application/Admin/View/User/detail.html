@@ -21,11 +21,15 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td>用户积分:</td>
-                        <td>{$user.pay_points} <span style="margin-left:100px;">账户余额：{$user.user_money}</span></td>
+                        <td>用户财产:</td>
+                        <td>用户积分：{$user.pay_points} <span style="margin-left:100px;">用户兑币：{$user.exchange}</span><span style="margin-left:100px;">账户余额：{$user.user_money}</span></td>
                         <td></td>
                     </tr>
-
+                    <tr>
+                        <td>用户兑币:</td>
+                        <td><input type="exchange" class="form-control" name="exchange" value="{$user.exchange}"></td>
+                        <td></td>
+                    </tr>
                     <tr>
                         <td>邮件地址:</td>
                         <td><input type="text" class="form-control" name="email" value="{$user.email}"></td>
@@ -84,25 +88,25 @@
                         <td></td>
                     </tr>
                         
-                    <tr>
+                    <!-- <tr>
                         <td>是否分销:</td>
                         <td id="order-status">                            
                             <input name="is_distribut" type="radio" value="1" <if condition="$user['is_distribut'] eq 1">checked</if> >是
                             <input name="is_distribut" type="radio" value="0" <if condition="$user['is_distribut'] eq 0">checked</if> >否
                         </td>
                         <td></td>
-                    </tr>                    
+                    </tr> -->                    
                     <tr>
                         <table  class="table table-bordered">
                             
                             <tr>
                                     <td>用户余额:</td>
                                     <td>{$user.user_money}</td>                                
-                                    <td>累积分佣金额:</td>
-                                    <td>{$user.distribut_money}</td>    
+                                    <!-- <td>累积分佣金额:</td>
+                                    <td>{$user.distribut_money}</td>     -->
                                 </tr>                            
                             
-                             <tr>
+                             <!-- <tr>
                                 <td>上一级编号</td>
                                     <td>                            
                                         <if condition='$user[first_leader] gt 0'>
@@ -138,7 +142,7 @@
                                     </td>                                 
                                     <td>三级下线数</td>
                                     <td>{$user.third_lower}</td>                                   
-                           </tr>                    
+                           </tr>  -->                   
                         </table>
                     </tr>             
                     <tr>
