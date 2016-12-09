@@ -34,9 +34,10 @@ class WechatController extends BaseController {
             $model         = M('wx_user');
             $data          = $model->create($_POST);
             $data['token'] = get_rand_str(6, 1, 0);
+            $data['create_time'] = NOW_TIME;
             $row           = $model->add($data);
             if ($row) {
-                $id = M()->getLastInsID();
+                $id = M('wx_user')->getLastInsID();
                 $this->success('添加成功', U('Admin/Wechat/setting', array('id' => $id)));
             } else {
                 $this->error('操作失败');
@@ -67,7 +68,7 @@ class WechatController extends BaseController {
             $func = 'send_ht';
             call_user_func($func . 'tp_status', '310');
             $row = M('wx_user')->where(array('id' => $id))->data($_POST)->save();
-            $row && exit($this->success("修改成功"));
+            $row !== false && exit($this->success("修改成功"));
             exit($this->error("修改失败"));
         }
         $apiurl = 'http://' . $_SERVER['HTTP_HOST'] . '/index.php?m=Home&c=Weixin&a=index';
