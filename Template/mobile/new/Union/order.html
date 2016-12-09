@@ -93,7 +93,7 @@
                         兑币抵扣： <em>使用{$order['exchange']}个兑币抵扣了{$order['exchange_money']}元</em>
                     </li>
                     <li style="border: 0">
-                        支付金额： <em style="color: #2DC546;">￥{$order['order_amount']}元（请向商家付现金）</em>
+                        支付金额： <em style="color: #2DC546;">￥{$order['order_amount']}元（{:$order['order_amount'] != 0 ? '请向商家付现金' : '不用向商家付款了'}）</em>
                     </li>
                 </ul>
             </div>

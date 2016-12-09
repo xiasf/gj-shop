@@ -108,11 +108,11 @@
                 <strong>折扣：</strong>
                 {$info['discount'] / 10}折<span class="small">消费金额的{$info['discount']}%</span>
             </li>
-            <li>
+            <!-- <li>
                 <strong>兑币抵扣：</strong>
                 {$info['exchange']}%<span class="small">最高抵扣消费金额的{$info['exchange']}%</span>
-            </li>
-            <li class="describe">{$info['describe']}</li>
+            </li> -->
+            <li class="describe">{$info['describe']|default="暂无简介"}</li>
         </ul>
     </div>
 
@@ -207,7 +207,7 @@
                             <label>我的兑币{$user.exchange}个</label>
                         </li>
                         <li>
-                            <label id="exchange_info"></label>
+                            <label id="exchange_info" style="color: #AFAFAF;"></label>
                         </li>
                         <li></li>
                     </ul>
@@ -265,7 +265,12 @@
 
                         return false;
                     }
-                    $("#pay_button").text('还需支付' + data.result.order_amount + '元');
+                    if (data.result.order_amount == 0) {
+                        $("#pay_button").text('兑币抵扣' + data.result.exchange + '元').css('backgroundColor', '#C32323');
+                    } else {
+                        $("#pay_button").text('还需支付' + data.result.order_amount + '元').css('backgroundColor', '#28A25E');
+                    }
+                    $('[name=total_amount]').val(data.result.total_amount);
                     $("#order_amount").val(data.result.order_amount);
 
                     $("#exchange_info").text('本次最多可使用兑币' + data.result.exchange_max + '个');

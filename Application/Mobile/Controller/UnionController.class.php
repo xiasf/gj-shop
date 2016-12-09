@@ -149,11 +149,11 @@ class UnionController extends MobileBaseController
         }
 
         $shop_id  = I("shop_id/d", 0); // 支付
-        $total    = $total_amount    = I("total_amount/d", 0); // 支付
-        $exchange = I("exchange/d", 0); // 使用兑币
+        $total    = $total_amount    = round(I("total_amount/f", 0), 2); // 支付
+        $exchange = I("exchange/f", 0); // 使用兑币
 
         $discount  = I("discount/d", 0);
-        $exchange_ = I("exchange_/d", 0);
+        $exchange_ = I("exchange_/f", 0);
 
         $order_amount_ = I("order_amount/f", 0);
 
@@ -178,28 +178,33 @@ class UnionController extends MobileBaseController
         }
 
         if ($exchange > $this->user['exchange']) {
-            exit(json_encode(array('status' => -3, 'msg' => '你没有那么多兑币哦', 'result' => null)));
+            exit(json_encode(array('status' => -1, 'msg' => '你没有那么多兑币哦', 'result' => null)));
         }
 
         if ($info['discount'] != 0 && $info['discount'] != 100) {
-            $total_amount_ = $total_amount * (1 - ($info['discount'] / 100));
-            $total_amount  = $total_amount * ($info['discount'] / 100);
+            $total_amount_ = round(($total_amount * (1 - ($info['discount'] / 100))), 2);
+            // $total_amount  = $total_amount * ($info['discount'] / 100);
+            $total_amount = $total_amount - $total_amount_;
         } else {
             $total_amount_ = 0;
         }
 
+        // 不限制
+        $info['exchange'] = 100;
+
         // 商家可以限制最多使用
         // 不做折上折
         if ($info['exchange'] != 0 && $info['exchange'] != 100) {
-            $exchange_amount_max = $total * ($info['exchange'] / 100);
+            $exchange_amount_max = $total_amount * ($info['exchange'] / 100);
             // 本次最多使用兑币数
             $exchange_max = $exchange_amount_max / tpCache('shopping.exchange_rate');
         } else {
             $exchange_amount_max = 0; // 不限制
-            $exchange_max        = $total / tpCache('shopping.exchange_rate');
+            $exchange_max        = $total_amount / tpCache('shopping.exchange_rate');
         }
 
-        $exchange_max = (int) $exchange_max;
+        // 兑币改成支持小数
+        // $exchange_max = (int) $exchange_max;
 
         if ($exchange) {
             $pay_exchange = $exchange / tpCache('shopping.exchange_rate');
@@ -217,10 +222,11 @@ class UnionController extends MobileBaseController
         // 另外产生应付不一样的原因很多，跟价格的计算方式有关，有可能应付一样，但实际上很多东西其实都改变了，所以还是要像上面一样，尽量拍短一些关键的数据是否一致
         // 就算不提示对系统来说也没有影响，提示的原因是因为到时候用户怪罪说怎么提交时的价格，数据等和我提交前算的，看的不一样了，就这个原因而已。
         $pay_exchange_num = $pay_exchange * tpCache('shopping.exchange_rate');
-        if (!is_int($pay_exchange_num)) {
-            $pay_exchange_num = (int) $pay_exchange_num;
-            $pay_exchange     = $pay_exchange_num / tpCache('shopping.exchange_rate');
-        }
+        // 兑币改成支持小数
+        // if (!is_int($pay_exchange_num)) {
+        //     $pay_exchange_num = (int) $pay_exchange_num;
+        //     $pay_exchange     = $pay_exchange_num / tpCache('shopping.exchange_rate');
+        // }
 
         $order_amount = $total_amount - $pay_exchange;
 
@@ -285,6 +291,7 @@ class UnionController extends MobileBaseController
         $result                  = [];
         $result['exchange']      = $pay_exchange_num; // 兑币支付
         $result['order_amount']  = $order_amount; // 应付金额
+        $result['total_amount']  = $total;        // 输入金额
         $result['total_amount_'] = $total_amount_; // 优惠了多少钱
         $result['exchange_max']  = $exchange_max; // 本次最多能使用的兑币数量
 
