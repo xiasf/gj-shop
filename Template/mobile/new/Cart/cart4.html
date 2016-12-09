@@ -92,6 +92,11 @@
     function pay(){
         // 微信支付直接本页支付不用跳转到丑陋的空白页面
         if ($("input[name='pay_radio']:checked").val() == 'pay_code=weixin') {
+            // 显示加载层
+            var load = layer.open({
+                type: 2,
+                shadeClose: false,
+            });
             layer.open({
                 content: '正在用力地请求微信支付…'
                 ,skin: 'msg'

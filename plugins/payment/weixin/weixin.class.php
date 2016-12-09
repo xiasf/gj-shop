@@ -146,7 +146,6 @@ class weixin extends RelationModel
 		    jsApiCall();
 		}
 	}
-    alert(1);
 	callpay();
 	</script>
 EOF;
