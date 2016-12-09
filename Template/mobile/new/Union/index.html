@@ -434,12 +434,18 @@
         }
 
         $('.icon-list dd a').click(function() {
-            $('.icon-list dd a').find('i').removeClass('on');
-            $(this).find('i').addClass('on');
+
+            if ($(this).find('i').hasClass('on')) {
+                $('.icon-list dd a').find('i').removeClass('on');
+                cat = 'all';
+            } else {
+                $('.icon-list dd a').find('i').removeClass('on');
+                $(this).find('i').addClass('on');
+                cat = $(this).data('cat');
+            }
 
             $('.seller-item').empty();
             p = 1;
-            cat = $(this).data('cat');
             getSeller();
         });
     });
