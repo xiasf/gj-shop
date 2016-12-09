@@ -24,7 +24,7 @@
             <div class="h-mid">提交订单</div>
         </div>
     </div>
-    <iframe src="" style="display: none;" name="mini-iframe"></iframe>
+    <!-- <iframe src="" style="display: none;" name="mini-iframe"></iframe> -->
     <div class="screen-wrap fullscreen login">
         <form action="{:U('Mobile/Payment/getCode')}" target="" method="post" name="cart4_form" id="cart4_form">
             <div class="content_success " >
@@ -106,6 +106,7 @@
                 }
             });
             // $('#cart4_form').attr('target', 'mini-iframe');
+            return false;
         }
         $('#cart4_form').submit();
         return;
