@@ -91,6 +91,11 @@
     function pay(){
         // 微信支付直接本页支付不用跳转到丑陋的空白页面
         if ($("input[name='pay_radio']:checked").val() == 'pay_code=weixin') {
+            layer.open({
+                content: '正在用力地请求微信支付…'
+                ,skin: 'msg'
+                ,shadeClose: false
+            });
             $.ajax({
                 type : "POST",
                 url  : "{:U('Mobile/Payment/getCode')}",
@@ -104,6 +109,7 @@
                 },
                 success: function(data) {
                     $(document).append(data);
+                    layer.closeAll();
                 }
             });
             // $('#cart4_form').attr('target', 'mini-iframe');
