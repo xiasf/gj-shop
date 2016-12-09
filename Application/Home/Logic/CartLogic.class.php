@@ -554,7 +554,7 @@ class CartLogic extends RelationModel
 
             // step:3 扣除兑币、积分、余额
             // 扣除兑币
-            if ($car_price_item['pointsFee'] > 0) {
+            if ($car_price_item['exchange'] > 0) {
                 M('Users')->where("user_id = $user_id")->setDec('exchange', ($car_price_item['exchange'] * tpCache('shopping.exchange_rate')));
             }
             // 扣除积分

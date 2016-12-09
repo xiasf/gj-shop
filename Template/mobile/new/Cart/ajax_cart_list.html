@@ -6,7 +6,7 @@
 </style>
 
     <foreach name="cartList" item="seller_item" key="k" >
-    <div class="block" style="margin-top:0px;">
+        <div class="block" style='<if condition="$k eq 0">margin-top:0px;<else/>margin-top:10px;</if>'>
         <div class="shop_title" >
             <div class="fl">
                 <!-- <a class="shopLink eclipse" href="javascript:void(0);">供货商：{$gjshop_config['shop_info_store_name']}</a> -->

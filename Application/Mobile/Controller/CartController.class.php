@@ -237,6 +237,8 @@ class CartController extends MobileBaseController
             // 计算出每个店铺占总体的比例（这样取两位小数会导致少算，不过并不会有问题，只是有可能[产生两位以上小数时]让用户少抵扣钱了，并不会让用户有任何损失）
             $shop['proportion'] = substr(($shop['total_fee'] / $car['total_price']['total_fee']), 0, 4);
         }
+        // 这里不释放会影响下面的$shop ，因为引用无法再正常使用
+        unset($shop);
 
         // echo '<pre>';
         // print_r($car);
@@ -348,9 +350,9 @@ class CartController extends MobileBaseController
 
         $order_id = I('order_id/s');
 
-        // 如果有多个订单，则到待支付订单列表去
+        // 如果有多个订单，则到全部订单列表去（不能去待支付，因为很有可能这多个订单是不需要再支付的了，都抵扣了）
         if (false !== stripos($order_id, ',')) {
-            $this->redirect('Mobile/User/order_list', ['type' => 'WAITPAY']);
+            $this->redirect('Mobile/User/order_list');
         }
 
         $order    = M('Order')->where(['order_id' => $order_id])->find();

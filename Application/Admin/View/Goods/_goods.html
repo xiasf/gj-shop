@@ -246,7 +246,6 @@
                                     <td>店铺:</td>
                                     <td>
                                         <select name="seller_id" id="seller_id" class="form-control" style="width:250px;">
-                                            <option value="0">网站自营</option>
                                             <foreach name="seller" item="v" key="k" >
                                                 <option value="{$v['id']}"  <if condition="$v['id'] eq $goodsInfo['seller_id'] ">selected="selected"</if>>
                                                 {$v['seller_name']}
