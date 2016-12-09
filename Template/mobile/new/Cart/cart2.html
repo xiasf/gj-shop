@@ -305,7 +305,9 @@
                                                         <li>
                                                             <div class="subtotal">
                                                                 <span class="total-text">商品总额：</span>
-                                                                <em class="price">￥{$total_price.total_fee}元</em>
+                                                                ￥
+                                                                <em class="price" id="goodsFee">{$total_price.total_fee}</em>
+                                                                元
                                                                 <br/>
                                                                 <span class="total-text">配送费用：</span>
                                                                 ￥
@@ -403,6 +405,7 @@
                     return false;
                 }
                 // console.log(data);
+                $("#goodsFee").text(data.result.goodsFee);                        // 商品总额
                 $("#postFee").text(data.result.postFee);                        // 物流费
                 $("#couponFee").text(data.result.couponFee);                    // 优惠券
                 $("#balance").text(data.result.balance);                        // 余额

@@ -156,6 +156,7 @@
                     <tr>
                         <td class="text-right">小计:</td>
                         <td class="text-right">运费:</td>
+                        <td class="text-right">兑币 (-{$order.exchange}):</td>
                         <td class="text-right">积分 (-{$order.integral}):</td>
                         <td class="text-right">余额抵扣</td>
                         <td class="text-right">优惠券抵扣</td>
@@ -165,6 +166,7 @@
                     <tr>
                         <td class="text-right">{$order.goods_price}</td>
                         <td class="text-right">+{$order.shipping_price}</td>
+                        <td class="text-right">-{$order.exchange_money}</td>
                         <td class="text-right">-{$order.integral_money}</td>
                         <td class="text-right">-{$order.user_money}</td>
                         <td class="text-right">-{$order.coupon_price}</td>

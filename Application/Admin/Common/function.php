@@ -187,13 +187,13 @@ function getAllMenu() {
             array('name' => '广告列表', 'act' => 'adList', 'control' => 'Ad'),
             array('name' => '广告位置', 'act' => 'positionList', 'control' => 'Ad'),
         )),
-        'content'   => array('name' => '内容管理', 'icon' => 'fa-comments', 'sub_menu' => array(
-            array('name' => '文章列表', 'act' => 'articleList', 'control' => 'Article'),
-            array('name' => '文章分类', 'act' => 'categoryList', 'control' => 'Article'),
-            //array('name' => '帮助管理', 'act'=>'help_list', 'control'=>'Article'),
-            //array('name' => '公告管理', 'act'=>'notice_list', 'control'=>'Article'),
-            array('name' => '专题列表', 'act' => 'topicList', 'control' => 'Topic'),
-        )),
+        // 'content'   => array('name' => '内容管理', 'icon' => 'fa-comments', 'sub_menu' => array(
+        //     array('name' => '文章列表', 'act' => 'articleList', 'control' => 'Article'),
+        //     array('name' => '文章分类', 'act' => 'categoryList', 'control' => 'Article'),
+        //     //array('name' => '帮助管理', 'act'=>'help_list', 'control'=>'Article'),
+        //     //array('name' => '公告管理', 'act'=>'notice_list', 'control'=>'Article'),
+        //     array('name' => '专题列表', 'act' => 'topicList', 'control' => 'Topic'),
+        // )),
         'weixin'    => array('name' => '微信管理', 'icon' => 'fa-weixin', 'sub_menu' => array(
             array('name' => '公众号管理', 'act' => 'index', 'control' => 'Wechat'),
             array('name' => '微信菜单管理', 'act' => 'menu', 'control' => 'Wechat'),

@@ -41,7 +41,7 @@
 .goods_price dt font{ display:block; float:left; margin-left:8px;text-decoration: line-through;font-size:12px; line-height:30px; color:#999; }
 .goods_price dt font.exchange{
     text-decoration: none;
-    background-color: #1E9C68;
+    background: -webkit-gradient(linear,0 50%,100% 50%,from(#2D3FE9),to(#E24BF4));
     color: #fff;
     padding: 0 5px;
     border-radius: 7px;

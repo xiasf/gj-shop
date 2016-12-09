@@ -150,7 +150,7 @@ class UnionController extends MobileBaseController
 
         $shop_id  = I("shop_id/d", 0); // 支付
         $total    = $total_amount    = round(I("total_amount/f", 0), 2); // 支付
-        $exchange = I("exchange/f", 0); // 使用兑币
+        $exchange = round(I("exchange/f", 0), 2); // 使用兑币
 
         $discount  = I("discount/d", 0);
         $exchange_ = I("exchange_/f", 0);
@@ -185,7 +185,7 @@ class UnionController extends MobileBaseController
             // 这个有可能多折扣，或者少折扣，看你怎么选了
             $total_amount_ = round(($total_amount * (1 - ($info['discount'] / 100))), 2);
             // $total_amount  = $total_amount * ($info['discount'] / 100);
-            $total_amount = $total_amount - $total_amount_;
+            // $total_amount = $total_amount - $total_amount_;
         } else {
             $total_amount_ = 0;
         }

@@ -98,8 +98,7 @@ class WeixinController extends BaseController
         }
 
         // 图文回复
-        $wx_img = M('wx_img')->where("keyword like '%$keyword%'")->find();
-        if ($wx_img) {
+        if ($keyword != '' && ($wx_img = M('wx_img')->where("keyword like '%$keyword%'")->find())) {
             $textTpl = "<xml>
                         <ToUserName><![CDATA[%s]]></ToUserName>
                         <FromUserName><![CDATA[%s]]></FromUserName>
@@ -121,8 +120,7 @@ class WeixinController extends BaseController
         }
 
         // 文本回复
-        $wx_text = M('wx_text')->where("keyword like '%$keyword%'")->find();
-        if ($wx_text) {
+        if ($keyword != '' && (M('wx_text')->where("keyword like '%$keyword%'")->find())) {
             $textTpl = "<xml>
                         <ToUserName><![CDATA[%s]]></ToUserName>
                         <FromUserName><![CDATA[%s]]></FromUserName>
@@ -135,7 +133,6 @@ class WeixinController extends BaseController
             $resultStr  = sprintf($textTpl, $fromUsername, $toUsername, $time, 'text', $contentStr);
             exit($resultStr);
         }
-
 
 
         // 关注/取消关注事件
