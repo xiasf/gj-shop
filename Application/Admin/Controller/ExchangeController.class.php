@@ -42,6 +42,7 @@ class ExchangeController extends BaseController
     {
         if (IS_POST) {
             $data                 = I('post.');
+            $data['use_start_time'] = strtotime($data['use_start_time']);
             $data['use_end_time'] = strtotime($data['use_end_time']);
             if ($data['use_end_time'] < time() + 3600) {
                 $this->error('结束日期不能太近');
