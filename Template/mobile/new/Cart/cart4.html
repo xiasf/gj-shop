@@ -24,9 +24,9 @@
             <div class="h-mid">提交订单</div>
         </div>
     </div>
-
+    <iframe src="" style="display: none;" name="mini-iframe"></iframe>
     <div class="screen-wrap fullscreen login">
-        <form action="{:U('Mobile/Payment/getCode')}" method="post" name="cart4_form" id="cart4_form">
+        <form action="{:U('Mobile/Payment/getCode')}" target="" method="post" name="cart4_form" id="cart4_form">
             <div class="content_success " >
                 <div class="con-ct   fo-con">
                     <h4 class="successtijiao">订单已经提交成功！</h4>
@@ -59,7 +59,7 @@
                                         <foreach name="paymentList" item="v"  key="k">
                                             <li class="clearfix" name="payment_name">
                                                 <label>
-                                                    <input type="radio"   value="pay_code={$v['code']}" class="c_checkbox_t" name="pay_radio" />
+                                                    <input type="radio" value="pay_code={$v['code']}" class="c_checkbox_t" name="pay_radio" />
                                                     <div class="fl shipping_title">
                                                         <img src="/plugins/{$v['type']}/{$v['code']}/{$v['icon']}?v=234423234" onClick="change_pay(this);" width="110" height="40" />
                                                     </div>
@@ -89,6 +89,10 @@
     }
 
     function pay(){
+        // 微信支付直接本页支付不用跳转到丑陋的空白页面
+        if ($("input[name='pay_radio']:checked").val() == 'pay_code=weixin') {
+            $('#cart4_form').attr('target', 'mini-iframe');
+        }
         $('#cart4_form').submit();
         return;
         //微信JS支付
