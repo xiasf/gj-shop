@@ -88,17 +88,23 @@ class UnionController extends MobileBaseController
     {
         $longitude = I('longitude');
         $latitude  = I('latitude');
-        $cat       = I('cat/d', 0);
+        $cat       = I('cat/s', 'all');
+
+        if ($cat == 'all') {
+            $cat = '';
+        } else {
+            $cat = ' and category = ' . ((int) $cat);
+        }
 
         $squares = $this->returnSquarePoint($longitude, $latitude);
 
-        $result = M()->query("select count(1) from `__PREFIX__seller` where latitude != 0 and latitude > '{$squares['right-bottom']['lat']}' and latitude < '{$squares['left-top']['lat']}' and longitude > '{$squares['left-top']['lng']}' and longitude < '{$squares['right-bottom']['lng']}' and type = 1 and category = {$cat}");
+        $result = M()->query("select count(1) from `__PREFIX__seller` where latitude != 0 and latitude > '{$squares['right-bottom']['lat']}' and latitude < '{$squares['left-top']['lat']}' and longitude > '{$squares['left-top']['lng']}' and longitude < '{$squares['right-bottom']['lng']}' and type = 1 {$cat}");
         $count  = $result[0]['count'];
         $page   = new AjaxPage($count, 500);
 
         $limit = " limit " . $page->firstRow . ',' . $page->listRows;
 
-        $sql = "select * from `__PREFIX__seller` where latitude != 0 and latitude > '{$squares['right-bottom']['lat']}' and latitude < '{$squares['left-top']['lat']}' and longitude > '{$squares['left-top']['lng']}' and longitude < '{$squares['right-bottom']['lng']}' and type = 1 and category = {$cat} order by sort asc $limit";
+        $sql = "select * from `__PREFIX__seller` where latitude != 0 and latitude > '{$squares['right-bottom']['lat']}' and latitude < '{$squares['left-top']['lat']}' and longitude > '{$squares['left-top']['lng']}' and longitude < '{$squares['right-bottom']['lng']}' and type = 1 {$cat} order by sort asc $limit";
 
         $shopList = M()->query($sql);
 
