@@ -94,6 +94,7 @@
             $.ajax({
                 type : "POST",
                 url  : "{:U('Mobile/Payment/getCode')}",
+                'data' : $('#cart4_form').serialize(),
                 error: function(request) {
                     layer.open({
                         content: '服务器繁忙！'
