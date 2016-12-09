@@ -182,6 +182,7 @@ class UnionController extends MobileBaseController
         }
 
         if ($info['discount'] != 0 && $info['discount'] != 100) {
+            // 这个有可能多折扣，或者少折扣，看你怎么选了
             $total_amount_ = round(($total_amount * (1 - ($info['discount'] / 100))), 2);
             // $total_amount  = $total_amount * ($info['discount'] / 100);
             $total_amount = $total_amount - $total_amount_;
@@ -207,6 +208,7 @@ class UnionController extends MobileBaseController
         // $exchange_max = (int) $exchange_max;
 
         if ($exchange) {
+            // 这里要控制保证两位小数，应该不能四舍五入 待完善: 2016-12-9 16:50:18
             $pay_exchange = $exchange / tpCache('shopping.exchange_rate');
             if ($exchange_amount_max) {
                 $pay_exchange = ($pay_exchange > $exchange_amount_max) ? $exchange_amount_max : $pay_exchange;

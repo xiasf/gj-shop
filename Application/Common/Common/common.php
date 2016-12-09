@@ -1204,10 +1204,11 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
 
         // 兑币抵扣的金额怎么能出现小数，那就成BUG了，所以要直接取整，不要小数位（这对用户来说不会损失什么，相当于如果1兑币等于1元的话，那么当兑币抵扣1.1元时，会出现使用1.1个兑币的情况，所以要处理一下，以保证兑币是整数，这样会出现这样的情况，当系统计算得到兑币需要抵扣0.9元时，即使用户输入1个兑币来抵扣，那么也不会出现扣用户0.9个兑币的情况的，不会抵扣兑币，相当于强制让用户输入了0，不使用兑币）
         $pay_exchange_num = $pay_exchange * tpCache('shopping.exchange_rate');
-        if (!is_int($pay_exchange_num)) {
-            $pay_exchange_num = (int) $pay_exchange_num;
-            $pay_exchange = $pay_exchange_num / tpCache('shopping.exchange_rate');
-        }
+        // 兑币改成支持小数
+        // if (!is_int($pay_exchange_num)) {
+        //     $pay_exchange_num = (int) $pay_exchange_num;
+        //     $pay_exchange = $pay_exchange_num / tpCache('shopping.exchange_rate');
+        // }
 
         $order_amount   = $order_amount - $pay_exchange; // 兑币抵消应付金额
     } else {
