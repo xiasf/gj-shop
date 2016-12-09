@@ -310,6 +310,7 @@ class CartController extends MobileBaseController
 
             // 生成订单
             $result = $this->cartLogic->addOrder($this->user_id, $address_id, $shipping_code, $invoice_title, $note, $coupon_id, $car_price); // 添加订单
+            $result['pay_url'] = U('Mobile/Cart/cart4', ['order_id' => $result['result']]);
             exit(json_encode($result));
         }
 

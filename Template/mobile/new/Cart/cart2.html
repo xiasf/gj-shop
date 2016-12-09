@@ -446,7 +446,7 @@
                 // console.log(data);
 
                 alert('订单提交成功，跳转支付页面!');
-                location.href = "/index.php?m=Mobile&c=Cart&a=cart4&order_id="+data.result;
+                location.href = data.pay_url;
             }
         });
     }
