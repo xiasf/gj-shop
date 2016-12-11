@@ -125,7 +125,7 @@ class SellerController extends BaseController
                     $e = $insert_id = $seller->add(); // 写入数据到数据库
                 }
 
-                if ($e !=== fasle) {
+                if ($e !== fasle) {
 
                 } else {
                     $this->error('操作失败！');
