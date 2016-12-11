@@ -104,7 +104,7 @@ function get_thum_images($src, $width, $height)
     $image = new \Think\Image();
     $image->open('.' . $src . '.' . $fileExt);
 
-    $dir = dirname($path . $thumb);
+    $dir = dirname('.' . $path . $thumb);
     if (!is_dir($dir)) {
         mkdir($dir, 0777, true);
     }
