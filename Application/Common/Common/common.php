@@ -102,7 +102,9 @@ function get_thum_images($src, $width, $height)
     }
 
     $image = new \Think\Image();
-    $image->open('.' . $src . '.' . $fileExt);
+    $a = $image->open('.' . $src . '.' . $fileExt);
+    $b = $a->type();
+    var_dump($b);
 
     //生成缩略图
     if (!is_dir($path)) {
