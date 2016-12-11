@@ -85,7 +85,7 @@ function update_user_level($user_id)
 function get_thum_images($src, $width, $height)
 {
 
-    if (!file_exists('.' . $src)) {
+    if (!file_exists($src)) {
         return '';
     }
 
