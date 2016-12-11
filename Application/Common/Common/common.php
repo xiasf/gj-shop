@@ -93,10 +93,10 @@ function get_thum_images($src, $width, $height)
     $src = str_replace('.' . $fileExt, '', $src);
 
     //判断缩略图是否存在
-    $path             = "Public/_thumb";
+    $path             = "./Public/_thumb";
     $thumb = "{$src}_{$width}_{$height}.{$fileExt}";
 
-    if (file_exists('.' . $path . $thumb)) {
+    if (file_exists('./' . $path . $thumb)) {
         return $path . $thumb;
     }
 
