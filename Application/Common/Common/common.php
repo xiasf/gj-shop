@@ -93,10 +93,10 @@ function get_thum_images($src, $width, $height)
     $src = str_replace('.' . $fileExt, '', $src);
 
     //判断缩略图是否存在
-    $path             = "./Public/_thumb";
+    $path             = "/Public/_thumb";
     $thumb = "{$src}_{$width}_{$height}.{$fileExt}";
 
-    if (file_exists('./' . $path . $thumb)) {
+    if (file_exists('.' . $path . $thumb)) {
         return $path . $thumb;
     }
 
@@ -109,7 +109,7 @@ function get_thum_images($src, $width, $height)
     }
 
     //参考文章 http://www.mb5u.com/biancheng/php/php_84533.html  改动参考 http://www.thinkphp.cn/topic/13542.html
-    $image->thumb($width, $height, 2)->save($path . $thumb, null, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
+    $image->thumb($width, $height, 2)->save('.' . $path . $thumb, null, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
 
     return $path . $thumb;
 }
