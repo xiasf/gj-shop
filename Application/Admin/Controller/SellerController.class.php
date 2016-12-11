@@ -66,8 +66,30 @@ class SellerController extends BaseController
         $seller = M('seller');
         $type   = $_POST['id'] > 0 ? 2 : 1; // 标识自动验证时的 场景 1 表示插入 2 表示更新
 
+
+        // if (empty($sellerInfo)) {
+        //     $this->error('店铺不存在');
+        // }
+
         // ajax提交验证
         if (IS_POST) {
+
+            if ($type == 1) {
+                if ($seller->where(['email' => I('post.email/s')])->find()) {
+                    $this->error('邮箱被占用！');
+                }
+                if ($seller->where(['mobile' => I('post.mobile/s')])->find()) {
+                    $this->error('手机被占用！');
+                }
+            } else {
+                if ($seller->where(['id' => ['neq', I('post.id/d')], 'email' => I('post.email/s')])->find()) {
+                    $this->error('邮箱被占用！');
+                }
+                if ($seller->where(['id' => ['neq', I('post.id/d')], 'mobile' => I('post.mobile/s')])->find()) {
+                    $this->error('手机被占用！');
+                }
+            }
+
             C('TOKEN_ON', false);
             if (!$data = $seller->create(null, $type)) // 根据表单提交的POST数据创建数据对象
             {
@@ -112,8 +134,6 @@ class SellerController extends BaseController
                 exit;
             }
         }
-
-        $sellerInfo = M('seller')->where('id=' . I('GET.id/d', 0))->find();
 
         $province = M('region')->where(array('parent_id'=>0))->select();
         $city =  M('region')->where(array('parent_id'=>$sellerInfo['province']))->select();
