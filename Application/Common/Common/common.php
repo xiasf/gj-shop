@@ -97,7 +97,6 @@ function get_thum_images($src, $width, $height)
     $thumb = "{$src}_{$width}_{$height}.{$fileExt}";
 
     if (file_exists('.' . $path . $thumb)) {
-        echo "string";
         return $path . $thumb;
     }
 

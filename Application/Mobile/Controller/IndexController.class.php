@@ -17,7 +17,7 @@ class IndexController extends MobileBaseController
 
     function test()
     {
-        echo realpath('/a.php');
+        echo realpath('/');
         echo get_thum_images('/Public/upload/ad/2016/12-11/584d14dc412ac.jpg', 160, 160);
     }
 
