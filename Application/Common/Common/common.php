@@ -102,21 +102,15 @@ function get_thum_images($src, $width, $height)
     }
 
     $image = new \Think\Image();
-    $a = $image->open('.' . $src . '.' . $fileExt);
-    $b = $a->type();
-    echo '.' . $path . $thumb;
+    $image->open('.' . $src . '.' . $fileExt);
 
-    //生成缩略图
-    if (!is_dir($path)) {
-        mkdir($path, 0777, true);
+    $dir = dirname($path . $thumb);
+    if (!is_dir($dir)) {
+        mkdir($dir, 0777, true);
     }
 
     //参考文章 http://www.mb5u.com/biancheng/php/php_84533.html  改动参考 http://www.thinkphp.cn/topic/13542.html
     $a = $image->thumb($width, $height, 2)->save('.' . $path . $thumb, null, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
-    var_dump($a);
-    if (file_exists('.' . $path . $thumb)) {
-        echo "1111111111";
-    }
 
     return $path . $thumb;
 }
