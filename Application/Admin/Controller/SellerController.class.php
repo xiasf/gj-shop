@@ -135,7 +135,7 @@ class SellerController extends BaseController
             }
         }
 
-        $sellerInfo = $seller->find(I('post.id/d'));
+        $sellerInfo = $seller->find(I('get.id/d'));
 
         $province = M('region')->where(array('parent_id'=>0))->select();
         $city =  M('region')->where(array('parent_id'=>$sellerInfo['province']))->select();
