@@ -94,7 +94,7 @@ function get_thum_images($src, $width, $height)
 
     //判断缩略图是否存在
     $path             = "Public/_thumb/";
-    $thumb = "{$src}_{$width}_{$height}.$fileExt";
+    $thumb = "{$src}_{$width}_{$height}.{$fileExt}";
 
     if (file_exists($path . $thumb)) {
         return $path . $thumb;
