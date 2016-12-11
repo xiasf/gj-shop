@@ -75,16 +75,16 @@ class SellerController extends BaseController
         if (IS_POST) {
 
             if ($type == 1) {
-                if ($seller->where(['email' => I('post.email/s')])->find()) {
-                    $this->error('邮箱被占用！');
-                }
+                // if ($seller->where(['email' => I('post.email/s')])->find()) {
+                //     $this->error('邮箱被占用！');
+                // }
                 if ($seller->where(['mobile' => I('post.mobile/s')])->find()) {
                     $this->error('手机被占用！');
                 }
             } else {
-                if ($seller->where(['id' => ['neq', I('post.id/d')], 'email' => I('post.email/s')])->find()) {
-                    $this->error('邮箱被占用！');
-                }
+                // if ($seller->where(['id' => ['neq', I('post.id/d')], 'email' => I('post.email/s')])->find()) {
+                //     $this->error('邮箱被占用！');
+                // }
                 if ($seller->where(['id' => ['neq', I('post.id/d')], 'mobile' => I('post.mobile/s')])->find()) {
                     $this->error('手机被占用！');
                 }
