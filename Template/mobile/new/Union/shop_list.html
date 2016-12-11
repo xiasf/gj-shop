@@ -3,7 +3,7 @@
     <a href="{:U('shop', ['id' => $info['id']])}" class="react ">
         <div class="dealcard" data-did="33249272">
             <div class="dealcard-img imgbox" style="background: none;">
-                <img src="{$info.head_pic}" style="width: 100%;height: 100%">
+                <img src="{$info.head_pic|get_thum_images=160,160}" style="width: 100%;height: 100%">
             </div>
             <div class="dealcard-block-right">
                 <div class="dealcard-brand">{$info.seller_name}&nbsp;({$info['discount'] / 10}折)</div>

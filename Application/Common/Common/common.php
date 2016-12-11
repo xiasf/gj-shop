@@ -81,6 +81,40 @@ function update_user_level($user_id)
     }
 }
 
+
+function get_thum_images($src, $width, $height)
+{
+
+    if (!file_exists($src)) {
+        return '';
+    }
+
+    $fileExt = pathinfo($src, PATHINFO_EXTENSION);
+    $src = str_replace('.' . $fileExt, '', $src);
+
+    //判断缩略图是否存在
+    $path             = "/Public/_thumb/";
+    $thumb = "{$src}_{$width}_{$height}.$fileExt";
+
+    if ($path . $thumb) {
+        return $path . $thumb;
+    }
+
+    $image = new \Think\Image();
+    $image->open($src . $fileExt);
+
+    //生成缩略图
+    if (!is_dir($path)) {
+        mkdir($path, 0777, true);
+    }
+
+    //参考文章 http://www.mb5u.com/biancheng/php/php_84533.html  改动参考 http://www.thinkphp.cn/topic/13542.html
+    $image->thumb($width, $height, 2)->save($path . $thumb, null, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
+
+    return $path . $thumb;
+}
+
+
 /**
  *  商品缩略图 给于标签调用 拿出商品表的 original_img 原始图来裁切出来的
  * @param type $goods_id  商品id
