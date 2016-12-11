@@ -103,6 +103,7 @@ function get_thum_images($src, $width, $height)
     $image = new \Think\Image();
     $image->open('.' . $src . '.' . $fileExt);
 
+    // 图像的路径必须要自己创建，否则保存失败
     $dir = dirname('.' . $path . $thumb);
     if (!is_dir($dir)) {
         mkdir($dir, 0777, true);
