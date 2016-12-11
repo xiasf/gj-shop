@@ -120,9 +120,15 @@ class SellerController extends BaseController
 
                 if ($type == 2) {
                     $seller->reg_time = time();
-                    $seller->save(); // 写入数据到数据库
+                    $e = $seller->save(); // 写入数据到数据库
                 } else {
-                    $id = $insert_id = $seller->add(); // 写入数据到数据库
+                    $e = $insert_id = $seller->add(); // 写入数据到数据库
+                }
+
+                if ($e !=== fasle) {
+
+                } else {
+                    $this->error('操作失败！');
                 }
 
                 $return_arr = array(
