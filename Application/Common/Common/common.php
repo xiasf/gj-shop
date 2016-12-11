@@ -110,7 +110,7 @@ function get_thum_images($src, $width, $height)
     }
 
     //参考文章 http://www.mb5u.com/biancheng/php/php_84533.html  改动参考 http://www.thinkphp.cn/topic/13542.html
-    $a = $image->thumb($width, $height, 3)->save('.' . $path . $thumb, null, 80); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
+    $a = $image->thumb($width, $height, 6)->save('.' . $path . $thumb, null, 80); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
 
     return $path . $thumb;
 }
