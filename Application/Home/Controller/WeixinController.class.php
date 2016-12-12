@@ -120,7 +120,7 @@ class WeixinController extends BaseController
         }
 
         // 文本回复
-        if ($keyword != '' && (M('wx_text')->where("keyword like '%$keyword%'")->find())) {
+        if ($keyword != '' && ($wx_text = M('wx_text')->where("keyword like '%$keyword%'")->find())) {
             $textTpl = "<xml>
                         <ToUserName><![CDATA[%s]]></ToUserName>
                         <FromUserName><![CDATA[%s]]></FromUserName>
@@ -133,7 +133,6 @@ class WeixinController extends BaseController
             $resultStr  = sprintf($textTpl, $fromUsername, $toUsername, $time, 'text', $contentStr);
             exit($resultStr);
         }
-
 
         // 关注/取消关注事件
         if ($postObj->MsgType == 'event' && ($postObj->Event == 'subscribe' || $postObj->Event == 'unsubscribe')) {
@@ -198,7 +197,6 @@ class WeixinController extends BaseController
             exit($resultStr);
         }
 
-
         // 其他文本回复
         $textTpl = "<xml>
                     <ToUserName><![CDATA[%s]]></ToUserName>
@@ -208,7 +206,7 @@ class WeixinController extends BaseController
                     <Content><![CDATA[%s]]></Content>
                     <FuncFlag>0</FuncFlag>
                     </xml>";
-        $msgType = 'text';
+        $msgType    = 'text';
         $contentStr = '欢迎来到广佳商城!';
         $resultStr  = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
         exit($resultStr);
