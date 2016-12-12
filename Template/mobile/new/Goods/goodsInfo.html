@@ -1,4 +1,4 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="Generator" content="gjshop" />
@@ -8,9 +8,9 @@
     <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
     <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=201612121507232"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/goods.css?v=201612121507232"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=201612121507232"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=201612121507345345"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/goods.css?v=201612121507345345"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=201612121507345345"/>
     <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
     <script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
     <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
@@ -98,7 +98,8 @@
                     }});
             </script>
 
-            <form name="buy_goods_form" method="post" id="buy_goods_form" >
+            <form name="buy_goods_form" method="post" id="buy_goods_form">
+                <input type="hidden" name="goods_id" value="{$goods.goods_id}" />
                 <div class="product_info">
                     <div class="info_dottm">
                         <h3 class="name">{$goods.goods_name}</h3>
@@ -111,7 +112,7 @@
                     <dl class="goods_price">
                         <script type="text/javascript" src="__STATIC__/js/lefttime.js"></script>
                         <dt>
-                            <span id="goods_price">￥{$goods.shop_price}元</span> <font>价格：￥{$goods.market_price}元</font><font class="exchange">可抵兑币：{$goods.exchange}</font>
+                            <span id="goods_price" class="jiage">￥{$goods.shop_price}元</span> <font>价格：￥{$goods.market_price}元</font><font class="exchange">可抵兑币：{$goods.exchange}</font>
                         </dt>
                     </dl>
                     <ul class="price_dottm">
@@ -154,10 +155,8 @@
                     </section>
                 </if>
 
-                <!-------商品属性-------->
-                <if condition="$filter_spec neq ''">
+<!--                 <if condition="$filter_spec neq ''">
                 <section id="search_ka">
-                    <!---属性---->
                     <div class="ui-sx bian1">
                         <div class="subNavBox">
                             <div class="subNav spec-c">
@@ -181,9 +180,9 @@
                         </div>
                     </div>
                 </section>
-                </if>
+                </if> -->
 
-                <section id="search_ka">
+                <!-- <section id="search_ka">
                     <div class="ui-sx bian1">
                         <div class="subNavBox">
                             <div class="subNav on">
@@ -195,7 +194,6 @@
                                         <span class="ui-number">
                                             <button type="button" class="decrease" onClick="goods_cut();">-</button>
                                             <input type="text" class="num" id="number" name="goods_num" value="1" min="1" max="1000"/>
-                                            <input type="hidden" name="goods_id" value="{$goods.goods_id}"/>
                                             <button type="button" class="increase" onClick="goods_add();">+</button>
                                         </span>
                                     </div>
@@ -203,7 +201,122 @@
                             </ul>
                         </div>
                     </div>
-                </section>
+                </section> -->
+
+                <if condition="$filter_spec neq ''">
+                <foreach name="filter_spec" item="spec" key="key">
+                        <div class="title spec-title" style="display:none;" data-text="{$key}">
+                        <foreach name="spec" item="v2" key="k2">
+                            <input type="radio" style="display:none;" name="goods_spec[{$key}]" value="{$v2[item_id]}"/>
+                        </foreach>
+                        </div>
+                </foreach>
+                </if>
+
+                <style>
+                    .shuxing {
+
+                    }
+                    .shuxing .top {
+                        height: 100px;
+                        overflow: hidden;
+                    }
+                    .shuxing .top .l {
+                        height: 100px;
+                        width: 100px;
+                        position: absolute;
+                        top: -21px;
+                        left: 10px;
+                        border: 1px #CECECE solid;
+                        border-radius: 5px;
+                        overflow: hidden;
+                        padding: 2px;
+                        background-color: white;
+                    }
+                    .shuxing .top .r {
+                        margin-left: 140px;
+                        margin-top: 14px;
+                    }
+                    .shuxing .top .r .jiage {
+                        color: #DC2625;
+                        font-weight: 800;
+                    }
+                    .que {
+                        height: 45px;
+                        background-color: #dd2726;
+                        line-height: 45px;
+                        color: #fff;
+                        text-align: center;
+                        font-size: 1.5rem;
+                        position: fixed;
+                        bottom: 0;
+                        width: 100%;
+                    }
+                    .subNavBox {
+                        margin-top: 12px;
+                    }
+                </style>
+                <input type="hidden" class="num" name="goods_num" value="1" />
+
+                <textarea id="shuxing" style="display:none;">
+                    <div class="shuxing" style="">
+                        <div class="top">
+                            <div class="l">
+                                <img title="" width="100%" src="{$goods_images_list.0.image_url}">
+                            </div>
+                            <div class="r">
+                                <p><span class="jiage">￥{$goods.shop_price}</span></p>
+                                <p>库存：<span class="kucun">{$goods.store_count}</span></p>
+                                <p><span class="yixuan"></span></p>
+                            </div>
+                        </div>
+
+                        <if condition="$filter_spec neq ''">
+                        <section id="guige">
+                            <!---属性---->
+                            <div class="ui-sx bian1">
+                                <div class="subNavBox">
+                                    <ul class="navContent" style="display: block;">
+                                        <foreach name="filter_spec" item="spec" key="key">
+                                            <li>
+                                                <div class="title">{$key}</div>
+                                                <div class="item">
+                                                    <foreach name="spec" item="v2" key="k2">
+                                                        <a href="javascript:;" onclick="switch_spec(this);" data-cid="{$v2[item_id]}" title="{$v2[item]}">{$v2[item]}</a>
+                                                    </foreach>
+                                                </div>
+                                            </li>
+                                        </foreach>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                        </if>
+
+                        <section id="search_ka">
+                            <div class="ui-sx bian1">
+                                <div class="subNavBox">
+                                    <div class="subNav on">
+                                        <strong>购买数量</strong>
+                                    </div>
+                                    <ul class="navContent" style="display: block;">
+                                        <li style=" border-bottom:1px solid #eeeeee">
+                                            <div class="item1">
+                                                <span class="ui-number">
+                                                    <button type="button" class="decrease" onClick="goods_cut();">-</button>
+                                                    <input type="text" class="num" id="number" name="goods_num_" value="1" min="1" max="1000"/>
+                                                    <button type="button" class="increase" onClick="goods_add();">+</button>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div style="height:45px;"></div>
+                    <div class="que">确定</div>
+                </textarea>
 
                 <section id="search_ka">
                     <div class="ui-sx bian1">
@@ -271,79 +384,86 @@
                         var Num = parseInt(new_num);
                         if(Num>1)Num=Num-1;
                         num_val.value=Num;
+                        $('input[name=goods_num_]').val(Num);
                     }
                     function goods_add(){
                         var num_val=document.getElementById('number');
                         var new_num=num_val.value;
                         var Num = parseInt(new_num);
                         Num=Num+1;  num_val.value=Num;
+                        $('input[name=goods_num]').val(Num);
                     }
                 </script>
 
-                <div style=" height:8px; background:#eeeeee; margin-top:-1px;"></div>
+                <div style="height:8px; background:#eeeeee; margin-top:-1px;"></div>
 
-                    <!-- <div class="is_scroll">
-                      <section id="search_ka">
-                          <div class="ui-sx bian1">
-                              <div class="subNavBox" >
-                                  <div class="subNav" style=" border:0;">
-                                      <a href="pocking.php?id=22" style=" border:0px;"> <strong>自提点</strong>
-                                      </a>
-                                  </div>
-                              </div>
-                          </div>
-                      </section>
-                  </div> -->
+                <!--
+                <div class="is_scroll">
+                    <section id="search_ka">
+                        <div class="ui-sx bian1">
+                            <div class="subNavBox" >
+                                <div class="subNav" style=" border:0;">
+                                    <a href="pocking.php?id=22" style=" border:0px;"> <strong>自提点</strong>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                -->
+
                 <if condition="$seller neq null">
-                  <div class="is_scroll">
-                      <input type="hidden" id="chat_supp_id" value="1" />
-                      <div style=" height:8px; background:#eeeeee; margin-top:-1px;"></div>
-                      <section class="rzs_info">
-                          <div class="top_info">
-                              <dl>
-                                  <dt>
-                                      <a href="{:U('seller', ['id' => $seller['id']])}">
-                                          <div style="background-image:url({$seller.head_pic})"></div>
-                                      </a>
-                                  </dt>
-                                  <dd> <strong>卖家:{$seller.seller_name}</strong>
-                                  </dd>
-                              </dl>
-                              <ul>
-                                  <li>
-                                      <span>宝贝描述</span> <strong>:5.0</strong> <em>高</em>
-                                  </li>
-                                  <li>
-                                      <span>卖家服务</span>
-                                      <strong>:5.0</strong>
-                                      <em>高</em>
-                                  </li>
-                                  <li>
-                                      <span>物流服务</span>
-                                      <strong>:5.0</strong>
-                                      <em>高</em>
-                                  </li>
-                              </ul>
-                          </div>
-                          <div class="s_dianpu">
-                              <span>
-                                  <a class="lianxi-btn" href="javascript:void(0);" style=" margin-left:7%;">
-                                      <em class="bg1"></em>
-                                      联系客服
-                                  </a>
-                              </span>
-                              <span>
-                                  <a href="{:U('seller', ['id' => $seller['id']])}" style=" margin-left:3%;">
-                                      <em class="bg2"></em>
-                                      进入店铺
-                                  </a>
-                              </span>
-                          </div>
-                      </section>
-                  </div>
-                  </if>
+                <div class="is_scroll">
+                    <input type="hidden" id="chat_supp_id" value="1" />                    
+                    <div style=" height:8px; background:#eeeeee; margin-top:-1px;"></div>
+                    <section class="rzs_info">
+                        <div class="top_info">
+                            <dl>
+                                <dt>
+                                    <a href="{:U('seller', ['id' =>
+                                        $seller['id']])}">
+                                        <div style="background-image:url({$seller.head_pic})"></div>
+                                    </a>
+                                </dt>
+                                <dd> <strong>卖家:{$seller.seller_name}</strong>
+                                </dd>
+                            </dl>
+                            <ul>
+                                <li>
+                                    <span>宝贝描述</span> <strong>:5.0</strong> <em>高</em>
+                                </li>
+                                <li>
+                                    <span>卖家服务</span>
+                                    <strong>:5.0</strong> <em>高</em>
+                                </li>
+                                <li>
+                                    <span>物流服务</span>
+                                    <strong>:5.0</strong>
+                                    <em>高</em>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="s_dianpu">
+                            <span>
+                                <a class="lianxi-btn" href="javascript:void(0);" style=" margin-left:7%;">
+                                    <em class="bg1"></em>
+                                    联系客服
+                                </a>
+                            </span>
+                            <span>
+                                <a href="{:U('seller', ['id' =>
+                                    $seller['id']])}" style=" margin-left:3%;">
+                                    <em class="bg2"></em>
+                                    进入店铺
+                                </a>
+                            </span>
+                        </div>
+                    </section>
+                </div>
+                </if>
 
             </form>
+
         </div>
 
         <div class="main" id="user_goods_ka_2" style="display:none">
@@ -374,13 +494,14 @@
 
         <div class="tab_attrs tab_item" id="user_goods_ka_3" style="display:none;">
             <div id="ECS_COMMENT">
-                <link href="__STATIC__/css/photoswipe.css?v=201612121507232" rel="stylesheet" type="text/css">
+                <link href="__STATIC__/css/photoswipe.css?v=201612121507345345" rel="stylesheet" type="text/css">
                 <script src="__STATIC__/js/klass.min.js"></script>
                 <script src="__STATIC__/js/photoswipe.js"></script>
 
                 <div class="my_comment_list" id="ECS_MYCOMMENTS"></div>
             </div>
         </div>
+
     </div>
 
     <script>
@@ -392,6 +513,7 @@
         <img src="__STATIC__/images/topup.png">
     </a>
     <div style="height:60px;"></div>
+
     <div class="footer_nav">
         <ul>
             <li class="bian">
@@ -413,106 +535,141 @@
         </ul>
         <dl>
             <dd class="flow">
-                <a class="button active_button" href="javascript:void(0);" onClick="AjaxAddCart({$goods.goods_id},1,0);">加入购物车</a>
+                <a class="button active_button" href="javascript:void(0);" onclick="go(function(){AjaxAddCart({$goods.goods_id},1,0);});">加入购物车</a>
             </dd>
             <dd class="goumai">
-                <a style="display:block;" href="javascript:void(0);"  onclick="AjaxAddCart({$goods.goods_id},1,1);">立即购买</a>
+                <a style="display:block;" href="javascript:void(0);" onclick="go(function(){AjaxAddCart({$goods.goods_id},1,1);});">立即购买</a>
             </dd>
         </dl>
     </div>
 
-<style>
-    .lianxi {
-        text-align: center;
-        max-width: 640px;
-        margin: 0 auto;
-        font-family: '微软雅黑';
-    }
-    .lianxi .title {
-        height: 50px;
-        border-bottom: 2px #000 solid;
-        font-size: 1.8rem;
-        line-height: 50px;
-    }
-    .lianxi dl {
-        margin-top: 10px;
-        text-align: left;
-        margin-left: 12px;
-    }
-    .lianxi dl dd {
-        margin: 10px 0;
-    }
-    .lianxi dl dt {
-        margin-top: 14px;
-        display: inline-block;
-        border-radius: 4px;
-        background-color: #949494;
-        color: #fff;
-        padding: 2px 5px;
-    }
-    .lianxi li {
-        margin-top: 10px;
-    }
-    .lianxi li span {
-        background-color: #2AA76D;
-        color: #fff;
-        padding: 2px 5px;
-        margin-left: 5px;
-        border-radius: 10px;
-        font-size: 1.2rem;
-    }
-    .lianxi li span a {
-        color: #fff;
-    }
-    .lianxi li span.qq {
-        background-color: #fff;
-    }
-</style>
+    <style>
+        .lianxi {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto;
+            font-family: '微软雅黑';
+        }
+        .lianxi .title {
+            height: 50px;
+            border-bottom: 2px #000 solid;
+            font-size: 1.8rem;
+            line-height: 50px;
+        }
+        .lianxi dl {
+            margin-top: 10px;
+            text-align: left;
+            margin-left: 12px;
+        }
+        .lianxi dl dd {
+            margin: 10px 0;
+        }
+        .lianxi dl dt {
+            margin-top: 14px;
+            display: inline-block;
+            border-radius: 4px;
+            background-color: #949494;
+            color: #fff;
+            padding: 2px 5px;
+        }
+        .lianxi li {
+            margin-top: 10px;
+        }
+        .lianxi li span {
+            background-color: #2AA76D;
+            color: #fff;
+            padding: 2px 5px;
+            margin-left: 5px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+        }
+        .lianxi li span a {
+            color: #fff;
+        }
+        .lianxi li span.qq {
+            background-color: #fff;
+        }
+    </style>
 
-<textarea id="pageii" style="display:none;">
-    <div class="lianxi">
-        <h2 class="title">联系客服</h2>
-        <dl>
-            <dt class="seller">联系商家</dt>
-            <dd>
-                <ul>
-                    <li>电话：<span><a href="tel:{$seller.mobile}">{$seller.mobile}</a></span></li>
-                    <li>QQ：<span class="qq"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={$seller.qq}&amp;site=qq&amp;menu=yes"><img border="0" src="http://pub.idqqimg.com/qconn/wpa/button/button_111.gif" alt="点击这里给我发消息" title="点击这里给我发消息"></a></span></li>
-                </ul>
-            </dd>
-            <dt class="shop">联系广佳</dt>
-            <dd>
-                <ul>
-                    <li>电话：<span><a href="tel:{$seller.mobile}">{:tpCache('shop_info.mobile')}</a></span><span><a href="tel:{:tpCache('shop_info.phone')}">{:tpCache('shop_info.phone')}</a></span></li>
-                    <li>QQ：<span class="qq"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={:tpCache('shop_info.qq')}&amp;site=qq&amp;menu=yes"><img border="0" src="http://pub.idqqimg.com/qconn/wpa/button/button_111.gif" alt="点击这里给我发消息" title="点击这里给我发消息"></a></span><span class="qq"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={:tpCache('shop_info.qq2')}&amp;site=qq&amp;menu=yes"><img border="0" src="http://pub.idqqimg.com/qconn/wpa/button/button_111.gif" alt="点击这里给我发消息" title="点击这里给我发消息"></a></span></li>
-                </ul>
-            </dd>
-        </dl>
-    </div>
-</textarea>
+    <textarea id="lianxi" style="display:none;">
+        <div class="lianxi">
+            <h2 class="title">联系客服</h2>
+            <dl>
+                <dt class="seller">联系商家</dt>
+                <dd>
+                    <ul>
+                        <li>电话：<span><a href="tel:{$seller.mobile}">{$seller.mobile}</a></span></li>
+                        <li>QQ：<span class="qq"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={$seller.qq}&amp;site=qq&amp;menu=yes"><img border="0" src="http://pub.idqqimg.com/qconn/wpa/button/button_111.gif" alt="点击这里给我发消息" title="点击这里给我发消息"></a></span></li>
+                    </ul>
+                </dd>
+                <dt class="shop">联系广佳</dt>
+                <dd>
+                    <ul>
+                        <li>电话：<span><a href="tel:{$seller.mobile}">{:tpCache('shop_info.mobile')}</a></span><span><a href="tel:{:tpCache('shop_info.phone')}">{:tpCache('shop_info.phone')}</a></span></li>
+                        <li>QQ：<span class="qq"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={:tpCache('shop_info.qq')}&amp;site=qq&amp;menu=yes"><img border="0" src="http://pub.idqqimg.com/qconn/wpa/button/button_111.gif" alt="点击这里给我发消息" title="点击这里给我发消息"></a></span><span class="qq"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin={:tpCache('shop_info.qq2')}&amp;site=qq&amp;menu=yes"><img border="0" src="http://pub.idqqimg.com/qconn/wpa/button/button_111.gif" alt="点击这里给我发消息" title="点击这里给我发消息"></a></span></li>
+                    </ul>
+                </dd>
+            </dl>
+        </div>
+    </textarea>
 
     <script type="text/javascript">
+
+        function go2(callback) {
+            if ($('.spec-title').length != 0 && ($('.spec-title').length != $("input[name^='goods_spec']:checked").length)) {
+                layer.open({
+                    content: '请选择商品属性'
+                    ,skin: 'msg'
+                    ,time: 2
+                });
+            } else {
+                callback();
+            }
+        }
+
+        function go(callback) {
+            if ($('.spec-title').length != 0) {
+                var h = parseInt(($(window).height() * 0.7));
+                layer.open({
+                    type: 1
+                    ,content: $('#shuxing').val()
+                    ,anim: 'up'
+                    ,style: 'position:fixed; bottom:0; left:0; width: 100%; height: '+h+'px; border:none;background-color: #f2f2f2;    font-family: 微软雅黑;'
+                });
+                var h_ = h - (45 + 110 + 100);
+                $('#guige').css({'maxHeight':h_+'px','overflowY':'auto'});
+                // 初始化
+                $("input[name^='goods_spec']:checked").each(function() {
+                    $('a[data-cid='+$(this).val()+']').addClass('hover');
+                });
+                $('input[name=goods_num_]').val($('input[name=goods_num]').val());
+                get_goods_price();
+                $('.que').click(function() {
+                    go2(callback);
+                });
+            } else {
+                callback();
+            }
+        }
+
         $(document).ready(function(){
             // 更新商品价格
             get_goods_price();
 
-            $(".subNav").click(function(){
-                $(this).next(".navContent").slideToggle(300).siblings(".navContent").slideUp(500);
-                $(this).toggleClass("on").siblings(".subNav").removeClass("on");
-                if($(".is_scroll").length <= 0)
-                {
-                    $('html,body').animate({'scrollTop':$('body')[0].scrollHeight},600);
-                }
-            });
+            // $(".subNav").click(function(){alert(1);
+            //     $(this).next(".navContent").slideToggle(300).siblings(".navContent").slideUp(500);
+            //     $(this).toggleClass("on").siblings(".subNav").removeClass("on");
+            //     if ($(".is_scroll").length <= 0) {
+            //         $('html,body').animate({'scrollTop':$('body')[0].scrollHeight},600);
+            //     }
+            // });
             commentType = 1; // 评论类型
             ajaxComment(1,1);// ajax 加载评价列表
-
-
 
             $(".lianxi-btn").click(function(){
                 layer.open({
                     type: 1
-                    ,content: $('#pageii').val()
+                    ,content: $('#lianxi').val()
                     ,anim: 'up'
                     ,style: 'position:fixed; bottom:0; left:0; width: 100%; height: 400px; border:none;'
                 });
@@ -521,16 +678,33 @@
 
         function switch_spec(spec)
         {
+
+            if ($(spec).hasClass('hover')) {
+                $(spec).removeClass('hover');
+                var cid = $(spec).data('cid');
+                var i = $("input[name^='goods_spec'][value="+cid+"]");
+                i.prop('checked', false);
+                get_goods_price();
+                return;
+            }
+
             $(spec).siblings().removeClass('hover');
             $(spec).addClass('hover');
-            $(spec).siblings().children('input').prop('checked',false);
-            $(spec).children('input').prop('checked',true);
+
+            var cid = $(spec).data('cid');
+            var i = $("input[name^='goods_spec'][value="+cid+"]");
+            i.siblings().prop('checked', false);
+            i.prop('checked', true);
+
+            // $(spec).siblings().children('input').prop('checked', false);
+            // $(spec).children('input').prop('checked', true);
             //更新商品价格
             get_goods_price();
         }
 
         function get_goods_price()
         {
+            // var goods_img = {$goods.shop_img}; // 商品图片
             var goods_price = {$goods.shop_price}; // 商品起始价
             var store_count = {$goods.store_count}; // 商品起始库存
             var spec_goods_price = {$spec_goods_price};  // 规格 对应 价格 库存表   //alert(spec_goods_price['28_100']['price']);
@@ -538,19 +712,40 @@
             if(spec_goods_price != null)
             {
                 goods_spec_arr = new Array();
+                goods_spec_name = '';
                 $("input[name^='goods_spec']:checked").each(function(){
                      goods_spec_arr.push($(this).val());
+                     goods_spec_name = goods_spec_name + ' ' + $('a[data-cid='+$(this).val()+']').text();
                 });
+                if (0 == goods_spec_arr.length) {
+                    // alert('请选择商品参数');
+                    // $('.spec-c').click();
+                    // return;
+                }
                 var spec_key = goods_spec_arr.sort(sortNumber).join('_');  //排序后组合成 key
 
-                if (spec_key == '') {
-                    // alert('请选择商品参数');
-                    $('.spec-c').click();
+                if (spec_goods_price[spec_key]) {
+                    $('.yixuan').text('已选：'+goods_spec_name);
+                    // return;
+                } else {
+                    goods_no_spec_name = '';
+                    $('.spec-title').each(function() {
+                        if ($(this).children("input[name^='goods_spec']:checked").length == 0) {
+                            goods_no_spec_name = goods_no_spec_name + ' ' + $(this).data('text');
+                        }
+                    });
+                    $('.yixuan').text('请选择 ' + goods_no_spec_name);
                     return;
                 }
+
                 goods_price = spec_goods_price[spec_key]['price']; // 找到对应规格的价格
                 store_count = spec_goods_price[spec_key]['store_count']; // 找到对应规格的库存
+                // goods_img = spec_goods_price[spec_key]['goods_img'] || goods_img; // 找到对应规格的图片
             }
+
+
+            $('.kucun').text(store_count);
+
             var goods_num = parseInt($("#goods_num").val());
             // 库存不足的情况
             if(goods_num > store_count)
@@ -561,8 +756,7 @@
             }
             var flash_sale_price = parseFloat("{$goods['flash_sale']['price']}");
             (flash_sale_price > 0) && (goods_price = flash_sale_price);
-            $("#goods_price").html('￥'+goods_price+'元'); // 变动价格显示
-
+            $(".jiage").html('￥'+goods_price+'元'); // 变动价格显示
         }
 
         function sortNumber(a,b)
@@ -606,8 +800,8 @@
     <script src="__PUBLIC__/js/jqueryUrlGet.js"></script>
     <!--获取get参数插件-->
     <script>
-    // 设置推荐人
-    set_first_leader();
+        // 设置推荐人
+        set_first_leader();
     </script>
     <!-- 微信浏览器 调用微信 分享js-->
     <if condition="$signPackage neq null">
