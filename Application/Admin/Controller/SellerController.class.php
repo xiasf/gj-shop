@@ -143,6 +143,12 @@ class SellerController extends BaseController
 
         $sellerInfo = $seller->find(I('get.id/d'));
 
+        if (empty($sellerInfo)) {
+            $sellerInfo['province'] = 24022;
+            $sellerInfo['city'] = 25086;
+            $sellerInfo['district'] = 25088;
+        }
+
         $province = M('region')->where(array('parent_id'=>0))->select();
         $city =  M('region')->where(array('parent_id'=>$sellerInfo['province']))->select();
         $area =  M('region')->where(array('parent_id'=>$sellerInfo['city']))->select();
