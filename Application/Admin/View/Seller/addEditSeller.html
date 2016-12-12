@@ -373,19 +373,19 @@ $(function() {
     marker.addEventListener("dragend", coordinates);
 
     // 移动地图时的事件
-    map.addEventListener('ondragging', function(e){
-        marker.setPosition(map.getCenter());
-        // 直接用这个可能会导致页面卡主html冗积太多
-        // coordinates(e);
-        $('input[name=longitude]').val(e.point.lng);
-        $('input[name=latitude]').val(e.point.lat);
-    });
+    // map.addEventListener('ondragging', function(e){
+    //     marker.setPosition(map.getCenter());
+    //     // 直接用这个可能会导致页面卡主html冗积太多
+    //     // coordinates(e);
+    //     $('input[name=longitude]').val(e.point.lng);
+    //     $('input[name=latitude]').val(e.point.lat);
+    // });
 
     // 移动地图完成的事件
-    map.addEventListener('dragend', function(e){
-        marker.setPosition(map.getCenter());
-        coordinates(e);
-    });
+    // map.addEventListener('dragend', function(e){
+    //     marker.setPosition(map.getCenter());
+    //     coordinates(e);
+    // });
 
     function coordinates(e) {
         var p = marker.getPosition();
