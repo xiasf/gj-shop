@@ -230,7 +230,7 @@
                         border: 1px #CECECE solid;
                         border-radius: 5px;
                         overflow: hidden;
-                        padding: 2px;
+                        padding: 3px;
                         background-color: white;
                     }
                     .shuxing .top .r {
@@ -242,9 +242,9 @@
                         font-weight: 800;
                     }
                     .que {
-                        height: 45px;
+                        height: 50px;
                         background-color: #dd2726;
-                        line-height: 45px;
+                        line-height: 50px;
                         color: #fff;
                         text-align: center;
                         font-size: 1.5rem;
@@ -255,11 +255,21 @@
                     .subNavBox {
                         margin-top: 12px;
                     }
+                    .shuxing .close {
+                        position: absolute;
+                        right: 10px;
+                        top: 3px;
+                        font-size: 7.5rem;
+                    }
+                    .shuxing .close .icon {
+                        font-size: 2.5rem;
+                    }
                 </style>
                 <input type="hidden" class="num" name="goods_num" value="1" />
 
                 <textarea id="shuxing" style="display:none;">
                     <div class="shuxing" style="">
+                        <div class="close" onclick="layer.closeAll();"><i class="icon iconfont icon-guanbi"></i></div>
                         <div class="top">
                             <div class="l">
                                 <img title="" width="100%" src="{$goods_images_list.0.image_url}">
@@ -314,7 +324,7 @@
                             </div>
                         </section>
                     </div>
-                    <div style="height:45px;"></div>
+                    <div style="height:50px;"></div>
                     <div class="que">确定</div>
                 </textarea>
 
@@ -636,7 +646,7 @@
                     ,anim: 'up'
                     ,style: 'position:fixed; bottom:0; left:0; width: 100%; height: '+h+'px; border:none;background-color: #f2f2f2;    font-family: 微软雅黑;'
                 });
-                var h_ = h - (45 + 110 + 100);
+                var h_ = h - (50 + 110 + 100);
                 $('#guige').css({'maxHeight':h_+'px','overflowY':'auto'});
                 // 初始化
                 $("input[name^='goods_spec']:checked").each(function() {
