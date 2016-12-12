@@ -207,7 +207,7 @@ class WeixinController extends BaseController
                     <FuncFlag>0</FuncFlag>
                     </xml>";
         $msgType    = 'text';
-        $contentStr = '你说啥，人家好像听不懂呢，好伐!';
+        $contentStr = '你说啥，人家好像听不懂呢，好伐！';
         $resultStr  = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
         exit($resultStr);
     }
