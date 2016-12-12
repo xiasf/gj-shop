@@ -805,9 +805,10 @@
                         $('#tp_cart_info').html(cart_cn);
                     }
                 });
+            } else {
+                if (cart_cn > 99) cart_cn = '..';
+                $('#tp_cart_info').html(cart_cn);
             }
-            cart_cn = '..';
-            $('#tp_cart_info').html(cart_cn);
         });
     </script>
     <script src="__PUBLIC__/js/jqueryUrlGet.js"></script>

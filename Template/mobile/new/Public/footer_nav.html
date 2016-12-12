@@ -58,9 +58,10 @@
 					$('#cart_quantity').html(cart_cn);
 				}
 			});
+		  } else {
+			if (cart_cn > 99) {cart_cn = '...';}
+	  		$('#cart_quantity').html(cart_cn);
 		  }
-		  if (cart_cn > 99) {cart_cn = '...';}
-		  $('#cart_quantity').html(cart_cn);
 	});
 </script>
 <if condition="$signPackage neq null">
