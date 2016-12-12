@@ -16,11 +16,17 @@
 <script src="__PUBLIC__/js/mobile_common.js"></script>
 <style>
    .exchange {
-            text-decoration: none;
+    text-decoration: none;
     background: -webkit-gradient(linear,0 50%,100% 50%,from(#2D3FE9),to(#E24BF4));
     color: #fff;
     padding: 0 5px;
     border-radius: 7px;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 1;
+    height: 20px;
+    line-height: 20px;
     }
 </style>
 </head>
@@ -58,6 +64,8 @@
    <foreach name="goods_list" item="vo" key="k">
      <li>
 		<a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo[goods_id]))}" class="item">
+                <font class="exchange">可抵兑币：{$vo.exchange}</font>
+
 			<div class="pic_box">
 				<div class="active_box">
 					<span style=" background-position:0px -36px">新品</span>
@@ -67,7 +75,6 @@
 			<div class="title_box">{$vo.goods_name}</div>
 			<div class="price_box">
 				<span class="new_price"><i>￥{$vo.shop_price}元</i></span>
-                <font class="exchange">可抵兑币：{$vo.exchange}</font>
 			</div>
 			<div class="comment_box">已售0</div>
 		</a>

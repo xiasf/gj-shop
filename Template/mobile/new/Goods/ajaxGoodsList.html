@@ -1,6 +1,8 @@
 <foreach name="goods_list" item="vo" key="k">
  <li>
     <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$vo[goods_id]))}" class="item">
+            <font class="exchange">可抵兑币：{$vo.exchange}</font>
+    
         <div class="pic_box">
             <div class="active_box">
                 <span style=" background-position:0px -36px">新品</span>
@@ -10,7 +12,6 @@
         <div class="title_box">{$vo.goods_name}</div>
         <div class="price_box">
             <span class="new_price"><i>￥{$vo.shop_price}元</i></span>
-            <font class="exchange">可抵兑币：{$vo.exchange}</font>
         </div>
         <div class="comment_box">已售0</div>
     </a>
