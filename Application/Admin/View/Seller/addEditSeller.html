@@ -359,6 +359,7 @@ $(function() {
         marker = new BMap.Marker(point);        // 创建标注  
     　　map.addOverlay(marker);                 // 将标注添加到地图中
         marker.enableDragging();
+        marker.addEventListener("dragend", coordinates);
     }
 
     function showInfo(e) {
@@ -371,7 +372,6 @@ $(function() {
     // 单击事件
     map.addEventListener("click", showInfo);
 
-    marker.addEventListener("dragend", coordinates);
 
     // 移动地图时的事件
     // map.addEventListener('ondragging', function(e){
@@ -383,10 +383,10 @@ $(function() {
     // });
 
     // 移动地图完成的事件
-    // map.addEventListener('dragend', function(e){
-    //     marker.setPosition(map.getCenter());
-    //     coordinates(e);
-    // });
+    map.addEventListener('dragend', function(e){
+        marker.setPosition(map.getCenter());
+        coordinates(e);
+    });
 
     function coordinates(e) {
         var p = marker.getPosition();
