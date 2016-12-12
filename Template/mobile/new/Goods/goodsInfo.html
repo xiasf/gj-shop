@@ -669,13 +669,13 @@
             // 更新商品价格
             get_goods_price();
 
-            // $(".subNav").click(function(){alert(1);
-            //     $(this).next(".navContent").slideToggle(300).siblings(".navContent").slideUp(500);
-            //     $(this).toggleClass("on").siblings(".subNav").removeClass("on");
-            //     if ($(".is_scroll").length <= 0) {
-            //         $('html,body').animate({'scrollTop':$('body')[0].scrollHeight},600);
-            //     }
-            // });
+            $(".subNav").click(function(){
+                $(this).next(".navContent").slideToggle(300).siblings(".navContent").slideUp(500);
+                $(this).toggleClass("on").siblings(".subNav").removeClass("on");
+                if ($(".is_scroll").length <= 0) {
+                    $('html,body').animate({'scrollTop':$('body')[0].scrollHeight},600);
+                }
+            });
             commentType = 1; // 评论类型
             ajaxComment(1,1);// ajax 加载评价列表
 
