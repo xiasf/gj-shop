@@ -2,6 +2,7 @@
 <li>
      <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
      <div class="index_pro">
+     <font class="exchange">可抵兑币：{$v.exchange}</font>
 	       <div class="products_kuang">
 	         <img src="{$v.goods_id|goods_thum_images=400,400}"></div>
 	       <div class="goods_name">{$v.goods_name}</div>
@@ -10,7 +11,6 @@
 	             <img src="__STATIC__/images/index_flow.png">
 	         </a>
 	       <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}</span>
-           <font class="exchange">可抵兑币：{$v.exchange}</font>
 	       </div>
       </div>
      </a>
