@@ -112,6 +112,11 @@ function get_thum_images($src, $width, $height, $mode = 4)
     //参考文章 http://www.mb5u.com/biancheng/php/php_84533.html  改动参考 http://www.thinkphp.cn/topic/13542.html
     $a = $image->thumb($width, $height, $mode)->save('.' . $path . $thumb, null, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
 
+    // 生成失败返回原图
+    if (!file_exists('.' . $path . $thumb)) {
+        return $src . '.' . $fileExt;
+    }
+
     return $path . $thumb;
 }
 
