@@ -39,9 +39,12 @@
               <!--排序规则-->
               <input type="hidden" name="orderby1" value="id" />
               <input type="hidden" name="orderby2" value="desc" />
-              <!-- <button type="submit" onclick="ajax_get_table('search-form2',1)" id="button-filter search-order" class="btn btn-primary"> <i class="fa fa-search"></i>
+              <div class="form-group">
+                  <input type="text" name="key_word" class="form-control" value="" placeholder="输入商家名称搜索">
+              </div>
+              <button type="submit" onclick="ajax_get_table('search-form2',1)" id="button-filter search-order" class="btn btn-primary"> <i class="fa fa-search"></i>
                 筛选
-              </button> -->
+              </button>
               <button type="button" onclick="location.href='{:U('Admin/seller/addEditSeller')}'" class="btn btn-primary pull-right">
                 <i class="fa fa-plus"></i>
                 添加新店铺

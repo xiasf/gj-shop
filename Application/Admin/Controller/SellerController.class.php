@@ -56,6 +56,12 @@ class SellerController extends BaseController
         $order_str = "`{$_POST['orderby1']}` {$_POST['orderby2']}";
         $goodsList = $model->where($where)->order($order_str)->limit($Page->firstRow . ',' . $Page->listRows)->select();
 
+        if ($key_word != '') {
+            foreach ($goodsList as $key => &$value) {
+                $value['seller_name'] = str_replace($key_word, '<font color="red">' . $key_word . '</font>', $value['seller_name']);
+            }
+        }
+
         $this->assign('goodsList', $goodsList);
         $this->assign('page', $show); // 赋值分页输出
         $this->display();

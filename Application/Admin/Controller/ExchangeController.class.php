@@ -22,8 +22,22 @@ class ExchangeController extends BaseController
 
 
 
-    public function orderList()
+    public function order_list()
     {
+        $map = [];
+        $this->keywords = I('get.keywords');
+        $map['name'] = ['like', '%' . $this->keywords . '%'];
+        $count = M('union_order')->where($map)->count();
+        $Page  = new \Think\Page($count, 10);
+        $show  = $Page->show();
+        $lists = M('union_order o')->join('LEFT JOIN __USERS__ u ON u.user_id = o.user_id')->field('o.*,u.nickname')->where($map)->order('order_id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        if ($this->keywords != '') {
+            foreach ($lists as $key => &$value) {
+                $value['name'] = str_replace($this->keywords, '<font color="red">' . $this->keywords . '</font>', $value['name']);
+            }
+        }
+        $this->assign('lists', $lists);
+        $this->assign('page', $show); // 赋值分页输出
         $this->display();
     }
 
@@ -40,7 +54,6 @@ class ExchangeController extends BaseController
         $lists = M('exchange')->order('add_time desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
         $this->assign('lists', $lists);
         $this->assign('page', $show); // 赋值分页输出
-        $this->assign('exchanges', C('exchange_TYPE'));
         $this->display();
     }
 

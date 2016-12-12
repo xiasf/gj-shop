@@ -154,7 +154,7 @@ function getAllMenu() {
         )),
         'exchange'     => array('name' => '兑币管理', 'icon' => 'fa-book', 'sub_menu' => array(
             array('name' => '兑币列表', 'act' => 'index', 'control' => 'Exchange'),
-            array('name' => '订单列表', 'act' => 'orderList', 'control' => 'Exchange'),
+            array('name' => '订单列表', 'act' => 'order_list', 'control' => 'Exchange'),
         )),
         'seller'     => array('name' => '店铺管理', 'icon' => 'fa-book', 'sub_menu' => array(
             array('name' => '店铺列表', 'act' => 'sellerList', 'control' => 'Seller'),
