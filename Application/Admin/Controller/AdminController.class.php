@@ -60,11 +60,21 @@ class AdminController extends BaseController
     {
         $data = I('post.');
         if (empty($data['password'])) {
-            unset($data['password']);
+            unset($data['password'], $data['confirm_password']);
         } else {
             $data['password'] = encrypt($data['password']);
+            $data['confirm_password'] = encrypt($data['confirm_password']);
         }
         if ($data['act'] == 'add') {
+
+            if (empty($data['password'])) {
+                $this->error("密码必填");
+            }
+
+            if ($data['password'] != $data['confirm_password']) {
+                $this->error("两次密码不一致");
+            }
+
             unset($data['admin_id']);
             $data['add_time'] = time();
             if (D('admin')->where("user_name='" . $data['user_name'] . "'")->count()) {
@@ -75,6 +85,11 @@ class AdminController extends BaseController
         }
 
         if ($data['act'] == 'edit') {
+
+            if ($data['password'] && ($data['password'] != $data['confirm_password'])) {
+                $this->error("两次密码不一致");
+            }
+
             $r = D('admin')->where('admin_id=' . $data['admin_id'])->save($data);
         }
 

@@ -40,6 +40,12 @@
                                			<input type="password" class="form-control" name="password" value="{$info.password}" >
                                     </td>
                                 </tr>
+                                                                <tr>
+                                    <td>确认密码：</td>
+                                    <td>
+                                        <input type="password" class="form-control" name="confirm_password" value="" >
+                                    </td>
+                                </tr>
                                 <if condition=" ($act eq 'add') OR ($info['admin_id'] gt 1)">
                                 <tr>
                                     <td>所属角色：</td>
@@ -71,17 +77,25 @@
 <script>
 function adsubmit(){
 	if($('input[name=user_name]').val() == ''){
-		layer.msg('用户名不能为空！', {icon: 2,time: 1000});   //alert('少年，用户名不能为空！');
+		layer.msg('用户名不能为空！', {icon: 2,time: 1000});
 		return false;
 	}
 	if($('input[name=email]').val() == ''){
-		layer.msg('邮箱不能为空！', {icon: 2,time: 1000});//alert('少年，邮箱不能为空！');
+		layer.msg('邮箱不能为空！', {icon: 2,time: 1000});
 		return false;
 	}
 	if($('input[name=password]').val() == '' && '{$act}' == 'add'){
-		layer.msg('密码不能为空！', {icon: 2,time: 1000});//alert('少年，密码不能为空！');
+		layer.msg('密码不能为空！', {icon: 2,time: 1000});
 		return false;
 	}
+    if($('input[name=password]').val() && !$('input[name=confirm_password]').val()) {
+        layer.msg('请再次确认密码！', {icon: 2,time: 1000});
+        return false;
+    }
+    if($('input[name=password]').val() && ($('input[name=password]').val() != $('input[name=confirm_password]').val())) {
+        layer.msg('两次密码输入不正确！', {icon: 2,time: 1000});
+        return false;
+    }
 	$('#adminHandle').submit();
 }
 </script>
