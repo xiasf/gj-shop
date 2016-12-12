@@ -19,6 +19,15 @@ class ExchangeController extends BaseController
     /**----------------------------------------------*/
     /*                兑币控制器                   */
     /**----------------------------------------------*/
+
+
+
+    public function orderList()
+    {
+        $this->display();
+    }
+
+
     /*
      * 兑币类型列表
      */
