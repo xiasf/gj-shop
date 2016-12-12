@@ -7,13 +7,22 @@
 <title>商品列表-{$gjshop_config['shop_info_store_title']}</title>
 <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
 <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
-<link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=2016128234847"/>
-<link rel="stylesheet" type="text/css" href="__STATIC__/css/category_list.css?v=2016128234847"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=20161212150719"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/category_list.css?v=20161212150719"/>
 <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
 <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
-<link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=2016128234847"/>
+<link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=20161212150719"/>
 <script src="__PUBLIC__/js/global.js"></script>
 <script src="__PUBLIC__/js/mobile_common.js"></script>
+<style>
+   .exchange {
+            text-decoration: none;
+    background: -webkit-gradient(linear,0 50%,100% 50%,from(#2D3FE9),to(#E24BF4));
+    color: #fff;
+    padding: 0 5px;
+    border-radius: 7px;
+    }
+</style>
 </head>
 <body>
 <section class="_pre" >
@@ -58,6 +67,7 @@
 			<div class="title_box">{$vo.goods_name}</div>
 			<div class="price_box">
 				<span class="new_price"><i>￥{$vo.shop_price}元</i></span>
+                <font class="exchange">可抵兑币：{$vo.exchange}</font>
 			</div>
 			<div class="comment_box">已售0</div>
 		</a>
