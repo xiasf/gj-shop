@@ -202,7 +202,8 @@ display: -webkit-box;}
     font-size: 1.2rem;
     position: absolute;
     top: 0;
-    right: 0;
+    right: 0;    height: 20px;
+    line-height: 20px;
     z-index: 1;}
 
 .scroll_hot .bd ul li .btns{ position:absolute; display:block;right:5px;height:25px;width:25px;background: #f23; border-radius:50%; bottom:8px;}
