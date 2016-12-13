@@ -8,9 +8,9 @@
     <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
     <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=2016121215073345345"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/goods.css?v=2016121215073345345"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=2016121215073345345"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=201612121507354546"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/goods.css?v=201612121507354546"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=201612121507354546"/>
     <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
     <script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
     <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
@@ -232,6 +232,7 @@
                         overflow: hidden;
                         padding: 3px;
                         background-color: white;
+                        -webkit-box-shadow: rgba(123, 123, 123, 0.55) 0px 1px 6px;
                     }
                     .shuxing .top .r {
                         margin-left: 140px;
@@ -266,6 +267,9 @@
                     }
                     .subNav.on {
                         background: none;
+                    }
+                    .que- dl {
+                        width: 100%
                     }
                 </style>
                 <input type="hidden" class="num" name="goods_num" value="1" />
@@ -329,7 +333,27 @@
                     </div>
                     <div style="height:50px;"></div>
                     <div class="que">确定</div>
+                    <div class="que- footer_nav" style="display: none;">
+                        <dl>
+                            <dd class="flow add-">
+                                <a class="button active_button" href="javascript:void(0);">加入购物车</a>
+                            </dd>
+                            <dd class="goumai pay-">
+                                <a style="display:block;" href="javascript:void(0);">立即购买</a>
+                            </dd>
+                        </dl>
+                    </div>
                 </textarea>
+
+                <section id="search_ka">
+                    <div class="ui-sx bian1">
+                        <div class="subNavBox">
+                            <div class="subNav" style="background: none;">
+                                <strong class="xuanzeshuxing">选择属性</strong>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 <section id="search_ka">
                     <div class="ui-sx bian1">
@@ -507,7 +531,7 @@
 
         <div class="tab_attrs tab_item" id="user_goods_ka_3" style="display:none;">
             <div id="ECS_COMMENT">
-                <link href="__STATIC__/css/photoswipe.css?v=2016121215073345345" rel="stylesheet" type="text/css">
+                <link href="__STATIC__/css/photoswipe.css?v=201612121507354546" rel="stylesheet" type="text/css">
                 <script src="__STATIC__/js/klass.min.js"></script>
                 <script src="__STATIC__/js/photoswipe.js"></script>
 
@@ -640,7 +664,7 @@
             }
         }
 
-        function go(callback) {
+        function go(callback, mode) {
             if ($('.spec-title').length != 0) {
                 var h = parseInt(($(window).height() * 0.8));
                 layer.open({
@@ -657,9 +681,22 @@
                 });
                 $('input[name=goods_num_]').val($('input[name=goods_num]').val());
                 get_goods_price();
-                $('.que').click(function() {
-                    go2(callback);
-                });
+                if (mode == 1) {
+                    $('.add-').click(function() {
+                        go2(callback.add);
+                    });
+                    $('.pay-').click(function() {
+                        go2(callback.pay);
+                    });
+                    $('.que-').show();
+                    $('.que').hide;
+                } else {
+                    $('.que').click(function() {
+                        go2(callback);
+                    });
+                    $('.que-').hide();
+                    $('.que').show;
+                }
             } else {
                 callback();
             }
@@ -674,6 +711,12 @@
                 $(this).toggleClass("on").siblings(".subNav").removeClass("on");
                 if ($(".is_scroll").length <= 0) {
                     $('html,body').animate({'scrollTop':$('body')[0].scrollHeight},600);
+                }
+                if ($(this).find('.xuanzeshuxing').length != 0) {
+                    go({
+                        add: function(){AjaxAddCart({$goods.goods_id},1,0);},
+                        pay: function(){AjaxAddCart({$goods.goods_id},1,1);}
+                    }, 1);
                 }
             });
             commentType = 1; // 评论类型
@@ -739,7 +782,7 @@
 
                 if (spec_goods_price[spec_key]) {
                     $('.yixuan').text('已选：'+goods_spec_name);
-                    // return;
+                    $('.xuanzeshuxing').text('已选择：'+goods_spec_name);
                 } else {
                     goods_no_spec_name = '';
                     $('.spec-title').each(function() {
@@ -747,7 +790,9 @@
                             goods_no_spec_name = goods_no_spec_name + ' ' + $(this).data('text');
                         }
                     });
+                    goods_no_spec_name = goods_no_spec_name.replace(/(^\s*)|(\s*$)/g, "");
                     $('.yixuan').text('请选择 ' + goods_no_spec_name);
+                    $('.xuanzeshuxing').text('选择：'+goods_no_spec_name.replace(/\ /g, ','));
                     return;
                 }
 
