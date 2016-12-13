@@ -288,7 +288,7 @@
                             </div>
                         </div>
 
-                        <if condition="$filter_spec neq ''">
+                        <notempty name="filter_spec">
                         <section id="guige">
                             <!---属性---->
                             <div class="ui-sx bian1">
@@ -308,7 +308,7 @@
                                 </div>
                             </div>
                         </section>
-                        </if>
+                        </notempty>
 
                         <section id="search_ka">
                             <div class="ui-sx bian1">
@@ -345,7 +345,7 @@
                     </div>
                 </textarea>
 
-                <if condition="$filter_spec neq ''">
+                <notempty name="filter_spec">
                 <section id="search_ka">
                     <div class="ui-sx bian1">
                         <div class="subNavBox">
@@ -355,7 +355,7 @@
                         </div>
                     </div>
                 </section>
-                </if>
+                </notempty>
 
                 <section id="search_ka">
                     <div class="ui-sx bian1">
