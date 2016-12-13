@@ -1,0 +1,98 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> <i class="fa fa-list"></i>
+                            订单列表
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="navbar navbar-default">
+                            <form class="navbar-form form-inline" action="" method="get">
+                                <div class="form-group">
+                                    <input type="text" name="keywords" class="form-control" value="{$keywords}" placeholder="输入商家名称搜索">
+                                </div>
+                                <button type="submit" class="btn btn-default">搜索</button>
+                                <div class ="form-group pull-right">
+                                    <!-- <a href="{:U('Admin/exchange/exchange_info')}" class="btn btn-primary pull-right"> <i class="fa fa-plus"></i>
+                                        发放兑币
+                                    </a> -->
+                                </div>
+                            </form>
+                        </div>
+                        <div id="ajax_return">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td style="width: 1px;" class="text-center">
+                                                <input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"></td>
+                                            <td class="text-center">ID</td>
+                                            <td class="text-center">商家名称</td>
+                                            <td class="text-center">兑币抵扣</td>
+                                            <td class="text-center">支付金额</td>
+                                            <td class="text-center">总价</td>
+                                            <td class="text-center">折扣</td>
+                                            <td class="text-center">用户</td>
+                                            <td class="text-center">创建时间</td>
+                                            <!-- <td class="text-center">创建时间</td> -->
+                                            <td class="text-center">操作</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <volist name="lists" id="list">
+                                            <tr>
+                                                <td class="text-center">
+                                                    <input type="checkbox" name="selected[]" value="6"></td>
+                                                <td class="text-center">{$list.order_id}</td>
+                                                <td class="text-center">{$list.name}</td>
+                                                <td class="text-center">{$list.exchange_money}</td>
+                                                <!-- <td class="text-center">{$list.createnum}</td> -->
+                                                <td class="text-center">{$list.order_amount}</td>
+                                                <td class="text-center">{$list.total_amount}</td>
+                                                <td class="text-center">{$list['discount'] / 10}折</td>
+                                                <td class="text-center">{$list.nickname}</td>
+                                                <td class="text-center">{$list.add_time|date='Y-m-d H:i:s',###}</td>
+                                                <td class="text-center">
+                                                    <!-- <a href="{:U('Admin/exchange/exchange_list',array('id'=>
+                                                        $list['id']))}" data-toggle="tooltip" title="" class="btn btn-info exchange_list" data-original-title="查看">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a> -->
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">{$page}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row --> </section>
+    <!-- /.content -->
+</div>
+<script>
+$('.exchange_list').click(function(){
+    var url = $(this).attr('href');
+    layer.open({
+        type: 2,
+        title: '查看兑币',
+        shadeClose: true,
+        shade: 0.5,
+        area: ['70%', '85%'],
+        content: url,
+    });return false;
+});
+
+</script>
+</body>
+</html>
