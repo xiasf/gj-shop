@@ -117,7 +117,7 @@
         background-color: rgba(0, 0, 0, 0.55);
         height: 17px;
         line-height: 17px;
-        width: 16px;
+        width: 17px;
         padding: 1px 2px;
         border-radius: 6px;
         text-align: center;
@@ -126,6 +126,9 @@
         text-shadow: 2px 2px 5px #000;
         transition: all 0.2s ease-out;
         overflow: hidden;
+    }
+    .icon-list .seller-num.w {
+        width: 25px;
     }
     .icon-list .seller-num.no {
         width: 0;
@@ -571,7 +574,11 @@
                 $('.seller-num').remove();
                 if (data.length !== 0) {
                     for (var i in data) {
-                        var span = $('<span class="seller-num no">'+data[i][1]+'</span>');
+                        if (data[i][1] > 99) {
+                            var span = $('<span class="seller-num w no">99+</span>');
+                        } else {
+                            var span = $('<span class="seller-num no">'+data[i][1]+'</span>');
+                        }
                         $('a[data-cat='+data[i][0]+']').append(span);
                         setTimeout(function() {
                             $('.seller-num').removeClass('no');
