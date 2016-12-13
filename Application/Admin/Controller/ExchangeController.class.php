@@ -63,6 +63,8 @@ class ExchangeController extends BaseController
     public function exchange_info()
     {
         if (IS_POST) {
+            set_time_limit(0);
+            ini_set('memory_limit','128M');
             $data                 = I('post.');
             $data['use_start_time'] = strtotime($data['use_start_time']);
             $data['use_end_time'] = strtotime($data['use_end_time']);
@@ -72,8 +74,8 @@ class ExchangeController extends BaseController
             if (!$data['createnum'] > 0) {
                 $this->error("发放数量不能小于0");
             }
-            if ($data['createnum'] > 2000) {
-                $this->error('每次发放数量不能超过2000张');
+            if ($data['createnum'] > 100000) {
+                $this->error('每次发放数量不能超过100000张');
             }
             if ($data['money'] <= 0) {
                 $this->error("每张面额不能小于0");
@@ -83,18 +85,21 @@ class ExchangeController extends BaseController
             if (!$row) {
                 $this->error('发放失败');
             }
-
             $add['eid']  = $new_id;
             for ($i = 0; $i < $data['createnum']; $i++) {
                 do {
-                    $code        = strtolower(get_rand_str(8, 0, 1)); // 获取随机8位字符串
-                    // $code = zerofill(mt_rand(0, 99999999), 8);
+                    // $code        = strtolower(get_rand_str(8, 0, 1)); // 获取随机8位字符串
+                    $code = zerofill(mt_rand(0, 99999999), 8);
                     $password    = mt_rand(1000, 9999); // 获取随机4位数字
                     $check_exist = M('exchange_list')->where(array('code' => $code))->find();
                 } while ($check_exist);
                 $add['code']     = $code;
                 $add['password'] = $password;
-                M('exchange_list')->add($add);
+                $newId = M('exchange_list')->add($add);
+                if (!$newId) {
+                    exit('重复！');
+                } else {
+                }
             }
             adminLog("发放" . $data['createnum'] . '张' . $data['name']);
 
@@ -161,6 +166,9 @@ class ExchangeController extends BaseController
      */
     public function export_exchange()
     {
+
+        set_time_limit(0);
+        ini_set('memory_limit','128M');
 
         $eid = I('get.id');
 
