@@ -207,7 +207,7 @@
 
 .footer_nav dl{ width:60%; float:left; height:50px;}
 .footer_nav dl dd{ width:50%; float:left; height:51px;text-align:center; margin-top:-1px;}
-.footer_nav dl dd a{ font-size:18px; line-height:51px; color:#FFF ;    font-size: 1.5rem;}
+.footer_nav dl dd a{ font-size:18px; line-height:51px; color:#FFF ;    font-size: 1.5rem;    display: block;}
 .footer_nav dl .flow{ background:#ff9c00}
 .footer_nav dl .goumai{ background:#dd2726}
 
