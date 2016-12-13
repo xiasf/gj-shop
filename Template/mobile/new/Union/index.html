@@ -104,8 +104,40 @@
         color: #333;
         font-size: 1.2rem;
     }
+    .icon-list .seller-num {
+        display: block;
+        color: #fff;
+        font-size: 1.2rem;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        background-color: rgba(0, 0, 0, 0.55);
+        height: 17px;
+        line-height: 17px;
+        width: 16px;
+        padding: 2px 4px;
+        border-radius: 6px;
+        text-align: center;
+        top: -67px;
+        right: -59px;
+        text-shadow: 2px 2px 5px #000;
+        transition: all 0.2s ease-out;
+        overflow: hidden;
+    }
+    .icon-list .seller-num.no {
+        width: 0;
+        height: 0;
+        padding: 0;
+    }
     .icon-list dd:nth-child(5+n) {
         margin-top: 10px;
+    }
+    .icon-list dd a {
+        display: block;
+        position: relative;
     }
 
 
@@ -405,6 +437,8 @@
         p = 1;
         // 拉取商家列表
         getSeller();
+        // 获取商家数量
+        getSellerNum();
         // 获取地理位置名称
         getLocalName('wgs84ll', callback2);
     }
@@ -518,6 +552,34 @@
                 }
             }
         });
+    }
+
+    function getSellerNum() {
+        var url = "{:U('getSellerNum')}";
+        $.ajax({
+            type : "GET",
+            url  : url + '?longitude=' + Local.longitude + '&latitude=' + Local.latitude + '&t=' + Math.random(),
+            error: function(request) {
+                layer.open({
+                    content: '服务器繁忙！'
+                    ,skin: 'msg'
+                    ,time: 2
+                });
+            },
+            success: function(data) {
+                $('.seller-num').remove();
+                if (data.length !== 0) {
+                    for (var i in data) {
+                        var span = $('<span class="seller-num no" data-i='+data[i][1]+'>'+data[i][1]+'</span>');
+                        $('a[data-cat='+data[i][0]+']').append(span);
+                        setTimeout(function() {
+                            $('.seller-num[data-i='+data[i][1]+']').removeClass('no');
+                        }, 100+Math.round(Math.random()*100));
+                    }
+                } else {
+                }
+            }
+        }, 'json');
     }
 
     // 浏览器定位API

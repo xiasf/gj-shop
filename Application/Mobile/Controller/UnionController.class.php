@@ -84,6 +84,20 @@ class UnionController extends MobileBaseController
         return round($calculatedDistance);
     }
 
+    public function getSellerNum()
+    {
+        $longitude = I('longitude');
+        $latitude  = I('latitude');
+        $arr = [];
+        $squares = $this->returnSquarePoint($longitude, $latitude);
+
+        $result = M()->query("select count(id) as num,category from `__PREFIX__seller` where latitude != 0 and latitude > '{$squares['right-bottom']['lat']}' and latitude < '{$squares['left-top']['lat']}' and longitude > '{$squares['left-top']['lng']}' and longitude < '{$squares['right-bottom']['lng']}' and `is_lock` = 1 and type = 1 GROUP BY category");
+        foreach ($result as $value) {
+            $arr[] = [$value['category'], $value['num']];
+        }
+        $this->AjaxReturn($arr);
+    }
+
     public function getShopList()
     {
         $longitude = I('longitude');
