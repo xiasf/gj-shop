@@ -84,18 +84,8 @@
         // 删除操作
         function del(id)
         {
-            if(!confirm('确定要删除吗?'))
+            if(!confirm('确定要删除吗，暂不允许删除哦'))
                 return false;
-    $.ajax({
-      url:"/index.php?m=Admin&c=goods&a=delGoods&id="+id,
-      success: function(v){
-                                var v =  eval('('+v+')');
-                                if(v.hasOwnProperty('status') && (v.status == 1))
-                                        ajax_get_table('search-form2',cur_page);
-                                else
-                                        layer.msg(v.msg, {icon: 2,time: 1000}); //alert(v.msg);
-      }
-    });
                return false;
           }
 </script>
