@@ -570,10 +570,11 @@
                 $('.seller-num').remove();
                 if (data.length !== 0) {
                     for (var i in data) {
-                        var span = $('<span class="seller-num no" data-i='+data[i][1]+'>'+data[i][1]+'</span>');
+                        var s = Math.random() * 100;
+                        var span = $('<span class="seller-num no" data-i='+s+'>'+data[i][1]+'</span>');
                         $('a[data-cat='+data[i][0]+']').append(span);
                         setTimeout(function() {
-                            $('.seller-num[data-i='+data[i][1]+']').removeClass('no');
+                            $('.seller-num[data-i='+s+']').removeClass('no');
                         }, 100+Math.round(Math.random()*100));
                     }
                 } else {
