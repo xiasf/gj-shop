@@ -30,7 +30,7 @@ class UnionController extends MobileBaseController
     {
         parent::_initialize();
         // 不需要登录的操作
-        $nologin = ['index', 'getShopList', 'shop', 'cp_order', 'jiaxiao'];
+        $nologin = ['index', 'getShopList', 'getSellerNum', 'shop', 'cp_order', 'jiaxiao'];
         if (!$this->user_id && !in_array(ACTION_NAME, $nologin)) {
             header("location:" . U('Mobile/User/login'));
             exit;
