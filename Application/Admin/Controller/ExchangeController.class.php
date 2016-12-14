@@ -89,7 +89,7 @@ class ExchangeController extends BaseController
             for ($i = 0; $i < $data['createnum']; $i++) {
                 do {
                     // $code        = strtolower(get_rand_str(8, 0, 1)); // 获取随机8位字符串
-                    // 零填充导致Excel显示不正确
+                    // 零填充导致Excel显示数字不正确
                     $code = zerofill(mt_rand(0, 99999999), 8, 9);
                     $password    = mt_rand(1000, 9999); // 获取随机4位数字
                     $check_exist = M('exchange_list')->where(array('code' => $code))->find();
