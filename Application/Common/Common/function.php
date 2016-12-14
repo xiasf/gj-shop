@@ -479,11 +479,11 @@ function get_rand_str($randLength = 6, $addtime = 1, $includenumber = 0)
 }
 
 // 零填充
-function zerofill($value, $length)
+function zerofill($value, $length, $v = 0)
 {
     $len     = strlen($value);
     $_len = $length - $len;
-    $value = str_repeat('0', $_len) . $value;
+    $value = str_repeat($v, $_len) . $value;
     return $value;
 }
 
