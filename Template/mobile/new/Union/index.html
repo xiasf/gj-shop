@@ -126,6 +126,7 @@
         text-shadow: 2px 2px 5px #000;
         transition: all 0.2s ease-out;
         overflow: hidden;
+        opacity: .6;
     }
     .icon-list .seller-num.w {
         width: 25px;
@@ -596,6 +597,7 @@
                         } else {
                             var span = $('<span class="seller-num no">'+data[i][1]+'</span>');
                         }
+                        span.css('background', $('a[data-cat='+data[i][0]+']').find('i').css('background'));
                         $('a[data-cat='+data[i][0]+']').append(span);
                         setTimeout(function() {
                             $('.seller-num').removeClass('no');
