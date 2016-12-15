@@ -79,6 +79,15 @@
         position: relative;
         left: -1px;
         }
+        .shop-info .note {
+            margin-left: 6px;
+            /* border: 1px #2895A0 solid; */
+            color: #FFFFFF;
+            padding: 0 5px;
+            font-size: 1.2rem;
+            background: -webkit-gradient(linear,0 50%,100% 50%,from(rgb(233, 45, 88)),to(rgb(101, 75, 244)));
+            padding: 2px 5px;
+        }
     </style>
 </head>
 <body>
@@ -107,6 +116,7 @@
             <li>
                 <strong>折扣：</strong>
                 {$info['discount'] / 10}折<span class="small">消费金额的{$info['discount']}%</span>
+                <notempty name="info.note"><span class="note">{$info.note}</span></notempty>
             </li>
             <!-- <li>
                 <strong>兑币抵扣：</strong>
