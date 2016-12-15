@@ -439,10 +439,16 @@
     bottom: 200px;
     box-shadow: 0px 1px 3px #FF0000;
     background-color: red;
-    color: #fff;}
+    color: #fff;z-index: 99;display: none;}
     #cover{display:none;position:absolute;left:0;top:0;z-index:18888;background-color:#000000;opacity:0.7;}
     #guide{display:none;position:absolute;top:5px;z-index:19999;}
     #guide img{width: 70%;height: auto;display: block;margin: 0 auto;margin-top: 10px;}
+    #zz {
+        /*-webkit-filter: blur(1px);*/
+        /*filter: blur(1px);*/
+        overflow: hidden;
+        position:relative;
+    }
 </style>
 <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
 <button class="guide" onclick="follow_wx()">关注公众号</button>
@@ -451,11 +457,21 @@
     function follow_wx() {
         layer.open({
             type : 1,
-            title: '关注公众号',
-            content: '<img src="{$wechat_config['qr']}" width="200"><p style="text-align: center;">长按识别二维码</p>',
-            style: ''
+            shadeClose: false,
+            title: '亲爱的，关注公众号探索美好',
+            content: '<img src="{$wechat_config['qr']}" width="200" style="margin: 0 auto; display: block;"><p style="text-align: center;">长按识别二维码</p>',
+            style: 'text-align: center;',
+            // anim : 'up',
         });
     }
+    // 创建遮罩层
+    $(document.body).append('<div id="zz"></div>');
+    // 页面所有元素移动到遮罩层中去
+    $(document.body).css('overflow', 'hidden').children(':not(#zz,.guide,script,style)').appendTo($('#zz'));
+    $("#zz").css('height', $(window).height());
+    $(document.body).css('height', $(window).height());
+    // 显示关注提示
+    follow_wx();
 </script>
 <!--微信关注提醒  end-->
 </if>
