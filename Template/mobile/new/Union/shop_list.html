@@ -11,13 +11,18 @@
                     <span class="discount"><!-- {$info['discount'] / 10}折 --></span>
                     <!-- <span class="slee">800人消费</span> -->
                 </div>
-                <div class=""><span class="local"><i class="icon iconfont icon-31dingwei"></i>{$info.address}</span></div>
+                <notempty name="info.note">
+                <div class="local">
+                    <span class="note">{$info.note}</span>
+                </div>
+                </notempty>
+                <div class="">
+                    <span class="local"><i class="icon iconfont icon-31dingwei"></i>{$info.address}</span>
+                </div>
                 <div class="">
                     <span class="distance"><i class="icon iconfont icon-31dingwei"></i>{$info.distance}km</span>
-                </div>
-                <div class="local">
                     <span class="category">{$info.category|get_seller_category}</span>
-                    <notempty name="info.note"><span class="note">{$info.note}</span></notempty>
+
                 </div>
             </div>
         </div>
