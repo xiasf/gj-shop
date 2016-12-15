@@ -176,12 +176,12 @@
             error += "两次密码不一样\n";
         }
 
-        if(!checkEmail(email)){
-            error += "邮箱地址有误\n";
-        }
-        if(!checkMobile(mobile)){
-            error += "手机号码填写有误\n";
-        }
+        // if(!checkEmail(email)){
+        //     error += "邮箱地址有误\n";
+        // }
+        // if(!checkMobile(mobile)){
+        //     error += "手机号码填写有误\n";
+        // }
         if(error){
             layer.alert(error, {icon: 2});  //alert(error);
             return false;
