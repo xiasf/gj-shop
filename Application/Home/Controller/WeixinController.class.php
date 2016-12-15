@@ -142,7 +142,7 @@ class WeixinController extends BaseController
 
             if ($postObj->Event == 'subscribe') {
                 $subscribe = 1;
-                $contentStr = '感谢关注广佳商城!';
+                $contentStr = '感谢关注广佳商城！黄冈商盟等你来体验哦~';
             } else {
                 $contentStr = '人家哪里不好嘛，干嘛取消关注啊!';
             }
