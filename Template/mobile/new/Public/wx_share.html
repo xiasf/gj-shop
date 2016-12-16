@@ -4,9 +4,11 @@
 
 <script type="text/javascript">
     <if condition="ACTION_NAME eq 'goodsInfo'">
+    var ShareTitle = "{$goods[goods_name]}";
        var ShareLink = "http://{$_SERVER[HTTP_HOST]}/index.php?m=Mobile&c=Goods&a=goodsInfo&id={$goods[goods_id]}"; //默认分享链接
        var ShareImgUrl = "http://{$_SERVER[HTTP_HOST]}{$goods[goods_id]|goods_thum_images=400,400}"; // 分享图标
     <else />
+        var ShareTitle = "{$gjshop_config['shop_info_store_title']}";
        var ShareLink = "http://{$_SERVER[HTTP_HOST]}/index.php?m=Mobile&c=Index&a=index"; //默认分享链接
        var ShareImgUrl = "http://{$_SERVER[HTTP_HOST]}{$gjshop_config['shop_info_store_logo']}"; // 分享图标
     </if>
@@ -35,28 +37,28 @@
     wx.ready(function(){
         // 获取"分享到朋友圈"按钮点击状态及自定义分享内容接口
         wx.onMenuShareTimeline({
-            title: "{$gjshop_config['shop_info_store_title']}", // 分享标题
+            title: ShareTitle, // 分享标题
             link:ShareLink,
             imgUrl:ShareImgUrl // 分享图标
         });
 
         // 获取"分享给朋友"按钮点击状态及自定义分享内容接口
         wx.onMenuShareAppMessage({
-            title: "{$gjshop_config['shop_info_store_title']}", // 分享标题
+            title: ShareTitle, // 分享标题
             desc: "{$gjshop_config['shop_info_store_desc']}", // 分享描述
             link:ShareLink,
             imgUrl:ShareImgUrl // 分享图标
         });
         // 分享到QQ
         wx.onMenuShareQQ({
-            title: "{$gjshop_config['shop_info_store_title']}", // 分享标题
+            title: ShareTitle, // 分享标题
             desc: "{$gjshop_config['shop_info_store_desc']}", // 分享描述
             link:ShareLink,
             imgUrl:ShareImgUrl // 分享图标
         });
         // 分享到QQ空间
         wx.onMenuShareQZone({
-            title: "{$gjshop_config['shop_info_store_title']}", // 分享标题
+            title: ShareTitle, // 分享标题
             desc: "{$gjshop_config['shop_info_store_desc']}", // 分享描述
             link:ShareLink,
             imgUrl:ShareImgUrl // 分享图标
