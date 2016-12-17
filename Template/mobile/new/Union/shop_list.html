@@ -6,16 +6,14 @@
             <img src="{$info.head_pic|get_thum_images=280,280}" style="width: 100%;height: 100%">
             </div>
             <div class="dealcard-block-right">
-                <div class="dealcard-brand">{$info.seller_name}<span class="discount">{$info['discount'] / 10}折</span></div>
+                <div class="dealcard-brand">{$info.seller_name}</div>
                 <div class="price">
                     <!-- <span class="discount">{$info['discount'] / 10}折</span> -->
                     <!-- <span class="slee">800人消费</span> -->
                 </div>
-                <notempty name="info.note">
                 <div class="local">
-                    <span class="note">{$info.note}</span>
+                    <span class="discount">{$info['discount'] / 10}折</span><notempty name="info.note"><span class="note">{$info.note}</span></notempty>
                 </div>
-                </notempty>
                 <div class="">
                     <span class="local"><i class="icon iconfont icon-31dingwei"></i>{$info.address}</span>
                 </div>
