@@ -288,6 +288,9 @@ class UnionController extends MobileBaseController
                     M("AccountLog")->add($data4);
                 }
 
+                // 兑币的钱累计给商家
+                M('seller')->where(['id' => $shop_id])->setInc('pay_exchange', $pay_exchange);
+
                 $return_arr = array('status' => 1, 'msg' => ($pay_exchange_num ? '兑币抵扣成功' : '下单成功'), 'result' => $order_id); // 返回结果状态
 
 

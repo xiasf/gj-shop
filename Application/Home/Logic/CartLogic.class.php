@@ -198,6 +198,7 @@ class CartLogic extends RelationModel
         foreach ($cartList as $k => &$val) {
             $val['goods_fee']   = $val['goods_num'] * $val['member_goods_price']; // 此款价格，而非单价
             $val['store_count'] = getGoodNum($val['goods_id'], $val['spec_key']); // 最多可购买的库存数量（不能大于库存）
+            $val['exchange'] = getGoodExchange($val['goods_id'], $val['spec_key']);
             $anum += $val['goods_num'];                                           // 商品数量（购物车选中商品总数量，而非多少款商品）
 
             // 如果要求只计算购物车选中商品的价格和数量，并且当前商品没选择则跳过（跳过计算总价格和总优惠价格）

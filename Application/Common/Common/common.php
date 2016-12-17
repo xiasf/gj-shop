@@ -576,6 +576,21 @@ function getGoodNum($goods_id, $key)
 }
 
 /**
+ * 获取商品可抵兑币
+ * @param type $goods_id 商品id
+ * @param type $key  库存 key
+ */
+function getGoodExchange($goods_id, $key)
+{
+    if (!empty($key)) {
+        return M("SpecGoodsPrice")->where("goods_id = $goods_id and `key` = '$key'")->getField('exchange');
+    } else {
+        return M("Goods")->where("goods_id = $goods_id")->getField('exchange');
+    }
+
+}
+
+/**
  * 获取缓存或者更新缓存
  * @param string $config_key 缓存文件名称
  * @param array $data 缓存数据  array('k1'=>'v1','k2'=>'v3')
@@ -1157,7 +1172,9 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         /* 兑币和积分一样是对每个订单使用的，但是不同的是受商品的限制 */
 
         // 当前商品最高允许使用的兑币
-        $on_exchange = $goods_arr[$val['goods_id']]['exchange'];
+        // $on_exchange = $goods_arr[$val['goods_id']]['exchange'];
+        // 兑币调整为跟库存一样的，可以按规格设置
+        $on_exchange = $val['exchange'] * $val['goods_num'];
 
         if ($exchange && $on_exchange) {
             // 本次能使用的兑币 大于或等于 商品允许使用的最高兑币
