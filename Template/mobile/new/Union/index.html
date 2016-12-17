@@ -353,9 +353,10 @@
     }
 
     #guessLike .dealcard-block-right {
-        padding-left: 172px;
+        padding-left: 168px;
         height: 159px;
         border-top: 1px rgba(191, 92, 253, 0.55) solid;
+        position: relative;
     }
     #guessLike .more {
         text-align: center;
@@ -363,6 +364,9 @@
 
     #guessLike .dealcard-brand {
         font-size: 1.8rem;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 
     #guessLike .seller-item {
@@ -382,17 +386,32 @@
         color: #666;
     }
     #guessLike .distance {
-        color: #7F3CCA;
+        color: #6D3DA3;
     }
     #guessLike .category {
-        margin-left: 6px;
-        border: 1px #2895A0 solid;
-        color: #2895A0;
         padding: 0 5px;
         font-size: 1.2rem;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.65);
+        height: 30px;
+        line-height: 30px;
+        color: #fff;
     }
 
-    #guessLike .note {
+    #guessLike .consumption {
+        margin-left: 5px;
+        padding: 0 5px;
+        font-size: 1.2rem;
+        background-color: rgb(160, 61, 173);
+        height: 30px;
+        line-height: 30px;
+        color: #FFF;
+        background: -webkit-gradient(linear,0 50%,100% 50%,from(rgb(40, 199, 155)),to(rgb(181, 208, 33)));
+    }
+
+    #guessLike .discount,#guessLike .note {
         margin-left: 6px;
         /* border: 1px #2895A0 solid; */
         color: #FFFFFF;
@@ -400,6 +419,11 @@
         font-size: 1.3rem;
         background: -webkit-gradient(linear,0 50%,100% 50%,from(rgb(233, 45, 88)),to(rgb(101, 75, 244)));
         padding: 2px 5px;
+    }
+    #guessLike .discount {
+        background: -webkit-gradient(linear,0 50%,100% 50%,from(rgb(56, 183, 148)),to(rgb(45, 166, 202)));
+        border-radius: 10px;
+        margin-left: 3px;
     }
 
     #getmore a {

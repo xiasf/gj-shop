@@ -126,6 +126,8 @@ class UnionController extends MobileBaseController
             foreach ($shopList as &$value) {
                 $value['distance'] = $this->getDistance($latitude, $longitude, $value['latitude'], $value['longitude']);
                 $value['distance'] = round($value['distance'] / 1000, 2);
+
+                $value['consumption'] = M('union_order')->where(['seller_id' => $value['id']])->count();
             }
         }
 
