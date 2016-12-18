@@ -197,6 +197,23 @@ class WeixinController extends BaseController
             exit($resultStr);
         }
 
+        if ($keyword == '今天') {
+            $openid = trim($postObj->FromUserName);
+            $user = get_user_info($openid, 3, 'weixin');
+            // 是商城用户
+            if ($user) {
+                $bindInfo = M('seller')->where(['bind_uid' => $user['user_id']])->find();
+                // 绑定了
+                if ($bindInfo) {
+                    // 今日订单数量
+                    $count = M('UnionOrder')->where(['_string' => "seller_id = {$bindInfo['id']} and to_days(from_unixtime(add_time)) = to_days(now())"])->count();
+                    // 今日收到兑币
+                    $sum = M('UnionOrder')->where(['_string' => "seller_id = {$bindInfo['id']} and to_days(from_unixtime(add_time)) = to_days(now())"])->sum('exchange_money');
+                    $contentStr = "尊敬的商户{$bindInfo['seller_name']}您好，今日统计{订单数量：{$count}，收到兑币{$sum}";
+                }
+            }
+        }
+
         // 其他文本回复
         $textTpl = "<xml>
                     <ToUserName><![CDATA[%s]]></ToUserName>
@@ -207,7 +224,7 @@ class WeixinController extends BaseController
                     <FuncFlag>0</FuncFlag>
                     </xml>";
         $msgType    = 'text';
-        $contentStr = '宝宝你说啥，我好像听不懂呢，好伐！';
+        empty($contentStr) && $contentStr = '宝宝你说啥，我好像听不懂呢，好伐！';
         $resultStr  = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);
         exit($resultStr);
     }
