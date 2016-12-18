@@ -56,7 +56,8 @@ if(!in_array($pid,array_keys($ad_position)) && $pid)
   delFile(RUNTIME_PATH); // 删除缓存  
 }
 
-
+/*
+ * 不要这样的，limit的意思就是最大的意思
 $c = '.$limit.'- count($result); //  如果要求数量 和实际数量不一样 并且编辑模式
 if($c > 0 && $_GET[edit_ad])
 {
@@ -71,6 +72,7 @@ if($c > 0 && $_GET[edit_ad])
       );  
     }
 }
+*/
 foreach($result as $'.$key.'=>$'.$item.'):       
     
     $'.$item.'[position] = $ad_position[$'.$item.'[pid]]; 
