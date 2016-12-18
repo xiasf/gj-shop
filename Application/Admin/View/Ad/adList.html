@@ -14,7 +14,7 @@
 				            </div>
 				            <div class="form-group">                       
 				            	 <select name="pid" class="form-control">
-                                            <option value="0">==查看所有==</option>
+                                            <option value="0">全部</option>
                                       <volist name="ad_position_list" id="item" key="k">
                                             <option value="{$item.position_id}" <if condition="$pid eq $item[position_id]">selected</if>>{$item.position_name}</option>
                                       </volist>                  
