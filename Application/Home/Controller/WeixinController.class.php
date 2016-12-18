@@ -209,7 +209,7 @@ class WeixinController extends BaseController
                     $count = M('UnionOrder')->where(['_string' => "seller_id = {$bindInfo['id']} and to_days(from_unixtime(add_time)) = to_days(now())"])->count();
                     // 今日收到兑币
                     $sum = M('UnionOrder')->where(['_string' => "seller_id = {$bindInfo['id']} and to_days(from_unixtime(add_time)) = to_days(now())"])->sum('exchange_money');
-                    $contentStr = "尊敬的商户{$bindInfo['seller_name']}您好，今日统计{订单数量：{$count}，收到兑币{$sum}";
+                    $contentStr = "尊敬的商户{$bindInfo['seller_name']}您好，今日统计[订单数量：{$count}，收到兑币{$sum}]";
                 }
             }
         }
