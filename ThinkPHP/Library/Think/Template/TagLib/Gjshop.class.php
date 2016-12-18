@@ -78,7 +78,7 @@ foreach($result as $'.$key.'=>$'.$item.'):
     $'.$item.'[position] = $ad_position[$'.$item.'[pid]]; 
     if($_GET[edit_ad] && $'.$item.'[not_adv] == 0 )
     {
-        $'.$item.'[style] = "filter:alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; opacity: 0.5"; // 广告半透明的样式
+        $'.$item.'[style] = "filter:alpha(opacity=20); -moz-opacity:0.2; -khtml-opacity: 0.2; opacity: 0.2"; // 广告半透明的样式
         $'.$item.'[ad_link] = "/index.php?m=Admin&c=Ad&a=ad&act=edit&ad_id=$'.$item.'[ad_id]";        
         $'.$item.'[title] = $ad_position[$'.$item.'[pid]][position_name]."===".$'.$item.'[ad_name];
         $'.$item.'[target] = 0;
