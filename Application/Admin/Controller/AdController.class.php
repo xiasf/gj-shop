@@ -44,6 +44,7 @@ class AdController extends BaseController
 
         $Ad    = M('ad');
         $where = "1=1";
+        $this->pid = I('pid');
         if (I('pid')) {
             $where = "pid=" . I('pid');
             $this->assign('pid', I('pid'));
