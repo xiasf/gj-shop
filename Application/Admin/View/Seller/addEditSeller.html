@@ -96,7 +96,7 @@
                                 <tr class="union">
                                     <td>绑定账号：</td>
                                     <td>
-                                        <if condition="$info['bind_uid']">已绑定&nbsp;&nbsp;<a href="{:U('unbundlingUser', ['seller_id' => $info['id']])}">解绑</a><elseif condition="$info['id']"/>
+                                        <if condition="$info['bind_uid']">已绑定&nbsp;{$info['nickname']}&nbsp;&nbsp;<a href="{:U('unbundlingUser', ['seller_id' => $info['id']])}">解绑</a><elseif condition="$info['id']"/>
 
                                         <img src="{:U('bindUser', ['seller_id' => $info['id']])}" alt="" width="100px;">使用微信扫描绑定
 

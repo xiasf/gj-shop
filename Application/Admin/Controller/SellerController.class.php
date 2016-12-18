@@ -171,9 +171,9 @@ class SellerController extends BaseController
                 exit;
             }
         }
-
-        $sellerInfo = $seller->find(I('get.id/d'));
-
+        $seller = M('seller s');
+        $sellerInfo = $seller->join('LEFT JOIN __USERS__ u on u.user_id = s.bind_uid')->field('s.*,u.nickname')->where(['s.id' => I('get.id/d')])->find();
+// var_dump(M()->_sql());exit;
         if (empty($sellerInfo)) {
             $sellerInfo['province'] = 24022;
             $sellerInfo['city'] = 25086;
