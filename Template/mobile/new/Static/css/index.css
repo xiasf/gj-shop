@@ -26,9 +26,9 @@ button {
 .top_bt { display:block; float:left; width:45px; height:45px; position:absolute; top: 3px; left:5px;background-position:0 5}
 /*首页 搜索*/
 .index_search{ position: relative; width:100%; background: #fff; overflow:hidden}
-.index_search_mid{ width:80%; margin:auto; height:40px; position:relative;}
-.index_search_mid input { display:block;width:99%;height:35px; line-height: normal; border: none;  -webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; -webkit-rtl-ordering: logical; -webkit-user-select: text; cursor: auto; font-size:14px; color:#999; text-indent:10px; border-radius:5px; margin:auto; border:1px solid #CCC; background:none; margin-top:20px; }
-.index_search_mid span { display:block; border-left:1px solid #ccc; position:absolute;width:40px; height:36px; right:5px;}
+.index_search_mid{ width:98%; margin:auto; height:40px; position:relative;}
+.index_search_mid input {font-family: '微软雅黑'; display:block;width:99%;height:35px; line-height: normal; border: none;  -webkit-appearance: none; -webkit-box-flex: 1; -webkit-flex: 1; flex: 1; -webkit-rtl-ordering: logical; -webkit-user-select: text; cursor: auto; font-size:14px; color:#999; text-indent:10px; border-radius:5px; margin:auto; border:1px solid #36CCA9; background:none; margin-top:20px; }
+.index_search_mid span { display:block; border-left:1px solid #36CCA9; position:absolute;width:40px; height:36px; right:5px;}
 .index_search_mid span img{ display:block; width:30px; height:30px; margin:auto; margin-top:4px;}
 
 /* 搜索弹出模块*/ 
