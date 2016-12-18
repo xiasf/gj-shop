@@ -135,7 +135,7 @@ class UnionController extends MobileBaseController
         $shopList = list_sort_by($shopList, 'distance', 'asc');
 
         // 特约在前
-        $shopList = list_sort_by($shopList, 'is_special', 'desc');
+        // $shopList = list_sort_by($shopList, 'is_special', 'desc');
 
         // $shopList = M('seller')->where(['type' => 1])->select();
 
