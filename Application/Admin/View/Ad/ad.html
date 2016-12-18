@@ -41,9 +41,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>广告位置：</td>
+                                    <td style="color:red">广告位置：</td>
                                     <td>
-                                        <select name="pid" class="input-sm">
+                                        <select style="color:red" name="pid" class="input-sm">
                                             <volist name="position" id="item">
                                                    <option value="{$item.position_id}" <if condition="$info[pid] eq $item[position_id]">selected</if>>{$item.position_name}</option>
                                            </volist>
