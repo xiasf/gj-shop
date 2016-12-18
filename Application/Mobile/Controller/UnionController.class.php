@@ -300,13 +300,13 @@ class UnionController extends MobileBaseController
 
 
                 // 如果有微信公众号 则推送一条消息到微信
-                $user = M('users')->where("user_id = $this->user_id")->find();
-                if ($user['oauth'] == 'weixin') {
-                    $wx_user    = M('wx_user')->find();
-                    $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
-                    $wx_content = "感谢您光临[{$info['seller_name']}]，祝您生活愉快！";
-                    $jssdk->push_msg($user['openid'], $wx_content);
-                }
+                // $user = M('users')->where("user_id = $this->user_id")->find();
+                // if ($user['oauth'] == 'weixin') {
+                //     $wx_user    = M('wx_user')->find();
+                //     $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+                //     $wx_content = "感谢您光临[{$info['seller_name']}]，祝您生活愉快！";
+                //     $jssdk->push_msg($user['openid'], $wx_content);
+                // }
 
                 if ($info['bind_uid']) {
                     $sellerUser = M('users')->where("user_id = {$info['bind_uid']}")->find();
@@ -319,10 +319,10 @@ class UnionController extends MobileBaseController
                 }
 
                 // 给我发一条
-                $wx_user    = M('wx_user')->find();
-                $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
-                $wx_content = "宝宝，商户[{$info['seller_name']}]有联盟订单了，用户{$user['nickname']}下单成功，使用兑币：{$pay_exchange}";
-                $jssdk->push_msg('oJ31qs8cbMajq_l3EMoTs_Rp1K9E', $wx_content);
+                // $wx_user    = M('wx_user')->find();
+                // $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+                // $wx_content = "宝宝，商户[{$info['seller_name']}]有联盟订单了，用户{$user['nickname']}下单成功，使用兑币：{$pay_exchange}";
+                // $jssdk->push_msg('oJ31qs8cbMajq_l3EMoTs_Rp1K9E', $wx_content);
 
             }
             exit(json_encode($return_arr));
