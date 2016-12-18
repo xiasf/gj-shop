@@ -59,6 +59,7 @@ class UserController extends MobileBaseController
         $comment_count       = M('comment')->where("user_id = {$this->user_id}")->count(); //  我的评论数
         $coupon_count        = M('coupon_list')->where("uid = {$this->user_id}")->count(); // 我的优惠券数量
         $level_name          = M('user_level')->where("level_id = '{$this->user['level']}'")->getField('level_name'); // 等级名称
+        $this->bindSeller = M('seller')->where(['bind_uid' => $this->user_id])->getField('seller_name');
         $this->assign('level_name', $level_name);
         $this->assign('order_count', $order_count);
         $this->assign('goods_collect_count', $goods_collect_count);
@@ -1261,8 +1262,7 @@ class UserController extends MobileBaseController
             $jssdk->push_msg($user['openid'], $wx_content);
         }
 
-
-        $this->success('绑定成功！');
+        $this->success('绑定成功！', U('index'));
     }
 
 }

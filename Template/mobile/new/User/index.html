@@ -149,6 +149,16 @@
 </if>
 -->
 </div>
+<if condition="$bindSeller neq null">
+<div class="Wallet">
+<a>
+<dl>
+<dt><i style="font-size: 2.8rem;
+    color: #16C533;" class="icon Icon iconfont icon-renzheng"></i>已绑定商户&nbsp;{$bindSeller}</dt>
+</dl>
+</a>
+</div>
+	</if>
 <div class="Wallet">
 <a href="{:U('User/logout')}">
 <em class="Icon Icon8"></em>
