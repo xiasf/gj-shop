@@ -264,7 +264,7 @@
                                                     <li class="flow_youhui_no">
                                                         <label id="Bonus_span_0">
                                                             使用兑币：
-                                                            <input id="exchange_val" name="exchange" onchange="ajax_order_price();" type="text" placeholder="输入兑币" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" class="txt1" style="width:100px;"/>
+                                                            <input id="exchange_val" name="exchange" onchange="ajax_order_price();" type="text" placeholder="输入兑币" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d.]/g,'')" class="txt1" value="{$user.exchange}" style="width:100px;"/>
                                                             <input name="validate_bonus" type="button" value="使用" onClick="ajax_order_price();" class="BonusButton" />
                                                             您的可用兑币 <em>{$user['exchange']}</em>
                                                         </label>
@@ -277,14 +277,14 @@
                                                             您的可用余额 <em>{$user['user_money']}</em>
                                                         </label>
                                                     </li>
-                                                    <li class="flow_youhui_no">
+                                                    <!-- <li class="flow_youhui_no">
                                                         <label id="Bonus_span_0">
                                                             使用积分：
                                                             <input id="pay_points" name="pay_points" onchange="ajax_order_price();" type="text" placeholder="输入积分"  onpaste="this.value=this.value.replace(/[^\d]/g,'')" onKeyUp="this.value=this.value.replace(/[^\d]/g,'')" class="txt1" style="width:100px;"/>
                                                             <input name="validate_bonus" type="button" value="使用" onClick="ajax_order_price();" class="BonusButton" />
                                                             您的可用积分 <em>{$user['pay_points']}</em>
                                                         </label>
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </div>
                                         </div>
