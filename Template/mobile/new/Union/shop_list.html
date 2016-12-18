@@ -6,6 +6,7 @@
             <img src="{$info.head_pic|get_thum_images=280,280}" style="width: 100%;height: 100%">
             </div>
             <div class="dealcard-block-right">
+                <if condition="$info['is_special'] eq 1"><div class="special">特约商户</div></if>
                 <div class="dealcard-brand">{$info.seller_name}</div>
                 <div class="price">
                     <!-- <span class="discount">{$info['discount'] / 10}折</span> -->

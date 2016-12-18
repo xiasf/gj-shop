@@ -21,6 +21,9 @@
                     <td class="text-left">
                         <a href="javascript:sort('category');">兑币</a>
                     </td>
+                    <td class="text-left">
+                        <a href="javascript:sort('category');">评分</a>
+                    </td>
                     <td class="text-center">
                         <a href="javascript:sort('is_on_sale');">营业状态</a>
                     </td>
@@ -43,6 +46,7 @@
                                 <td class="text-left">{$list.type|get_seller_type}</td>
                                 <td class="text-left">{$list.category|get_seller_category}</td>
                                 <td class="text-left">{$list.pay_exchange}</td>
+                                <td class="text-left"><if condition="$list['score'] eq null">暂无评分<else/>{$list['score']}分</if></td>
                         <td class="text-center">
                             <img width="20" height="20" src="__PUBLIC__/images/<if condition='$list[is_lock] eq 1'>yes.png<else />cancel.png</if>" onclick="changeTableVal('seller','id','{$list.id}','is_lock',this)"/>
                     </td>

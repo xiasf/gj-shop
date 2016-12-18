@@ -101,11 +101,19 @@
                                     </td>
                                 </tr>
 
-                                <tr>
+                                <tr class="union">
                                     <td class="col-sm-2">满减备注：</td>
                                     <td class="col-sm-8">
                                         <input type="text" class="form-control" name="note" value="{$info.note}" placeholder="如：满3000减200" >
                                         <span id="err_attr_name" style="color:#F00; display:none;"></span>
+                                    </td>
+                                </tr>
+
+                                <tr class="union">
+                                    <td>是否位特约商户：</td>
+                                    <td>
+                                        是:<input type="radio" <if condition="$info[is_special] eq 1">checked="checked"</if> value="1" name="is_special" /> 
+                                        否:<input type="radio" <if condition="$info[is_special] eq 0">checked="checked"</if> value="0" name="is_special" /> 
                                     </td>
                                 </tr>
 

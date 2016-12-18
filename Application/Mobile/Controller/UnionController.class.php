@@ -118,7 +118,7 @@ class UnionController extends MobileBaseController
 
         $limit = " limit " . $page->firstRow . ',' . $page->listRows;
 
-        $sql = "select * from `__PREFIX__seller` where latitude != 0 and latitude > '{$squares['right-bottom']['lat']}' and latitude < '{$squares['left-top']['lat']}' and longitude > '{$squares['left-top']['lng']}' and longitude < '{$squares['right-bottom']['lng']}' and `is_lock` = 1 and type = 1 {$cat} order by sort asc $limit";
+        $sql = "select * from `__PREFIX__seller` where latitude != 0 and latitude > '{$squares['right-bottom']['lat']}' and latitude < '{$squares['left-top']['lat']}' and longitude > '{$squares['left-top']['lng']}' and longitude < '{$squares['right-bottom']['lng']}' and `is_lock` = 1 and type = 1 {$cat} order by is_special desc,sort asc $limit";
 
         $shopList = M()->query($sql);
 
@@ -131,8 +131,11 @@ class UnionController extends MobileBaseController
             }
         }
 
-        // 排序
+        // 距离排序
         $shopList = list_sort_by($shopList, 'distance', 'asc');
+
+        // 特约在前
+        $shopList = list_sort_by($shopList, 'is_special', 'desc');
 
         // $shopList = M('seller')->where(['type' => 1])->select();
 
@@ -149,7 +152,7 @@ class UnionController extends MobileBaseController
         if (!$info) {
             $this->error('店铺不存在！');
         }
-
+        $info['count'] = M('UnionOrder')->where(['seller_id' => $info['id'], 'score' => ['exp', 'is not null']])->count();
         $this->assign('info', $info);
         $this->display('shop');
     }
@@ -330,10 +333,9 @@ class UnionController extends MobileBaseController
     public function order()
     {
 
-        $order_id = I('order_id/s');
+        $order_id = I('order_id/d');
 
         $order = M('UnionOrder')->where(['user_id' => $this->user_id, 'order_id' => $order_id])->find();
-        // 如果已经支付过的订单直接到订单详情页面
         if (!$order) {
             $this->error('订单不存在！');
         }
@@ -364,6 +366,72 @@ class UnionController extends MobileBaseController
         }
 
         $this->display();
+    }
+
+    /*
+     * 评论列表
+     */
+    public function comment_list()
+    {
+        $this->seller_id = $seller_id = I('get.seller_id/d');
+        $where = 'o.score is not null and o.seller_id=' . $seller_id;
+        $count = M('UnionOrder o')->where($where)->count();
+        $Page  = new Page($count, 10);
+
+        $show       = $Page->show();
+        $order_str  = "order_id DESC";
+        $order_list = M('UnionOrder o')->join('LEFT JOIN __USERS__ u on u.user_id = o.user_id')->field('o.*,u.head_pic,u.nickname')->order($order_str)->where($where)->limit($Page->firstRow . ',' . $Page->listRows)->select();
+
+        $this->assign('page', $show);
+        $this->assign('lists', $order_list);
+
+        if ($_GET['is_ajax']) {
+            $this->display('ajax_comment_list');
+            exit;
+        }
+
+        $this->display();
+    }
+
+    /*
+     * 订单评价
+     */
+    public function orderComment()
+    {
+
+        $order_id = I('get.order_id/d');
+
+        $order = M('UnionOrder')->where(['user_id' => $this->user_id, 'order_id' => $order_id, 'score' => ['exp', 'is null']])->find();
+        if (!$order) {
+            $this->error('订单不存在或已评论！');
+        }
+
+        if (IS_POST) {
+            $data['score'] = I('post.score/d');
+            $data['comments'] = I('post.comments/s');
+            M('UnionOrder')->where(['order_id' => $order_id])->save($data);
+
+            // 计算评分
+            $count = M('UnionOrder')->where(['seller_id' => $order['seller_id'], 'score' => ['exp', 'is not null']])->count();
+            $score = M('UnionOrder')->where(['seller_id' => $order['seller_id'], 'score' => ['exp', 'is not null']])->sum('score');
+            $s = round($score / $count, 1);
+            // 更新店铺评分
+            M('seller')->where(['id' => $order['seller_id']])->save(['score' => $s]);
+
+            // 如果有微信公众号 则推送一条消息到微信
+            $user = $this->user;
+            if ($user['oauth'] == 'weixin') {
+                $wx_user    = M('wx_user')->find();
+                $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+                $wx_content = "感谢您对[{$order['name']}]的服务作出重要的评价，谢谢！";
+                $jssdk->push_msg($user['openid'], $wx_content);
+            }
+            $this->success('评价成功！', U('Mobile/Union/order_list'));
+            exit;
+        }
+
+        $this->assign('order', $order);
+        $this->display('order_comment');
     }
 
 }

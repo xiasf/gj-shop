@@ -1,0 +1,18 @@
+<foreach name="lists" item="v" key="k">
+                  <li class="comment_item">
+                      <div class="content_head">
+                      <div class="info">
+                          <div class=" comment_star">
+                              <div class="one"> <em><img class="u-img" src="{$v['head_pic']|default=" __STATIC__/images/user68.jpg"}">              
+                                      <span class="d">{$v['nickname']}</span></em> 
+                              </div>
+                              <div class="name">
+                                  <em><img class="x" src="__STATIC__/images/stars{$v.score}.png" alt="" /></em> 
+                              </div>
+                          </div>
+                      </div>
+                      <p>{$v['comments']|htmlspecialchars_decode}</p>
+                      <div class="two d">{$v.add_time|date='Y-m-d H:i',###}</div>
+                  </div>
+              </li>
+              </foreach>

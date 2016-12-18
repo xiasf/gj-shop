@@ -56,6 +56,12 @@
             padding: 0;
             line-height: 40px;
         }
+        .ct-list .score {
+            background: #2DC578;
+            color: #fff;
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body style="background: rgb(235, 236, 237);position:relative;">
@@ -91,6 +97,9 @@
                     </li> -->
                     <li>
                         兑币抵扣： <em>使用{$order['exchange']}个兑币抵扣了{$order['exchange_money']}元</em>
+                    </li>
+                    <li>
+                        评论： <if condition="$order['score'] eq null"><a class="score" href="{:U('orderComment', ['order_id' => $order['order_id']])}">去评论</a><else/>已评</if>
                     </li>
                     <li style="border: 0">
                         支付金额： <em style="color: #2DC546;">￥{$order['order_amount']}元（{:$order['order_amount'] != 0 ? '请向商家付现金' : '不用向商家付款了'}）</em>

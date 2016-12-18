@@ -6,7 +6,7 @@
             <div class="h-left">
                 <a class="sb-back" href="javascript:history.back(-1)" title="返回"><i class="icon iconfont icon-qiehuanqizuo"></i></a>
             </div>
-            <div class="h-mid">联盟订单</div>
+            <div class="h-mid">评论列表</div>
             <div class="h-right">
                 <aside class="top_bar">
                     <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more">
@@ -19,24 +19,49 @@
 </header>
 <include file="Public/menu"/>
 
+<style>
+.u-img {
+    width: 60px;
+    height: 60px;
+}
+    .comment_item {
+        margin-top:10px;
+        background-color: #fff;
+        padding: 0 10px;
+    }
+    .x {
+            width: 24%;
+    }
+    .d {
+        color: #666;
+    }
+    .f12 {
+        font-size: 1.2rem;
+    }
+</style>
+
 <div id="tbh5v0">
     <div class="order ajax_return">
-        <volist name="lists" id="list">
-            <div class="order_list">
-                <a href="{:U('order', ['order_id' =>
-                    $list['order_id']])}">
-                    <h2>
-                        <img src="__STATIC__/images/dianpu.png">
-                        <span>{$list.name}</span> <strong><img src="__STATIC__/images/icojiantou1.png"></strong>
-                        （<if condition="$list['score'] eq null">待评论<else/>已评</if>）
-                    </h2>
-                </a>
-                <div class="pic" style="border:0;">
-                    <span style="float:left;">创建时间：{$list['add_time']|date='Y-m-d H:i:s',###}</span>
-                    <span>实付：</span> <strong>￥{$list['order_amount']}元</strong>
-                </div>
-            </div>
-        </volist>
+
+              <foreach name="lists" item="v" key="k">
+                  <li class="comment_item">
+                      <div class="content_head">
+                      <div class="info">
+                          <div class=" comment_star">
+                              <div class="one"> <em><img class="u-img" src="{$v['head_pic']|default=" __STATIC__/images/user68.jpg"}">              
+                                      <span class="d">{$v['nickname']}</span></em> 
+                              </div>
+                              <div class="name">
+                                  <em><img class="x" src="__STATIC__/images/stars{$v.score}.png" alt="" /></em> 
+                              </div>
+                          </div>
+                      </div>
+                      <p>{$v['comments']|htmlspecialchars_decode}</p>
+                      <div class="two d f12">{$v.add_time|date='Y-m-d H:i',###}</div>
+                  </div>
+              </li>
+              </foreach>
+
     </div>
     <!--查询条件-->
     <notempty name="lists">
@@ -55,7 +80,7 @@ var  page = 1;
         page += 1;
         $.ajax({
             type : "GET",
-            url:"/index.php?m=Mobile&c=Union&a=order_list&type={$_GET['type']}&is_ajax=1&p="+page,//+tab,
+            url:"/index.php?m=Mobile&c=Union&a=comment_list&seller_id={$seller_id}&is_ajax=1&p="+page,//+tab,
 //          url:"{:U('Mobile/User/order_list',array('type'=>$_GET['type']),'')}/is_ajax/1/p/"+page,//+tab,
             //data : $('#filter_form').serialize(),
             success: function(data)
