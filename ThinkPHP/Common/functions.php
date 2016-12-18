@@ -1022,6 +1022,11 @@ function U($url = '', $vars = '', $suffix = true, $domain = false)
         $vars = array_merge($params, $vars);
     }
 
+    // 为了广告设置方便
+    if ($_GET['edit_ad'] == 1) {
+        $vars = array_merge($vars, ['edit_ad' => 1]);
+    }
+
     // URL组装
     $depr    = C('URL_PATHINFO_DEPR');
     $urlCase = C('URL_CASE_INSENSITIVE');
