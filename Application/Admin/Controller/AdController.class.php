@@ -55,7 +55,7 @@ class AdController extends BaseController
         }
         $count = $Ad->where($where)->count(); // 查询满足要求的总记录数
         $Page  = new \Think\Page($count, 10); // 实例化分页类 传入总记录数和每页显示的记录数
-        $res   = $Ad->where($where)->order('pid desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
+        $res   = $Ad->where($where)->order('pid desc,id desc')->limit($Page->firstRow . ',' . $Page->listRows)->select();
         $list  = array();
         if ($res) {
             $media = array('图片', '文字', 'flash');
