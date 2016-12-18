@@ -17,6 +17,31 @@ use Think\AjaxPage;
 
 class SellerController extends BaseController
 {
+
+    public function unbundlingUser()
+    {
+        $seller_id = I('get.seller_id/d');
+        M('seller')->where(['id' => $seller_id])->save(['bind_uid' => 0]);
+        $this->success('解绑成功！');
+    }
+
+    // 为商家生成绑定用户的二维码
+    public function bindUser()
+    {
+        $seller_id = I('get.seller_id/d');
+        vendor("phpqrcode.phpqrcode");
+        $data = SITE_URL . U('Mobile/User/bindUser', ['seller_id' => $seller_id]);
+        // 纠错级别：L、M、Q、H
+        $level = 'L';
+        // 点的大小：1到10,用于手机端4就可以了
+        $size = 4;
+        // 下面注释了把二维码图片保存到本地的代码,如果要保存图片,用$fileName替换第二个参数false
+        //$path = "images/";
+        // 生成的文件名
+        //$fileName = $path.$size.'.png';
+        \QRcode::png($data, false, $level, $size);
+    }
+
     public function sellerList()
     {
         $model      = M('seller');

@@ -94,6 +94,17 @@
                                         </tr>
 
                                 <tr class="union">
+                                    <td>绑定账号：</td>
+                                    <td>
+                                        <if condition="$info['bind_uid']">已绑定&nbsp;&nbsp;<a href="{:U('unbundlingUser', ['seller_id' => $info['id']])}">解绑</a><elseif condition="$info['id']"/>
+
+                                        <img src="{:U('bindUser', ['seller_id' => $info['id']])}" alt="" width="100px;">使用微信扫描绑定
+
+                                        </if>
+                                    </td>
+                                </tr>
+
+                                <tr class="union">
                                     <td class="col-sm-2">折扣：</td>
                                     <td class="col-sm-8">
                                         <input type="text" class="form-control" name="discount" value="{$info.discount}" placeholder="消费金额的百分比，填写1~100，90表示九折，0和100表示不打折">

@@ -597,6 +597,12 @@ class CartLogic extends RelationModel
                 $jssdk->push_msg($user['openid'], $wx_content);
             }
 
+            // 给我发一条
+            $wx_user    = M('wx_user')->find();
+            $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+            $wx_content = "宝宝，店铺[{$car_price_item['seller_name']}]有订单了，用户{$user['nickname']}下单成功，金额：{$data['total_amount']}";
+            $jssdk->push_msg('oJ31qs8cbMajq_l3EMoTs_Rp1K9E', $wx_content);
+
             $order_ids[] = $order_id;
         }
 

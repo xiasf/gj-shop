@@ -1233,4 +1233,36 @@ class UserController extends MobileBaseController
         \QRcode::png($data, false, $level, $size);
     }
 
+    public function bindUser()
+    {
+        $seller_id = I('get.seller_id/d');
+
+        if (!$info = M('seller')->where(['id' => $seller_id])->find()) {
+            $this->error('商户不存在！', U('index'));
+        }
+
+        if (M('seller')->where(['bind_uid' => $this->user_id])->find()) {
+            $this->error('绑定失败，你已绑定商户了', U('index'));
+        }
+
+        if (M('seller')->where(['id' => $seller_id])->getField('bind_uid')) {
+            $this->error('该商户已绑定其他用户了，请先解绑', U('index'));
+        }
+
+        M('seller')->where(['id' => $seller_id])->save(['bind_uid' => $this->user_id]);
+
+
+        // 如果有微信公众号 则推送一条消息到微信
+        $user = $this->user;
+        if ($user['oauth'] == 'weixin') {
+            $wx_user    = M('wx_user')->find();
+            $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+            $wx_content = "恭喜！您已成功绑定商户[{$info['seller_name']}]";
+            $jssdk->push_msg($user['openid'], $wx_content);
+        }
+
+
+        $this->success('绑定成功！');
+    }
+
 }

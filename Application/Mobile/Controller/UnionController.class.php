@@ -308,6 +308,22 @@ class UnionController extends MobileBaseController
                     $jssdk->push_msg($user['openid'], $wx_content);
                 }
 
+                if ($info['bind_uid']) {
+                    $sellerUser = M('users')->where("user_id = {$info['bind_uid']}")->find();
+                    if ($sellerUser['oauth'] == 'weixin') {
+                        $wx_user    = M('wx_user')->find();
+                        $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+                        $wx_content = "尊敬的商户[{$info['seller_name']}]，用户{$user['nickname']}下单成功，使用兑币：{$pay_exchange}";
+                        $jssdk->push_msg($sellerUser['openid'], $wx_content);
+                    }
+                }
+
+                // 给我发一条
+                $wx_user    = M('wx_user')->find();
+                $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
+                $wx_content = "宝宝，商户[{$info['seller_name']}]有联盟订单了，用户{$user['nickname']}下单成功，使用兑币：{$pay_exchange}";
+                $jssdk->push_msg('oJ31qs8cbMajq_l3EMoTs_Rp1K9E', $wx_content);
+
             }
             exit(json_encode($return_arr));
         }
