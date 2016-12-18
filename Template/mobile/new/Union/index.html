@@ -397,7 +397,7 @@
     #guessLike .category {
         padding: 0 3px;
         font-size: 1.2rem;
-        bottom: 0;
+        bottom: -1px;
         left: 0;
         position: absolute;
         background-color: rgba(0, 0, 0, 0.65);
@@ -410,7 +410,7 @@
     #guessLike .special {
         padding: 0 3px;
         font-size: 1.2rem;
-        top: 0;
+        top: -1px;
         left: 0;
         position: absolute;
         background-color: rgba(0, 0, 0, 0.65);
@@ -418,6 +418,28 @@
         line-height: 19px;
         color: #fff;
         z-index: 2;
+        background-image: linear-gradient(rgba(53, 12, 78, 0.91)10px,rgba(90, 75, 214, 0.45)15%);
+        text-shadow: 2px 2px 5px #000;
+    }
+    #guessLike .special .icon {
+        margin-right: 2px;
+    }
+
+    #guessLike .special- {
+        position: absolute;
+        top: -1px;
+        right: 0;
+        background: -webkit-gradient(linear,0 50%,100% 50%,from(rgb(233, 45, 88)),to(rgb(101, 75, 244)));
+        color: #fff;
+        width: 26px;
+        text-align: center;
+        background-image: linear-gradient(rgb(41, 195, 138)0px,rgba(65, 224, 224, 0)99%);
+        height: 40px;
+        line-height: 29px;
+        text-shadow: 0px 1px 0px #35B3A1;
+    }
+    #guessLike .special- .icon {
+        font-size: 2.6rem;
     }
 
     #guessLike .consumption {

@@ -3,10 +3,10 @@
     <a href="{:U('shop', ['id' => $info['id']])}" class="react ">
         <div class="dealcard" data-did="33249272">
             <div class="dealcard-img imgbox" style="background: none;">
-            <img src="{$info.head_pic|get_thum_images=280,280}" style="width: 100%;height: 100%">
+            <img src="http://iconfont.alicdn.com/t/1479434967283.png" style="width: 100%;height: 100%">
             </div>
             <div class="dealcard-block-right">
-                <if condition="$info['is_special'] eq 1"><div class="special">特约商户</div></if>
+                <if condition="$info['is_special'] eq 1"><div class="special"><i class="icon iconfont icon-huangguan3"></i>特约商户</div><div class="special-"><i class="icon iconfont icon-tuijian"></i></div></if>
                 <div class="dealcard-brand">{$info.seller_name}</div>
                 <div class="price">
                     <!-- <span class="discount">{$info['discount'] / 10}折</span> -->
@@ -19,7 +19,7 @@
                     <span class="local"><i class="icon iconfont icon-31dingwei"></i>{$info.address}</span>
                 </div>
                 <div class="">
-                    <span class="distance"><i class="icon iconfont icon-31dingwei"></i>{$info.distance}km</span>
+                    <span class="distance"><i class="icon iconfont icon-ditujuli-copy-copy-copy-copy-copy-copy-copy-copy-copy"></i>{$info.distance}km</span>
                     <span class="category">{$info.category|get_seller_category}</span>
                     <span class="consumption">{$info.consumption}人已消费</span>
                 </div>
