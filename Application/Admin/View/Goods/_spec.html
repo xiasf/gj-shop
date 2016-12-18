@@ -81,5 +81,13 @@
         </div>    <!-- /.content -->
     </section>
 </div>
+<script>
+            <?php
+            if($_GET['type_id'])
+            {
+               echo "$('#type_id').val(".$_GET['type_id'].");"; 
+            }
+        ?>
+</script>
 </body>
 </html>
