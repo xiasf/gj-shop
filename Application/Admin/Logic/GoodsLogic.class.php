@@ -319,7 +319,7 @@ class GoodsLogic extends RelationModel
 
         $spec              = M('Spec')->getField('id,name'); // 规格表
         $specItem          = M('SpecItem')->getField('id,item,spec_id'); //规格项
-        $keySpecGoodsPrice = M('SpecGoodsPrice')->where('goods_id = ' . $goods_id)->getField('key,key_name,price,store_count,bar_code,sku,exchange'); //规格项
+        $keySpecGoodsPrice = M('SpecGoodsPrice')->where('goods_id = ' . $goods_id)->getField('key,key_name,price,store_count,bar_code,sku,weight,exchange'); //规格项
 
         $str = "<table class='table table-bordered' id='spec_input_tab'>";
         $str .= "<tr>";
@@ -329,6 +329,7 @@ class GoodsLogic extends RelationModel
         }
         $str .= "<td><b>价格</b></td>
                <td><b>库存</b></td>
+               <td><b>重量</b></td>
                <td><b>可抵兑币</b></td>
                <td><b>SKU</b></td>
              </tr>";
@@ -346,9 +347,11 @@ class GoodsLogic extends RelationModel
 
             $keySpecGoodsPrice[$item_key][price] ? false : $keySpecGoodsPrice[$item_key][price]             = 0; // 价格默认为0
             $keySpecGoodsPrice[$item_key][store_count] ? false : $keySpecGoodsPrice[$item_key][store_count] = 0; //库存默认为0
+            $keySpecGoodsPrice[$item_key]['weight'] ? false : $keySpecGoodsPrice[$item_key]['weight'] = 0; //默认为0
             $keySpecGoodsPrice[$item_key]['exchange'] ? false : $keySpecGoodsPrice[$item_key]['exchange'] = 0; //默认为0
             $str .= "<td><input name='item[$item_key][price]' value='{$keySpecGoodsPrice[$item_key][price]}' onkeyup='this.value=this.value.replace(/[^\d.]/g,\"\")' onpaste='this.value=this.value.replace(/[^\d.]/g,\"\")' /></td>";
             $str .= "<td><input name='item[$item_key][store_count]' value='{$keySpecGoodsPrice[$item_key][store_count]}' onkeyup='this.value=this.value.replace(/[^\d.]/g,\"\")' onpaste='this.value=this.value.replace(/[^\d.]/g,\"\")'/></td>";
+            $str .= "<td><input name='item[$item_key][weight]' value='{$keySpecGoodsPrice[$item_key][weight]}' /></td>";
             $str .= "<td><input name='item[$item_key][exchange]' value='{$keySpecGoodsPrice[$item_key][exchange]}' /></td>";
             $str .= "<td><input name='item[$item_key][sku]' value='{$keySpecGoodsPrice[$item_key][sku]}' />
                 <input type='hidden' name='item[$item_key][key_name]' value='$item_name' /></td>";

@@ -576,6 +576,21 @@ function getGoodNum($goods_id, $key)
 }
 
 /**
+ * 获取商品重量
+ * @param type $goods_id 商品id
+ * @param type $key  库存 key
+ */
+function getGoodWeight($goods_id, $key)
+{
+    if (!empty($key)) {
+        return M("SpecGoodsPrice")->where("goods_id = $goods_id and `key` = '$key'")->getField('weight');
+    } else {
+        return M("Goods")->where("goods_id = $goods_id")->getField('weight');
+    }
+
+}
+
+/**
  * 获取商品可抵兑币
  * @param type $goods_id 商品id
  * @param type $key  库存 key
@@ -1196,7 +1211,8 @@ function calculate_price($user_id = 0, $order_goods, $shipping_code = '', $shipp
         //如果商品不是包邮的
         if ($goods_arr[$val['goods_id']]['is_free_shipping'] == 0) {
             // 计算所有商品的总重量
-            $goods_weight += $goods_arr[$val['goods_id']]['weight'] * $val['goods_num'];
+            // $goods_weight += $goods_arr[$val['goods_id']]['weight'] * $val['goods_num'];
+            $goods_weight += getGoodWeight($val['goods_id'], $val['spec_key']) * $val['goods_num'];
         }
         //累积商品重量 每种商品的重量 * 数量
 
