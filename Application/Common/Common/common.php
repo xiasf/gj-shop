@@ -93,7 +93,7 @@ function get_thum_images($src, $width, $height, $mode = 4)
     set_time_limit(0);
     ini_set('memory_limit','-1');
 
-    if (!file_exists('.' . $src)) {
+    if ($src == '' || !file_exists('.' . $src)) {
         return '';
     }
 
