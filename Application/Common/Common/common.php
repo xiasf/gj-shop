@@ -105,7 +105,7 @@ function get_thum_images($src, $width, $height, $mode = 4)
     $thumb = "{$src}_{$width}_{$height}_{$mode}.{$fileExt}";
 
     if (file_exists('.' . $path . $thumb)) {
-        return $path . $thumb . '?t=' . NOW_TIME;
+        return $path . $thumb . '?t=' . tpCache('shop_info.stamp');
     }
 
     $image = new \Think\Image();
@@ -125,7 +125,7 @@ function get_thum_images($src, $width, $height, $mode = 4)
         return $src . '.' . $fileExt;
     }
 
-    return $path . $thumb . '?t=' . NOW_TIME;
+    return $path . $thumb . '?t=' . tpCache('shop_info.stamp');
 }
 
 
@@ -148,19 +148,19 @@ function goods_thum_images($goods_id, $width, $height)
 
     // 这个商品 已经生成过这个比例的图片就直接返回了
     if (file_exists($path . $goods_thumb_name . '.jpg')) {
-        return '/' . $path . $goods_thumb_name . '.jpg' . '?t=' . NOW_TIME;
+        return '/' . $path . $goods_thumb_name . '.jpg' . '?t=' . tpCache('shop_info.stamp');
     }
 
     if (file_exists($path . $goods_thumb_name . '.jpeg')) {
-        return '/' . $path . $goods_thumb_name . '.jpeg' . '?t=' . NOW_TIME;
+        return '/' . $path . $goods_thumb_name . '.jpeg' . '?t=' . tpCache('shop_info.stamp');
     }
 
     if (file_exists($path . $goods_thumb_name . '.gif')) {
-        return '/' . $path . $goods_thumb_name . '.gif' . '?t=' . NOW_TIME;
+        return '/' . $path . $goods_thumb_name . '.gif' . '?t=' . tpCache('shop_info.stamp');
     }
 
     if (file_exists($path . $goods_thumb_name . '.png')) {
-        return '/' . $path . $goods_thumb_name . '.png' . '?t=' . NOW_TIME;
+        return '/' . $path . $goods_thumb_name . '.png' . '?t=' . tpCache('shop_info.stamp');
     }
 
     $original_img = M('Goods')->where("goods_id = $goods_id")->getField('original_img');
@@ -200,7 +200,7 @@ function goods_thum_images($goods_id, $width, $height)
             }
         }
     }
-    return '/' . $path . $goods_thumb_name . '?t=' . NOW_TIME;
+    return '/' . $path . $goods_thumb_name . '?t=' . tpCache('shop_info.stamp');
 }
 
 /**
@@ -213,19 +213,19 @@ function get_sub_images($sub_img, $goods_id, $width, $height)
     $goods_thumb_name = "goods_sub_thumb_{$sub_img['img_id']}_{$width}_{$height}";
     //这个缩略图 已经生成过这个比例的图片就直接返回了
     if (file_exists($path . $goods_thumb_name . '.jpg')) {
-        return '/' . $path . $goods_thumb_name . '.jpg' . '?t=' . NOW_TIME;
+        return '/' . $path . $goods_thumb_name . '.jpg' . '?t=' . tpCache('shop_info.stamp');
     }
 
     if (file_exists($path . $goods_thumb_name . '.jpeg')) {
-        return '/' . $path . $goods_thumb_name . '.jpeg' . '?t=' . NOW_TIME;
+        return '/' . $path . $goods_thumb_name . '.jpeg' . '?t=' . tpCache('shop_info.stamp');
     }
 
     if (file_exists($path . $goods_thumb_name . '.gif')) {
-        return '/' . $path . $goods_thumb_name . '.gif' . '?t=' . NOW_TIME;
+        return '/' . $path . $goods_thumb_name . '.gif' . '?t=' . tpCache('shop_info.stamp');
     }
 
     if (file_exists($path . $goods_thumb_name . '.png')) {
-        return '/' . $path . $goods_thumb_name . '.png' . '?t=' . NOW_TIME;
+        return '/' . $path . $goods_thumb_name . '.png' . '?t=' . tpCache('shop_info.stamp');
     }
 
     $original_img = '.' . $sub_img['image_url']; //相对路径
@@ -243,7 +243,7 @@ function get_sub_images($sub_img, $goods_id, $width, $height)
     }
 
     $image->thumb($width, $height, 2)->save($path . $goods_thumb_name, null, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
-    return '/' . $path . $goods_thumb_name . '?t=' . NOW_TIME;
+    return '/' . $path . $goods_thumb_name . '?t=' . tpCache('shop_info.stamp');
 }
 
 /**
