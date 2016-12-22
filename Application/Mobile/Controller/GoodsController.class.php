@@ -38,7 +38,7 @@ class GoodsController extends MobileBaseController
     {
 
         $filter_param = array(); // 帅选数组
-        $id           = I('get.id', 1); // 当前分类id
+        $id           = I('get.id', 0); // 当前分类id
         $brand_id     = I('brand_id', 0);
         $spec         = I('spec', 0); // 规格
         $attr         = I('attr', ''); // 属性
