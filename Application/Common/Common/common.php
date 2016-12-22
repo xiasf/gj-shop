@@ -125,7 +125,7 @@ function get_thum_images($src, $width, $height, $mode = 4)
         return $src . '.' . $fileExt;
     }
 
-    return $path . $thumb;
+    return $path . $thumb . '?t=' . NOW_TIME;
 }
 
 
@@ -200,7 +200,7 @@ function goods_thum_images($goods_id, $width, $height)
             }
         }
     }
-    return '/' . $path . $goods_thumb_name;
+    return '/' . $path . $goods_thumb_name . '?t=' . NOW_TIME;
 }
 
 /**
@@ -243,7 +243,7 @@ function get_sub_images($sub_img, $goods_id, $width, $height)
     }
 
     $image->thumb($width, $height, 2)->save($path . $goods_thumb_name, null, 100); //按照原图的比例生成一个最大为$width*$height的缩略图并保存
-    return '/' . $path . $goods_thumb_name;
+    return '/' . $path . $goods_thumb_name . '?t=' . NOW_TIME;
 }
 
 /**
