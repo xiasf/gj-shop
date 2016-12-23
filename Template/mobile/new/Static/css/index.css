@@ -200,7 +200,7 @@ course:hand;text-align:left; line-height:150%; padding-top:8px; padding-bottom:8
 .floor_body1 h2 em{width:3px; height:15px; background:#E4010D; margin-right:5px;margin-top:10px; float:left;}
 .scroll_hot { text-align: center; width:95%; margin:auto; overflow:hidden;}
 .scroll_hot .bd ul{ width:100%; overflow:hidden; margin:auto;}
-.scroll_hot .bd ul li{ width:33.33%; float:left; overflow:hidden; margin:0px;}
+.scroll_hot .bd ul li{ width:50%; float:left; overflow:hidden; margin:0px;}
 .scroll_hot .bd ul li .index_pro{ width:95%; overflow:hidden; margin:auto;position: relative;}
 .scroll_hot .bd ul li .products_kuang { width:100%; margin:auto;overflow: hidden; position:relative;}
 .scroll_hot .bd ul li .products_kuang img{width:100% !important; height:auto !important; margin:auto}
