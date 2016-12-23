@@ -283,7 +283,7 @@
 <div class="bd">
 <ul>
 <assign name="fl" value="1"/>
-<gjshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
+<gjshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 6" item="v" key="k">
 <li>
 <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>
 $v[goods_id]))}" title="{$v.goods_name}">
@@ -295,12 +295,12 @@ $v[goods_id]))}" title="{$v.goods_name}">
 <div class="price"><font class="exchange">可抵兑币：{$v.exchange}</font>
     <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
         <img src="__STATIC__/images/index_flow.png"></a>
-    <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span><span class="market_price">￥{$val.market_price}元</span>
+    <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span><span class="market_price">￥{$v.market_price}元</span>
 </div>
 </div>
 </a>
 </li>
-<if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul>
+<if condition="($fl++%2 eq 0) && ($fl lt 6)"></ul>
 <ul></if>
 </gjshop>
 </ul>
@@ -335,7 +335,7 @@ $v[goods_id]))}" title="{$v.goods_name}">
 <div class="bd">
 <ul>
 <assign name="fl" value="1"/>
-<gjshop sql="select * from __PREFIX__goods where is_new=1 order by sort limit 9" item="v" key="k">
+<gjshop sql="select * from __PREFIX__goods where is_new=1 order by sort limit 6" item="v" key="k">
 <li>
 <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>
 $v[goods_id]))}" title="{$v.goods_name}">
@@ -347,12 +347,12 @@ $v[goods_id]))}" title="{$v.goods_name}">
 <div class="price"><font class="exchange">可抵兑币：{$v.exchange}</font>
 <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
     <img src="__STATIC__/images/index_flow.png"></a>
-<span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span><span class="market_price">￥{$val.market_price}元</span>
+<span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span><span class="market_price">￥{$v.market_price}元</span>
 </div>
 </div>
 </a>
 </li>
-<if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul>
+<if condition="($fl++%2 eq 0) && ($fl lt 6)"></ul>
 <ul></if>
 </gjshop>
 </ul>
@@ -387,7 +387,7 @@ $v[goods_id]))}" title="{$v.goods_name}">
 <div class="bd">
 <ul>
 <assign name="fl" value="1"/>
-<gjshop sql="select * from __PREFIX__goods where is_hot=1 order by sort limit 9" item="v" key="k">
+<gjshop sql="select * from __PREFIX__goods where is_hot=1 order by sort limit 8" item="v" key="k">
 <li>
 <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>
 $v[goods_id]))}" title="{$v.goods_name}">
@@ -399,12 +399,12 @@ $v[goods_id]))}" title="{$v.goods_name}">
 <div class="price"><font class="exchange">可抵兑币：{$v.exchange}</font>
 <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
 <img src="__STATIC__/images/index_flow.png"></a>
-<span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span><span class="market_price">￥{$val.market_price}元</span>
+<span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span><span class="market_price">￥{$v.market_price}元</span>
 </div>
 </div>
 </a>
 </li>
-<if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul>
+<if condition="($fl++%2 eq 0) && ($fl lt 8)"></ul>
 <ul></if>
 </gjshop>
 </ul>
