@@ -187,7 +187,7 @@ course:hand;text-align:left; line-height:150%; padding-top:8px; padding-bottom:8
 .floor_body ul li .price {width:100%; overflow:hidden; margin:auto; position:relative; border-top:1px solid #eeeeee; margin-top:5px;}
 .floor_body ul li .price .price_pro{  /*width:100%;*/  display: inline-block;font-size:14px; color: #F23015; height:40px; line-height:40px; text-align:left}
 .price .market_price{    color: #333;
-    margin-left: 12px;
+    /*margin-left: 12px;*/
     font-size: 1.2rem;    margin-right: 25px;
     text-decoration: line-through;}
 .floor_body ul li .btns{ position:absolute; display:block;right:5px;height:25px;width:25px;background: #f23; border-radius:50%; bottom:8px;}
@@ -211,6 +211,15 @@ display: -webkit-box;}
 .scroll_hot .bd ul li .price {width:100%; margin:auto;position:relative; border-top:1px solid #eeeeee; margin-top:5px;}
 .scroll_hot .bd ul li .price .price_pro{  /*width:100%;*/  display: inline-block; font-size:14px; color: #F23015; height:40px; line-height:40px;text-align:left;}
 .index_pro {position: relative;}
+.index_pro .sale_num {
+        display: inline-block;
+    font-size: 14px;
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    color: #333;
+    margin-left: 28px;
+}
 .index_pro .exchange{  text-decoration: none;
     background: -webkit-gradient(linear,0 50%,100% 50%,from(rgb(45, 63, 233)),to(rgba(226, 75, 244, 0.45)));
     color: #FFF;
@@ -222,7 +231,8 @@ display: -webkit-box;}
     height: 20px;
     line-height: 20px;
     z-index: 1;
-    display: block;}
+    /*display: block;*/
+}
 
 .scroll_hot .bd ul li .btns{ position:absolute; display:block;right:5px;height:25px;width:25px;background: #f23; border-radius:50%; bottom:8px;}
 .scroll_hot .bd ul li .btns img{display:block; width:25px;height:25px; }

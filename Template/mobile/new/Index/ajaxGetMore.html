@@ -1,18 +1,25 @@
 <foreach name="favourite_goods" item="v" key="k">
 <li>
-     <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
-     <div class="index_pro">
-	       <div class="products_kuang">
-	         <img src="{$v.goods_id|goods_thum_images=400,400}"></div>
-	       <div class="goods_name">{$v.goods_name}</div>
-	       <div class="price">
-     <font class="exchange">可抵兑币：{$v.exchange}</font>
-	         <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
-	             <img src="__STATIC__/images/index_flow.png">
-	         </a>
-	       <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}</span><span class="market_price">￥{$v.market_price}元</span>
-	       </div>
-      </div>
-     </a>
+    <a href="{:U('Mobile/Goods/goodsInfo',array('id'=> $v[goods_id]))}" title="{$v.goods_name}">
+        <div class="index_pro">
+            <div class="products_kuang">
+                <img src="{$v.goods_id|goods_thum_images=400,400}">
+            </div>
+            <div class="goods_name">{$v.goods_name}</div>
+            <div class="price">
+                <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
+                    <img src="__STATIC__/images/index_flow.png">
+                </a>
+                <div style="    text-align: left;">
+                    <span class="market_price">￥{$v.market_price}元</span>
+                    <span class="exchange">可抵兑币：{$v.exchange}</span>
+                </div>
+                <div style="    text-align: left;">
+                    <span class="price_pro">￥{$v.shop_price}元</span>
+                    <span class=" sale_num">已售：{$v.goods_id|getGoodsSaleNum}</span>
+                </div>
+            </div>
+        </div>
+    </a>
 </li>
 </foreach>

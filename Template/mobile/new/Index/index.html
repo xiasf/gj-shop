@@ -8,9 +8,9 @@
     <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
     <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=20161212152343ert"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css?v=20161212152343ert"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=20161212152343ert"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=20161212154645asdert"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css?v=20161212154645asdert"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=20161212154645asdert"/>
     <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
     <script type="text/javascript" src="__STATIC__/js/TouchSlide.1.1.js"></script>
     <script type="text/javascript" src="__STATIC__/js/jquery.json.js"></script>
@@ -199,7 +199,7 @@
   }
   setInterval(GetRTime2,1000);
 </script>
-<section class="index_floor_lou">
+<section class="index_floor_lou hide">
 <div class="floor_body">
 <h2> <em></em>
 促销商品
@@ -285,20 +285,27 @@
 <assign name="fl" value="1"/>
 <gjshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 6" item="v" key="k">
 <li>
-<a href="{:U('Mobile/Goods/goodsInfo',array('id'=>
-$v[goods_id]))}" title="{$v.goods_name}">
-<div class="index_pro">
-
-<div class="products_kuang">
-    <img src="{$v.goods_id|goods_thum_images=400,400}"></div>
-<div class="goods_name">{$v.goods_name}</div>
-<div class="price"><font class="exchange">可抵兑币：{$v.exchange}</font>
-    <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
-        <img src="__STATIC__/images/index_flow.png"></a>
-    <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span><span class="market_price">￥{$v.market_price}元</span>
-</div>
-</div>
-</a>
+    <a href="{:U('Mobile/Goods/goodsInfo',array('id'=> $v[goods_id]))}" title="{$v.goods_name}">
+        <div class="index_pro">
+            <div class="products_kuang">
+                <img src="{$v.goods_id|goods_thum_images=400,400}">
+            </div>
+            <div class="goods_name">{$v.goods_name}</div>
+            <div class="price">
+                <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
+                    <img src="__STATIC__/images/index_flow.png">
+                </a>
+                <div style="    text-align: left;">
+                    <span class="market_price">￥{$v.market_price}元</span>
+                    <span class="exchange">可抵兑币：{$v.exchange}</span>
+                </div>
+                <div style="    text-align: left;">
+                    <span class="price_pro">￥{$v.shop_price}元</span>
+                    <span class=" sale_num">已售：{$v.goods_id|getGoodsSaleNum}</span>
+                </div>
+            </div>
+        </div>
+    </a>
 </li>
 <if condition="($fl++%2 eq 0) && ($fl lt 6)"></ul>
 <ul></if>
@@ -337,20 +344,27 @@ $v[goods_id]))}" title="{$v.goods_name}">
 <assign name="fl" value="1"/>
 <gjshop sql="select * from __PREFIX__goods where is_new=1 order by sort limit 6" item="v" key="k">
 <li>
-<a href="{:U('Mobile/Goods/goodsInfo',array('id'=>
-$v[goods_id]))}" title="{$v.goods_name}">
-<div class="index_pro">
-
-<div class="products_kuang">
-<img src="{$v.goods_id|goods_thum_images=400,400}"></div>
-<div class="goods_name">{$v.goods_name}</div>
-<div class="price"><font class="exchange">可抵兑币：{$v.exchange}</font>
-<a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
-    <img src="__STATIC__/images/index_flow.png"></a>
-<span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span><span class="market_price">￥{$v.market_price}元</span>
-</div>
-</div>
-</a>
+    <a href="{:U('Mobile/Goods/goodsInfo',array('id'=> $v[goods_id]))}" title="{$v.goods_name}">
+        <div class="index_pro">
+            <div class="products_kuang">
+                <img src="{$v.goods_id|goods_thum_images=400,400}">
+            </div>
+            <div class="goods_name">{$v.goods_name}</div>
+            <div class="price">
+                <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
+                    <img src="__STATIC__/images/index_flow.png">
+                </a>
+                <div style="    text-align: left;">
+                    <span class="market_price">￥{$v.market_price}元</span>
+                    <span class="exchange">可抵兑币：{$v.exchange}</span>
+                </div>
+                <div style="    text-align: left;">
+                    <span class="price_pro">￥{$v.shop_price}元</span>
+                    <span class=" sale_num">已售：{$v.goods_id|getGoodsSaleNum}</span>
+                </div>
+            </div>
+        </div>
+    </a>
 </li>
 <if condition="($fl++%2 eq 0) && ($fl lt 6)"></ul>
 <ul></if>
@@ -389,20 +403,27 @@ $v[goods_id]))}" title="{$v.goods_name}">
 <assign name="fl" value="1"/>
 <gjshop sql="select * from __PREFIX__goods where is_hot=1 order by sort limit 8" item="v" key="k">
 <li>
-<a href="{:U('Mobile/Goods/goodsInfo',array('id'=>
-$v[goods_id]))}" title="{$v.goods_name}">
-<div class="index_pro">
-
-<div class="products_kuang">
-<img src="{$v.goods_id|goods_thum_images=400,400}"></div>
-<div class="goods_name">{$v.goods_name}</div>
-<div class="price"><font class="exchange">可抵兑币：{$v.exchange}</font>
-<a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
-<img src="__STATIC__/images/index_flow.png"></a>
-<span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro">￥{$v.shop_price}元</span><span class="market_price">￥{$v.market_price}元</span>
-</div>
-</div>
-</a>
+    <a href="{:U('Mobile/Goods/goodsInfo',array('id'=> $v[goods_id]))}" title="{$v.goods_name}">
+        <div class="index_pro">
+            <div class="products_kuang">
+                <img src="{$v.goods_id|goods_thum_images=400,400}">
+            </div>
+            <div class="goods_name">{$v.goods_name}</div>
+            <div class="price">
+                <a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">
+                    <img src="__STATIC__/images/index_flow.png">
+                </a>
+                <div style="    text-align: left;">
+                    <span class="market_price">￥{$v.market_price}元</span>
+                    <span class="exchange">可抵兑币：{$v.exchange}</span>
+                </div>
+                <div style="    text-align: left;">
+                    <span class="price_pro">￥{$v.shop_price}元</span>
+                    <span class=" sale_num">已售：{$v.goods_id|getGoodsSaleNum}</span>
+                </div>
+            </div>
+        </div>
+    </a>
 </li>
 <if condition="($fl++%2 eq 0) && ($fl lt 8)"></ul>
 <ul></if>

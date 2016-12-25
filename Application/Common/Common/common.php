@@ -1392,3 +1392,9 @@ function get_seller_category($category)
         $category = 0;
     return $arr[$category];
 }
+
+// 获取商品销量
+function getGoodsSaleNum($goods_id)
+{
+    return M('order_goods')->where("goods_id=$goods_id and is_send=1")->count();
+}
