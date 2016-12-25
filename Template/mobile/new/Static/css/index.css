@@ -188,7 +188,7 @@ course:hand;text-align:left; line-height:150%; padding-top:8px; padding-bottom:8
 .floor_body ul li .price .price_pro{  /*width:100%;*/  display: inline-block;font-size:14px; color: #F23015; height:40px; line-height:40px; text-align:left}
 .price .market_price{    color: #333;
     /*margin-left: 12px;*/
-    font-size: 1.2rem;    margin-right: 15px;
+    font-size: 1.2rem;    margin-right: 0;
     text-decoration: line-through;}
 .floor_body ul li .btns{ position:absolute; display:block;right:5px;height:25px;width:25px;background: #f23; border-radius:50%; bottom:8px;}
 .floor_body ul li .btns img{ display:block; width:25px;height:25px; }
