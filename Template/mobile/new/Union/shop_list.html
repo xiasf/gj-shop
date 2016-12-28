@@ -13,7 +13,12 @@
                     <!-- <span class="slee">800人消费</span> -->
                 </div>
                 <div class="local">
-                    <span class="discount">{$info['discount'] / 10}折</span><notempty name="info.note"><span class="note">{$info.note}</span></notempty>
+                    <span class="discount">{$info['discount'] / 10}折</span>
+                    <notempty name="info.note">
+                        <foreach name="info.note" item="note">
+                        <span class="note">{$note}</span>
+                        </foreach>
+                    </notempty>
                 </div>
                 <div class="">
                     <span class="local"><i class="icon iconfont icon-31dingwei"></i>{$info.address}</span>

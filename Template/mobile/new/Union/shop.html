@@ -8,9 +8,9 @@
     <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
     <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=2016121241563213asdasdert"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css?v=2016121241563213asdasdert"/>
-    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=2016121241563213asdasdert"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css?v=201612124154512564asdasdert"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css?v=201612124154512564asdasdert"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=201612124154512564asdasdert"/>
     <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
     <script type="text/javascript" src="__STATIC__/js/TouchSlide.1.1.js"></script>
     <script type="text/javascript" src="__STATIC__/js/jquery.json.js"></script>
@@ -87,12 +87,23 @@
             font-size: 1.2rem;
             background: -webkit-gradient(linear,0 50%,100% 50%,from(rgb(233, 45, 88)),to(rgb(101, 75, 244)));
             padding: 2px 5px;
+                height: 15px;
+    line-height: 15px;
         }
         .shop-info .score_ {
                 background: #28A25E;
     margin-left: 10px;
     color: #fff;
     padding: 0 5px;
+        }
+        .shop-info .shop-a {
+                color: #30B95A;
+                font-weight: bold;
+                    font-size: 1.6rem;    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+        }
+        .shop-info .icon {
+                margin-right: 2px;
+    color: #5F5F5F;
         }
     </style>
 </head>
@@ -102,30 +113,41 @@
 
     <div class="shop-info">
         <ul>
-            <li> <strong>商家：</strong>
-                {$info.seller_name}
+            <li><i style="" class="icon Icon iconfont icon-31dianpu"></i><strong>商家：</strong>
+                <a class="shop-a" href="{:U('Goods/seller', ['id' => $info['id']])}">{$info.seller_name}</a><i style="    font-size: 1.4rem;
+    color: rgb(255, 255, 255);
+    margin-left: 3px;
+    background-color: #C5C5C5;
+    padding: 3px 3px;
+    border-radius: 6px;
+    padding-top: 1px;    background: -webkit-gradient(linear,0 50%,100% 50%,from(rgb(233, 45, 88)),to(rgb(101, 75, 244)));" class="icon Icon iconfont icon-url"></i>
             </li>
-            <li> <strong>联系人：</strong>
+            <li><i style="" class="icon Icon iconfont icon-wo"></i><strong>联系人：</strong>
                 {$info.contact_name}
             </li>
-            <li> <strong>电话：</strong>
+            <li><i style="" class="icon Icon iconfont icon-31dianhua"></i><strong>电话：</strong>
                 {$info.mobile}
             </li>
             <li>
-                <strong>地址：</strong>
+                <i style="" class="icon Icon iconfont icon-31dingwei"></i><strong>地址：</strong>
                 {$info.address}
             </li>
             <li>
-                <strong>经营范围：</strong>
+                <i style="" class="icon Icon iconfont icon-tianmaotigongfapiao"></i><strong>经营范围：</strong>
                 {$info.business_scope}
             </li>
             <li>
-                <strong>折扣：</strong>
+                <i style="" class="icon Icon iconfont icon-huiliuqujiage"></i><strong>折扣：</strong>
                 {$info['discount'] / 10}折<span class="small">消费金额的{$info['discount']}%</span>
-                <notempty name="info.note"><span class="note">{$info.note}</span></notempty>
+                <br />
+                <notempty name="info.note">
+                    <foreach name="info.note" item="note">
+                    <span class="note">{$note}</span>
+                    </foreach>
+                </notempty>
             </li>
             <li>
-                <strong>评分：</strong>
+                <i style="" class="icon Icon iconfont icon-jingxuanshichang"></i><strong>评分：</strong>
                 <if condition="$info['score'] neq null">{$info.score}分<a class="score_" href="{:U('comment_list', ['seller_id' => $info['id']])}">{$info.count}条评论</a><else/>暂无评分</if>
             </li>
             <!-- <li>

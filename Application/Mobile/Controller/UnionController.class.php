@@ -128,6 +128,10 @@ class UnionController extends MobileBaseController
                 $value['distance'] = round($value['distance'] / 1000, 2);
 
                 $value['consumption'] = M('union_order')->where(['seller_id' => $value['id']])->count();
+
+                if ($value['note']) {
+                    $value['note'] = explode('|', $value['note']);
+                }
             }
         }
 
@@ -153,6 +157,9 @@ class UnionController extends MobileBaseController
             $this->error('店铺不存在！');
         }
         $info['count'] = M('UnionOrder')->where(['seller_id' => $info['id'], 'score' => ['exp', 'is not null']])->count();
+        if ($info['note']) {
+            $info['note'] = explode('|', $info['note']);
+        }
         $this->assign('info', $info);
         $this->display('shop');
     }
