@@ -39,7 +39,10 @@ class ArticleController extends MobileBaseController
     public function article()
     {
         $article_id = I('article_id', 1);
-        $article    = D('article')->where("article_id=$article_id")->find();
+        $article    = D('article')->where("article_id=$article_id and is_open = 1")->find();
+        if (empty($article)) {
+            $this->error('文章不存在！');
+        }
         $article['content'] = htmlspecialchars_decode($article['content']);
         $this->assign('article', $article);
         $this->display();
