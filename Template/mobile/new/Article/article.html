@@ -60,8 +60,8 @@
 <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
 <script type="text/javascript">
-    var ShareTitle = {$article.title};
-    var ShareDesc = {$article.description};
+    var ShareTitle = "{$article.title}";
+    var ShareDesc = "{$article.description}";
     var ShareLink = "{:SITE_URL . U('article', ['article_id' => $article['article_id']])}";
     var ShareImgUrl = "{:SITE_URL . $article['thumb']}"; // 分享图标
 
