@@ -119,8 +119,9 @@
                 {$info.seller_name}
                 <!-- </a> -->
             </li>
+            <notempty name="info.ad_url">
             <li><strong>了解更多：</strong>
-                <a class="shop-a" href="{:U('Goods/seller', ['id' => $info['id']])}">更多</a><i style="    font-size: 1.4rem;
+                <a class="shop-a" href="{$info.ad_url}">更多</a><i style="    font-size: 1.4rem;
     color: rgb(255, 255, 255);
     margin-left: 3px;
     background-color: #C5C5C5;
@@ -128,6 +129,7 @@
     border-radius: 6px;
     padding-top: 1px;    background: -webkit-gradient(linear,0 50%,100% 50%,from(rgb(233, 45, 88)),to(rgb(101, 75, 244)));" class="icon Icon iconfont icon-url"></i>
             </li>
+        </notempty>
             <li><i style="" class="icon Icon iconfont icon-wo"></i><strong>联系人：</strong>
                 {$info.contact_name}
             </li>
