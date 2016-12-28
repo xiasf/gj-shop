@@ -40,6 +40,7 @@ class ArticleController extends MobileBaseController
     {
         $article_id = I('article_id', 1);
         $article    = D('article')->where("article_id=$article_id")->find();
+        $article['content'] = htmlspecialchars_decode($article['content']);
         $this->assign('article', $article);
         $this->display();
     }

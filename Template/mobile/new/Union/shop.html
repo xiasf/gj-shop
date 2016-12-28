@@ -99,7 +99,8 @@
         .shop-info .shop-a {
                 color: #30B95A;
                 font-weight: bold;
-                    font-size: 1.6rem;    text-shadow: 1px 1px 1px rgb(0, 0, 0);
+                    /*font-size: 1.6rem;   */
+                     /*text-shadow: 1px 1px 1px rgb(0, 0, 0);*/
         }
         .shop-info .icon {
                 margin-right: 2px;
@@ -114,7 +115,12 @@
     <div class="shop-info">
         <ul>
             <li><i style="" class="icon Icon iconfont icon-31dianpu"></i><strong>商家：</strong>
-                <a class="shop-a" href="{:U('Goods/seller', ['id' => $info['id']])}">{$info.seller_name}</a><i style="    font-size: 1.4rem;
+                <!-- <a class="shop-a" href="{:U('Goods/seller', ['id' => $info['id']])}"> -->
+                {$info.seller_name}
+                <!-- </a> -->
+            </li>
+            <li><strong>了解更多：</strong>
+                <a class="shop-a" href="{:U('Goods/seller', ['id' => $info['id']])}">更多</a><i style="    font-size: 1.4rem;
     color: rgb(255, 255, 255);
     margin-left: 3px;
     background-color: #C5C5C5;

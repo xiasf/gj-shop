@@ -1,0 +1,63 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="gjshop" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>文章页-{$gjshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$gjshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$gjshop_config['shop_info_store_desc']}" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" href="__STATIC__/css/public.css?v=201612124154512564asdasdert">
+    <link rel="stylesheet" href="__STATIC__/css/flow.css?v=201612124154512564asdasdert">
+    <link rel="stylesheet" href="__STATIC__/css/style_jm.css?v=201612124154512564asdasdert">
+    <link rel="stylesheet" type="text/css" href="__STATIC__/IconFont/iconfont.css?v=201612124154512564asdasdert"/>
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js"></script>
+    <script src="__STATIC__/js/common.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.mobile-v2.0/layer_mobile/layer.js" ></script>
+        <style>
+        .content {
+            background: #fff;
+        }
+        .content img {
+            max-width: 100%;
+            margin:0 auto;
+        }
+    </style>
+</head>
+<body style="background: rgb(235, 236, 237);position:relative;">
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left">
+                <a class="sb-back" href="/" onclick="if(document.referrer){window.location.href=document.referrer;return false;}else return true;" title="返回"><i class="icon iconfont icon-qiehuanqizuo"></i></a>
+            </div>
+            <div class="h-mid">{$article.title}</div>
+            <div class="h-right">
+                <aside class="top_bar">
+                    <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more">
+                        <a
+                href="javascript:;"></a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+    <include file="Public/menu"/>
+
+
+    <div class="content" style="overflow: hidden;">
+        {$article.content}
+
+        <p style="text-align: center;
+    margin: 10px;
+    border-top: 1px #D0D0D0 solid;
+    padding-top: 7px;
+    font-size: 1.2rem;">本页由广佳商盟发布，最终解释权归商家所有，广佳不对推广内容作任何形式的背书</p>
+    </div>
+
+
+
+</body>
+</html>
