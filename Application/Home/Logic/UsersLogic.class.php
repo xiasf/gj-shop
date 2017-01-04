@@ -181,6 +181,24 @@ class UsersLogic extends RelationModel
                 M('invitation')->add($invitation);
             }
 
+            $pay_points = tpCache('basic.reg_integral'); // 会员注册赠送积分
+            if ($pay_points > 0) {
+                accountLog($user['user_id'], 0, $pay_points, '会员注册赠送积分');
+            }
+
+            $exchange = tpCache('basic.reg_exchange'); // 会员注册赠送兑币
+            if ($exchange > 0) {
+                $data4['user_id']     = $user['user_id'];
+                $data4['user_money']  = 0;
+                $data4['pay_points']  = 0;
+                $data4['exchange']    = +$exchange;
+                $data4['change_time'] = time();
+                $data4['desc']        = '会员注册赠送兑币';
+                // $data4['order_sn']    = $order['order_sn'];
+                // $data4['order_id']    = $order_id;
+                M("AccountLog")->add($data4);
+            }
+
             // 注册消息推送（但貌似没有关注就不能推送信息）
             $wx_user    = M('wx_user')->find();
             $jssdk      = new \Mobile\Logic\Jssdk($wx_user['appid'], $wx_user['appsecret']);
@@ -271,6 +289,20 @@ class UsersLogic extends RelationModel
         if ($pay_points > 0) {
             accountLog($user_id, 0, $pay_points, '会员注册赠送积分');
         }
+
+        $exchange = tpCache('basic.reg_exchange'); // 会员注册赠送兑币
+        if ($exchange > 0) {
+            $data4['user_id']     = $user_id;
+            $data4['user_money']  = 0;
+            $data4['pay_points']  = 0;
+            $data4['exchange']    = +$exchange;
+            $data4['change_time'] = time();
+            $data4['desc']        = '会员注册赠送兑币';
+            // $data4['order_sn']    = $order['order_sn'];
+            // $data4['order_id']    = $order_id;
+            M("AccountLog")->add($data4);
+        }
+
         // 记录日志流水
         // 会员注册送优惠券
         $coupon = M('coupon')->where("send_end_time > " . time() . " and ((createnum - send_num) > 0 or createnum = 0) and type = 2")->select();
