@@ -188,6 +188,8 @@ class UsersLogic extends RelationModel
 
             $exchange = tpCache('basic.reg_exchange'); // 会员注册赠送兑币
             if ($exchange > 0) {
+                M('users')->where("user_id = '{$user['user_id']}'")->save(['exchange' => $user['exchange'] + $exchange]);
+
                 $data4['user_id']     = $user['user_id'];
                 $data4['user_money']  = 0;
                 $data4['pay_points']  = 0;
@@ -292,6 +294,8 @@ class UsersLogic extends RelationModel
 
         $exchange = tpCache('basic.reg_exchange'); // 会员注册赠送兑币
         if ($exchange > 0) {
+            M('users')->where("user_id = '{$user_id}'")->setInc('exchange', $exchange);
+
             $data4['user_id']     = $user_id;
             $data4['user_money']  = 0;
             $data4['pay_points']  = 0;
