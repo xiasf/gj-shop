@@ -613,7 +613,7 @@
         var index = layer.open({content: '<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在获取位置…', skin:'msg', time:2});
         $('#positioning').html('<i class="fa fa-refresh fa-spin"></i>&nbsp;&nbsp;正在获取位置…');
 
-        var lat_lng = Local.latitude + ',' + Local.longitude;
+        var lat_lng = Local.latitude + ',' + Local.longitude;alert(lat_lng);
         if (!coordtype) coordtype = 'wgs84ll';
         $.getJSON('http://api.map.baidu.com/geocoder/v2/?callback=?', {'ak':'9Go7FByT2xPEH5VcPKMiZWoY', 'location':lat_lng, 'coordtype':coordtype, 'output':'json', 'pois':0}, function(result) {
                 if (result.status == 0) {
