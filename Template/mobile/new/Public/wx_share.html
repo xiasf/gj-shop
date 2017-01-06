@@ -109,15 +109,15 @@
             // anim : 'up',
         });
     }
-    // 创建遮罩层
+    // 创建遮罩层（之所以这样做是想把后面的元素全部都变为模糊filter）
     $(document.body).append('<div id="zz"></div>');
     // 页面所有元素移动到遮罩层中去
     $(document.body).css('overflow', 'hidden').children(':not(#zz,.guide,script,style)').appendTo($('#zz'));
     $("#zz").css('height', $(window).height());
     $(document.body).css('height', $(window).height());
+
     // 显示关注提示
     follow_wx();
 </script>
 <!--微信关注提醒  end-->
 </if>
-

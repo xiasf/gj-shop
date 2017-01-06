@@ -186,6 +186,7 @@ class UsersLogic extends RelationModel
                 accountLog($user['user_id'], 0, $pay_points, '会员注册赠送积分');
             }
 
+            /*
             $exchange = tpCache('basic.reg_exchange'); // 会员注册赠送兑币
             if ($exchange > 0) {
                 M('users')->where("user_id = '{$user['user_id']}'")->save(['exchange' => $user['exchange'] + $exchange]);
@@ -200,6 +201,7 @@ class UsersLogic extends RelationModel
                 // $data4['order_id']    = $order_id;
                 M("AccountLog")->add($data4);
             }
+            */
 
             // 注册消息推送（但貌似没有关注就不能推送信息）
             $wx_user    = M('wx_user')->find();
@@ -292,6 +294,7 @@ class UsersLogic extends RelationModel
             accountLog($user_id, 0, $pay_points, '会员注册赠送积分');
         }
 
+        /*
         $exchange = tpCache('basic.reg_exchange'); // 会员注册赠送兑币
         if ($exchange > 0) {
             M('users')->where("user_id = '{$user_id}'")->setInc('exchange', $exchange);
@@ -306,6 +309,7 @@ class UsersLogic extends RelationModel
             // $data4['order_id']    = $order_id;
             M("AccountLog")->add($data4);
         }
+        */
 
         // 记录日志流水
         // 会员注册送优惠券

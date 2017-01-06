@@ -1265,4 +1265,29 @@ class UserController extends MobileBaseController
         $this->success('绑定成功！', U('index'));
     }
 
+    // 领取奖励
+    public function receiveExchange()
+    {
+        if (0 == $this->user['is_receive_exchange']) {
+            $user = $this->user;
+            $exchange = tpCache('basic.reg_exchange');
+            if ($exchange > 0) {
+                M('users')->where("user_id = '{$user['user_id']}'")->save(['is_receive_exchange' => 1, 'exchange' => $user['exchange'] + $exchange]);
+
+                $data4['user_id']     = $user['user_id'];
+                $data4['user_money']  = 0;
+                $data4['pay_points']  = 0;
+                $data4['exchange']    = +$exchange;
+                $data4['change_time'] = time();
+                $data4['desc']        = '新会员关注赠送兑币';
+                // $data4['order_sn']    = $order['order_sn'];
+                // $data4['order_id']    = $order_id;
+                M("AccountLog")->add($data4);
+                $this->success('领取成功！', U('points', ['type' => 'all']));
+            }
+        } else {
+            $this->error('你已经领过奖励了哦，贪心会长胖哦！');
+        }
+    }
+
 }

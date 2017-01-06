@@ -69,3 +69,75 @@
 <include file="Public/wx_share"/>
 <!-- 微信浏览器 调用微信 分享js  end-->
 </if>
+
+<!-- 关注了的人 并且还没有领取兑币奖励 那就提示 -->
+<if condition="$user['subscribe'] == 1 &&  $user['is_receive_exchange'] == 0">
+<style>
+	#hongbao {
+		width: 80%;
+		margin: 0 auto;
+		position: relative;
+	}
+	#hongbao .bg {
+	    margin: 0 auto;
+	    display: block;
+	    /*-webkit-box-shadow: 0 0 15px #FFFFFF;*/
+	}
+	#hongbao .title {
+	    color: #fff;
+	    font-size: 2.2rem;
+	    text-align: center;
+	    line-height: 20px;
+	    position: absolute;
+	    top: 12px;
+	    left: 0;
+	    width: 100%;
+	    text-shadow: 2px 1px 1px #000;
+	    padding: 10px 0;
+	    display: block;
+	    box-sizing: initial;
+	    margin: 0;
+	    font-family: '微软雅黑';
+	}
+	#hongbao .price {
+		position: absolute;
+	    top: 30%;
+	    left: 0;
+	    color: #000;
+	    width: 100%;
+	    text-align: center;
+	    font-size: 6.6rem;
+	    font-family: '微软雅黑';
+	    text-shadow: 2px 1px 1px #000;
+	}
+	#hongbao .go {
+	    position: absolute;
+	    top: 58%;
+	    left: 0;
+	    color: #FFF;
+	    background-color: #E2891B;
+	    width: 100px;
+	    height: 100px;
+	    border-radius: 50%;
+	    text-align: center;
+	    line-height: 100px;
+	    font-size: 3.8rem;
+	    margin: 0 auto;
+	    display: block;
+	    right: 0;
+	    /* border: 1px rgba(255, 255, 255, 0.51) solid; */
+	    -webkit-box-shadow: 0 0 15px rgba(0, 0, 0, 0.52);
+	    text-shadow: 2px 1px 1px #000;
+	}
+</style>
+<script>
+    layer.open({
+        type : 1,
+        shadeClose: false,
+        // title: '',
+        content: '<div id="hongbao"><p class="title">首次注册大礼包</p><p class="price">100元</p><a href="{:U('user/receiveExchange')}" class="go">赠</a><img class="bg" src="__STATIC__/images/hongbao.png" width="100%"></div>',
+        style: 'text-align: center;background-color: transparent;',
+        // anim : 'up',
+    });
+</script>
+</if>
