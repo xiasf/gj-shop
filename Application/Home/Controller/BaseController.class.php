@@ -20,6 +20,7 @@ class BaseController extends Controller {
      */
     public function _initialize() {
       C(include APP_PATH . 'Mobile/Conf/html.php');
+      C(include APP_PATH . 'Mobile/Conf/config.php');
 
     	$this->session_id = session_id(); // 当前的 session_id
         define('SESSION_ID',$this->session_id); //将当前的session_id保存为常量，供其它方法调用
