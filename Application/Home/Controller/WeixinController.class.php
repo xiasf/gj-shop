@@ -42,6 +42,7 @@ class WeixinController extends BaseController
         // file_put_contents(APP_PATH . 'log1.txt', 'str');
         $echoStr = $_GET["echostr"];
         if ($this->checkSignature()) {
+            // 这样其实有问题，因为微信那边每次启用开发配置都会验证的，所以这样做不可靠，正确的做法是检测是否有$_GET["echostr"]。由于停用开发配置时并没有回调，所以wait_access字段其实意义也不可靠。
             if ($this->wechat_config['wait_access'] == 0) {
                 // 未接入则更新接入状态
                 M('wx_user')->where(['id' => $this->wechat_config['id']])->save(['wait_access' => 1]);
